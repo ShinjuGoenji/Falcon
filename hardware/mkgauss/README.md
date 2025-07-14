@@ -23,7 +23,7 @@ module MKGAUSS #(
 | cycle |     2    |     1     |
 
 ## Period
-| 40nm  |       |       |
+| 40nm  | 90nm  |       |
 |:-----:|:-----:|:-----:|
 | 1.7ns |       |       |
 
