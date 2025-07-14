@@ -1,8 +1,7 @@
-simv
+csrc/
 simv.daidir/
 verdiLog/
+simv
 *.fsdb
-*.conf
-*.log
+novas*
 *.key
-csrc/
