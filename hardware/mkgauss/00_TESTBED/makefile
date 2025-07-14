@@ -21,8 +21,15 @@ TIMESCALE=-timescale=1ns/1fs
 TIMESCALE1=-timescale 1ns/1fs
 VERDI=/usr/cad/synopsys/verdi/2022.06
 DW_SIM=/usr/cad/synopsys/synthesis/cur/dw/sim_ver/
-UMC018_SIM=/cell_base_lib/umc018/Verilog/umc18_neg.v
-UMC018_IO_SIM=/cell_base_lib/umc018/Verilog/umc18io3v5v.v
+TSMC40_HVT=../03_GATE/TSMC40/sc9_cln40g_base_hvt.v
+TSMC40_RVT=../03_GATE/TSMC40/sc9_cln40g_base_rvt.v
+TSMC40_LVT=../03_GATE/TSMC40/sc9_cln40g_base_lvt.v
+TSMC40_NEG_HVT=../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v
+TSMC40_NEG_RVT=../03_GATE/TSMC40/sc9_cln40g_base_rvt_neg.v
+TSMC40_NEG_LVT=../03_GATE/TSMC40/sc9_cln40g_base_lvt_neg.v
+TSMC40_UDP_HVT=../03_GATE/TSMC40/sc9_cln40g_base_hvt_udp.v
+TSMC40_UDP_RVT=../03_GATE/TSMC40/sc9_cln40g_base_rvt_udp.v
+TSMC40_UDP_LVT=../03_GATE/TSMC40/sc9_cln40g_base_lvt_udp.v
 
 ######################################
 # Simulation Option and Command
@@ -64,7 +71,12 @@ VCS_GATE_SIM = vcs ${TIMESCALE} \
     -l ${log_file} \
     -P ${VERDI}/share/PLI/VCS/linux64/novas.tab \
        ${VERDI}/share/PLI/VCS/linux64/pli.a \
-	-v ${UMC018_SIM} \
+	-v ${TSMC40_NEG_HVT} \
+	   ${TSMC40_NEG_RVT} \
+	   ${TSMC40_NEG_LVT} \
+	   ${TSMC40_UDP_HVT} \
+	   ${TSMC40_UDP_RVT} \
+	   ${TSMC40_UDP_LVT} \
     +define+GATE \
 	+neg_tchk 
 
@@ -81,75 +93,17 @@ VCS_POST_SIM = vcs ${TIMESCALE} \
     -l ${log_file} \
     -P ${VERDI}/share/PLI/VCS/linux64/novas.tab \
        ${VERDI}/share/PLI/VCS/linux64/pli.a \
-    -v ${UMC018_SIM} \
-	-v ${UMC018_IO_SIM} \
+	-v ${TSMC40_HVT} \
+	   ${TSMC40_RVT} \
+	   ${TSMC40_LVT} \
+	   ${TSMC40_NEG_HVT} \
+	   ${TSMC40_NEG_RVT} \
+	   ${TSMC40_NEG_LVT} \
+	   ${TSMC40_UDP_HVT} \
+	   ${TSMC40_UDP_RVT} \
+	   ${TSMC40_UDP_LVT} \
     +define+POST \
     +neg_tchk
-
-
-# =====================================
-# ============== irun =================
-# =====================================
-IRUN_RTL_SIM =  irun -f ${source_file} \
-	-incdir ${DW_SIM} \
-	-loadpli1 debpli:novas_pli_boot \
-	-debug \
-	-notimingchecks \
-	-define RTL \
-	-define ${define}
-
-IRUN_GATE_SIM =  irun -f ${source_file} \
-	-override_precision \
-	${TIMESCALE1} \
-	-sdf_precision 1fs \
-	-v ${UMC018_SIM} \
-	-loadpli1 debpli:novas_pli_boot \
-	-debug \
-	-define GATE
-
-IRUN_POST_SIM =  irun -f ${source_file} \
-        -override_precision \
-        ${TIMESCALE1} \
-        -sdf_precision 1fs \
-        -v ${UMC018_SIM} \
-		-v ${UMC018_IO_SIM} \
-        -loadpli1 debpli:novas_pli_boot \
-        -debug \
-		-maxdelays \
-        -define POST 
-
-# =====================================
-# ============== xrun =================
-# =====================================
-XRUN_RTL_SIM =  xrun -f ${source_file} \
-	-mcl ${num_CPU_cores} \
-	-incdir ${DW_SIM} \
-	-loadpli1 debpli:novas_pli_boot \
-	-debug \
-	-notimingchecks \
-	-define RTL \
-	-define ${define}
-
-XRUN_GATE_SIM =  xrun -f ${source_file} \
-	-mcl ${num_CPU_cores} \
-	-override_precision \
-	${TIMESCALE1} \
-	-sdf_precision 1fs \
-	-v ${UMC018_SIM} \
-	-loadpli1 debpli:novas_pli_boot \
-	-debug \
-	-define GATE
-
-XRUN_POST_SIM =  xrun -f ${source_file} \
-		-mcl ${num_CPU_cores} \
-        -override_precision \
-        ${TIMESCALE1} \
-        -sdf_precision 1fs \
-        -v ${UMC018_SIM} \
-		-v ${UMC018_IO_SIM} \
-        -loadpli1 debpli:novas_pli_boot \
-        -debug \
-        -define POST 
 
 # =====================================
 # ============= verdi =================
