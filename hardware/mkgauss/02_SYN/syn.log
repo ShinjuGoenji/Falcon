@@ -8,12 +8,12 @@
 #======================================================
 set DESIGN "MKGAUSS"
 MKGAUSS
-set CYCLE 5
-5
-set INPUT_DLY [expr 0*$CYCLE]
-0
-set OUTPUT_DLY [expr 0*$CYCLE]
-0
+set CYCLE 2
+2
+set INPUT_DLY [expr 0.5*$CYCLE]
+1.0
+set OUTPUT_DLY [expr 0.5*$CYCLE]
+1.0
 #======================================================
 # (B) Read RTL Code
 #======================================================
@@ -193,7 +193,7 @@ Warning: Design 'MKGAUSS' contains 2 high-fanout nets. A fanout number of 1000 w
 Report : clock_skew
 Design : MKGAUSS
 Version: T-2022.03
-Date   : Tue Jul 15 06:04:46 2025
+Date   : Tue Jul 15 06:51:52 2025
 ****************************************
 
                  Rise      Fall  Min Rise  Min fall        Uncertainty
@@ -232,10 +232,7 @@ set_fix_hold [all_clocks]
 1
 compile_ultra
 Information: Performing power optimization. (PWR-850)
-Analyzing: "/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db"
-Analyzing: "/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db"
-Analyzing: "/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db"
-Library analysis succeeded.
+Alib files are up-to-date.
 Information: Running optimization using a maximum of 4 cores. (OPT-1500)
 Information: Evaluating DesignWare library utilization. (UISN-27)
 
@@ -309,13 +306,13 @@ Information: The target library(s) contains cell(s), other than black boxes, tha
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
   --------- --------- --------- --------- --------- ------------------------- --------- -----------
-    0:00:20    3216.7      0.00       0.0       3.0                             19.2782      0.00  
-    0:00:20    3204.5      0.00       0.0       3.0                             19.1940      0.00  
+    0:00:20    3710.4      0.17       4.9       1.0                            136.5896      0.00  
+    0:00:20    3707.0      0.17       4.9       1.0                            136.4563      0.00  
 
   Beginning Constant Register Removal
   -----------------------------------
-    0:00:20    3204.5      0.00       0.0       3.0                             19.1940      0.00  
-    0:00:20    3204.5      0.00       0.0       3.0                             19.1940      0.00  
+    0:00:20    3707.0      0.17       4.9       1.0                            136.4563      0.00  
+    0:00:20    3707.0      0.17       4.9       1.0                            136.4563      0.00  
 
   Beginning Global Optimizations
   ------------------------------
@@ -351,57 +348,44 @@ Information: The target library(s) contains cell(s), other than black boxes, tha
   Global Optimization (Phase 28)
   Global Optimization (Phase 29)
   Global Optimization (Phase 30)
+  Mapping 'MKGAUSS_DP_OP_40_125_9017_2'
 
   Beginning Isolate Ports
   -----------------------
 
   Beginning Delay Optimization
   ----------------------------
-    0:00:21    1550.6      1.18       6.2    1088.6                              6.7947      0.00  
-    0:00:21    1610.5      0.00       0.0    1088.6                              7.2441      0.00  
-    0:00:21    1610.5      0.00       0.0    1088.6                              7.2441      0.00  
-    0:00:21    1610.5      0.00       0.0    1088.6                              7.2441      0.00  
-    0:00:21    1610.5      0.00       0.0    1088.6                              7.2441      0.00  
-    0:00:21    1610.5      0.00       0.0    1088.6                              7.2441      0.00  
+    0:00:21    1661.1      0.42      12.2       1.0                             45.6652      0.00  
+    0:00:21    1865.0      0.26       7.7       1.0                             55.8632      0.00  
+    0:00:21    1865.0      0.26       7.7       1.0                             55.8632      0.00  
+    0:00:21    1918.7      0.26       8.6       1.0                             59.6771      0.00  
+    0:00:23    1892.6      1.31      30.7       1.0                             58.6213      0.00  
+    0:00:23    1892.6      1.31      30.7       1.0                             58.6213      0.00  
 
   Beginning WLM Backend Optimization
   --------------------------------------
-
-  Beginning Delay Optimization HSVT Pass
-  --------------------------------------
-    0:00:24    1567.9      0.00       0.0    1088.6                              7.0654      0.00  
-    0:00:24    1567.9      0.00       0.0    1088.6                              7.0654      0.00  
-    0:00:24    1567.9      0.00       0.0    1088.6                              7.0654      0.00  
-    0:00:24    1567.9      0.00       0.0    1088.6                              7.0654      0.00  
-    0:00:26    1567.9      0.00       0.0    1088.6                              7.0654      0.00  
-    0:00:26    1567.9      0.00       0.0    1088.6                              7.0654      0.00  
-    0:00:26    1567.9      0.00       0.0    1088.6                              7.0654      0.00  
-    0:00:26    1567.9      0.00       0.0    1088.6                              7.0654      0.00  
-    0:00:28    1567.9      0.00       0.0    1088.6                              7.0654      0.00  
-    0:00:28    1567.9      0.00       0.0    1088.6                              7.0654      0.00  
-    0:00:28    1567.9      0.00       0.0    1088.6                              7.0654      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-
-  Beginning Delay Optimization
-  ----------------------------
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
+    0:00:23    1893.8      1.31      30.7       1.0                             57.6837      0.00  
+    0:00:24    2236.2      0.18       5.4       1.0                             79.6772      0.00  
+    0:00:24    2236.2      0.18       5.4       1.0                             79.6772      0.00  
+    0:00:24    2260.5      0.18       5.1       1.5                             80.5630      0.00  
+    0:00:24    2260.5      0.18       5.1       1.5                             80.5630      0.00  
+    0:00:24    2393.0      0.17       5.1       2.5                             88.1022      0.00  
+    0:00:24    2393.0      0.17       5.1       2.5                             88.1022      0.00  
+    0:00:24    2568.3      0.11       3.2       3.3                             95.9146      0.00  
+    0:00:24    2568.3      0.11       3.2       3.3                             95.9146      0.00  
+    0:00:25    2723.4      0.10       2.6       5.3                            103.9896      0.00  
+    0:00:25    2723.4      0.10       2.6       5.3                            103.9896      0.00  
+    0:00:25    3052.7      0.00       0.0       5.3                            123.3545      0.00  
+    0:00:25    3052.7      0.00       0.0       5.3                            123.3545      0.00  
+    0:00:25    3217.4      0.00       0.0       6.3                            133.7155      0.00  
+    0:00:25    3217.4      0.00       0.0       6.3                            133.7155      0.00  
+    0:00:25    3219.9      0.00       0.0       6.3                            133.9593      0.00  
+    0:00:25    3219.9      0.00       0.0       6.3                            133.9593      0.00  
+    0:00:25    3219.9      0.00       0.0       6.3                            133.9593      0.00  
+    0:00:25    3219.9      0.00       0.0       6.3                            133.9593      0.00  
+    0:00:25    3219.9      0.00       0.0       6.3                            133.9593      0.00  
+    0:00:25    3219.9      0.00       0.0       6.3                            133.9593      0.00  
+    0:00:25    3219.9      0.00       0.0       6.3                            133.9593      0.00  
 
 
   Beginning Design Rule Fixing  (max_transition)  (max_fanout)  (max_capacitance)
@@ -411,12 +395,12 @@ Information: The target library(s) contains cell(s), other than black boxes, tha
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
   --------- --------- --------- --------- --------- ------------------------- --------- -----------
-    0:00:28    1486.2      0.00       0.0    1117.6                              6.5417      0.00  
+    0:00:25    3219.9      0.00       0.0       6.3                            133.9593      0.00  
   Global Optimization (Phase 31)
   Global Optimization (Phase 32)
   Global Optimization (Phase 33)
-    0:00:28    1494.4      0.00       0.0       0.0                              6.8431      0.00  
-    0:00:28    1494.4      0.00       0.0       0.0                              6.8431      0.00  
+    0:00:25    3227.1      0.00       0.0       0.0                            133.9972      0.00  
+    0:00:25    3227.1      0.00       0.0       0.0                            133.9972      0.00  
 
 
   Beginning Leakage Power Optimization  (max_leakage_power 0)
@@ -426,7 +410,7 @@ Information: The target library(s) contains cell(s), other than black boxes, tha
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
   --------- --------- --------- --------- --------- ------------------------- --------- -----------
-    0:00:28    1494.4      0.00       0.0       0.0                              6.8431      0.00  
+    0:00:25    3227.1      0.00       0.0       0.0                            133.9972      0.00  
   Global Optimization (Phase 34)
   Global Optimization (Phase 35)
   Global Optimization (Phase 36)
@@ -441,56 +425,56 @@ Information: The target library(s) contains cell(s), other than black boxes, tha
   Global Optimization (Phase 45)
   Global Optimization (Phase 46)
   Global Optimization (Phase 47)
-    0:00:29    1289.8      0.00       0.0       0.0                              7.8062      0.00  
-    0:00:29    1289.8      0.00       0.0       0.0                              7.8062      0.00  
-    0:00:29    1289.8      0.00       0.0       0.0                              7.8062      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
+    0:00:26    3131.0      0.00       0.0       0.0                            124.5577      0.00  
+    0:00:26    3128.3      0.00       0.0       0.0                            124.3161      0.00  
+    0:00:26    3128.3      0.00       0.0       0.0                            124.3161      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
+    0:00:27    3001.9      0.00       0.0       0.0                            113.4063      0.00  
 
                                   TOTAL                                                            
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
   --------- --------- --------- --------- --------- ------------------------- --------- -----------
-    0:00:29    1256.0      0.00       0.0       0.0                              7.2589      0.00  
-    0:00:30     888.8      0.00       0.0       0.0                              4.1097      0.00  
-    0:00:30     888.8      0.00       0.0       0.0                              4.1097      0.00  
-    0:00:30     888.8      0.00       0.0       0.0                              4.1097      0.00  
-    0:00:30     893.6      0.00       0.0       0.0                              4.0083      0.00  
+    0:00:27    2990.4      0.00       0.0       0.0                            113.3866      0.00  
+    0:00:28    2449.7      0.00       0.0       0.0                             89.9912      0.00  
+    0:00:28    2449.7      0.00       0.0       0.0                             89.9912      0.00  
+    0:00:28    2449.7      0.00       0.0       0.0                             89.9912      0.00  
+    0:00:28    2436.3      0.00       0.0       0.0                             86.7290      0.00  
 
   Beginning Delay Optimization HSVT Pass
   --------------------------------------
-    0:00:31     893.6      0.00       0.0       0.0                              4.0083      0.00  
-    0:00:31     893.6      0.00       0.0       0.0                              4.0083      0.00  
-    0:00:31     893.6      0.00       0.0       0.0                              4.0083      0.00  
-    0:00:31     893.6      0.00       0.0       0.0                              4.0083      0.00  
-    0:00:33     893.6      0.00       0.0       0.0                              4.0083      0.00  
-    0:00:33     893.6      0.00       0.0       0.0                              4.0083      0.00  
-    0:00:33     893.6      0.00       0.0       0.0                              4.0083      0.00  
-    0:00:33     893.6      0.00       0.0       0.0                              4.0083      0.00  
-    0:00:35     895.0      0.00       0.0       0.0                              3.9479      0.00  
-    0:00:35     895.0      0.00       0.0       0.0                              3.9479      0.00  
-    0:00:35     895.0      0.00       0.0       0.0                              3.9479      0.00  
-    0:00:35     895.0      0.00       0.0       0.0                              3.9479      0.00  
-    0:00:35     895.0      0.00       0.0       0.0                              3.9479      0.00  
-    0:00:35     895.0      0.00       0.0       0.0                              3.9479      0.00  
-    0:00:35     887.2      0.00       0.0       0.0                              3.8254      0.00  
+    0:00:29    2436.3      0.00       0.0       0.0                             86.7290      0.00  
+    0:00:29    2436.3      0.00       0.0       0.0                             86.7290      0.00  
+    0:00:29    2436.3      0.00       0.0       0.0                             86.7290      0.00  
+    0:00:29    2436.3      0.00       0.0       0.0                             86.7290      0.00  
+    0:00:31    2436.3      0.00       0.0       0.0                             86.7290      0.00  
+    0:00:31    2436.3      0.00       0.0       0.0                             86.7290      0.00  
+    0:00:31    2436.3      0.00       0.0       0.0                             86.7290      0.00  
+    0:00:31    2436.3      0.00       0.0       0.0                             86.7290      0.00  
+    0:00:33    2433.6      0.00       0.0       0.0                             86.0485      0.00  
+    0:00:33    2433.6      0.00       0.0       0.0                             86.0485      0.00  
+    0:00:33    2433.6      0.00       0.0       0.0                             86.0485      0.00  
+    0:00:33    2433.6      0.00       0.0       0.0                             86.0485      0.00  
+    0:00:33    2433.6      0.00       0.0       0.0                             86.0487      0.00  
+    0:00:33    2433.6      0.00       0.0       0.0                             86.0487      0.00  
+    0:00:33    2275.7      0.00       0.0       0.0                             76.1343      0.00  
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
@@ -564,32 +548,32 @@ report_area
 Report : area
 Design : MKGAUSS
 Version: T-2022.03
-Date   : Tue Jul 15 06:07:22 2025
+Date   : Tue Jul 15 06:52:32 2025
 ****************************************
 
 Library(s) Used:
 
-    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
-    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
 
 Number of ports:                          165
-Number of nets:                          1000
-Number of cells:                          873
-Number of combinational cells:            838
+Number of nets:                          1367
+Number of cells:                         1240
+Number of combinational cells:           1205
 Number of sequential cells:                35
 Number of macros/black boxes:               0
-Number of buf/inv:                        197
-Number of references:                     135
+Number of buf/inv:                        323
+Number of references:                     305
 
-Combinational area:                720.997187
-Buf/Inv area:                       91.173598
-Noncombinational area:             166.244407
+Combinational area:               2099.487586
+Buf/Inv area:                      360.611998
+Noncombinational area:             176.223604
 Macro/Black Box area:                0.000000
 Net Interconnect area:               0.000000
 
-Total cell area:                   887.241593
-Total area:                        887.241593
+Total cell area:                  2275.711190
+Total area:                       2275.711190
 1
 report_timing 
  
@@ -600,14 +584,14 @@ Report : timing
         -max_paths 1
 Design : MKGAUSS
 Version: T-2022.03
-Date   : Tue Jul 15 06:07:22 2025
+Date   : Tue Jul 15 06:52:32 2025
 ****************************************
 
 Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
 Wire Load Model Mode: top
 
-  Startpoint: r2[7] (input port clocked by clk)
-  Endpoint: val_reg_31_
+  Startpoint: r1[5] (input port clocked by clk)
+  Endpoint: val_reg_20_
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
@@ -620,72 +604,40 @@ Wire Load Model Mode: top
   -----------------------------------------------------------
   clock clk (rise edge)                    0.00       0.00
   clock network delay (ideal)              0.00       0.00
-  input external delay                     0.00       0.00 r
-  r2[7] (in)                               0.00       0.00 r
-  U1163/Y (BUFH_X1P4M_A9TH)                0.28       0.28 r
-  U1075/Y (AND2_X1M_A9TR)                  0.14       0.42 r
-  U1023/Y (NAND2XB_X1M_A9TH)               0.13       0.56 f
-  U1209/Y (AOI211_X1M_A9TH)                0.15       0.71 r
-  U1063/Y (NOR4BB_X1M_A9TH)                0.12       0.83 f
-  U1123/Y (NOR3_X1A_A9TH)                  0.16       0.99 r
-  U1290/Y (OAI31_X0P7M_A9TR)               0.12       1.11 f
-  U1004/Y (AO21A1AI2_X1M_A9TH)             0.15       1.26 r
-  U950/Y (AOI211_X1M_A9TH)                 0.13       1.39 f
-  U877/Y (NOR3_X0P7M_A9TR)                 0.15       1.53 r
-  U993/Y (OAI21_X0P7M_A9TH)                0.13       1.67 f
-  U871/Y (AOI211_X0P7M_A9TR)               0.16       1.82 r
-  U943/Y (OA21A1OI2_X0P7M_A9TL)            0.11       1.93 f
-  U940/Y (AOI211_X1M_A9TR)                 0.11       2.04 r
-  U937/Y (NAND3_X1A_A9TR)                  0.07       2.11 f
-  U933/Y (AOI31_X1M_A9TR)                  0.08       2.19 r
-  U1340/Y (AO21A1AI2_X1M_A9TR)             0.08       2.27 f
-  U841/Y (XOR2_X1M_A9TH)                   0.12       2.39 f
-  U1036/Y (INV_X1M_A9TR)                   0.08       2.47 r
-  U927/Y (OAI21_X1M_A9TL)                  0.07       2.55 f
-  U926/Y (AOI21_X2M_A9TR)                  0.08       2.63 r
-  U925/Y (OAI21_X2M_A9TR)                  0.06       2.69 f
-  U924/Y (AOI21_X2M_A9TR)                  0.08       2.77 r
-  U1090/Y (OAI21_X2M_A9TR)                 0.06       2.83 f
-  U1165/Y (AOI21_X2M_A9TR)                 0.08       2.91 r
-  U839/Y (OAI21_X1P4M_A9TR)                0.07       2.98 f
-  U1269/Y (AOI21_X2M_A9TR)                 0.08       3.05 r
-  U923/Y (OAI21_X2M_A9TR)                  0.06       3.12 f
-  U1268/Y (AOI21_X2M_A9TR)                 0.08       3.19 r
-  U922/Y (OAI21_X2M_A9TR)                  0.06       3.26 f
-  U1337/Y (AOI21_X2M_A9TR)                 0.08       3.34 r
-  U921/Y (OAI21_X2M_A9TR)                  0.06       3.40 f
-  U1336/Y (AOI21_X2M_A9TR)                 0.08       3.48 r
-  U920/Y (OAI21_X2M_A9TR)                  0.06       3.54 f
-  U1267/Y (AOI21_X2M_A9TR)                 0.08       3.62 r
-  U919/Y (OAI21_X2M_A9TR)                  0.06       3.68 f
-  U1266/Y (AOI21_X2M_A9TR)                 0.08       3.75 r
-  U840/Y (OAI21_X1P4M_A9TR)                0.07       3.82 f
-  U1265/Y (AOI21_X2M_A9TR)                 0.08       3.90 r
-  U844/Y (OAI21_X1P4M_A9TL)                0.06       3.96 f
-  U1264/Y (AOI21_X2M_A9TR)                 0.08       4.03 r
-  U1263/Y (OAI21_X2M_A9TR)                 0.06       4.10 f
-  U1334/Y (AOI21_X2M_A9TR)                 0.08       4.17 r
-  U1089/Y (OAI21_X2M_A9TR)                 0.06       4.24 f
-  U1261/Y (AOI21_X2M_A9TR)                 0.08       4.31 r
-  U1260/Y (OAI21_X2M_A9TR)                 0.06       4.38 f
-  U1164/Y (AOI21_X2M_A9TR)                 0.08       4.45 r
-  U1088/Y (OAI21_X2M_A9TR)                 0.06       4.52 f
-  U985/Y (AOI21_X2M_A9TR)                  0.08       4.59 r
-  U1415/Y (OAI21_X1M_A9TR)                 0.07       4.66 f
-  U842/Y (XNOR2_X1M_A9TH)                  0.10       4.76 f
-  U1258/Y (AOI22_X1M_A9TR)                 0.08       4.84 r
-  val_reg_31_/D (DFFSQN_X2M_A9TH)          0.00       4.84 r
-  data arrival time                                   4.84
+  input external delay                     1.00       1.00 f
+  r1[5] (in)                               0.00       1.00 f
+  U944/Y (INV_X6M_A9TL)                    0.06       1.06 r
+  U1057/Y (OAI21_X3M_A9TL)                 0.04       1.10 f
+  U1633/Y (AOI22BB_X3M_A9TL)               0.04       1.14 r
+  U1462/Y (OA21B_X3M_A9TL)                 0.05       1.19 r
+  U1108/Y (OAI2XB1_X3M_A9TL)               0.03       1.22 f
+  U1347/Y (AO21A1AI2_X3M_A9TL)             0.05       1.27 r
+  U1442/Y (AO21A1AI2_X4M_A9TL)             0.07       1.34 f
+  U1183/Y (NOR2_X6M_A9TL)                  0.03       1.37 r
+  U1601/Y (OAI21_X6M_A9TL)                 0.03       1.40 f
+  U1600/Y (NAND2_X4M_A9TL)                 0.04       1.44 r
+  U1686/Y (INV_X11M_A9TL)                  0.06       1.50 f
+  U871/Y (OR2_X1B_A9TL)                    0.07       1.57 f
+  U999/Y (NAND2_X1A_A9TL)                  0.06       1.62 r
+  U1415/Y (NOR2_X2A_A9TL)                  0.03       1.65 f
+  U1519/Y (NAND2_X3M_A9TL)                 0.04       1.69 r
+  U1404/Y (INV_X4M_A9TL)                   0.03       1.72 f
+  U836/Y (NAND2_X1A_A9TR)                  0.04       1.76 r
+  U1315/Y (OAI21_X3M_A9TL)                 0.04       1.80 f
+  U1503/Y (XNOR2_X1P4M_A9TL)               0.04       1.84 f
+  U1395/Y (AOI22_X2M_A9TL)                 0.04       1.88 r
+  val_reg_20_/D (DFFSRPQ_X0P5M_A9TL)       0.00       1.88 r
+  data arrival time                                   1.88
 
-  clock clk (rise edge)                    5.00       5.00
-  clock network delay (ideal)              0.00       5.00
-  clock uncertainty                       -0.10       4.90
-  val_reg_31_/CK (DFFSQN_X2M_A9TH)         0.00       4.90 r
-  library setup time                      -0.05       4.85
-  data required time                                  4.85
+  clock clk (rise edge)                    2.00       2.00
+  clock network delay (ideal)              0.00       2.00
+  clock uncertainty                       -0.10       1.90
+  val_reg_20_/CK (DFFSRPQ_X0P5M_A9TL)      0.00       1.90 r
+  library setup time                      -0.02       1.88
+  data required time                                  1.88
   -----------------------------------------------------------
-  data required time                                  4.85
-  data arrival time                                  -4.84
+  data required time                                  1.88
+  data arrival time                                  -1.88
   -----------------------------------------------------------
   slack (MET)                                         0.00
 
@@ -693,10 +645,10 @@ Wire Load Model Mode: top
 1
 exit
 
-Memory usage for this session 826 Mbytes.
+Memory usage for this session 829 Mbytes.
 Memory usage for this session including child processes 965 Mbytes.
-CPU usage for this session 157 seconds ( 0.04 hours ).
-Elapsed time for this session 160 seconds ( 0.04 hours ).
+CPU usage for this session 49 seconds ( 0.01 hours ).
+Elapsed time for this session 43 seconds ( 0.01 hours ).
 
 Thank you...
 

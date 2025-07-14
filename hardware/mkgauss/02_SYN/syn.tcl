@@ -8,9 +8,9 @@
 # (A) Global Parameters
 #======================================================
 set DESIGN "MKGAUSS"
-set CYCLE 5
-set INPUT_DLY [expr 0*$CYCLE]
-set OUTPUT_DLY [expr 0*$CYCLE]
+set CYCLE 2
+set INPUT_DLY [expr 0.5*$CYCLE]
+set OUTPUT_DLY [expr 0.5*$CYCLE]
 
 #======================================================
 # (B) Read RTL Code

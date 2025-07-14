@@ -3,30 +3,30 @@
 Report : area
 Design : MKGAUSS
 Version: T-2022.03
-Date   : Tue Jul 15 06:07:22 2025
+Date   : Tue Jul 15 06:52:32 2025
 ****************************************
 
 Library(s) Used:
 
-    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
-    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
 
 Number of ports:                          165
-Number of nets:                          1000
-Number of cells:                          873
-Number of combinational cells:            838
+Number of nets:                          1367
+Number of cells:                         1240
+Number of combinational cells:           1205
 Number of sequential cells:                35
 Number of macros/black boxes:               0
-Number of buf/inv:                        197
-Number of references:                     135
+Number of buf/inv:                        323
+Number of references:                     305
 
-Combinational area:                720.997187
-Buf/Inv area:                       91.173598
-Noncombinational area:             166.244407
+Combinational area:               2099.487586
+Buf/Inv area:                      360.611998
+Noncombinational area:             176.223604
 Macro/Black Box area:                0.000000
 Net Interconnect area:               0.000000
 
-Total cell area:                   887.241593
-Total area:                        887.241593
+Total cell area:                  2275.711190
+Total area:                       2275.711190
 1
