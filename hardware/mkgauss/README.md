@@ -1,7 +1,7 @@
 # MKGAUSS
 
 > [!NOTE]  
-> See source code keygen.c at line 2258-2356.
+> See source code [keygen.c](/software/keygen.c#L2258) at line 2258-2356.
 
 
 ``` verilog
