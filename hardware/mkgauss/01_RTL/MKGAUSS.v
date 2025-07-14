@@ -66,21 +66,46 @@ localparam [63:0] GAUSS_1024_12289 [0:GAUSS_TABLE_SIZE-1] = {
 };
 
 //---------------------------------------------------------------------
-//   State Machine Declarations
+//   Reg & Wire
 //---------------------------------------------------------------------
-localparam S_IDLE = 2'b00;
-localparam S_DECIDE  = 2'b01;
-localparam S_SAMPLE = 2'b10;
-localparam S_DONE = 2'b11;
+reg [1:0] cnt, cnt_reg;
 
-reg [1:0] state_reg, state_next;
-reg [CYCLE_COUNT_WIDTH-1:0] cycle_count_reg, cycle_count_next;
-reg signed [31:0] val_acc_reg, val_acc_next;
-reg [63:0] r1_reg, r1_next;
+reg [62:0] r1_lo, r2_lo;
+reg neg, f;
+
+reg [GAUSS_TABLE_SIZE-2:0] t;
+reg signed [31:0] _v, v;
 
 //---------------------------------------------------------------------
-//   FSM & Datapath Logic
+//   FSM
 //---------------------------------------------------------------------
+always @(*) begin
+    if (r1_valid)
+        cnt = cnt_reg + 1;
+    else if (val_valid)
+        cnt = 0;
+    else
+        cnt = cnt_reg;
+end
+
+//---------------------------------------------------------------------
+//   Datapath Logic
+//---------------------------------------------------------------------
+
+/*
+ * Each iteration generates one value with the
+ * Gaussian distribution for N = 1024.
+ *
+ * We use two random 64-bit values. First value
+ * decides on whether the generated value is 0, and,
+ * if not, the sign of the value. Second random 64-bit
+ * word is used to generate the non-zero value.
+ *
+ * For constant-time code we have to read the complete
+ * table. This has negligible cost, compared with the
+ * remainder of the keygen process (solving the NTRU
+ * equation).
+ */
 
 /*
  * First value:
@@ -88,20 +113,17 @@ reg [63:0] r1_reg, r1_next;
  *  - flag 'f' is set to 1 if the generated value is zero,
  *    or set to 0 otherwise.
  */
-reg [62:0] r1_lo, r2_lo;
-reg neg, f;
 assign neg = r1[63];
 assign r1_lo = r1[62:0];
 assign f = r1_lo < GAUSS_1024_12289[0]; 
 
 /*
- * We produce a new random 63-bit integer r, and go over
+ * We produce a new random 63-bit integer r2, and go over
  * the array, starting at index 1. We store in v the
  * index of the first array element which is not greater
  * than r, unless the flag f was already 1.
  */
 assign r2_lo = r2[62:0];
-reg [GAUSS_TABLE_SIZE-2:0] t;
 genvar k;
 generate
     for (k = 1; k < GAUSS_TABLE_SIZE; k = k + 1) begin
@@ -111,7 +133,6 @@ generate
     end
 endgenerate
 
-reg signed [31:0] _v, v;
 always @(*) begin
     case (t)
         'h2000000: _v = 'd26;
@@ -144,6 +165,9 @@ always @(*) begin
     endcase
 end
 
+/*
+ * Generated value is added to v.
+ */
 always @(*) begin
     if (f)
         v = val;
@@ -155,181 +179,36 @@ always @(*) begin
     end
 end
 
-reg [1:0] cnt, cnt_reg;
-always @(*) begin
-    if (r1_valid)
-        cnt = cnt_reg + 1;
-    else if (val_valid)
-        cnt = 0;
-    else
-        cnt = cnt_reg;
-end
-always @(posedge clk or negedge rst_n) begin
-    if (!rst_n)
-        cnt_reg <= 0;
-    else 
-        cnt_reg <= cnt;
-end
-
-// reg [1:0] cnt, cnt_reg;
-// always @(*) begin
-//     cnt = cnt_reg;
-
-//     if (en) begin
-//         // We need G cycles to get G samples
-//         if (cnt == G - 1)
-
-//         cnt = cnt + 1;
-//     end
-
-//     case (state_reg)
-//         S_IDLE: begin
-//             if (rng_1_valid) begin
-//                 val_acc_next = 32'sd0;
-//                 cycle_count_next = 0;
-//                 r1_next = rng;
-//                 state_next = S_RUN;
-//             end
-//         end
-//         S_RUN: begin
-//             // We need 2*G cycles to get G samples
-//             if (cycle_count_reg == (2*G - 1)) begin
-//                 state_next = S_DONE;
-//             end else begin
-//                 cycle_count_next = cycle_count_reg + 1;
-//                 // On odd cycles (1, 3, 5...), we have a pair of RNGs
-//                 if (cycle_count_reg[0]) begin
-//                     val_acc_next = val_acc_reg + current_sample;
-//                 end else begin
-//                     // On even cycles (2, 4, 6...), latch the next r1
-//                     r1_next = rng;
-//                 end
-//             end
-//         end
-//         S_DONE: begin
-//             // Output is valid for one cycle, then return to idle
-//             state_next = S_IDLE;
-//         end
-//         default: begin
-//             state_next = S_IDLE;
-//         end
-//     endcase
-// end
-// // always @(*) begin
-// //     state_next = state_reg;
-// //     val_acc_next = val_acc_reg;
-// //     cycle_count_next = cycle_count_reg;
-// //     r1_next = r1_reg;
-
-// //     case (state_reg)
-// //         S_IDLE: begin
-// //             if (rng_1_valid) begin
-// //                 val_acc_next = 32'sd0;
-// //                 cycle_count_next = 0;
-// //                 r1_next = rng;
-// //                 state_next = S_RUN;
-// //             end
-// //         end
-// //         S_RUN: begin
-// //             // We need 2*G cycles to get G samples
-// //             if (cycle_count_reg == (2*G - 1)) begin
-// //                 state_next = S_DONE;
-// //             end else begin
-// //                 cycle_count_next = cycle_count_reg + 1;
-// //                 // On odd cycles (1, 3, 5...), we have a pair of RNGs
-// //                 if (cycle_count_reg[0]) begin
-// //                     val_acc_next = val_acc_reg + current_sample;
-// //                 end else begin
-// //                     // On even cycles (2, 4, 6...), latch the next r1
-// //                     r1_next = rng;
-// //                 end
-// //             end
-// //         end
-// //         S_DONE: begin
-// //             // Output is valid for one cycle, then return to idle
-// //             state_next = S_IDLE;
-// //         end
-// //         default: begin
-// //             state_next = S_IDLE;
-// //         end
-// //     endcase
-// // end
-
-// //---------------------------------------------------------------------
-// //   Combinational Logic
-// //---------------------------------------------------------------------
-// reg signed [31:0] current_sample;
-// wire [63:0] r2_input = rng; 
-
-// always @(*) begin
-//     // FIX: 'i' must be an 'integer' for a behavioral loop inside an always block.
-//     integer i;
-//     reg neg;
-//     reg f;
-//     reg [63:0] r1_63bit;
-//     reg [63:0] r2_63bit;
-//     reg [4:0] v; // Magnitude, max index is 26, so 5 bits are enough
-//     reg found;
-
-//     // Step 1: Use the first RNG value (r1_reg) to determine sign and zero-flag
-//     neg = r1_reg[63];
-//     r1_63bit = r1_reg & 64'h7FFFFFFFFFFFFFFF;
-//     // f = 1 if the value should be zero
-//     f = (r1_63bit < GAUSS_1024_12289[0]);
-
-//     // Step 2: Use the second RNG value (r2_input) to find magnitude `v`
-//     // This implements the priority search from the C code's inner loop
-//     r2_63bit = r2_input & 64'h7FFFFFFFFFFFFFFF;
-//     _v = 'd0;
-//     found = 0;
-//     // The loop is unrolled by the synthesizer into a priority mux structure
-//     for (i = 1; i < GAUSS_TABLE_SIZE; i = i + 1) begin
-//         if (!found && (r2_63bit < GAUSS_1024_12289[i])) begin
-//             _v = 'di;
-//             found = 1;
-//         end
-//     end
-
-//     // The final magnitude is 0 if f=1, otherwise it's v.
-//     // Then, apply the sign.
-//     if (f) begin
-//         current_sample = 32'sd0;
-//     end else begin
-//         current_sample = neg ? -v : v;
-//     end
-// end
-
-
-// //---------------------------------------------------------------------
-// //   Sequential Logic
-// //---------------------------------------------------------------------
-// always @(posedge clk or negedge rst_n) begin
-//     if (!rst_n) begin
-//         state_reg     <= S_IDLE;
-//         val_acc_reg   <= 32'sd0;
-//         cycle_count_reg <= 0;
-//         r1_reg        <= 64'd0;
-//     end else begin
-//         state_reg     <= state_next;
-//         val_acc_reg   <= val_acc_next;
-//         cycle_count_reg <= cycle_count_next;
-//         r1_reg        <= r1_next;
-//     end
-// end
-
-// //---------------------------------------------------------------------
-// //   Output Assignments
-// //---------------------------------------------------------------------
+//---------------------------------------------------------------------
+//   Sequential Logic
+//---------------------------------------------------------------------
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
+        cnt_reg <= 0;
+    end
+    else begin
+        cnt_reg <= cnt;
+    end
+end
+
+//---------------------------------------------------------------------
+//   Output Assignments
+//---------------------------------------------------------------------
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) 
         val_valid <= 0;
-        val <= 0;
-    end 
     else begin
         if (cnt_reg == 1 && r1_valid)
             val_valid <= 1;
         else
             val_valid <= 0;
+    end
+end
+
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) 
+        val <= 0;
+    else begin
         if (r1_valid)
             val <= v;
         else if (val_valid)
