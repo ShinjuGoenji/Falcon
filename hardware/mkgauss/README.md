@@ -1,5 +1,9 @@
 # MKGAUSS
 
+> [!NOTE]  
+> See source code keygen.c at line 2258-2356.
+
+
 ``` verilog
 module MKGAUSS #(
     parameter [3:0] logn = 9
