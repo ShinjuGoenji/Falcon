@@ -1,0 +1,80 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : design
+Design : MKGAUSS
+Version: T-2022.03
+Date   : Tue Jul 15 06:07:22 2025
+****************************************
+
+Design allows ideal nets on clock nets.
+
+Library(s) Used:
+
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+
+Local Link Library:
+
+    {sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db, sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db, sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db}
+
+Flip-Flop Types:
+
+    No flip-flop types specified.
+
+Latch Types:
+
+    No latch types specified.
+
+Operating Conditions:
+
+
+    Operating Condition Name : ss_typical_max_0p81v_125c
+    Library : sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+    Process :   1.00
+    Temperature : 125.00
+    Voltage :   0.81
+
+Wire Loading Model:
+
+    Selected from the default (area not fully known).
+
+Name           :   Small
+Location       :   sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Resistance     :   0.004714
+Capacitance    :   0.000218
+Area           :   9.99995e-41
+Slope          :   6.12
+Fanout   Length   Points Average Cap Std Deviation
+--------------------------------------------------------------
+     1     9.18
+
+
+
+Wire Loading Model Mode: top.
+
+Timing Ranges:
+
+    No timing ranges specified.
+
+Pin Input Delays:
+
+    None specified.
+
+Pin Output Delays:
+
+    None specified.
+
+Disabled Timing Arcs:
+
+    No arcs disabled.
+
+Required Licenses:
+
+    DesignWare
+
+Design Parameters:
+
+    None specified.
+1

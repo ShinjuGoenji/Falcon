@@ -1,0 +1,25 @@
+ 
+****************************************
+check_design summary:
+Version:     T-2022.03
+Date:        Tue Jul 15 06:04:46 2025
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Inputs/Outputs                                                      2
+    Unconnected ports (LINT-28)                                     2
+
+Cells                                                               2
+    Cells do not drive (LINT-1)                                     2
+
+Nets                                                                1
+    Unloaded nets (LINT-2)                                          1
+--------------------------------------------------------------------------------
+
+Warning: In design 'MKGAUSS', cell 'B_29' does not drive any nets. (LINT-1)
+Warning: In design 'MKGAUSS', cell 'B_30' does not drive any nets. (LINT-1)
+Warning: In design 'MKGAUSS', net 'net96' driven by pin 'C1911/Z' has no loads. (LINT-2)
+Warning: In design 'MKGAUSS', port 'r2_valid' is not connected to any nets. (LINT-28)
+Warning: In design 'MKGAUSS', port 'r2[63]' is not connected to any nets. (LINT-28)
+1
