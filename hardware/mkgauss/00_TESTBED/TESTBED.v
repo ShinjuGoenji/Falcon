@@ -27,12 +27,12 @@ wire signed [31:0] val;
 //================================================================
 initial begin
   `ifdef RTL
-    $fsdbDumpfile("mkgauss.fsdb");
+    $fsdbDumpfile("MKGAUSS.fsdb");
     $fsdbDumpvars(0,"+mda");
   `elsif GATE
-    $sdf_annotate("mkgauss_SYN.sdf",u_MKGAUSS);
-    $fsdbDumpfile("MKGAUSS_SYN.fsdb");
-    $fsdbDumpvars(0,"+mda");
+    $sdf_annotate("MKGAUSS_SYN.sdf",u_MKGAUSS);
+    // $fsdbDumpfile("MKGAUSS_SYN.fsdb");
+    // $fsdbDumpvars(0,"+mda");
   `endif
 end
 
