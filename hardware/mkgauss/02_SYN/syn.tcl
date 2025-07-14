@@ -8,7 +8,7 @@
 # (A) Global Parameters
 #======================================================
 set DESIGN "MKGAUSS"
-set CYCLE 2
+set CYCLE 1.7
 set INPUT_DLY [expr 0.5*$CYCLE]
 set OUTPUT_DLY [expr 0.5*$CYCLE]
 
