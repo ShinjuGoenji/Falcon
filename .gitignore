@@ -1,0 +1,8 @@
+simv
+simv.daidir/
+verdiLog/
+*.fsdb
+*.conf
+*.log
+*.key
+csrc/
