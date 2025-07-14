@@ -2,9 +2,9 @@
 `include "PATTERN.v"
 
 `ifdef RTL
-    `include "mkgauss.v"
+    `include "MKGAUSS.v"
 `elsif GATE
-    `include "mkgauss_SYN.v"
+    `include "MKGAUSS_SYN.v"
 `endif
 	  		  	
 module TESTBED;

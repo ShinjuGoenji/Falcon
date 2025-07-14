@@ -89,6 +89,7 @@ reg [63:0] r1_reg, r1_next;
  *    or set to 0 otherwise.
  */
 reg [62:0] r1_lo, r2_lo;
+reg neg, f;
 assign neg = r1[63];
 assign r1_lo = r1[62:0];
 assign f = r1_lo < GAUSS_1024_12289[0]; 
