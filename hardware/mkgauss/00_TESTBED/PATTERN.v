@@ -9,23 +9,27 @@ module PATTERN(
     // Output signals
     clk,
     rst_n,
-    in_valid,
-    rng,
+    r1_valid,
+    r2_valid,
+    r1,
+    r2,
     // Input signals
-    out_valid,
+    val_valid,
     val
 );
 
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
-output reg          clk;
-output reg          rst_n;
-output reg          in_valid;
-output reg [63:0]   rng;
-
-input               out_valid;
-input      [31:0]   val;
+output reg            clk;
+output reg            rst_n;
+output reg            r1_valid;
+output reg            r2_valid;
+output reg   [63:0]   r1;
+output reg   [63:0]   r2;
+  
+input                 val_valid;
+input signed [31:0]   val;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
@@ -82,13 +86,15 @@ end
 //---------------------------------------------------------------------
 task reset_task; begin 
     rst_n = 'b1;
-    in_valid = 'b0;
-    rng = 'bx;
+    r1_valid = 'b0;
+    r2_valid = 'b0;
+    r1 = 'bx;
+    r2 = 'bx;
 	
     force clk = 0;
     #CYCLE; rst_n = 0; 
     #CYCLE; rst_n = 1;
-    if(out_valid !== 'b0 || val !== 0) begin 
+    if(val_valid !== 'b0 || val !== 0) begin 
         $display("************************************************************");  
         $display("                          FAIL!                              ");    
         $display("*  Output signal should be 0 after initial RESET  at %8t   *",$time);
@@ -104,22 +110,36 @@ task input_task; begin
 	fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);	
 	fscanf_int = $fscanf(file_out, "%d", golden_val);	
 	@(negedge clk);
-	in_valid = 'b1;
-	rng = rng_1;
+	r1_valid = 'b1;
+	r1 = rng_1;
+	r2_valid = 'b1;
+	r2 = rng_2;
 	check_out_valid_task;
 	@(negedge clk);
-	rng = rng_2;
+    r1_valid = 'b0;
+    r2_valid = 'b0;
+    r1 = 'bx;
+    r2 = 'bx;
+	check_out_valid_task;
+	@(negedge clk);
+	fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);
+	r1_valid = 'b1;
+	r1 = rng_1;
+	r2_valid = 'b1;
+	r2 = rng_2;
 	check_out_valid_task;
 	@(negedge clk);
 		
-    in_valid = 'b0;
-    rng = 'bx;
-	@(negedge clk);
+    r1_valid = 'b0;
+    r2_valid = 'b0;
+    r1 = 'bx;
+    r2 = 'bx;
+	// @(negedge clk);
 end endtask
 
 task wait_out_task; begin
 	out_latency = 1;
-	while(out_valid !== 1)begin
+	while(val_valid !== 1)begin
 		if(out_latency === MAX_OUT_LATENCY + 1) begin
             $display("***********************************************************");    
             $display("*                          FAIL!                          *");
@@ -134,7 +154,7 @@ task wait_out_task; begin
 end endtask
 
 task check_out_valid_task; begin
-	if(out_valid !== 0)begin
+	if(val_valid !== 0)begin
 		$display("***********************************************************");     
         $display("*                          FAIL!                          *");
 		$display("*  out_valid should not be raised when in_valid is high.  *");
@@ -145,7 +165,7 @@ task check_out_valid_task; begin
 end endtask
 
 task check_ans_task; begin
-	while(out_valid == 1) begin
+	while(val_valid == 1) begin
 		if(val !== golden_val)begin
             $display("***********************************************************");     
             $display("*                          FAIL!                          *");
