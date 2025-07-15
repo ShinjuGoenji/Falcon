@@ -15,10 +15,11 @@ module MKGAUSS #(
     // Input signals
     clk,
     rst_n,
-    r_valid,
-    r1,
-    r2,
+    ena,
+    rng_valid,
+    rng,
     // Output signals
+    extract,
     val_valid,
     val
 );
@@ -26,14 +27,15 @@ module MKGAUSS #(
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
-input                    clk;
-input                    rst_n;
-input                    r_valid;
-input             [63:0] r1;
-input             [63:0] r2;
+input                     clk;
+input                     rst_n;
+input                     ena;
+input                     rng_valid;
+input             [127:0] rng;
 
-output reg               val_valid;
-output reg signed [31:0] val;
+output reg                extract;
+output reg                val_valid;
+output reg signed [31:0]  val;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
@@ -66,6 +68,7 @@ localparam [63:0] GAUSS_1024_12289 [0:GAUSS_TABLE_SIZE-1] = {
 //---------------------------------------------------------------------
 reg [1:0] cnt, cnt_reg;
 
+reg [63:0] r1, r2;
 reg [62:0] r1_lo, r2_lo;
 reg neg, f;
 
@@ -76,12 +79,17 @@ reg signed [31:0] _v, v;
 //   FSM
 //---------------------------------------------------------------------
 always @(*) begin
-    if (r_valid)
-        cnt = cnt_reg + 1;
-    else if (val_valid)
+    if (ena) begin
+        if (rng_valid)
+            cnt = cnt_reg + 1;
+        else if (val_valid)
+            cnt = 0;
+        else
+            cnt = cnt_reg;
+    end
+    else begin
         cnt = 0;
-    else
-        cnt = cnt_reg;
+    end
 end
 
 //---------------------------------------------------------------------
@@ -109,6 +117,7 @@ end
  *  - flag 'f' is set to 1 if the generated value is zero,
  *    or set to 0 otherwise.
  */
+assign r1 = rng[63:0];
 assign neg = r1[63];
 assign r1_lo = r1[62:0];
 assign f = r1_lo < GAUSS_1024_12289[0]; 
@@ -119,6 +128,7 @@ assign f = r1_lo < GAUSS_1024_12289[0];
  * index of the first array element which is not greater
  * than r, unless the flag f was already 1.
  */
+assign r2 = rng[127:64];
 assign r2_lo = r2[62:0];
 genvar k;
 generate
@@ -192,12 +202,33 @@ end
 //---------------------------------------------------------------------
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) 
+        extract <= 0;
+    else begin
+        if (ena) begin
+            if (rng_valid)
+                extract <= 1;
+            else
+                extract <= 0;
+        end
+        else begin
+            extract <= 0;
+        end
+    end
+end
+
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) 
         val_valid <= 0;
     else begin
-        if (cnt_reg == (g - 1) && r_valid)
-            val_valid <= 1;
-        else
+        if (ena) begin
+            if (cnt_reg == (g - 1) && rng_valid)
+                val_valid <= 1;
+            else
+                val_valid <= 0;
+        end
+        else begin
             val_valid <= 0;
+        end
     end
 end
 
@@ -205,12 +236,17 @@ always @(posedge clk or negedge rst_n) begin
     if (!rst_n) 
         val <= 0;
     else begin
-        if (r_valid)
-            val <= v;
-        else if (val_valid)
+        if (ena) begin
+            if (rng_valid)
+                val <= v;
+            else if (val_valid)
+                val <= 0;
+            else
+                val <= val;
+        end
+        else begin
             val <= 0;
-        else
-            val <= val;
+        end
     end
 end
 

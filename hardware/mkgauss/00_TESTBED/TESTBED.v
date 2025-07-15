@@ -12,14 +12,15 @@ module TESTBED;
 //================================================================
 // Wire Declarations
 //================================================================
-wire               clk;
-wire               rst_n;
-wire               r_valid;
-wire        [63:0] r1;
-wire        [63:0] r2;
+wire                clk;
+wire                rst_n;
+wire                ena;
+wire                rng_valid;
+wire        [127:0] rng;
 
-wire               val_valid;
-wire signed [31:0] val;
+wire                extract;
+wire                val_valid;
+wire signed [31:0]  val;
 
 //================================================================
 // Dump Waveform
@@ -42,9 +43,10 @@ end
     MKGAUSS u_MKGAUSS(
     .clk(clk),
     .rst_n(rst_n),
-    .r_valid(r_valid),
-    .r1(r1),
-    .r2(r2),
+    .ena(ena),
+    .rng_valid(rng_valid),
+    .rng(rng),
+    .extract(extract),
     .val_valid(val_valid),
     .val(val)
     );
@@ -52,9 +54,10 @@ end
     MKGAUSS u_MKGAUSS(
     .clk(clk),
     .rst_n(rst_n),
-    .r_valid(r_valid),
-    .r1(r1),
-    .r2(r2),
+    .ena(ena),
+    .rng_valid(rng_valid),
+    .rng(rng),
+    .extract(extract),
     .val_valid(val_valid),
     .val(val)
     );
@@ -63,9 +66,10 @@ end
 PATTERN u_PATTERN(
     .clk(clk),
     .rst_n(rst_n),
-    .r_valid(r_valid),
-    .r1(r1),
-    .r2(r2),
+    .ena(ena),
+    .rng_valid(rng_valid),
+    .rng(rng),
+    .extract(extract),
     .val_valid(val_valid),
     .val(val)
     );

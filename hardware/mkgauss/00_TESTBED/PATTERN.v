@@ -6,13 +6,14 @@
 `endif
 
 module PATTERN(
-    // Output signals
+    // Input signals
     clk,
     rst_n,
-    r_valid,
-    r1,
-    r2,
-    // Input signals
+    ena,
+    rng_valid,
+    rng,
+    // Output signals
+    extract,
     val_valid,
     val
 );
@@ -20,14 +21,15 @@ module PATTERN(
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
-output reg            clk;
-output reg            rst_n;
-output reg            r_valid;
-output reg   [63:0]   r1;
-output reg   [63:0]   r2;
+output reg           clk;
+output reg           rst_n;
+output reg           ena;
+output reg           rng_valid;
+output reg   [127:0] rng;
   
-input                 val_valid;
-input signed [31:0]   val;
+input                extract;
+input                val_valid;
+input signed [31:0]  val;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
@@ -44,6 +46,8 @@ integer i_pat;
 integer PAT_NUM;
 
 integer fscanf_int;
+
+integer shake256_delay;
 
 //---------------------------------------------------------------------
 //   REG & WIRE DECLARATION
@@ -67,6 +71,9 @@ initial begin
 	reset_task;
 	total_latency = 0;
 	fscanf_int = $fscanf(file_num, "%d", PAT_NUM);	
+	fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);	
+	shake256_delay = 0;
+	check_shake256_extract_task;
 	repeat(4) @(negedge clk);
 	for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1)begin
 		input_task;
@@ -84,9 +91,8 @@ end
 //---------------------------------------------------------------------
 task reset_task; begin 
     rst_n = 'b1;
-    r_valid = 'b0;
-    r1 = 'bx;
-    r2 = 'bx;
+    rng_valid = 'b0;
+    rng = 'bx;
 	
     force clk = 0;
     #CYCLE; rst_n = 0; 
@@ -104,30 +110,9 @@ end endtask
 
 
 task input_task; begin
-	fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);	
 	fscanf_int = $fscanf(file_out, "%d", golden_val);	
 	@(negedge clk);
-	r_valid = 'b1;
-	r1 = rng_1;
-	r2 = rng_2;
-	check_out_valid_task;
-	@(negedge clk);
-    r_valid = 'b0;
-    r1 = 'bx;
-    r2 = 'bx;
-	check_out_valid_task;
-	@(negedge clk);
-	fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);
-	r_valid = 'b1;
-	r1 = rng_1;
-	r2 = rng_2;
-	check_out_valid_task;
-	@(negedge clk);
-		
-    r_valid = 'b0;
-    r1 = 'bx;
-    r2 = 'bx;
-	// @(negedge clk);
+	ena = 'b1;
 end endtask
 
 task wait_out_task; begin
@@ -141,8 +126,26 @@ task wait_out_task; begin
 			repeat(2) @(negedge clk);
 			$finish;
 		end
+		if (extract) begin
+			// shake256_delay = $urandom_range(2, 4);
+			shake256_delay = 0;
+			fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);
+			rng = 'bx;
+			rng_valid = 'b0;	
+		end
+		check_shake256_extract_task;
 		out_latency = out_latency + 1;
 		@(negedge clk);
+	end
+end endtask
+
+task check_shake256_extract_task; begin
+	if(shake256_delay === 0)begin
+		rng = {rng_2, rng_1};
+		rng_valid = 'b1;
+	end
+	else begin
+		shake256_delay = shake256_delay - 1;
 	end
 end endtask
 
@@ -158,7 +161,7 @@ task check_out_valid_task; begin
 end endtask
 
 task check_ans_task; begin
-	while(val_valid == 1) begin
+	if(val_valid == 1) begin
 		if(val !== golden_val)begin
             $display("***********************************************************");     
             $display("*                          FAIL!                          *");
@@ -170,6 +173,15 @@ task check_ans_task; begin
                 repeat(2) @(negedge clk);
                 $finish;
 		end
+		if (extract) begin
+			// shake256_delay = $urandom_range(2, 4);
+			shake256_delay = 0;
+			fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);
+			rng = 'bx;
+			rng_valid = 'b0;	
+		end
+		check_shake256_extract_task;
+		ena = 'b0;
 		@(negedge clk);
 	end
 end endtask
