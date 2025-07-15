@@ -15,7 +15,7 @@ module MKGAUSS #(
     rng_valid,
     rng,
     // Output signals
-    extract,
+    rng_extract,
     val_valid,
     val
 );

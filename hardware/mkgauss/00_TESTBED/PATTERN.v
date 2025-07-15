@@ -13,7 +13,7 @@ module PATTERN(
     rng_valid,
     rng,
     // Output signals
-    extract,
+    rng_extract,
     val_valid,
     val
 );
@@ -27,7 +27,7 @@ output reg           ena;
 output reg           rng_valid;
 output reg   [127:0] rng;
   
-input                extract;
+input                rng_extract;
 input                val_valid;
 input signed [31:0]  val;
 
@@ -127,7 +127,7 @@ task wait_out_task; begin
 			repeat(2) @(negedge clk);
 			$finish;
 		end
-		if (extract) begin
+		if (rng_extract) begin
 			// shake256_delay = $urandom_range(2, 4);
 			shake256_delay = 0;
 			fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);
@@ -174,7 +174,7 @@ task check_ans_task; begin
                 repeat(2) @(negedge clk);
                 $finish;
 		end
-		if (extract) begin
+		if (rng_extract) begin
 			// shake256_delay = $urandom_range(2, 4);
 			shake256_delay = 0;
 			fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);

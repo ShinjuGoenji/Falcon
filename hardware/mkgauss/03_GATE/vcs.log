@@ -6,7 +6,7 @@ Command: vcs -timescale=1ns/1fs -j4 -sverilog +v2k -full64 -Mupdate -R -debug_ac
 ../03_GATE/TSMC40/sc9_cln40g_base_lvt_udp.v +define+GATE +neg_tchk
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Tue Jul 15 13:52:33 2025
+         Version T-2022.06_Full64 -- Tue Jul 15 14:02:02 2025
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -4108,7 +4108,7 @@ Warning-[DDTC] Duplicate Timing Check is disabled
    ***    Turnoff delay: "FROM_FILE"
    ***    Approximation (mipd) policy: "MAXIMUM"
 
-   ***    SDF annotation begin: Tue Jul 15 13:52:35 2025
+   ***    SDF annotation begin: Tue Jul 15 14:02:04 2025
 
 
 SDF Info: +pulse_r/100, +pulse_e/100 in effect
@@ -4131,7 +4131,7 @@ module: DFFRPQ_X2M_A9TH, "instance: TESTBED.u_MKGAUSS.val_valid_reg"
 
 Warning-[SDFCOM_CFTC] Cannot find timing check 
 MKGAUSS_SYN.sdf, 17659
-module: DFFRPQ_X2M_A9TH, "instance: TESTBED.u_MKGAUSS.extract_reg"
+module: DFFRPQ_X2M_A9TH, "instance: TESTBED.u_MKGAUSS.rng_extract_reg"
   SDF Warning: Cannot find timing check $hold(posedge CK &&& 
   (ENABLE_D==1'h1),negedge R,...)
       
@@ -4196,7 +4196,7 @@ module: DFFRPQ_X2M_A9TL, "instance: TESTBED.u_MKGAUSS.val_reg_25_"
 
           Total errors: 0
           Total warnings: 37
-   ***    SDF annotation completed: Tue Jul 15 13:52:35 2025
+   ***    SDF annotation completed: Tue Jul 15 14:02:04 2025
 
 
 
@@ -4210,8 +4210,10 @@ Note-[VCS_PARAL] Parallel code-gen enabled
   VCS is running with parallel code generation(-j)...
 
 2095 modules and 11 UDPs read.
+recompiling module MKGAUSS
 recompiling module PATTERN
-	However, due to incremental compilation, only 1 module needs to be compiled. 
+recompiling module TESTBED
+	However, due to incremental compilation, only 3 modules need to be compiled. 
 make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/mkgauss/03_GATE/csrc' \
 
 rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
@@ -4220,32 +4222,24 @@ rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
--Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _28616_archive_1.so _prev_archive_1.so \
-_cuarc0.so objs/udps/gSqMj.o objs/udps/AubIW.o objs/udps/D2wHf.o objs/udps/U7Vwg.o \
-objs/udps/CjLsY.o objs/udps/vCfas.o objs/udps/V6gPN.o objs/udps/sk4QJ.o objs/udps/i2VqJ.o \
-objs/udps/exIG1.o objs/udps/WTP7v.o  SIM_l.o      rmapats_mop.o rmapats.o rmar.o \
-rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc \
--lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile \
--luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o   -Wl,-whole-archive \
--lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o \
-/usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a -ldl -lm  -lc -lpthread \
--ldl 
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _519_archive_1.so _572_archive_1.so \
+_prev_archive_1.so _cuarc0.so objs/udps/gSqMj.o objs/udps/AubIW.o objs/udps/D2wHf.o \
+objs/udps/U7Vwg.o objs/udps/CjLsY.o objs/udps/vCfas.o objs/udps/V6gPN.o objs/udps/sk4QJ.o \
+objs/udps/i2VqJ.o objs/udps/exIG1.o objs/udps/WTP7v.o  SIM_l.o      rmapats_mop.o \
+rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf \
+-lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a   \
+-lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o \
+-Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   \
+/usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a \
+-ldl -lm  -lc -lpthread -ldl 
 ../simv up to date
 make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/mkgauss/03_GATE/csrc' \
 
 Command: /home/daniel_kuo/Falcon/hardware/mkgauss/03_GATE/./simv +v2k -a vcs.log +define+GATE +neg_tchk
 Chronologic VCS simulator copyright 1991-2022
 Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 15 13:52 2025
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 15 14:02 2025
 Doing SDF annotation ...... Done
-*Verdi* Loading libsscore_vcs202206.so
-FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
-(C) 1996 - 2022 by Synopsys, Inc.
-*Verdi* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
-*Verdi* : Create FSDB file 'MKGAUSS_SYN.fsdb'
-*Verdi* : Begin traversing the scopes, layer (0).
-*Verdi* : Enable +mda dumping.
-*Verdi* : End of traversing.
 PASS PATTERN NO.   0
 PASS PATTERN NO.   1
 PASS PATTERN NO.   2
@@ -6257,6 +6251,6 @@ $finish called from file "PATTERN.v", line 199.
 $finish at simulation time             28149000
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 28149000 ps
-CPU Time:      0.990 seconds;       Data structure size:   1.3Mb
-Tue Jul 15 13:52:41 2025
-CPU time: 6.626 seconds to compile + .233 seconds to elab + .432 seconds to link + 1.017 seconds in simulation
+CPU Time:      0.540 seconds;       Data structure size:   1.3Mb
+Tue Jul 15 14:02:11 2025
+CPU time: 8.159 seconds to compile + .233 seconds to elab + .546 seconds to link + .557 seconds in simulation

@@ -1,15 +1,16 @@
 /////////////////////////////////////////////////////////////
 // Created by: Synopsys DC Ultra(TM) in wire load mode
 // Version   : T-2022.03
-// Date      : Tue Jul 15 13:49:19 2025
+// Date      : Tue Jul 15 14:01:55 2025
 /////////////////////////////////////////////////////////////
 
 
-module MKGAUSS ( clk, rst_n, ena, rng_valid, rng, extract, val_valid, val );
+module MKGAUSS ( clk, rst_n, ena, rng_valid, rng, rng_extract, val_valid, val
+ );
   input [127:0] rng;
   output [31:0] val;
   input clk, rst_n, ena, rng_valid;
-  output extract, val_valid;
+  output rng_extract, val_valid;
   wire   n770, n771, n772, n773, n774, n775, n776, n777, n778, n779, n780,
          n781, n782, n783, n784, n785, n786, n787, n788, n789, n790, n791,
          n792, n793, n794, n795, n796, n797, n798, n799, n800, n801, n802,
@@ -181,7 +182,8 @@ module MKGAUSS ( clk, rst_n, ena, rng_valid, rng, extract, val_valid, val );
         cnt_reg[0]) );
   DFFRPQ_X0P5M_A9TH cnt_reg_reg_1_ ( .D(n770), .CK(clk), .R(n805), .Q(
         cnt_reg[1]) );
-  DFFRPQ_X2M_A9TH extract_reg ( .D(n2111), .CK(clk), .R(n805), .Q(extract) );
+  DFFRPQ_X2M_A9TH rng_extract_reg ( .D(n2111), .CK(clk), .R(n805), .Q(
+        rng_extract) );
   DFFRPQ_X2M_A9TH val_valid_reg ( .D(n2112), .CK(clk), .R(n805), .Q(val_valid)
          );
   DFFRPQ_X2M_A9TH val_reg_0_ ( .D(n803), .CK(clk), .R(n805), .Q(val[0]) );

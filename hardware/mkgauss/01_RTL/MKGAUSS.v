@@ -19,7 +19,7 @@ module MKGAUSS #(
     rng_valid,
     rng,
     // Output signals
-    extract,
+    rng_extract,
     val_valid,
     val
 );
@@ -33,7 +33,7 @@ input                     ena;
 input                     rng_valid;
 input             [127:0] rng;
 
-output reg                extract;
+output reg                rng_extract;
 output reg                val_valid;
 output reg signed [31:0]  val;
 
@@ -202,16 +202,16 @@ end
 //---------------------------------------------------------------------
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) 
-        extract <= 0;
+        rng_extract <= 0;
     else begin
         if (ena) begin
             if (rng_valid)
-                extract <= 1;
+                rng_extract <= 1;
             else
-                extract <= 0;
+                rng_extract <= 0;
         end
         else begin
-            extract <= 0;
+            rng_extract <= 0;
         end
     end
 end

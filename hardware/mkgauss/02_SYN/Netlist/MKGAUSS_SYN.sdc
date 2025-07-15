@@ -1,6 +1,6 @@
 ###################################################################
 
-# Created by write_sdc on Tue Jul 15 13:49:19 2025
+# Created by write_sdc on Tue Jul 15 14:01:55 2025
 
 ###################################################################
 set sdc_version 2.1
@@ -9,7 +9,7 @@ set_units -time ns -resistance kOhm -capacitance pF -voltage V -current mA
 set_wire_load_mode top
 set_wire_load_model -name Small -library                                       \
 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
-set_load -pin_load 0.05 [get_ports extract]
+set_load -pin_load 0.05 [get_ports rng_extract]
 set_load -pin_load 0.05 [get_ports val_valid]
 set_load -pin_load 0.05 [get_ports {val[31]}]
 set_load -pin_load 0.05 [get_ports {val[30]}]
@@ -707,8 +707,8 @@ set_input_delay -clock clk  -max 0.85  [get_ports {rng[1]}]
 set_input_delay -clock clk  -min 0  [get_ports {rng[1]}]
 set_input_delay -clock clk  -max 0.85  [get_ports {rng[0]}]
 set_input_delay -clock clk  -min 0  [get_ports {rng[0]}]
-set_output_delay -clock clk  -max 0.85  [get_ports extract]
-set_output_delay -clock clk  -min 0  [get_ports extract]
+set_output_delay -clock clk  -max 0.85  [get_ports rng_extract]
+set_output_delay -clock clk  -min 0  [get_ports rng_extract]
 set_output_delay -clock clk  -max 0.85  [get_ports val_valid]
 set_output_delay -clock clk  -min 0  [get_ports val_valid]
 set_output_delay -clock clk  -max 0.85  [get_ports {val[31]}]

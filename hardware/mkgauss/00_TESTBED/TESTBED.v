@@ -18,7 +18,7 @@ wire                ena;
 wire                rng_valid;
 wire        [127:0] rng;
 
-wire                extract;
+wire                rng_extract;
 wire                val_valid;
 wire signed [31:0]  val;
 
@@ -46,7 +46,7 @@ end
     .ena(ena),
     .rng_valid(rng_valid),
     .rng(rng),
-    .extract(extract),
+    .rng_extract(rng_extract),
     .val_valid(val_valid),
     .val(val)
     );
@@ -57,7 +57,7 @@ end
     .ena(ena),
     .rng_valid(rng_valid),
     .rng(rng),
-    .extract(extract),
+    .rng_extract(rng_extract),
     .val_valid(val_valid),
     .val(val)
     );
@@ -69,7 +69,7 @@ PATTERN u_PATTERN(
     .ena(ena),
     .rng_valid(rng_valid),
     .rng(rng),
-    .extract(extract),
+    .rng_extract(rng_extract),
     .val_valid(val_valid),
     .val(val)
     );
