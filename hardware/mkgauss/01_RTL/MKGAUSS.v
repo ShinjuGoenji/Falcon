@@ -8,7 +8,6 @@
  * values of standard deviation sigma has standard deviation
  * sigma*sqrt(2), then we can just generate more values and add them
  * together for lower dimensions.
- * @param 
  */
 module MKGAUSS #(
     parameter [3:0] logn = 9
