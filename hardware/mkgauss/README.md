@@ -11,10 +11,11 @@ module MKGAUSS #(
     // Input signals
     clk,
     rst_n,
-    r_valid,
-    r1,
-    r2,
+    ena,
+    rng_valid,
+    rng,
     // Output signals
+    extract,
     val_valid,
     val
 );
