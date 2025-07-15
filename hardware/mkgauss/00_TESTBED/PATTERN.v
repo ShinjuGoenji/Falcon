@@ -9,8 +9,7 @@ module PATTERN(
     // Output signals
     clk,
     rst_n,
-    r1_valid,
-    r2_valid,
+    r_valid,
     r1,
     r2,
     // Input signals
@@ -23,8 +22,7 @@ module PATTERN(
 //---------------------------------------------------------------------
 output reg            clk;
 output reg            rst_n;
-output reg            r1_valid;
-output reg            r2_valid;
+output reg            r_valid;
 output reg   [63:0]   r1;
 output reg   [63:0]   r2;
   
@@ -86,8 +84,7 @@ end
 //---------------------------------------------------------------------
 task reset_task; begin 
     rst_n = 'b1;
-    r1_valid = 'b0;
-    r2_valid = 'b0;
+    r_valid = 'b0;
     r1 = 'bx;
     r2 = 'bx;
 	
@@ -110,28 +107,24 @@ task input_task; begin
 	fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);	
 	fscanf_int = $fscanf(file_out, "%d", golden_val);	
 	@(negedge clk);
-	r1_valid = 'b1;
+	r_valid = 'b1;
 	r1 = rng_1;
-	r2_valid = 'b1;
 	r2 = rng_2;
 	check_out_valid_task;
 	@(negedge clk);
-    r1_valid = 'b0;
-    r2_valid = 'b0;
+    r_valid = 'b0;
     r1 = 'bx;
     r2 = 'bx;
 	check_out_valid_task;
 	@(negedge clk);
 	fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);
-	r1_valid = 'b1;
+	r_valid = 'b1;
 	r1 = rng_1;
-	r2_valid = 'b1;
 	r2 = rng_2;
 	check_out_valid_task;
 	@(negedge clk);
 		
-    r1_valid = 'b0;
-    r2_valid = 'b0;
+    r_valid = 'b0;
     r1 = 'bx;
     r2 = 'bx;
 	// @(negedge clk);

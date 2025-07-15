@@ -11,8 +11,7 @@ module MKGAUSS #(
     // Input signals
     clk,
     rst_n,
-    r1_valid,
-    r2_valid,
+    r_valid,
     r1,
     r2,
     // Output signals

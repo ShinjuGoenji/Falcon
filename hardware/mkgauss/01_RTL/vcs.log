@@ -4,7 +4,7 @@ vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/
 +define+RTL +define+ +notimingchecks
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Tue Jul 15 07:08:40 2025
+         Version T-2022.06_Full64 -- Tue Jul 15 11:52:07 2025
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -46,7 +46,7 @@ rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
--Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _13874_archive_1.so _13891_archive_1.so \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _17844_archive_1.so _17862_archive_1.so \
 _prev_archive_1.so _cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o \
 rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs \
 /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile \
@@ -60,10 +60,11 @@ make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/mkgauss/01_RTL/csrc
 Command: /home/daniel_kuo/Falcon/hardware/mkgauss/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
 Chronologic VCS simulator copyright 1991-2022
 Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 15 07:08 2025
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 15 11:52 2025
 *Verdi* Loading libsscore_vcs202206.so
 FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 (C) 1996 - 2022 by Synopsys, Inc.
+*Verdi* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
 *Verdi* : Create FSDB file 'MKGAUSS.fsdb'
 *Verdi* : Begin traversing the scopes, layer (0).
 *Verdi* : Enable +mda dumping.
@@ -2075,10 +2076,10 @@ PASS PATTERN NO.1999
                   Your clock period = 2.0 ns                       
                   Total Latency = 4000.0 ns                           
 --------------------------------------------------------------------
-$finish called from file "PATTERN.v", line 193.
+$finish called from file "PATTERN.v", line 186.
 $finish at simulation time              3214900
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 32149000 ps
-CPU Time:      0.280 seconds;       Data structure size:   0.0Mb
-Tue Jul 15 07:08:41 2025
-CPU time: .207 seconds to compile + .173 seconds to elab + .150 seconds to link + .301 seconds in simulation
+CPU Time:      0.290 seconds;       Data structure size:   0.0Mb
+Tue Jul 15 11:52:09 2025
+CPU time: .185 seconds to compile + .231 seconds to elab + .160 seconds to link + .312 seconds in simulation

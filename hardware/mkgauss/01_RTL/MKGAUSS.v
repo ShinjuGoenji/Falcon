@@ -1,4 +1,5 @@
 /*
+ * The implementation of KECCAK-f permutation function.
  * Generate a random value with a Gaussian distribution centered on 0.
  * The RNG must be ready for extraction (already flipped).
  *
@@ -7,6 +8,7 @@
  * values of standard deviation sigma has standard deviation
  * sigma*sqrt(2), then we can just generate more values and add them
  * together for lower dimensions.
+ * @param 
  */
 module MKGAUSS #(
     parameter [3:0] logn = 9
@@ -14,8 +16,7 @@ module MKGAUSS #(
     // Input signals
     clk,
     rst_n,
-    r1_valid,
-    r2_valid,
+    r_valid,
     r1,
     r2,
     // Output signals
@@ -28,8 +29,7 @@ module MKGAUSS #(
 //---------------------------------------------------------------------
 input                    clk;
 input                    rst_n;
-input                    r1_valid;
-input                    r2_valid;
+input                    r_valid;
 input             [63:0] r1;
 input             [63:0] r2;
 
@@ -39,11 +39,7 @@ output reg signed [31:0] val;
 //---------------------------------------------------------------------
 //   Parameter & Integer
 //---------------------------------------------------------------------
-localparam G = 1 << (10 - logn);
-
-// Each sample requires 2 RNG values, so we need 2*G cycles.
-localparam CYCLE_COUNT_WIDTH = $clog2(2 * G) + 1;
-localparam GAUSS_TABLE_SIZE = 27;
+localparam g = 1 << (10 - logn);
 
 /*
  * Table below incarnates a discrete Gaussian distribution:
@@ -53,6 +49,7 @@ localparam GAUSS_TABLE_SIZE = 27;
  * For k > 0, element k is P(x >= k+1 | x > 0).
  * Probabilities are scaled up by 2^63.
  */
+localparam GAUSS_TABLE_SIZE = 27;
 localparam [63:0] GAUSS_1024_12289 [0:GAUSS_TABLE_SIZE-1] = {
   64'd1283868770400643928, 64'd6416574995475331444, 64'd4078260278032692663,
   64'd2353523259288686585, 64'd1227179971273316331, 64'd575931623374121527,
@@ -80,7 +77,7 @@ reg signed [31:0] _v, v;
 //   FSM
 //---------------------------------------------------------------------
 always @(*) begin
-    if (r1_valid)
+    if (r_valid)
         cnt = cnt_reg + 1;
     else if (val_valid)
         cnt = 0;
@@ -198,7 +195,7 @@ always @(posedge clk or negedge rst_n) begin
     if (!rst_n) 
         val_valid <= 0;
     else begin
-        if (cnt_reg == 1 && r1_valid)
+        if (cnt_reg == (g - 1) && r_valid)
             val_valid <= 1;
         else
             val_valid <= 0;
@@ -209,7 +206,7 @@ always @(posedge clk or negedge rst_n) begin
     if (!rst_n) 
         val <= 0;
     else begin
-        if (r1_valid)
+        if (r_valid)
             val <= v;
         else if (val_valid)
             val <= 0;

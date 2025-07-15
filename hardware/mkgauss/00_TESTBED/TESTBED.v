@@ -14,8 +14,7 @@ module TESTBED;
 //================================================================
 wire               clk;
 wire               rst_n;
-wire               r1_valid;
-wire               r2_valid;
+wire               r_valid;
 wire        [63:0] r1;
 wire        [63:0] r2;
 
@@ -43,9 +42,8 @@ end
     MKGAUSS u_MKGAUSS(
     .clk(clk),
     .rst_n(rst_n),
-    .r1_valid(r1_valid),
+    .r_valid(r_valid),
     .r1(r1),
-    .r2_valid(r2_valid),
     .r2(r2),
     .val_valid(val_valid),
     .val(val)
@@ -54,9 +52,8 @@ end
     MKGAUSS u_MKGAUSS(
     .clk(clk),
     .rst_n(rst_n),
-    .r1_valid(r1_valid),
+    .r_valid(r_valid),
     .r1(r1),
-    .r2_valid(r2_valid),
     .r2(r2),
     .val_valid(val_valid),
     .val(val)
@@ -66,9 +63,8 @@ end
 PATTERN u_PATTERN(
     .clk(clk),
     .rst_n(rst_n),
-    .r1_valid(r1_valid),
+    .r_valid(r_valid),
     .r1(r1),
-    .r2_valid(r2_valid),
     .r2(r2),
     .val_valid(val_valid),
     .val(val)
