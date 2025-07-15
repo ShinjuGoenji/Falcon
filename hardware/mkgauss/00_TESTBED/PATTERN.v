@@ -73,6 +73,7 @@ initial begin
 	fscanf_int = $fscanf(file_num, "%d", PAT_NUM);	
 	fscanf_int = $fscanf(file_in, "%d %d", rng_1, rng_2);	
 	shake256_delay = 0;
+	ena = 0;
 	check_shake256_extract_task;
 	repeat(4) @(negedge clk);
 	for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1)begin
