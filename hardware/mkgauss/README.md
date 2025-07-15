@@ -31,5 +31,6 @@ module MKGAUSS #(
 |:-----:|:-----:|:-----:|
 | 1.7ns |       |       |
 
-## Optimization
+## Future Optimization
 1. use pdt for N=512 instead of iterate 2 times with N=1024
+2. adjust bit width
