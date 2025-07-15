@@ -3,7 +3,7 @@
 Report : area
 Design : MKGAUSS
 Version: T-2022.03
-Date   : Tue Jul 15 07:38:12 2025
+Date   : Tue Jul 15 10:25:10 2025
 ****************************************
 
 Library(s) Used:
@@ -12,21 +12,21 @@ Library(s) Used:
     sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
 
-Number of ports:                          165
+Number of ports:                          164
 Number of nets:                          1726
 Number of cells:                         1599
 Number of combinational cells:           1564
 Number of sequential cells:                35
 Number of macros/black boxes:               0
 Number of buf/inv:                        528
-Number of references:                     308
+Number of references:                     306
 
-Combinational area:               3023.470786
-Buf/Inv area:                      810.583201
-Noncombinational area:             184.388403
+Combinational area:               3023.017187
+Buf/Inv area:                      810.810001
+Noncombinational area:             186.202804
 Macro/Black Box area:                0.000000
 Net Interconnect area:               0.000000
 
-Total cell area:                  3207.859189
-Total area:                       3207.859189
+Total cell area:                  3209.219991
+Total area:                       3209.219991
 1

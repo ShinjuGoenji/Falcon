@@ -4,7 +4,7 @@ Information: Updating design information... (UID-85)
 Report : design
 Design : MKGAUSS
 Version: T-2022.03
-Date   : Tue Jul 15 07:38:12 2025
+Date   : Tue Jul 15 10:25:10 2025
 ****************************************
 
 Design allows ideal nets on clock nets.

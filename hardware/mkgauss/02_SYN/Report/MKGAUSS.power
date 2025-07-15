@@ -4,7 +4,7 @@ Report : power
         -analysis_effort low
 Design : MKGAUSS
 Version: T-2022.03
-Date   : Tue Jul 15 07:38:12 2025
+Date   : Tue Jul 15 10:25:10 2025
 ****************************************
 
 
@@ -37,12 +37,12 @@ Attributes
 i - Including register clock pin internal power
 
 
-  Cell Internal Power  = 297.0296 uW   (63%)
-  Net Switching Power  = 175.4447 uW   (37%)
+  Cell Internal Power  = 296.3696 uW   (63%)
+  Net Switching Power  = 171.7833 uW   (37%)
                          ---------
-Total Dynamic Power    = 472.4744 uW  (100%)
+Total Dynamic Power    = 468.1529 uW  (100%)
 
-Cell Leakage Power     = 129.7702 uW
+Cell Leakage Power     = 129.9797 uW
 
 
                  Internal         Switching           Leakage            Total
@@ -51,10 +51,10 @@ Power Group      Power            Power               Power              Power  
 io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
-clock_network  6.7795e-02            0.0000            0.0000            0.0000  (   0.00%)  i
-register       5.1099e-03        4.1293e-03            3.1882        8.0222e-02  (  13.32%)
+clock_network  6.8511e-02            0.0000            0.0000            0.0000  (   0.00%)  i
+register       5.1444e-03        3.8653e-03            3.8256        8.1346e-02  (  13.60%)
 sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational      0.2241            0.1713          126.5807            0.5220  (  86.68%)
+combinational      0.2227            0.1679          126.1527            0.5168  (  86.40%)
 --------------------------------------------------------------------------------------------------
-Total              0.2970 mW         0.1754 mW       129.7689 uW         0.6022 mW
+Total              0.2964 mW         0.1718 mW       129.9783 uW         0.5981 mW
 1
