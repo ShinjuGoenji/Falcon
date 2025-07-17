@@ -1,0 +1,257 @@
+Command: vcs -timescale=1ns/1fs -j4 -sverilog +v2k -full64 -Mupdate -R -debug_access+all \
+-y /usr/cad/synopsys/synthesis/cur/dw/sim_ver/ +libext+.v -f filelist.f -o simv -l \
+vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a \
++define+RTL +define+ +notimingchecks
+*** Using c compiler gcc instead of cc ...
+                         Chronologic VCS (TM)
+         Version T-2022.06_Full64 -- Thu Jul 17 23:22:57 2025
+
+                    Copyright (c) 1991 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file 'TESTBED.v'
+Parsing included file 'PATTERN.v'.
+Back to file 'TESTBED.v'.
+Parsing included file 'POLY_SMALL_SQNORM.v'.
+Back to file 'TESTBED.v'.
+Top Level Modules:
+       TESTBED
+TimeScale is 1 ns / 10 ps
+Starting vcs inline pass...
+
+
+Note-[VCS_PARAL] Parallel code-gen enabled
+  VCS is running with parallel code generation(-j)...
+
+1 module and 0 UDP read.
+recompiling module TESTBED
+make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/poly_small_sqnorm/01_RTL/csrc' \
+
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
+rm -f _cuarc0.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
+-Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _29879_archive_1.so _29896_archive_1.so \
+_prev_archive_1.so _cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o \
+rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs \
+/usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile \
+-luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o   -Wl,-whole-archive \
+-lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o \
+/usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a -ldl -lm  -lc -lpthread \
+-ldl 
+../simv up to date
+make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/poly_small_sqnorm/01_RTL/csrc' \
+
+Command: /home/daniel_kuo/Falcon/hardware/poly_small_sqnorm/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
+Chronologic VCS simulator copyright 1991-2022
+Contains Synopsys proprietary information.
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 17 23:22 2025
+*Verdi* Loading libsscore_vcs202206.so
+FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
+(C) 1996 - 2022 by Synopsys, Inc.
+*Verdi* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi* : Create FSDB file 'POLY_SMALL_SQNORM.fsdb'
+*Verdi* : Begin traversing the scopes, layer (0).
+*Verdi* : Enable +mda dumping.
+*Verdi* : End of traversing.
+PASS PATTERN NO.  0
+PASS PATTERN NO.  1
+PASS PATTERN NO.  2
+PASS PATTERN NO.  3
+PASS PATTERN NO.  4
+PASS PATTERN NO.  5
+PASS PATTERN NO.  6
+PASS PATTERN NO.  7
+PASS PATTERN NO.  8
+PASS PATTERN NO.  9
+PASS PATTERN NO. 10
+PASS PATTERN NO. 11
+PASS PATTERN NO. 12
+PASS PATTERN NO. 13
+PASS PATTERN NO. 14
+PASS PATTERN NO. 15
+PASS PATTERN NO. 16
+PASS PATTERN NO. 17
+PASS PATTERN NO. 18
+PASS PATTERN NO. 19
+PASS PATTERN NO. 20
+PASS PATTERN NO. 21
+PASS PATTERN NO. 22
+PASS PATTERN NO. 23
+PASS PATTERN NO. 24
+PASS PATTERN NO. 25
+PASS PATTERN NO. 26
+PASS PATTERN NO. 27
+PASS PATTERN NO. 28
+PASS PATTERN NO. 29
+PASS PATTERN NO. 30
+PASS PATTERN NO. 31
+PASS PATTERN NO. 32
+PASS PATTERN NO. 33
+PASS PATTERN NO. 34
+PASS PATTERN NO. 35
+PASS PATTERN NO. 36
+PASS PATTERN NO. 37
+PASS PATTERN NO. 38
+PASS PATTERN NO. 39
+PASS PATTERN NO. 40
+PASS PATTERN NO. 41
+PASS PATTERN NO. 42
+PASS PATTERN NO. 43
+PASS PATTERN NO. 44
+PASS PATTERN NO. 45
+PASS PATTERN NO. 46
+PASS PATTERN NO. 47
+PASS PATTERN NO. 48
+PASS PATTERN NO. 49
+PASS PATTERN NO. 50
+PASS PATTERN NO. 51
+PASS PATTERN NO. 52
+PASS PATTERN NO. 53
+PASS PATTERN NO. 54
+PASS PATTERN NO. 55
+PASS PATTERN NO. 56
+PASS PATTERN NO. 57
+PASS PATTERN NO. 58
+PASS PATTERN NO. 59
+PASS PATTERN NO. 60
+PASS PATTERN NO. 61
+PASS PATTERN NO. 62
+PASS PATTERN NO. 63
+PASS PATTERN NO. 64
+PASS PATTERN NO. 65
+PASS PATTERN NO. 66
+PASS PATTERN NO. 67
+PASS PATTERN NO. 68
+PASS PATTERN NO. 69
+PASS PATTERN NO. 70
+PASS PATTERN NO. 71
+PASS PATTERN NO. 72
+PASS PATTERN NO. 73
+PASS PATTERN NO. 74
+PASS PATTERN NO. 75
+PASS PATTERN NO. 76
+PASS PATTERN NO. 77
+PASS PATTERN NO. 78
+PASS PATTERN NO. 79
+PASS PATTERN NO. 80
+PASS PATTERN NO. 81
+PASS PATTERN NO. 82
+PASS PATTERN NO. 83
+PASS PATTERN NO. 84
+PASS PATTERN NO. 85
+PASS PATTERN NO. 86
+PASS PATTERN NO. 87
+PASS PATTERN NO. 88
+PASS PATTERN NO. 89
+PASS PATTERN NO. 90
+PASS PATTERN NO. 91
+PASS PATTERN NO. 92
+PASS PATTERN NO. 93
+PASS PATTERN NO. 94
+PASS PATTERN NO. 95
+PASS PATTERN NO. 96
+PASS PATTERN NO. 97
+PASS PATTERN NO. 98
+PASS PATTERN NO. 99
+PASS PATTERN NO.100
+PASS PATTERN NO.101
+PASS PATTERN NO.102
+PASS PATTERN NO.103
+PASS PATTERN NO.104
+PASS PATTERN NO.105
+PASS PATTERN NO.106
+PASS PATTERN NO.107
+PASS PATTERN NO.108
+PASS PATTERN NO.109
+PASS PATTERN NO.110
+PASS PATTERN NO.111
+PASS PATTERN NO.112
+PASS PATTERN NO.113
+PASS PATTERN NO.114
+PASS PATTERN NO.115
+PASS PATTERN NO.116
+PASS PATTERN NO.117
+PASS PATTERN NO.118
+PASS PATTERN NO.119
+PASS PATTERN NO.120
+PASS PATTERN NO.121
+PASS PATTERN NO.122
+PASS PATTERN NO.123
+PASS PATTERN NO.124
+PASS PATTERN NO.125
+PASS PATTERN NO.126
+PASS PATTERN NO.127
+PASS PATTERN NO.128
+PASS PATTERN NO.129
+PASS PATTERN NO.130
+PASS PATTERN NO.131
+PASS PATTERN NO.132
+PASS PATTERN NO.133
+PASS PATTERN NO.134
+PASS PATTERN NO.135
+PASS PATTERN NO.136
+PASS PATTERN NO.137
+PASS PATTERN NO.138
+PASS PATTERN NO.139
+PASS PATTERN NO.140
+PASS PATTERN NO.141
+PASS PATTERN NO.142
+PASS PATTERN NO.143
+PASS PATTERN NO.144
+PASS PATTERN NO.145
+PASS PATTERN NO.146
+PASS PATTERN NO.147
+PASS PATTERN NO.148
+PASS PATTERN NO.149
+PASS PATTERN NO.150
+PASS PATTERN NO.151
+PASS PATTERN NO.152
+PASS PATTERN NO.153
+PASS PATTERN NO.154
+PASS PATTERN NO.155
+PASS PATTERN NO.156
+PASS PATTERN NO.157
+PASS PATTERN NO.158
+PASS PATTERN NO.159
+PASS PATTERN NO.160
+PASS PATTERN NO.161
+PASS PATTERN NO.162
+PASS PATTERN NO.163
+PASS PATTERN NO.164
+PASS PATTERN NO.165
+PASS PATTERN NO.166
+PASS PATTERN NO.167
+PASS PATTERN NO.168
+PASS PATTERN NO.169
+PASS PATTERN NO.170
+PASS PATTERN NO.171
+--------------------------------------------------------------------
+                         Congratulations!                           
+                  You have passed all patterns!                     
+                  Your execution cycles = 88064 cycles                
+                  Your clock period = 2.0 ns                       
+                  Total Latency = 176128.0 ns                           
+--------------------------------------------------------------------
+$finish called from file "PATTERN.v", line 180.
+$finish at simulation time             17789300
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 177893000 ps
+CPU Time:      0.480 seconds;       Data structure size:   0.0Mb
+Thu Jul 17 23:22:59 2025
+CPU time: .181 seconds to compile + .156 seconds to elab + .116 seconds to link + .504 seconds in simulation
