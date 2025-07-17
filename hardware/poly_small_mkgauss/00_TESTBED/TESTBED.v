@@ -41,8 +41,8 @@ initial begin
     $fsdbDumpvars(0,"+mda");
   `elsif GATE
     $sdf_annotate("POLY_SMALL_MKGAUSS_SYN.sdf",u_POLY_SMALL_MKGAUSS);
-    $fsdbDumpfile("POLY_SMALL_MKGAUSS_SYN.fsdb");
-    $fsdbDumpvars(0,"+mda");
+    // $fsdbDumpfile("POLY_SMALL_MKGAUSS_SYN.fsdb");
+    // $fsdbDumpvars(0,"+mda");
   `endif
 end
 
