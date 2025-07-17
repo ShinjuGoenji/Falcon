@@ -21,7 +21,7 @@ analyze -f sverilog $DESIGN\.v
 elaborate $DESIGN  
 
 # (B-2) read_sverilog
-read_sverilog $DESIGN\.v
+# read_sverilog $DESIGN\.v
 
 # (B-3) set current design
 current_design $DESIGN
