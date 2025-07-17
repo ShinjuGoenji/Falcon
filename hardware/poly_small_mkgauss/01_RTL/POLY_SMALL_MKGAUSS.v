@@ -1,4 +1,4 @@
-`include "MKGAUSS.v"
+ `include "MKGAUSS.v"
 
 /*
  * Generate a random polynomial with a Gaussian distribution. This function
@@ -27,6 +27,14 @@ localparam n = 1 << (logn);
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
+/**
+ * @input   ena             Enable signal of this module.
+ * @input   rng_valid       Valid signal from RNG.
+ * @input   rng             Two 64-bit random numbers from random number generator.
+ * @output  rng_extract     Response signal to RNG.
+ * @output  f_valid         Valid signal of output f.
+ * @output  f               Output array with n 8-bit signed elements (registered).
+ */
 input                     clk;
 input                     rst_n;
 input                     ena;
@@ -98,6 +106,11 @@ always @(*) begin
         _mkgauss_ena = 0;
 end
 
+/*
+ * We need the sum of all coefficients to be 1; otherwise,
+ * the resultant of the polynomial with X^N+1 will be even,
+ * and the binary GCD will fail.
+ */
 always @(*) begin
     if (ena) begin
         if (s_valid)
