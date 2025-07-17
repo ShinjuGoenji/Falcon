@@ -1,0 +1,1 @@
+../02_SYN/Netlist/POLY_SMALL_MKGAUSS_SYN.v
