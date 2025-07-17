@@ -1,0 +1,725 @@
+#======================================================
+#
+# Synopsys Synthesis Scripts (Design Vision dctcl mode)
+#
+#======================================================
+#======================================================
+# (A) Global Parameters
+#======================================================
+set DESIGN "POLY_SMALL_MKGAUSS"
+POLY_SMALL_MKGAUSS
+set CYCLE 2.0
+2.0
+set INPUT_DLY [expr 0.5*$CYCLE]
+1.0
+set OUTPUT_DLY [expr 0.5*$CYCLE]
+1.0
+#======================================================
+# (B) Read RTL Code
+#======================================================
+# (B-1) analyze + elaborate
+set hdlin_auto_save_templates TRUE
+TRUE
+analyze -f sverilog $DESIGN\.v 
+Running PRESTO HDLC
+Compiling source file ../01_RTL/POLY_SMALL_MKGAUSS.v
+Opening include file ../01_RTL/MKGAUSS.v
+Presto compilation completed successfully.
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/standard.sldb'
+1
+elaborate $DESIGN  
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db'
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb'
+  Loading link library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+Warning:  ../01_RTL/POLY_SMALL_MKGAUSS.v:72: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/POLY_SMALL_MKGAUSS.v:92: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/POLY_SMALL_MKGAUSS.v:104: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/POLY_SMALL_MKGAUSS.v:139: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/POLY_SMALL_MKGAUSS.v:160: unsigned to signed assignment occurs. (VER-318)
+
+Inferred memory devices in process
+        in routine POLY_SMALL_MKGAUSS line 118 in file
+                '../01_RTL/POLY_SMALL_MKGAUSS.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    mod2_reg_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine POLY_SMALL_MKGAUSS line 134 in file
+                '../01_RTL/POLY_SMALL_MKGAUSS.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     f_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine POLY_SMALL_MKGAUSS line 154 in file
+                '../01_RTL/POLY_SMALL_MKGAUSS.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|        f_reg        | Flip-flop | 4096  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (POLY_SMALL_MKGAUSS)
+Elaborated 1 design.
+Current design is now 'POLY_SMALL_MKGAUSS'.
+Information: Building the design 'MKGAUSS'. (HDL-193)
+Warning:  ../01_RTL/MKGAUSS.v:83: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/MKGAUSS.v:236: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 142 in file
+        '../01_RTL/MKGAUSS.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           143            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine MKGAUSS line 203 in file
+                '../01_RTL/MKGAUSS.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     cnt_reg_reg     | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MKGAUSS line 215 in file
+                '../01_RTL/MKGAUSS.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   rng_extract_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MKGAUSS line 231 in file
+                '../01_RTL/MKGAUSS.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    val_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MKGAUSS line 247 in file
+                '../01_RTL/MKGAUSS.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       val_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (MKGAUSS)
+1
+# (B-2) read_sverilog
+# read_sverilog $DESIGN\.v
+# (B-3) set current design
+current_design $DESIGN
+Current design is 'POLY_SMALL_MKGAUSS'.
+{POLY_SMALL_MKGAUSS}
+link
+
+  Linking design 'POLY_SMALL_MKGAUSS'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (2 designs)               /home/daniel_kuo/Falcon/hardware/poly_small_mkgauss/02_SYN/POLY_SMALL_MKGAUSS.db, etc
+  sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db
+  dw_foundation.sldb (library) /usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb
+
+1
+#======================================================
+#  (C) Global Setting
+#======================================================
+set_wire_load_mode top
+1
+# set_operating_conditions -max WCCOM -min BCCOM
+# set_wire_load_model -name umc18_wl10 -library slow
+#======================================================
+#  (D) Set Design Constraints
+#======================================================
+# (D-1) Setting Clock Constraints
+create_clock -name clk -period $CYCLE [get_ports clk] 
+1
+set_dont_touch_network             [get_clocks clk]
+1
+set_fix_hold                       [get_clocks clk]
+1
+set_clock_uncertainty       0.1    [get_clocks clk]
+1
+# set_clock_latency   -source 0      [get_clocks clk]
+# set_clock_latency           1      [get_clocks clk] 
+set_input_transition        0.5    [all_inputs] 
+1
+set_clock_transition        0.1    [all_clocks] 
+1
+# (D-2) Setting in/out Constraints
+set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
+1
+set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
+1
+set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time check 
+1
+set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
+1
+set_input_delay 0 -clock clk clk
+1
+set_input_delay 0 -clock clk rst_n
+1
+#set_max_delay $CYCLE -from [all_inputs] -to [all_outputs]
+# (D-3) Setting Design Environment
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [get_ports clk]
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [remove_from_collection [all_inputs] [get_ports clk]]
+# set_load  [load_of "umc18io3v5v_slow/P8C/A"]       [all_outputs] ; # ~= 0.038
+set_load 0.05 [all_outputs]
+1
+# (D-4) Setting DRC Constraint
+#set_max_delay           0     ; # Optimize delay max effort                 
+#set_max_area            0      ; # Optimize area max effort           
+set_max_transition      3       [all_inputs]   ; # U18 LUT Max Transition Value  
+1
+set_max_capacitance     0.15    [all_inputs]   ; # U18 LUT Max Capacitance Value
+1
+set_max_fanout          10      [all_inputs]
+1
+# set_dont_use slow/JKFF*
+#set_dont_touch [get_cells core_reg_macro]
+#set hdlin_ff_always_sync_set_reset true
+# (D-5) Report Clock skew
+report_clock -skew clk
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Information: Updating design information... (UID-85)
+Warning: Design 'POLY_SMALL_MKGAUSS' contains 5 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : clock_skew
+Design : POLY_SMALL_MKGAUSS
+Version: T-2022.03
+Date   : Thu Jul 17 14:23:37 2025
+****************************************
+
+                 Rise      Fall  Min Rise  Min fall        Uncertainty
+Object          Delay     Delay     Delay     Delay     Plus      Minus
+--------------------------------------------------------------------------------
+clk                 -         -         -         -      0.10      0.10
+
+                 Max Transition      Min Transition
+Object           Rise      Fall      Rise      Fall
+-------------------------------------------------------
+clk              0.10      0.10      0.10      0.10
+1
+check_timing
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+#======================================================
+#  (E) Optimization
+#======================================================
+check_design > Report/$DESIGN\.check
+set_fix_multiple_port_nets -all -buffer_constants [get_designs *]
+1
+set_fix_hold [all_clocks]
+1
+compile_ultra
+Information: Performing power optimization. (PWR-850)
+Alib files are up-to-date.
+Information: Running optimization using a maximum of 4 cores. (OPT-1500)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | S-2021.06-DWBB_202106.0 |     *     |
+| Licensed DW Building Blocks        | S-2021.06-DWBB_202106.0 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT WLM                                                           |
+| Comand line  | compile_ultra                                                                     |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 12267                                  |
+| Number of User Hierarchies                              | 1                                      |
+| Sequential Cell Count                                   | 4143                                   |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 1157                                   |
+| Number of Dont Touch nets                               | 2                                      |
+| Number of size only cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 30 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+  Simplifying Design 'POLY_SMALL_MKGAUSS'
+
+Loaded alib file './alib-52/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+Loaded alib file './alib-52/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db.alib'
+Loaded alib file './alib-52/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+  Building model 'DW01_NAND2'
+Information: Ungrouping 0 of 2 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+.
+  Processing 'POLY_SMALL_MKGAUSS'
+ Implement Synthetic for 'POLY_SMALL_MKGAUSS'.
+  Processing 'MKGAUSS'
+Information: Added key list 'DesignWare' to design 'MKGAUSS'. (DDB-72)
+ Implement Synthetic for 'MKGAUSS'.
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIELO_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+Information: The register 'u_MKGAUSS/cnt_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Information: Added key list 'DesignWare' to design 'POLY_SMALL_MKGAUSS'. (DDB-72)
+Information: Ungrouping hierarchy u_MKGAUSS 'MKGAUSS' #insts = 998. (OPT-777)
+  Mapping Optimization (Phase 1)
+  Mapping Optimization (Phase 2)
+  Mapping Optimization (Phase 3)
+  Mapping Optimization (Phase 4)
+  Mapping Optimization (Phase 5)
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:01:06   54967.9      0.40      12.0      18.0                            350.8697      0.00  
+    0:01:06   54852.3      0.45      13.4      14.0                            350.0153      0.00  
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    0:01:07   55002.6      0.45      13.4      14.0                            351.8226      0.00  
+    0:01:07   55002.6      0.45      13.4      14.0                            351.8226      0.00  
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+  Mapping 'POLY_SMALL_MKGAUSS_DP_OP_59_126_4390_7'
+Information: The register 'u_MKGAUSS/val_reg[31]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[30]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[29]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[28]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[27]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[26]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[25]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[24]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[23]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[22]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[21]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[20]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[19]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[18]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[17]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[16]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[15]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[14]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[13]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[12]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[11]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[10]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[9]' will be removed. (OPT-1207)
+Information: The register 'u_MKGAUSS/val_reg[8]' will be removed. (OPT-1207)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:01:13   31458.1      0.53       5.7    4406.7                            136.7019      0.00  
+    0:01:14   31802.3      0.30       4.1    4406.7                            139.6151      0.00  
+    0:01:14   31802.3      0.30       4.1    4406.7                            139.6151      0.00  
+    0:01:14   31803.9      0.30       4.1    4406.7                            139.6325      0.00  
+    0:01:15   31802.1      0.30       4.1    4406.7                            139.6186      0.00  
+    0:01:16   31801.4      0.30       4.1    4406.7                            139.6175      0.00  
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:01:27   31472.1      0.30       4.8    4406.7                            135.9722      0.00  
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:01:28   31472.1      0.30       4.8    4406.7                            135.9722      0.00  
+    0:01:29   31472.1      0.30       4.8    4406.7                            135.9722      0.00  
+    0:01:29   31472.1      0.30       4.8    4406.7                            135.9722      0.00  
+    0:01:29   31955.2      0.27       2.8    4406.7                            162.6534      0.00  
+    0:01:31   31955.2      0.27       2.8    4406.7                            162.6534      0.00  
+    0:01:31   31955.2      0.27       2.8    4406.7                            162.6534      0.00  
+    0:01:31   31955.2      0.27       2.8    4406.7                            162.6534      0.00  
+    0:01:31   32116.9      0.14       2.8    4416.7                            177.9506      0.00  
+    0:01:33   32116.9      0.14       2.8    4416.7                            177.9506      0.00  
+    0:01:34   32240.5      0.06       1.4    4270.2                            218.0841      0.00  
+    0:01:34   32240.5      0.06       1.4    4270.2                            218.0841      0.00  
+    0:01:35   30811.0      0.03       0.4    4271.8                            179.1630      0.00  
+    0:01:35   30811.0      0.03       0.4    4271.8                            179.1630      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_fanout)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:01:35   30938.2      0.00       0.0    4271.8                            189.1924      0.00  
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+    0:01:35   30945.7      0.00       0.0       0.0                            191.6941      0.00  
+    0:01:35   30945.7      0.00       0.0       0.0                            191.6941      0.00  
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:01:35   30945.7      0.00       0.0       0.0                            191.6941      0.00  
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+  Global Optimization (Phase 50)
+    0:01:39   30653.4      0.00       0.0     276.0                            190.2701      0.00  
+    0:01:39   30653.4      0.00       0.0     276.0                            190.2701      0.00  
+    0:01:39   30653.4      0.00       0.0     276.0                            190.2701      0.00  
+    0:01:40   30247.4      0.00       0.0     276.0                            173.0448      0.00  
+    0:01:40   30247.4      0.00       0.0     276.0                            173.0448      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3364      0.00  
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:01:40   30284.1      0.00       0.0     276.0                            175.3367      0.00  
+    0:01:44   29195.5      0.00       0.0     115.3                            159.9218      0.00  
+    0:01:44   29195.5      0.00       0.0     115.3                            159.9218      0.00  
+    0:01:44   29195.5      0.00       0.0     115.3                            159.9218      0.00  
+    0:01:45   29191.9      0.00       0.0     115.3                            157.9199      0.00  
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:01:46   29191.9      0.00       0.0     115.3                            157.9199      0.00  
+    0:01:46   29191.9      0.00       0.0     115.3                            157.9199      0.00  
+    0:01:46   29191.9      0.00       0.0     115.3                            157.9199      0.00  
+    0:01:46   29191.9      0.00       0.0     115.3                            157.9199      0.00  
+    0:01:47   29191.9      0.00       0.0     115.3                            157.9199      0.00  
+    0:01:47   29191.9      0.00       0.0     115.3                            157.9199      0.00  
+    0:01:47   29191.9      0.00       0.0     115.3                            157.9199      0.00  
+    0:01:47   29191.9      0.00       0.0     115.3                            157.9199      0.00  
+    0:01:52   29173.3      0.00       0.0     102.6                            157.5749      0.00  
+    0:01:54   29208.2      0.00       0.0      53.1 net29862                   155.2189      0.00  
+    0:01:57   29207.8      0.00       0.0      49.4 net29474                   155.2435      0.00  
+    0:02:02   29207.5      0.00       0.0      45.7                            155.2469      0.00  
+    0:02:02   29207.5      0.00       0.0      45.7                            155.2469      0.00  
+    0:02:02   29207.5      0.00       0.0      45.7                            155.2469      0.00  
+    0:02:02   29207.5      0.00       0.0      45.7                            155.2469      0.00  
+    0:02:02   29207.5      0.00       0.0      45.7                            155.2471      0.00  
+    0:02:02   29207.5      0.00       0.0      45.7                            155.2471      0.00  
+    0:02:04   28886.8      0.00       0.0      45.7                            148.5622      0.00  
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'POLY_SMALL_MKGAUSS' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 4118 load(s), 1 driver(s)
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+#uniquify
+#compile
+#======================================================
+#  (F) Output Reports 
+#======================================================
+report_design  >  Report/$DESIGN\.design
+report_resource >  Report/$DESIGN\.resource
+report_timing -max_paths 3 >  Report/$DESIGN\.timing
+report_area >  Report/$DESIGN\.area
+report_power > Report/$DESIGN\.power
+report_clock > Report/$DESIGN\.clock
+report_port >  Report/$DESIGN\.port
+report_power >  Report/$DESIGN\.power
+#report_reference > Report/$DESIGN\.reference
+#======================================================
+#  (G) Change Naming Rule
+#======================================================
+set bus_inference_style "%s\[%d\]"
+%s[%d]
+set bus_naming_style "%s\[%d\]"
+%s[%d]
+set hdlout_internal_busses true
+true
+change_names -hierarchy -rule verilog
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
+1
+define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+1
+define_name_rules name_rule -case_insensitive
+1
+change_names -hierarchy -rules name_rule
+1
+#======================================================
+#  (H) Output Results
+#======================================================
+set verilogout_higher_designs_first true
+true
+write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
+Writing verilog file '/home/daniel_kuo/Falcon/hardware/poly_small_mkgauss/02_SYN/Netlist/POLY_SMALL_MKGAUSS_SYN.v'.
+1
+write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
+Writing ddc file 'POLY_SMALL_MKGAUSS_SYN.ddc'.
+1
+write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
+Information: Writing timing information to file '/home/daniel_kuo/Falcon/hardware/poly_small_mkgauss/02_SYN/Netlist/POLY_SMALL_MKGAUSS_SYN.sdf'. (WT-3)
+1
+write_sdc Netlist/$DESIGN\_SYN.sdc
+1
+#======================================================
+#  (I) Finish and Quit
+#======================================================
+report_area
+ 
+****************************************
+Report : area
+Design : POLY_SMALL_MKGAUSS
+Version: T-2022.03
+Date   : Thu Jul 17 14:25:49 2025
+****************************************
+
+Library(s) Used:
+
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+
+Number of ports:                         4230
+Number of nets:                         14357
+Number of cells:                        14229
+Number of combinational cells:          10111
+Number of sequential cells:              4118
+Number of macros/black boxes:               0
+Number of buf/inv:                       4141
+Number of references:                     368
+
+Combinational area:              10204.412314
+Buf/Inv area:                     2106.291560
+Noncombinational area:           18682.422278
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                 28886.834592
+Total area:                      28886.834592
+1
+report_timing 
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : POLY_SMALL_MKGAUSS
+Version: T-2022.03
+Date   : Thu Jul 17 14:25:49 2025
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: rng[117] (input port clocked by clk)
+  Endpoint: u_MKGAUSS_val_reg_2_
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  POLY_SMALL_MKGAUSS Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    1.00       1.00 f
+  rng[117] (in)                                           0.00       1.00 f
+  U9084/Y (NAND2_X6M_A9TL)                                0.09       1.09 r
+  U9687/Y (AND2_X2B_A9TR)                                 0.09       1.18 r
+  U9545/Y (INV_X0P6B_A9TH)                                0.08       1.26 f
+  U5806/Y (AOI21_X0P7M_A9TL)                              0.08       1.34 r
+  U9881/Y (AOI21_X1M_A9TL)                                0.06       1.40 f
+  U9683/Y (OAI211_X2M_A9TR)                               0.06       1.46 r
+  U9205/Y (OAI21B_X1P4M_A9TL)                             0.06       1.52 f
+  U9204/Y (AOI21_X3M_A9TL)                                0.04       1.56 r
+  U9578/Y (AOI211_X3M_A9TL)                               0.04       1.59 f
+  U8726/Y (NAND3_X4A_A9TL)                                0.03       1.63 r
+  U9060/Y (XOR2_X4M_A9TL)                                 0.03       1.66 f
+  U9599/Y (OAI2XB1_X6M_A9TL)                              0.03       1.69 r
+  U15151/Y (INV_X1P7B_A9TR)                               0.05       1.74 f
+  U9089/Y (OAI21_X1P4M_A9TL)                              0.06       1.79 r
+  U8703/Y (XOR2_X1P4M_A9TL)                               0.04       1.83 f
+  U7228/Y (AOI21B_X2M_A9TL)                               0.04       1.87 r
+  u_MKGAUSS_val_reg_2_/D (DFFSQN_X1M_A9TH)                0.00       1.87 r
+  data arrival time                                                  1.87
+
+  clock clk (rise edge)                                   2.00       2.00
+  clock network delay (ideal)                             0.00       2.00
+  clock uncertainty                                      -0.10       1.90
+  u_MKGAUSS_val_reg_2_/CK (DFFSQN_X1M_A9TH)               0.00       1.90 r
+  library setup time                                     -0.03       1.87
+  data required time                                                 1.87
+  --------------------------------------------------------------------------
+  data required time                                                 1.87
+  data arrival time                                                 -1.87
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1
+exit
+
+Memory usage for this session 890 Mbytes.
+Memory usage for this session including child processes 1156 Mbytes.
+CPU usage for this session 166 seconds ( 0.05 hours ).
+Elapsed time for this session 140 seconds ( 0.04 hours ).
+
+Thank you...
+

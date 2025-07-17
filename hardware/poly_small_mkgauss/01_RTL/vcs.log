@@ -1,0 +1,114 @@
+Command: vcs -timescale=1ns/1fs -j4 -sverilog +v2k -full64 -Mupdate -R -debug_access+all \
+-y /usr/cad/synopsys/synthesis/cur/dw/sim_ver/ +libext+.v -f filelist.f -o simv -l \
+vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a \
++define+RTL +define+ +notimingchecks
+*** Using c compiler gcc instead of cc ...
+                         Chronologic VCS (TM)
+         Version T-2022.06_Full64 -- Thu Jul 17 14:43:09 2025
+
+                    Copyright (c) 1991 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file 'TESTBED.v'
+Parsing included file 'PATTERN.v'.
+Back to file 'TESTBED.v'.
+Parsing included file 'POLY_SMALL_MKGAUSS.v'.
+Parsing included file 'MKGAUSS.v'.
+Back to file 'POLY_SMALL_MKGAUSS.v'.
+Back to file 'TESTBED.v'.
+Top Level Modules:
+       TESTBED
+TimeScale is 1 ns / 10 ps
+Starting vcs inline pass...
+
+
+Note-[VCS_PARAL] Parallel code-gen enabled
+  VCS is running with parallel code generation(-j)...
+
+4 modules and 0 UDP read.
+recompiling module TESTBED
+recompiling module POLY_SMALL_MKGAUSS
+recompiling module MKGAUSS
+recompiling module PATTERN
+All of 4 modules done
+make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/poly_small_mkgauss/01_RTL/csrc' \
+
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
+-Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/amcQw_d.o   _14165_archive_1.so \
+_14182_archive_1.so _14183_archive_1.so _prev_archive_1.so  SIM_l.o      rmapats_mop.o \
+rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf \
+-lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a   \
+-lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o \
+-Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   \
+/usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a \
+-ldl -lm  -lc -lpthread -ldl 
+../simv up to date
+make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/poly_small_mkgauss/01_RTL/csrc' \
+
+Command: /home/daniel_kuo/Falcon/hardware/poly_small_mkgauss/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
+Chronologic VCS simulator copyright 1991-2022
+Contains Synopsys proprietary information.
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 17 14:43 2025
+*Verdi* Loading libsscore_vcs202206.so
+FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
+(C) 1996 - 2022 by Synopsys, Inc.
+*Verdi* : Create FSDB file 'POLY_SMALL_MKGAUSS.fsdb'
+*Verdi* : Begin traversing the scopes, layer (0).
+*Verdi* : Enable +mda dumping.
+*Verdi* : End of traversing.
+PASS PATTERN NO.   1
+PASS PATTERN NO.   2
+PASS PATTERN NO.   3
+PASS PATTERN NO.   4
+PASS PATTERN NO.   5
+PASS PATTERN NO.   6
+PASS PATTERN NO.   7
+PASS PATTERN NO.   8
+PASS PATTERN NO.   9
+PASS PATTERN NO.  10
+PASS PATTERN NO.  11
+PASS PATTERN NO.  12
+PASS PATTERN NO.  13
+PASS PATTERN NO.  14
+PASS PATTERN NO.  15
+PASS PATTERN NO.  16
+PASS PATTERN NO.  17
+PASS PATTERN NO.  18
+PASS PATTERN NO.  19
+PASS PATTERN NO.  20
+PASS PATTERN NO.  21
+PASS PATTERN NO.  22
+PASS PATTERN NO.  23
+PASS PATTERN NO.  24
+PASS PATTERN NO.  25
+PASS PATTERN NO.  26
+--------------------------------------------------------------------
+                         Congratulations!                           
+                  You have passed all patterns!                     
+                  Your execution cycles = 26730 cycles                
+                  Your clock period = 2.0 ns                       
+                  Total Latency = 53460.0 ns                           
+--------------------------------------------------------------------
+$finish called from file "PATTERN.v", line 221.
+$finish at simulation time              5368500
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 53685000 ps
+CPU Time:      1.870 seconds;       Data structure size:   0.1Mb
+Thu Jul 17 14:43:12 2025
+CPU time: .767 seconds to compile + .183 seconds to elab + .138 seconds to link + 1.888 seconds in simulation

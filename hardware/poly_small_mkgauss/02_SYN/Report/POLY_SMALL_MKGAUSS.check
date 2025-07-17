@@ -1,0 +1,50 @@
+ 
+****************************************
+check_design summary:
+Version:     T-2022.03
+Date:        Thu Jul 17 14:23:37 2025
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Inputs/Outputs                                                      1
+    Unconnected ports (LINT-28)                                     1
+
+Cells                                                               1
+    Cells do not drive (LINT-1)                                     1
+
+Nets                                                               28
+    Unloaded nets (LINT-2)                                         28
+--------------------------------------------------------------------------------
+
+Warning: In design 'MKGAUSS', cell 'B_36' does not drive any nets. (LINT-1)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 'net2183' driven by pin 'C36274/Z' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[8]' driven by pin 'u_MKGAUSS/val[8]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[9]' driven by pin 'u_MKGAUSS/val[9]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[10]' driven by pin 'u_MKGAUSS/val[10]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[11]' driven by pin 'u_MKGAUSS/val[11]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[12]' driven by pin 'u_MKGAUSS/val[12]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[13]' driven by pin 'u_MKGAUSS/val[13]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[14]' driven by pin 'u_MKGAUSS/val[14]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[15]' driven by pin 'u_MKGAUSS/val[15]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[16]' driven by pin 'u_MKGAUSS/val[16]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[17]' driven by pin 'u_MKGAUSS/val[17]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[18]' driven by pin 'u_MKGAUSS/val[18]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[19]' driven by pin 'u_MKGAUSS/val[19]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[20]' driven by pin 'u_MKGAUSS/val[20]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[21]' driven by pin 'u_MKGAUSS/val[21]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[22]' driven by pin 'u_MKGAUSS/val[22]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[23]' driven by pin 'u_MKGAUSS/val[23]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[24]' driven by pin 'u_MKGAUSS/val[24]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[25]' driven by pin 'u_MKGAUSS/val[25]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[26]' driven by pin 'u_MKGAUSS/val[26]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[27]' driven by pin 'u_MKGAUSS/val[27]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[28]' driven by pin 'u_MKGAUSS/val[28]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[29]' driven by pin 'u_MKGAUSS/val[29]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[30]' driven by pin 'u_MKGAUSS/val[30]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 's[31]' driven by pin 'u_MKGAUSS/val[31]' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 'u_MKGAUSS/net2208' driven by pin 'u_MKGAUSS/C2159/Z' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 'u_MKGAUSS/net2207' driven by pin 'u_MKGAUSS/C2158/Z' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 'u_MKGAUSS/net2206' driven by pin 'u_MKGAUSS/C1681/Z' has no loads. (LINT-2)
+Warning: In design 'MKGAUSS', port 'rng[127]' is not connected to any nets. (LINT-28)
+1
