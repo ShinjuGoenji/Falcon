@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version T-2022.03 for linux64 -- Feb 22, 2022
-#@ # Date:   Tue Jul 15 14:01:09 2025
+#@ # Date:   Thu Jul 17 14:46:45 2025
 #@ # Run by: daniel_kuo@eda_root
 #@ 
 
@@ -8628,7 +8628,7 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/mkgauss/02_SYN/syn.tcl
 #@ # (A) Global Parameters
 #@ #======================================================
 #@ set DESIGN "MKGAUSS"
-#@ set CYCLE 1.7
+#@ set CYCLE 2.0
 #@ set INPUT_DLY [expr 0.5*$CYCLE]
 #@ set OUTPUT_DLY [expr 0.5*$CYCLE]
 #@ 
@@ -8641,7 +8641,7 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/mkgauss/02_SYN/syn.tcl
 #@ elaborate $DESIGN  
 #@ 
 #@ # (B-2) read_sverilog
-#@ read_sverilog $DESIGN\.v
+#@ # read_sverilog $DESIGN\.v
 #@ 
 #@ # (B-3) set current design
 #@ current_design $DESIGN

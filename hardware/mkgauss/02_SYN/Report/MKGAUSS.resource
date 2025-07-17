@@ -3,16 +3,15 @@
 Report : resources
 Design : MKGAUSS
 Version: T-2022.03
-Date   : Tue Jul 15 14:01:55 2025
+Date   : Thu Jul 17 14:47:25 2025
 ****************************************
 
 
-Resource Report for this hierarchy in file
-        /home/daniel_kuo/Falcon/hardware/mkgauss/01_RTL/MKGAUSS.v
+Resource Report for this hierarchy in file ../01_RTL/MKGAUSS.v
 =============================================================================
 | Cell           | Module         | Parameters | Contained Operations       |
 =============================================================================
-| add_x_1        | DW01_inc       | width=2    | add_84 (MKGAUSS.v:84)      |
+| add_x_1        | DW01_inc       | width=2    | add_86 (MKGAUSS.v:86)      |
 | lt_x_3         | DW_cmp         | width=63   | lt_123 (MKGAUSS.v:123)     |
 | gte_x_4        | DW_cmp         | width=63   | gte_137 (MKGAUSS.v:137)    |
 | gte_x_5        | DW_cmp         | width=63   | gte_137_G2 (MKGAUSS.v:137) |
@@ -38,15 +37,16 @@ Resource Report for this hierarchy in file
 | gte_x_25       | DW_cmp         | width=63   | gte_137_G22 (MKGAUSS.v:137) |
 | gte_x_26       | DW_cmp         | width=63   | gte_137_G23 (MKGAUSS.v:137) |
 | gte_x_27       | DW_cmp         | width=63   | gte_137_G24 (MKGAUSS.v:137) |
-| DP_OP_45_125_2290               |            |                            |
-|                | DP_OP_45_125_2290 |         |                            |
+| DP_OP_59_126_4395               |            |                            |
+|                | DP_OP_59_126_4395 |         |                            |
 =============================================================================
 
-Datapath Report for DP_OP_45_125_2290
+Datapath Report for DP_OP_59_126_4395
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_45_125_2290    | sub_182 (MKGAUSS.v:182) add_184 (MKGAUSS.v:184)     |
+| DP_OP_59_126_4395    | sub_187 (MKGAUSS.v:187) sub_189 (MKGAUSS.v:189)     |
+|                      | add_195 (MKGAUSS.v:195)                             |
 ==============================================================================
 
 ==============================================================================
@@ -56,7 +56,7 @@ Datapath Report for DP_OP_45_125_2290
 | I1    | PI   | Signed   | 32    |                                          |
 | I2    | PI   | Unsigned | 5     |                                          |
 | I3    | PI   | Unsigned | 1     |                                          |
-| O1    | PO   | Signed   | 32    | addsub(I1,I2,I3) ( MKGAUSS.v:182 MKGAUSS.v:184 ) |
+| O1    | PO   | Signed   | 32    | addsub(I1,I2,I3) ( MKGAUSS.v:187 MKGAUSS.v:189 MKGAUSS.v:195 ) |
 ==============================================================================
 
 
@@ -91,7 +91,7 @@ Implementation Report
 | gte_x_25           | DW_cmp           | apparch (area)     |                |
 | gte_x_26           | DW_cmp           | apparch (area)     |                |
 | gte_x_27           | DW_cmp           | apparch (area)     |                |
-| DP_OP_45_125_2290  | DP_OP_45_125_2290 | str (area,speed)  |                |
+| DP_OP_59_126_4395  | DP_OP_59_126_4395 | str (area,speed)  |                |
 ===============================================================================
 
 1
