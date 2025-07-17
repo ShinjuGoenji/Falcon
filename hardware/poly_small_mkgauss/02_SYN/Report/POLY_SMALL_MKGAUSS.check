@@ -2,7 +2,7 @@
 ****************************************
 check_design summary:
 Version:     T-2022.03
-Date:        Thu Jul 17 14:23:37 2025
+Date:        Thu Jul 17 20:42:41 2025
 ****************************************
 
                    Name                                            Total
@@ -18,7 +18,7 @@ Nets                                                               28
 --------------------------------------------------------------------------------
 
 Warning: In design 'MKGAUSS', cell 'B_36' does not drive any nets. (LINT-1)
-Warning: In design 'POLY_SMALL_MKGAUSS', net 'net2183' driven by pin 'C36274/Z' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 'net133' driven by pin 'C190/Z' has no loads. (LINT-2)
 Warning: In design 'POLY_SMALL_MKGAUSS', net 's[8]' driven by pin 'u_MKGAUSS/val[8]' has no loads. (LINT-2)
 Warning: In design 'POLY_SMALL_MKGAUSS', net 's[9]' driven by pin 'u_MKGAUSS/val[9]' has no loads. (LINT-2)
 Warning: In design 'POLY_SMALL_MKGAUSS', net 's[10]' driven by pin 'u_MKGAUSS/val[10]' has no loads. (LINT-2)
@@ -43,8 +43,8 @@ Warning: In design 'POLY_SMALL_MKGAUSS', net 's[28]' driven by pin 'u_MKGAUSS/va
 Warning: In design 'POLY_SMALL_MKGAUSS', net 's[29]' driven by pin 'u_MKGAUSS/val[29]' has no loads. (LINT-2)
 Warning: In design 'POLY_SMALL_MKGAUSS', net 's[30]' driven by pin 'u_MKGAUSS/val[30]' has no loads. (LINT-2)
 Warning: In design 'POLY_SMALL_MKGAUSS', net 's[31]' driven by pin 'u_MKGAUSS/val[31]' has no loads. (LINT-2)
-Warning: In design 'POLY_SMALL_MKGAUSS', net 'u_MKGAUSS/net2208' driven by pin 'u_MKGAUSS/C2159/Z' has no loads. (LINT-2)
-Warning: In design 'POLY_SMALL_MKGAUSS', net 'u_MKGAUSS/net2207' driven by pin 'u_MKGAUSS/C2158/Z' has no loads. (LINT-2)
-Warning: In design 'POLY_SMALL_MKGAUSS', net 'u_MKGAUSS/net2206' driven by pin 'u_MKGAUSS/C1681/Z' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 'u_MKGAUSS/net158' driven by pin 'u_MKGAUSS/C2159/Z' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 'u_MKGAUSS/net157' driven by pin 'u_MKGAUSS/C2158/Z' has no loads. (LINT-2)
+Warning: In design 'POLY_SMALL_MKGAUSS', net 'u_MKGAUSS/net156' driven by pin 'u_MKGAUSS/C1681/Z' has no loads. (LINT-2)
 Warning: In design 'MKGAUSS', port 'rng[127]' is not connected to any nets. (LINT-28)
 1

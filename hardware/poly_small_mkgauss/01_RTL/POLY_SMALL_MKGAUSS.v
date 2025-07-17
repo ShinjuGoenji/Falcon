@@ -33,7 +33,7 @@ localparam n = 1 << (logn);
  * @input   rng             Two 64-bit random numbers from random number generator.
  * @output  rng_extract     Response signal to RNG.
  * @output  f_valid         Valid signal of output f.
- * @output  f               Output array with n 8-bit signed elements (registered).
+ * @output  f               8-bit signed output value (registered).
  */
 input                     clk;
 input                     rst_n;
@@ -43,7 +43,7 @@ input             [127:0] rng;
 
 output reg                rng_extract;
 output reg                f_valid;
-output reg signed [7:0]   f [0:n-1];
+output reg signed [7:0]   f;
 
 //---------------------------------------------------------------------
 //   Reg & Wire
@@ -56,8 +56,7 @@ reg [31:0] s;
 reg mod2, mod2_reg;
 
 reg [logn-1:0] cnt, cnt_reg;
-
-reg signed [7:0] _f [0:n-1];
+reg ena_reg;
 
 //---------------------------------------------------------------------
 //   Submodule
@@ -65,7 +64,7 @@ reg signed [7:0] _f [0:n-1];
 MKGAUSS u_MKGAUSS(
     .clk(clk),
     .rst_n(rst_n),
-    .ena(_mkgauss_ena),
+    .ena(mkgauss_ena),
     .rng_valid(rng_valid),
     .rng(rng),
     .rng_extract(rng_extract),
@@ -135,52 +134,32 @@ always @(posedge clk or negedge rst_n) begin
         cnt_reg <= 0;
         mod2_reg <= 0;
         mkgauss_ena <= 0;
+        ena_reg <= 0;
     end
     else begin
         cnt_reg <= cnt;
         mod2_reg <= mod2;
         mkgauss_ena <= _mkgauss_ena;
+        ena_reg <= ena;
     end
 end
 
 //---------------------------------------------------------------------
 //   Output Assignments
 //---------------------------------------------------------------------
-always @(posedge clk or negedge rst_n) begin
-    if (!rst_n) 
-        f_valid <= 0;
-    else begin
-        if (ena) begin
-            if (cnt_reg == (n - 1) && s_valid && (mod2 ^ s[0]))
-                f_valid <= 1;
-            else
-                f_valid <= 0;
+always @(*) begin
+    if (ena_reg) begin
+        if (cnt_reg == n-1) begin
+            if (mod2_reg ^ s[0])
+                f_valid = s_valid;
+            else 
+                f_valid = 0;
         end
-        else begin
-            f_valid <= 0;
-        end
+        else f_valid = s_valid;
     end
+    else f_valid = 0;
 end
 
-genvar u;
-generate
-    for (u = 0; u < n; u = u + 1) begin
-        always @(posedge clk or negedge rst_n) begin
-            if (!rst_n)
-                f[u] <= 0;
-            else begin
-                if (ena) begin
-                    if ((u == cnt_reg) && s_valid)
-                        f[u] <= s;
-                    else
-                        f[u] <= f[u];
-                end
-                else begin
-                    f[u] <= f[u];
-                end
-            end
-        end
-    end
-endgenerate
+assign f = s;
 
 endmodule

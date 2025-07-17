@@ -4,7 +4,7 @@ vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/
 +define+RTL +define+ +notimingchecks
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Thu Jul 17 14:43:09 2025
+         Version T-2022.06_Full64 -- Thu Jul 17 20:40:51 2025
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -38,22 +38,19 @@ Starting vcs inline pass...
 Note-[VCS_PARAL] Parallel code-gen enabled
   VCS is running with parallel code generation(-j)...
 
-4 modules and 0 UDP read.
-recompiling module TESTBED
-recompiling module POLY_SMALL_MKGAUSS
-recompiling module MKGAUSS
-recompiling module PATTERN
-All of 4 modules done
+1 module and 0 UDP read.
+	However, due to incremental compilation, no re-compilation is necessary.
 make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/poly_small_mkgauss/01_RTL/csrc' \
 
 rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
+rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
--Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/amcQw_d.o   _14165_archive_1.so \
-_14182_archive_1.so _14183_archive_1.so _prev_archive_1.so  SIM_l.o      rmapats_mop.o \
-rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf \
--lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a   \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _2862_archive_1.so _prev_archive_1.so \
+_cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o \
+rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a \
 -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o \
 -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   \
 /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a \
@@ -64,40 +61,41 @@ make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/poly_small_mkgauss/
 Command: /home/daniel_kuo/Falcon/hardware/poly_small_mkgauss/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
 Chronologic VCS simulator copyright 1991-2022
 Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 17 14:43 2025
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 17 20:40 2025
 *Verdi* Loading libsscore_vcs202206.so
 FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 (C) 1996 - 2022 by Synopsys, Inc.
+*Verdi* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
 *Verdi* : Create FSDB file 'POLY_SMALL_MKGAUSS.fsdb'
 *Verdi* : Begin traversing the scopes, layer (0).
 *Verdi* : Enable +mda dumping.
 *Verdi* : End of traversing.
-PASS PATTERN NO.   1
-PASS PATTERN NO.   2
-PASS PATTERN NO.   3
-PASS PATTERN NO.   4
-PASS PATTERN NO.   5
-PASS PATTERN NO.   6
-PASS PATTERN NO.   7
-PASS PATTERN NO.   8
-PASS PATTERN NO.   9
-PASS PATTERN NO.  10
-PASS PATTERN NO.  11
-PASS PATTERN NO.  12
-PASS PATTERN NO.  13
-PASS PATTERN NO.  14
-PASS PATTERN NO.  15
-PASS PATTERN NO.  16
-PASS PATTERN NO.  17
-PASS PATTERN NO.  18
-PASS PATTERN NO.  19
-PASS PATTERN NO.  20
-PASS PATTERN NO.  21
-PASS PATTERN NO.  22
-PASS PATTERN NO.  23
-PASS PATTERN NO.  24
-PASS PATTERN NO.  25
-PASS PATTERN NO.  26
+PASS PATTERN NO.   1, 1034 CYCLES
+PASS PATTERN NO.   2, 1026 CYCLES
+PASS PATTERN NO.   3, 1032 CYCLES
+PASS PATTERN NO.   4, 1030 CYCLES
+PASS PATTERN NO.   5, 1030 CYCLES
+PASS PATTERN NO.   6, 1026 CYCLES
+PASS PATTERN NO.   7, 1028 CYCLES
+PASS PATTERN NO.   8, 1026 CYCLES
+PASS PATTERN NO.   9, 1026 CYCLES
+PASS PATTERN NO.  10, 1028 CYCLES
+PASS PATTERN NO.  11, 1028 CYCLES
+PASS PATTERN NO.  12, 1026 CYCLES
+PASS PATTERN NO.  13, 1040 CYCLES
+PASS PATTERN NO.  14, 1026 CYCLES
+PASS PATTERN NO.  15, 1026 CYCLES
+PASS PATTERN NO.  16, 1026 CYCLES
+PASS PATTERN NO.  17, 1028 CYCLES
+PASS PATTERN NO.  18, 1026 CYCLES
+PASS PATTERN NO.  19, 1026 CYCLES
+PASS PATTERN NO.  20, 1032 CYCLES
+PASS PATTERN NO.  21, 1028 CYCLES
+PASS PATTERN NO.  22, 1028 CYCLES
+PASS PATTERN NO.  23, 1026 CYCLES
+PASS PATTERN NO.  24, 1026 CYCLES
+PASS PATTERN NO.  25, 1026 CYCLES
+PASS PATTERN NO.  26, 1026 CYCLES
 --------------------------------------------------------------------
                          Congratulations!                           
                   You have passed all patterns!                     
@@ -105,10 +103,10 @@ PASS PATTERN NO.  26
                   Your clock period = 2.0 ns                       
                   Total Latency = 53460.0 ns                           
 --------------------------------------------------------------------
-$finish called from file "PATTERN.v", line 221.
-$finish at simulation time              5368500
+$finish called from file "PATTERN.v", line 220.
+$finish at simulation time              5363300
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 53685000 ps
-CPU Time:      1.870 seconds;       Data structure size:   0.1Mb
-Thu Jul 17 14:43:12 2025
-CPU time: .767 seconds to compile + .183 seconds to elab + .138 seconds to link + 1.888 seconds in simulation
+Time: 53633000 ps
+CPU Time:      0.430 seconds;       Data structure size:   0.0Mb
+Thu Jul 17 20:40:53 2025
+CPU time: .196 seconds to compile + .155 seconds to elab + .128 seconds to link + .453 seconds in simulation

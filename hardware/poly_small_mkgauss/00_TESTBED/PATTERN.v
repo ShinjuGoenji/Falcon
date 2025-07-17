@@ -33,7 +33,7 @@ output reg   [127:0] rng;
   
 input                rng_extract;
 input                f_valid;
-input signed [7:0]   f [0:n-1];
+input signed [7:0]   f;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
@@ -44,10 +44,11 @@ parameter PATNUM_PATH = "../00_TESTBED/PATNUM.txt";
 integer file_in, file_out, file_num;
 
 parameter MAX_OUT_LATENCY = 5000;
-integer total_latency, out_latency;
+integer total_latency, pattern_latency, out_latency;
 
 integer i_pat;
 integer PAT_NUM;
+integer i_degree;
 
 integer fscanf_int;
 
@@ -59,7 +60,7 @@ integer i;
 //   REG & WIRE DECLARATION
 //---------------------------------------------------------------------
 reg	[63:0] rng_1, rng_2;
-reg signed [31:0] golden_f [0:n-1], your_f [0:n-1];
+reg signed [8:0] golden_f, your_f;
 
 //---------------------------------------------------------------------
 //   Clock
@@ -83,11 +84,16 @@ initial begin
 	check_shake256_extract_task;
 	repeat(4) @(negedge clk);
 	for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1)begin
-		input_task;
-		wait_out_task;
-		total_latency = total_latency + out_latency;
-		check_ans_task;
-		$display("PASS PATTERN NO.%4d", i_pat+1);
+		pattern_latency = 0;
+		for (i_degree = 0; i_degree < n; i_degree = i_degree + 1) begin
+			input_task;
+			wait_out_task;
+			pattern_latency = pattern_latency + out_latency;
+			total_latency = total_latency + out_latency;
+			check_ans_task;
+		end
+		ena = 'b0;
+		$display("PASS PATTERN NO.%4d, %3d CYCLES", i_pat+1, pattern_latency);
 		repeat($urandom_range(2, 4)) @(negedge clk);
 	end
 	YOU_PASS_task;
@@ -113,24 +119,20 @@ task reset_task; begin
         repeat(2) #CYCLE;
         $finish;
     end
-	for (i = 0; i < n; i = i + 1) begin
-		if(f[i] !== 'b0) begin 
-			$display("************************************************************");  
-			$display("                          FAIL!                              ");    
-			$display("Output signal f[%d] should be 0 after initial RESET  at %8t   ", i, $time);
-			$display("************************************************************");
-			repeat(2) #CYCLE;
-			$finish;
-		end
+	if(f !== 'b0) begin 
+		$display("************************************************************");  
+		$display("                          FAIL!                              ");    
+		$display("Output signal f should be 0 after initial RESET  at %8t   ", $time);
+		$display("************************************************************");
+		repeat(2) #CYCLE;
+		$finish;
 	end
 	#CYCLE; release clk;
 end endtask
 
 
 task input_task; begin
-	for (i = 0; i < n; i = i + 1) begin
-		fscanf_int = $fscanf(file_out, "%d", golden_f[i]);	
-	end
+	fscanf_int = $fscanf(file_out, "%d", golden_f);	
 	@(negedge clk);
 	ena = 'b1;
 end endtask
@@ -182,20 +184,17 @@ end endtask
 
 task check_ans_task; begin
 	if(f_valid == 1) begin
-		ena = 'b0;
-		for (i = 0; i < n; i = i + 1) begin
-			if(f[i] !== golden_f[i])begin
-				$display("***********************************************************");     
-				$display("*                          FAIL!                          ");    
-				$display("                        degree #%d                        ", i);
-				$display("                      Golden answer                       ");
-				$display("                        val = %8d                         ", golden_f[i]);
-				$display("                       Your answer                        ");
-				$display("                        val = %8d                         ", f[i]);
-				$display("***********************************************************");    
-					repeat(2) @(negedge clk);
-					$finish;
-			end
+		if(f !== golden_f)begin
+			$display("***********************************************************");     
+			$display("*                          FAIL!                          ");    
+			$display("                        degree #%d                        ", i_degree);
+			$display("                      Golden answer                       ");
+			$display("                        val = %8d                         ", golden_f);
+			$display("                       Your answer                        ");
+			$display("                        val = %8d                         ", f);
+			$display("***********************************************************");    
+				repeat(2) @(negedge clk);
+				$finish;
 		end
 		if (rng_extract) begin
 			// shake256_delay = $urandom_range(2, 4);
@@ -205,7 +204,7 @@ task check_ans_task; begin
 			rng_valid = 'b0;	
 		end
 		check_shake256_extract_task;
-		@(negedge clk);
+		// @(negedge clk);
 	end
 end endtask
 

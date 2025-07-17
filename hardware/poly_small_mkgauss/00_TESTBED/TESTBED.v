@@ -30,15 +30,7 @@ wire        [127:0] rng;
 
 wire                rng_extract;
 wire                f_valid;
-wire signed [7:0]   f [0:n-1];
-
-wire signed [(n*8-1):0] f_SYN;
-genvar i;
-generate
-    for (i = 0; i < n; i = i + 1) begin
-        assign f[n-1-i] = f_SYN[(i+1)*8-1 : i*8];
-    end
-endgenerate
+wire signed [7:0]   f;
 
 //================================================================
 // Dump Waveform
@@ -49,8 +41,8 @@ initial begin
     $fsdbDumpvars(0,"+mda");
   `elsif GATE
     $sdf_annotate("POLY_SMALL_MKGAUSS_SYN.sdf",u_POLY_SMALL_MKGAUSS);
-    // $fsdbDumpfile("POLY_SMALL_MKGAUSS_SYN.fsdb");
-    // $fsdbDumpvars(0,"+mda");
+    $fsdbDumpfile("POLY_SMALL_MKGAUSS_SYN.fsdb");
+    $fsdbDumpvars(0,"+mda");
   `endif
 end
 
@@ -77,7 +69,7 @@ end
     .rng(rng),
     .rng_extract(rng_extract),
     .f_valid(f_valid),
-    .f(f_SYN)
+    .f(f)
     );
 `endif
 	

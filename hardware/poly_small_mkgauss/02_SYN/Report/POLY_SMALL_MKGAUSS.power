@@ -4,15 +4,15 @@ Report : power
         -analysis_effort low
 Design : POLY_SMALL_MKGAUSS
 Version: T-2022.03
-Date   : Thu Jul 17 14:25:49 2025
+Date   : Thu Jul 17 20:43:15 2025
 ****************************************
 
 
 Library(s) Used:
 
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
-    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
 
 
 Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
@@ -37,12 +37,12 @@ Attributes
 i - Including register clock pin internal power
 
 
-  Cell Internal Power  =   6.2630 mW   (95%)
-  Net Switching Power  = 319.0736 uW    (5%)
+  Cell Internal Power  =  92.0488 uW   (58%)
+  Net Switching Power  =  67.7968 uW   (42%)
                          ---------
-Total Dynamic Power    =   6.5820 mW  (100%)
+Total Dynamic Power    = 159.8456 uW  (100%)
 
-Cell Leakage Power     = 135.1584 uW
+Cell Leakage Power     =  39.9197 uW
 
 
                  Internal         Switching           Leakage            Total
@@ -51,10 +51,10 @@ Power Group      Power            Power               Power              Power  
 io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
-clock_network      6.1360            0.0000            0.0000            0.0000  (   0.00%)  i
-register       1.6150e-02        5.9933e-03           66.7654            6.2249  (  92.67%)
+clock_network  3.4549e-02            0.0000            0.0000            0.0000  (   0.00%)  i
+register       1.2634e-03        2.4004e-03            0.8400        3.9052e-02  (  19.55%)
 sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational      0.1110            0.3131           68.3917            0.4925  (   7.33%)
+combinational  5.6237e-02        6.5396e-02           39.0783            0.1607  (  80.45%)
 --------------------------------------------------------------------------------------------------
-Total              6.2631 mW         0.3191 mW       135.1570 uW         6.7174 mW
+Total          9.2049e-02 mW     6.7797e-02 mW        39.9183 uW         0.1998 mW
 1
