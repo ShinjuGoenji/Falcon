@@ -1,0 +1,1 @@
+../02_SYN/Netlist/POLY_SMALL_SQNORM_SYN.v
