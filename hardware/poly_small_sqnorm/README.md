@@ -1,23 +1,22 @@
 # MKGAUSS
 
 > [!NOTE]  
-> See source code [keygen.c](/software/keygen.c#L2258) at line 2258-2356.
+> See source code [keygen.c](/software/keygen.c#L2450) at line 2450-2471.
 
 
 ``` verilog
-module MKGAUSS #(
-    parameter [3:0] logn = 9
+module POLY_SMALL_SQNORM #(
+    parameter logn = 9
 )( 
     // Input signals
     clk,
     rst_n,
     ena,
-    rng_valid,
-    rng,
+    f_valid,
+    f,
     // Output signals
-    rng_extract,
-    val_valid,
-    val
+    s_valid,
+    s
 );
 ```
 
@@ -30,9 +29,8 @@ module MKGAUSS #(
 |               | 40nm          | 90nm  |       |
 |:---:          |:---:          |:---:  |:---:  |
 | **Period**    | 2.0ns         |       |       |
-| **#GATE**     | 220           |       |       |
-| **AREA**      | 2198.825991   |       |       |
+| **#GATE**     | 51            |       |       |
+| **AREA**      | 508.258790    |       |       |
 
 ## Future Optimization
-1. use pdt for N=512 instead of iterate 2 times with N=1024
-2. adjust bit width
+1. multiplier optimization
