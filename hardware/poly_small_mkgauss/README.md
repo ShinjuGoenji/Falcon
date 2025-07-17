@@ -25,7 +25,7 @@ module POLY_SMALL_MKGAUSS #(
  * @input   rng             Two 64-bit random numbers from random number generator.
  * @output  rng_extract     Response signal to RNG.
  * @output  f_valid         Valid signal of output f.
- * @output  f               8-bit signed output value (registered).
+ * @output  f               7-bit signed output value (registered).
  */
 ```
 
@@ -38,8 +38,8 @@ module POLY_SMALL_MKGAUSS #(
 |               | 40nm          | 90nm  |       |
 |:---:          |:---:          |:---:  |:---:  |
 | **Period**    | 2.0ns         |       |       |
-| **#GATE**     | 149           |       |       |
-| **AREA**      | 1487.354383   |       |       |
+| **#GATE**     | 147           |       |       |
+| **AREA**      | 1467.395986   |       |       |
 
 ## Future Optimization
 1. improve MKGAUSS latency to 1 cycle

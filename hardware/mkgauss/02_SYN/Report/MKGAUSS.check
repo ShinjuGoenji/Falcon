@@ -2,7 +2,7 @@
 ****************************************
 check_design summary:
 Version:     T-2022.03
-Date:        Thu Jul 17 14:46:47 2025
+Date:        Thu Jul 17 21:59:27 2025
 ****************************************
 
                    Name                                            Total
@@ -18,8 +18,8 @@ Nets                                                                3
 --------------------------------------------------------------------------------
 
 Warning: In design 'MKGAUSS', cell 'B_36' does not drive any nets. (LINT-1)
-Warning: In design 'MKGAUSS', net 'net110' driven by pin 'C2159/Z' has no loads. (LINT-2)
-Warning: In design 'MKGAUSS', net 'net109' driven by pin 'C2158/Z' has no loads. (LINT-2)
-Warning: In design 'MKGAUSS', net 'net108' driven by pin 'C1681/Z' has no loads. (LINT-2)
+Warning: In design 'MKGAUSS', net 'net110' driven by pin 'C1808/Z' has no loads. (LINT-2)
+Warning: In design 'MKGAUSS', net 'net109' driven by pin 'C1807/Z' has no loads. (LINT-2)
+Warning: In design 'MKGAUSS', net 'net108' driven by pin 'C1330/Z' has no loads. (LINT-2)
 Warning: In design 'MKGAUSS', port 'rng[127]' is not connected to any nets. (LINT-28)
 1

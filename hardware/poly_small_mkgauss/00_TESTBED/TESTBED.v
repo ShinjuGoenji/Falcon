@@ -18,19 +18,20 @@ module TESTBED;
 `endif
 
 parameter n = 1 << logn;
+parameter f_bit = (logn == 9) ? 7 : 6;
 
 //================================================================
 // Wire Declarations
 //================================================================
-wire                clk;
-wire                rst_n;
-wire                ena;
-wire                rng_valid;
-wire        [127:0] rng;
-
-wire                rng_extract;
-wire                f_valid;
-wire signed [7:0]   f;
+wire                    clk;
+wire                    rst_n;
+wire                    ena;
+wire                    rng_valid;
+wire        [127:0]     rng;
+    
+wire                    rng_extract;
+wire                    f_valid;
+wire signed [f_bit-1:0] f;
 
 //================================================================
 // Dump Waveform

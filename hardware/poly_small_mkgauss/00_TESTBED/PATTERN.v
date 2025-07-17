@@ -6,7 +6,7 @@
 `endif
 
 module PATTERN #(
-    parameter [3:0] logn = 9
+    parameter logn = 9
 )(
     // Output signals
     clk,
@@ -21,19 +21,20 @@ module PATTERN #(
 );
 
 parameter n = 1 << (logn);
+parameter f_bit = (logn == 9) ? 7 : 6;
 
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
-output reg           clk;
-output reg           rst_n;
-output reg           ena;
-output reg           rng_valid;
-output reg   [127:0] rng;
-  
-input                rng_extract;
-input                f_valid;
-input signed [7:0]   f;
+output reg           	 clk;
+output reg           	 rst_n;
+output reg           	 ena;
+output reg           	 rng_valid;
+output reg   [127:0] 	 rng;
+	 
+input                	 rng_extract;
+input                	 f_valid;
+input signed [f_bit-1:0] f;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
@@ -60,7 +61,7 @@ integer i;
 //   REG & WIRE DECLARATION
 //---------------------------------------------------------------------
 reg	[63:0] rng_1, rng_2;
-reg signed [8:0] golden_f, your_f;
+reg signed [f_bit-1:0] golden_f, your_f;
 
 //---------------------------------------------------------------------
 //   Clock
@@ -93,7 +94,7 @@ initial begin
 			check_ans_task;
 		end
 		ena = 'b0;
-		$display("PASS PATTERN NO.%4d, %3d CYCLES", i_pat+1, pattern_latency);
+		$display("PASS PATTERN NO.%4d, %4d CYCLES", i_pat+1, pattern_latency);
 		repeat($urandom_range(2, 4)) @(negedge clk);
 	end
 	YOU_PASS_task;

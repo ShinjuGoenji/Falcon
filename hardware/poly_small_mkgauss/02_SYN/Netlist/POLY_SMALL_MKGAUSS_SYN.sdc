@@ -1,6 +1,6 @@
 ###################################################################
 
-# Created by write_sdc on Thu Jul 17 20:43:15 2025
+# Created by write_sdc on Thu Jul 17 22:02:26 2025
 
 ###################################################################
 set sdc_version 2.1
@@ -11,7 +11,6 @@ set_wire_load_model -name Small -library                                       \
 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
 set_load -pin_load 0.05 [get_ports rng_extract]
 set_load -pin_load 0.05 [get_ports f_valid]
-set_load -pin_load 0.05 [get_ports {f[7]}]
 set_load -pin_load 0.05 [get_ports {f[6]}]
 set_load -pin_load 0.05 [get_ports {f[5]}]
 set_load -pin_load 0.05 [get_ports {f[4]}]
@@ -687,8 +686,6 @@ set_output_delay -clock clk  -max 1  [get_ports rng_extract]
 set_output_delay -clock clk  -min 0  [get_ports rng_extract]
 set_output_delay -clock clk  -max 1  [get_ports f_valid]
 set_output_delay -clock clk  -min 0  [get_ports f_valid]
-set_output_delay -clock clk  -max 1  [get_ports {f[7]}]
-set_output_delay -clock clk  -min 0  [get_ports {f[7]}]
 set_output_delay -clock clk  -max 1  [get_ports {f[6]}]
 set_output_delay -clock clk  -min 0  [get_ports {f[6]}]
 set_output_delay -clock clk  -max 1  [get_ports {f[5]}]

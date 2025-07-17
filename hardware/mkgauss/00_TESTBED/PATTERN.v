@@ -5,7 +5,9 @@
     `define CYCLE_TIME 2.0
 `endif
 
-module PATTERN(
+module PATTERN #(
+    parameter logn = 9
+)(
     // Output signals
     clk,
     rst_n,
@@ -18,18 +20,20 @@ module PATTERN(
     val
 );
 
+localparam val_bit = (logn == 9) ? 7 : 6;
+
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
-output reg           clk;
-output reg           rst_n;
-output reg           ena;
-output reg           rng_valid;
-output reg   [127:0] rng;
-  
-input                rng_extract;
-input                val_valid;
-input signed [31:0]  val;
+output reg           	   clk;
+output reg           	   rst_n;
+output reg           	   ena;
+output reg           	   rng_valid;
+output reg   [127:0] 	   rng;
+	   
+input                	   rng_extract;
+input                	   val_valid;
+input signed [val_bit-1:0] val;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
@@ -53,7 +57,7 @@ integer shake256_delay;
 //   REG & WIRE DECLARATION
 //---------------------------------------------------------------------
 reg	[63:0] rng_1, rng_2;
-reg signed [31:0] golden_val, your_val;
+reg signed [6:0] golden_val, your_val;
 
 //---------------------------------------------------------------------
 //   Clock

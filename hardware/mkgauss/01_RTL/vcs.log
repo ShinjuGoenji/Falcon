@@ -4,7 +4,7 @@ vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/
 +define+RTL +define+ +notimingchecks
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Tue Jul 15 16:17:51 2025
+         Version T-2022.06_Full64 -- Thu Jul 17 21:44:50 2025
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -46,7 +46,7 @@ rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
--Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _4109_archive_1.so _4126_archive_1.so \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _24615_archive_1.so _24632_archive_1.so \
 _prev_archive_1.so _cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o \
 rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs \
 /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile \
@@ -60,7 +60,7 @@ make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/mkgauss/01_RTL/csrc
 Command: /home/daniel_kuo/Falcon/hardware/mkgauss/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
 Chronologic VCS simulator copyright 1991-2022
 Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 15 16:17 2025
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 17 21:44 2025
 *Verdi* Loading libsscore_vcs202206.so
 FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 (C) 1996 - 2022 by Synopsys, Inc.
@@ -2076,10 +2076,10 @@ PASS PATTERN NO.1999
                   Your clock period = 2.0 ns                       
                   Total Latency = 12000.0 ns                           
 --------------------------------------------------------------------
-$finish called from file "PATTERN.v", line 199.
+$finish called from file "PATTERN.v", line 202.
 $finish at simulation time              2814900
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 28149000 ps
-CPU Time:      0.190 seconds;       Data structure size:   0.0Mb
-Tue Jul 15 16:17:53 2025
-CPU time: .217 seconds to compile + .204 seconds to elab + .134 seconds to link + .209 seconds in simulation
+CPU Time:      0.290 seconds;       Data structure size:   0.0Mb
+Thu Jul 17 21:44:51 2025
+CPU time: .195 seconds to compile + .217 seconds to elab + .152 seconds to link + .311 seconds in simulation

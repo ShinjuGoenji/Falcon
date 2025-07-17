@@ -5,7 +5,7 @@
  * also makes sure that the resultant of the polynomial with phi is odd.
  */
 module POLY_SMALL_MKGAUSS #(
-    parameter [3:0] logn = 9
+    parameter logn = 9
 )( 
     // Input signals
     clk,
@@ -23,6 +23,7 @@ module POLY_SMALL_MKGAUSS #(
 //   Parameter & Integer
 //---------------------------------------------------------------------
 localparam n = 1 << (logn);
+localparam f_bit = (logn == 9) ? 7 : 6;
 
 //---------------------------------------------------------------------
 //   Input & Output
@@ -33,17 +34,17 @@ localparam n = 1 << (logn);
  * @input   rng             Two 64-bit random numbers from random number generator.
  * @output  rng_extract     Response signal to RNG.
  * @output  f_valid         Valid signal of output f.
- * @output  f               8-bit signed output value (registered).
+ * @output  f               7-bit signed output value (registered).
  */
-input                     clk;
-input                     rst_n;
-input                     ena;
-input                     rng_valid;
-input             [127:0] rng;
+input                         clk;
+input                         rst_n;
+input                         ena;
+input                         rng_valid;
+input             [127:0]     rng;
 
-output reg                rng_extract;
-output reg                f_valid;
-output reg signed [7:0]   f;
+output reg                    rng_extract;
+output reg                    f_valid;
+output reg signed [f_bit-1:0] f;
 
 //---------------------------------------------------------------------
 //   Reg & Wire
@@ -51,7 +52,7 @@ output reg signed [7:0]   f;
 reg mkgauss_ena, _mkgauss_ena;
 
 reg s_valid;
-reg [31:0] s;
+reg [f_bit-1:0] s;
 
 reg mod2, mod2_reg;
 
@@ -61,7 +62,7 @@ reg ena_reg;
 //---------------------------------------------------------------------
 //   Submodule
 //---------------------------------------------------------------------
-MKGAUSS u_MKGAUSS(
+MKGAUSS #(.logn(logn)) u_MKGAUSS(
     .clk(clk),
     .rst_n(rst_n),
     .ena(mkgauss_ena),

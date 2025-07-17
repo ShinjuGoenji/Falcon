@@ -9,18 +9,29 @@
 	  		  	
 module TESTBED;
 
+`ifdef FALCON512
+    parameter logn = 9;
+    parameter val_bit = 7;
+`elsif FALCON1024
+    parameter logn = 10;
+    parameter val_bit = 6;
+`else
+    parameter logn = 9;
+    parameter val_bit = 7;
+`endif
+
 //================================================================
 // Wire Declarations
 //================================================================
-wire                clk;
-wire                rst_n;
-wire                ena;
-wire                rng_valid;
-wire        [127:0] rng;
-
-wire                rng_extract;
-wire                val_valid;
-wire signed [31:0]  val;
+wire                      clk;
+wire                      rst_n;
+wire                      ena;
+wire                      rng_valid;
+wire        [127:0]       rng;
+  
+wire                      rng_extract;
+wire                      val_valid;
+wire signed [val_bit-1:0] val;
 
 //================================================================
 // Dump Waveform
@@ -40,7 +51,7 @@ end
 // Port Connection
 //================================================================
 `ifdef RTL
-    MKGAUSS u_MKGAUSS(
+    MKGAUSS #(.logn(logn)) u_MKGAUSS(
     .clk(clk),
     .rst_n(rst_n),
     .ena(ena),
@@ -51,7 +62,7 @@ end
     .val(val)
     );
 `elsif GATE
-    MKGAUSS u_MKGAUSS(
+    MKGAUSS #(.logn(logn)) u_MKGAUSS(
     .clk(clk),
     .rst_n(rst_n),
     .ena(ena),
@@ -63,7 +74,7 @@ end
     );
 `endif
 	
-PATTERN u_PATTERN(
+PATTERN #(.logn(logn)) u_PATTERN(
     .clk(clk),
     .rst_n(rst_n),
     .ena(ena),

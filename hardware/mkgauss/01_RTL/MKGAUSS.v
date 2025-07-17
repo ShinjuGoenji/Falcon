@@ -10,7 +10,7 @@
  * together for lower dimensions.
  */
 module MKGAUSS #(
-    parameter [3:0] logn = 9
+    parameter logn = 9
 )( 
     // Input signals
     clk,
@@ -24,6 +24,8 @@ module MKGAUSS #(
     val
 );
 
+localparam val_bit = (logn == 9) ? 7 : 6;
+
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
@@ -33,17 +35,17 @@ module MKGAUSS #(
  * @input   rng             Two 64-bit random numbers from random number generator.
  * @output  rng_extract     Response signal to RNG.
  * @output  val_valid       Valid signal of output val.
- * @output  val             32-bit signed output value (registered).
+ * @output  val             7-bit signed output value (registered).
  */
-input                     clk;
-input                     rst_n;
-input                     ena;
-input                     rng_valid;
-input             [127:0] rng;
+input                           clk;
+input                           rst_n;
+input                           ena;
+input                           rng_valid;
+input             [127:0]       rng;
 
-output reg                rng_extract;
-output reg                val_valid;
-output reg signed [31:0]  val;
+output reg                      rng_extract;
+output reg                      val_valid;
+output reg signed [val_bit-1:0] val;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
@@ -81,7 +83,7 @@ reg [62:0] r1_lo, r2_lo;
 reg neg, f;
 
 reg [GAUSS_TABLE_SIZE-2:0] t;
-reg signed [31:0] _v, v;
+reg signed [val_bit-1:0] _v, v;
 
 //---------------------------------------------------------------------
 //   FSM

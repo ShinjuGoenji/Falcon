@@ -25,7 +25,7 @@ module MKGAUSS #(
  * @input   rng             Two 64-bit random numbers from random number generator.
  * @output  rng_extract     Response signal to RNG.
  * @output  val_valid       Valid signal of output val.
- * @output  val             32-bit signed output value (registered).
+ * @output  val             7-bit signed output value (registered).
  */
 ```
 
@@ -38,8 +38,8 @@ module MKGAUSS #(
 |               | 40nm          | 90nm  |       |
 |:---:          |:---:          |:---:  |:---:  |
 | **Period**    | 2.0ns         |       |       |
-| **#GATE**     | 220           |       |       |
-| **AREA**      | 2198.825991   |       |       |
+| **#GATE**     | 141           |       |       |
+| **AREA**      | 1403.211592   |       |       |
 
 ## Future Optimization
 1. use pdt for N=512 instead of iterate 2 times with N=1024
