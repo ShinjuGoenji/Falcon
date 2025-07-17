@@ -80,10 +80,10 @@ reg signed [31:0] _v, v;
 //---------------------------------------------------------------------
 always @(*) begin
     if (ena) begin
-        if (rng_valid)
-            cnt = cnt_reg + 1;
-        else if (val_valid)
+        if (cnt_reg == g - 1)
             cnt = 0;
+        else if (rng_valid)
+            cnt = cnt_reg + 1;
         else
             cnt = cnt_reg;
     end
@@ -175,13 +175,25 @@ end
  * Generated value is added to v.
  */
 always @(*) begin
-    if (f)
-        v = val;
+    if (f) begin
+        if (cnt_reg == 0)
+            v = 0;
+        else
+            v = val;
+    end
     else begin
-        if (neg)
-            v = val - _v;
-        else 
-            v = val + _v;
+        if (neg) begin
+            if (cnt_reg == 0)
+                v = -_v;
+            else
+                v = val - _v;
+        end
+        else begin
+            if (cnt_reg == 0)
+                v = _v;
+            else
+                v = val + _v;
+        end
     end
 end
 

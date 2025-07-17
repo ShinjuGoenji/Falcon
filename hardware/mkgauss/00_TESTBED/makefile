@@ -3,7 +3,7 @@
 ######################################
 # Set your desired file names
 ######################################
-top_design=CC
+top_design=MKGAUSS
 define=CORRECT
 source_file="filelist.f"	# Name of your source file
 output_file="simv"      	# Desired output simulation file name

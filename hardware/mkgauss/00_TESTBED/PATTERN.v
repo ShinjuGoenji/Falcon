@@ -6,13 +6,13 @@
 `endif
 
 module PATTERN(
-    // Input signals
+    // Output signals
     clk,
     rst_n,
     ena,
     rng_valid,
     rng,
-    // Output signals
+    // Input signals
     rng_extract,
     val_valid,
     val
