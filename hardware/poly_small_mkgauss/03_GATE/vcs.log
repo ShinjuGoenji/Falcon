@@ -4263,3 +4263,83 @@ Time: 53685000 ps
 CPU Time:      4.020 seconds;       Data structure size:   7.0Mb
 Thu Jul 17 14:38:44 2025
 CPU time: 10.331 seconds to compile + .914 seconds to elab + .510 seconds to link + 4.039 seconds in simulation
+48__7_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):19800,  : 20700, Received SIGHUP (signal 1), exiting.
+Received SIGHUP (signal 1), exiting.
+ming violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_170__4_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59928: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_170__4_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59930: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_170__3_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59928: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_170__3_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59930: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_170__2_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59928: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_170__2_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59930: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_170__1_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59928: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_170__1_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59930: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_170__0_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59928: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_170__0_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59930: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_171__7_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59928: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_171__7_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):64600,  : 65450, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59930: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_171__6_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):64600,  : 65450, Received SIGHUP (signal 1), exiting.
+ 59928: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_325__5_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):19950,  : 20900, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59930: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_325__4_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):19950,  : 20900, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59928: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_325__4_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):19950,  : 20900, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59930: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_325__3_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):19950,  : 20900, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59928: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_325__3_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):19950,  : 20900, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59930: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_325__2_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):19950,  : 20900, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59928: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_325__2_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):19950,  : 20900, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59930: Timing violation in TESTBED.u_POLY_SMALL_MKGAUSS.f_reg_325__1_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):19950,  : 20900, Received SIGHUP (signal 1), exiting.
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 37400 ps
+CPU Time:      1.810 seconds;       Data structure size:   7.0Mb
+Thu Jul 17 14:52:42 2025
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 65450 ps
+CPU Time:      3.180 seconds;       Data structure size:   7.0Mb
+Thu Jul 17 14:52:42 2025
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 20700 ps
+CPU Time:      0.440 seconds;       Data structure size:   7.0Mb
+Thu Jul 17 14:52:42 2025
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 20900 ps
+CPU Time:      0.480 seconds;       Data structure size:   7.0Mb
+Thu Jul 17 14:52:42 2025
