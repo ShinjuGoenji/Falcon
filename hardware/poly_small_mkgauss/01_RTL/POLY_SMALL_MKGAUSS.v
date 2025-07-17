@@ -57,6 +57,8 @@ reg mod2, mod2_reg;
 
 reg [logn-1:0] cnt, cnt_reg;
 
+reg signed [7:0] _f [0:n-1];
+
 //---------------------------------------------------------------------
 //   Submodule
 //---------------------------------------------------------------------
@@ -160,7 +162,6 @@ always @(posedge clk or negedge rst_n) begin
     end
 end
 
-reg signed [7:0] _f [0:n-1];
 genvar u;
 generate
     for (u = 0; u < n; u = u + 1) begin
