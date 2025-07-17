@@ -27,6 +27,14 @@ module MKGAUSS #(
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
+/**
+ * @input   ena             Enable signal of this module.
+ * @input   rng_valid       Valid signal from RNG.
+ * @input   rng             Two 64-bit random numbers from random number generator.
+ * @output  rng_extract     Response signal to RNG.
+ * @output  val_valid       Valid signal of output val.
+ * @output  val             32-bit signed output value (registered).
+ */
 input                     clk;
 input                     rst_n;
 input                     ena;
