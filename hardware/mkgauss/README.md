@@ -31,7 +31,7 @@ module MKGAUSS #(
 |:---:          |:---:          |:---:  |:---:  |
 | **Period**    | 2.0ns         |       |       |
 | **#GATE**     | 220           |       |       |
-| **#AREA**     | 2198.825991   |       |       |
+| **AREA**      | 2198.825991   |       |       |
 
 ## Future Optimization
 1. use pdt for N=512 instead of iterate 2 times with N=1024

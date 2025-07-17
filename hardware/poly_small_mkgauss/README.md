@@ -31,7 +31,7 @@ module POLY_SMALL_MKGAUSS #(
 |:---:          |:---:          |:---:  |:---:  |
 | **Period**    | 2.0ns         |       |       |
 | **#GATE**     | 2895          |       |       |
-| **#AREA**     | 28886.834592  |       |       |
+| **AREA**      | 28886.834592  |       |       |
 
 ## Future Optimization
 1. improve MKGAUSS latency to 1 cycle
