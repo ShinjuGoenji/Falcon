@@ -1,6 +1,8 @@
 # software
 *.o
 test_falcon
+*tmp*
+*TSMC*
 
 # 01_RTL
 csrc/
