@@ -12,6 +12,7 @@ simv
 *.fsdb*
 novas*
 *.key
+*.exp
 
 # 02_SYN
 alib-52/

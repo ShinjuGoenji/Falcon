@@ -1,0 +1,310 @@
+Command: vcs -timescale=1ns/1fs -j4 -sverilog +v2k -full64 -Mupdate -R -debug_access+all \
+-y /usr/cad/synopsys/synthesis/cur/dw/sim_ver/ +libext+.v -f filelist.f -o simv -l \
+vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a \
++define+RTL +define+ +notimingchecks
+*** Using c compiler gcc instead of cc ...
+                         Chronologic VCS (TM)
+         Version T-2022.06_Full64 -- Tue Jul 22 04:23:05 2025
+
+                    Copyright (c) 1991 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file 'TESTBED.v'
+Parsing included file 'PATTERN.v'.
+Back to file 'TESTBED.v'.
+Parsing included file 'FFT.v'.
+Parsing included file 'RADIX2.v'.
+Parsing included file 'DELAY_BUFFER.v'.
+Back to file 'RADIX2.v'.
+Parsing included file 'BUTTERFLY.v'.
+Back to file 'RADIX2.v'.
+Parsing included file 'FPC.v'.
+Back to file 'RADIX2.v'.
+Back to file 'FFT.v'.
+Back to file 'TESTBED.v'.
+Parsing library directory file '/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_add.v'
+Parsing library directory file '/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_mult.v'
+Parsing library directory file '/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_sub.v'
+Parsing library directory file '/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_addsub.v'
+Top Level Modules:
+       TESTBED
+TimeScale is 1 ns / 10 ps
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 41
+FPC_ADD, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (d_re));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 44
+FPC_ADD, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (d_im));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 88
+FPC_SUB, "DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (d_re));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 91
+FPC_SUB, "DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (d_im));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 140
+FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (a_re_x_b_re));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 143
+FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (a_im_x_b_im));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 146
+FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_2( .a (a_re),  .b (b_im),  .rnd (rnd),  .z (a_re_x_b_im));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 149
+FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_3( .a (a_im),  .b (b_re),  .rnd (rnd),  .z (a_im_x_b_re));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 152
+FPC_MUL, "DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB( .a (a_re_x_b_re),  .b (a_im_x_b_im),  .rnd (rnd),  .z (d_re));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 155
+FPC_MUL, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD( .a (a_re_x_b_im),  .b (a_im_x_b_re),  .rnd (rnd),  .z (d_im));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+TESTBED.v, 58
+TESTBED, "FFT #(.FLOAT_PRECISION(FLOAT_PRECISION), .logn(logn)) u_FFT( .clk (clk),  .rst_n (rst_n),  .in_valid (in_valid),  .fi_re (fi_re),  .fi_im (fi_im),  .s_re_0 (s_re_0),  .s_im_0 (s_im_0),  .out_valid (out_valid),  .fo_re (fo_re),  .fo_im (fo_im));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+FPC.v, 41
+"DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (d_re));"
+  The following 1-bit expression is connected to 3-bit port "rnd" of module 
+  "DW_fp_add", instance "u_FPC_ADD_0".
+  Expression: rnd
+  Instantiated module defined at: 
+  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_add.v", 64
+  Use +lint=PCWM for more details.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+FPC.v, 44
+"DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (d_im));"
+  The following 1-bit expression is connected to 3-bit port "rnd" of module 
+  "DW_fp_add", instance "u_FPC_ADD_1".
+  Expression: rnd
+  Instantiated module defined at: 
+  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_add.v", 64
+  Use +lint=PCWM for more details.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+FPC.v, 88
+"DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (d_re));"
+  The following 1-bit expression is connected to 3-bit port "rnd" of module 
+  "DW_fp_sub", instance "u_FPC_SUB_0".
+  Expression: rnd
+  Instantiated module defined at: 
+  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_sub.v", 61
+  Use +lint=PCWM for more details.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+FPC.v, 91
+"DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (d_im));"
+  The following 1-bit expression is connected to 3-bit port "rnd" of module 
+  "DW_fp_sub", instance "u_FPC_SUB_1".
+  Expression: rnd
+  Instantiated module defined at: 
+  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_sub.v", 61
+  Use +lint=PCWM for more details.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+FPC.v, 140
+"DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (a_re_x_b_re));"
+  The following 1-bit expression is connected to 3-bit port "rnd" of module 
+  "DW_fp_mult", instance "u_FPC_MUL_0".
+  Expression: rnd
+  Instantiated module defined at: 
+  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_mult.v", 88
+  Use +lint=PCWM for more details.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+FPC.v, 143
+"DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (a_im_x_b_im));"
+  The following 1-bit expression is connected to 3-bit port "rnd" of module 
+  "DW_fp_mult", instance "u_FPC_MUL_1".
+  Expression: rnd
+  Instantiated module defined at: 
+  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_mult.v", 88
+  Use +lint=PCWM for more details.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+FPC.v, 146
+"DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_2( .a (a_re),  .b (b_im),  .rnd (rnd),  .z (a_re_x_b_im));"
+  The following 1-bit expression is connected to 3-bit port "rnd" of module 
+  "DW_fp_mult", instance "u_FPC_MUL_2".
+  Expression: rnd
+  Instantiated module defined at: 
+  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_mult.v", 88
+  Use +lint=PCWM for more details.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+FPC.v, 149
+"DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_3( .a (a_im),  .b (b_re),  .rnd (rnd),  .z (a_im_x_b_re));"
+  The following 1-bit expression is connected to 3-bit port "rnd" of module 
+  "DW_fp_mult", instance "u_FPC_MUL_3".
+  Expression: rnd
+  Instantiated module defined at: 
+  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_mult.v", 88
+  Use +lint=PCWM for more details.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+FPC.v, 152
+"DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB( .a (a_re_x_b_re),  .b (a_im_x_b_im),  .rnd (rnd),  .z (d_re));"
+  The following 1-bit expression is connected to 3-bit port "rnd" of module 
+  "DW_fp_sub", instance "u_FPC_SUB".
+  Expression: rnd
+  Instantiated module defined at: 
+  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_sub.v", 61
+  Use +lint=PCWM for more details.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+FPC.v, 155
+"DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD( .a (a_re_x_b_im),  .b (a_im_x_b_re),  .rnd (rnd),  .z (d_im));"
+  The following 1-bit expression is connected to 3-bit port "rnd" of module 
+  "DW_fp_add", instance "u_FPC_ADD".
+  Expression: rnd
+  Instantiated module defined at: 
+  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_add.v", 64
+  Use +lint=PCWM for more details.
+
+Starting vcs inline pass...
+
+
+Note-[VCS_PARAL] Parallel code-gen enabled
+  VCS is running with parallel code generation(-j)...
+
+8 modules and 0 UDP read.
+recompiling module TESTBED
+	However, due to incremental compilation, only 1 module needs to be compiled. 
+make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/fft/01_RTL/csrc'
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
+rm -f _cuarc0.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
+-Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _18124_archive_1.so _18148_archive_1.so \
+_prev_archive_1.so _cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o \
+rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs \
+/usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile \
+-luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o   -Wl,-whole-archive \
+-lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o \
+/usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a -ldl -lm  -lc -lpthread \
+-ldl 
+../simv up to date
+make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/fft/01_RTL/csrc'
+Command: /home/daniel_kuo/Falcon/hardware/fft/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
+Chronologic VCS simulator copyright 1991-2022
+Contains Synopsys proprietary information.
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 22 04:23 2025
+*Verdi* Loading libsscore_vcs202206.so
+FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
+(C) 1996 - 2022 by Synopsys, Inc.
+*Verdi* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi* : Create FSDB file 'FFT.fsdb'
+*Verdi* : Begin traversing the scopes, layer (0).
+*Verdi* : Enable +mda dumping.
+*Verdi* : End of traversing.
+PASS PATTERN NO.  1
+PASS PATTERN NO.  2
+PASS PATTERN NO.  3
+PASS PATTERN NO.  4
+PASS PATTERN NO.  5
+PASS PATTERN NO.  6
+PASS PATTERN NO.  7
+PASS PATTERN NO.  8
+PASS PATTERN NO.  9
+PASS PATTERN NO. 10
+PASS PATTERN NO. 11
+PASS PATTERN NO. 12
+PASS PATTERN NO. 13
+PASS PATTERN NO. 14
+PASS PATTERN NO. 15
+PASS PATTERN NO. 16
+--------------------------------------------------------------------
+                         Congratulations!                           
+                  You have passed all patterns!                     
+                  Your execution cycles =     0 cycles                
+                  Your clock period = 2.0 ns                       
+                  Total Latency = 0.0 ns                           
+--------------------------------------------------------------------
+$finish called from file "PATTERN.v", line 1276.
+$finish at simulation time              1245500
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 12455000 ps
+CPU Time:      0.890 seconds;       Data structure size:   0.1Mb
+Tue Jul 22 04:23:07 2025
+CPU time: .437 seconds to compile + .219 seconds to elab + .254 seconds to link + .909 seconds in simulation

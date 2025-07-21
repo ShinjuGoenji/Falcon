@@ -1,0 +1,309 @@
+Magic 271485
+Revision Verdi_T-2022.06
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 25 1920 609 225 65
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/home/daniel_kuo/Falcon/hardware/fft/01_RTL/FFT.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 7190422.809437 7845377.000000
+cursor 200.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 13
+; marker line index
+markerPos 34
+
+; logical expression list
+; addExprSig expr_name expression_string
+activeDirFile "" "/home/daniel_kuo/Falcon/hardware/fft/01_RTL/FFT.fsdb"
+
+addExprSig -b 8 -n UU fo_re_exp[7:0] "/TESTBED/u_FFT/fo_re[63:0]"==0?0:"/TESTBED/u_FFT/fo_re[62:52]"-1023+1\
+27
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU fo_im_exp[7:0] "/TESTBED/u_FFT/fo_im[63:0]"==0?0:"/TESTBED/u_FFT/fo_im[62:52]"-1023+1\
+27
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU mult_d_re_exp_reg[7:0] "/TESTBED/u_FFT/u_stage_0/mult_d_re_reg[63:0]"==0?0:"/TESTBED/u_FFT/u_\
+stage_0/mult_d_re_reg[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU mult_d_re_32_reg[31:0] {"/TESTBED/u_FFT/u_stage_0/mult_d_re_reg[63]", "/mult_d_re_exp_reg[7:0\
+]", "/TESTBED/u_FFT/u_stage_0/mult_d_re_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU mult_d_im_exp_reg[7:0] "/TESTBED/u_FFT/u_stage_0/mult_d_im_reg[63:0]"==0?0:"/TESTBED/u_FFT/u_\
+stage_0/mult_d_im_reg[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU mult_d_im_32_reg[31:0] {"/TESTBED/u_FFT/u_stage_0/mult_d_im_reg[63]", "/mult_d_im_exp_reg[7:0\
+]", "/TESTBED/u_FFT/u_stage_0/mult_d_im_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU fi_re_exp[7:0] "/TESTBED/u_FFT/fi_re_reg[63:0]"==0?0:"/TESTBED/u_FFT/fi_re_reg[62:52]\
+"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU fi_im_exp[7:0] "/TESTBED/u_FFT/fi_im_reg[63:0]"==0?0:"/TESTBED/u_FFT/fi_im_reg[62:52]\
+"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU fi_re_32[31:0] {"/TESTBED/u_FFT/fi_re_reg[63]", "/fi_re_exp[7:0]", "/TESTBED/u_FFT/fi\
+_re_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU fi_im_32[31:0] {"/TESTBED/u_FFT/fi_im_reg[63]", "/fi_im_exp[7:0]", "/TESTBED/u_FFT/fi\
+_im_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU s_im_exp[7:0] "/TESTBED/u_FFT/s_im_reg[63:0]"==0?0:"/TESTBED/u_FFT/s_im_reg[62:52]"-\
+1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU s_re_exp[7:0] "/TESTBED/u_FFT/s_re_reg[63:0]"==0?0:"/TESTBED/u_FFT/s_re_reg[62:52]"-\
+1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU s_im_32[31:0] {"/TESTBED/u_FFT/s_im_reg[63]", "/s_im_exp[7:0]", "/TESTBED/u_FFT/s_im\
+_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU s_re_32[31:0] {"/TESTBED/u_FFT/s_re_reg[63]", "/s_re_exp[7:0]", "/TESTBED/u_FFT/s_re\
+_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU delay_do_im_exp[7:0] "/TESTBED/u_FFT/u_stage_0/delay_do_im[63:0]"==0?0:"/TESTBED/u_FFT/u_st\
+age_0/delay_do_im[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU delay_do_im_32[31:0] {"/TESTBED/u_FFT/u_stage_0/delay_do_im[63]", "/delay_do_im_exp[7:0]", \
+"/TESTBED/u_FFT/u_stage_0/delay_do_im[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU delay_do_re_exp[7:0] "/TESTBED/u_FFT/u_stage_0/delay_do_re[63:0]"==0?0:"/TESTBED/u_FFT/u_st\
+age_0/delay_do_re[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU delay_do_re_32[31:0] {"/TESTBED/u_FFT/u_stage_0/delay_do_re[63]", "/delay_do_re_exp[7:0]", \
+"/TESTBED/u_FFT/u_stage_0/delay_do_re[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU fo_re_32[31:0] {"/TESTBED/u_FFT/fo_re[63]", "/fo_re_exp[7:0]", "/TESTBED/u_FFT/fo_re[\
+51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU fo_im_32[31:0] {"/TESTBED/u_FFT/fo_im[63]", "/fo_im_exp[7:0]", "/TESTBED/u_FFT/fo_im[\
+51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU butterfly_X_im_exp_reg[7:0] "/TESTBED/u_FFT/u_stage_0/butterfly_X_im_reg[63:0]"==0?0:"/TESTBED/u_F\
+FT/u_stage_0/butterfly_X_im_reg[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU butterfly_X_im_32_reg[31:0] {"/TESTBED/u_FFT/u_stage_0/butterfly_X_im_reg[63]", "butterfly_X_im_ex\
+p_reg[7:0]", "/TESTBED/u_FFT/u_stage_0/butterfly_X_im_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU butterfly_X_re_exp_reg[7:0] "/TESTBED/u_FFT/u_stage_0/butterfly_X_re_reg[63:0]"==0?0:"/TESTBED/u_F\
+FT/u_stage_0/butterfly_X_re_reg[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU butterfly_X_re_32_reg[31:0] {"/TESTBED/u_FFT/u_stage_0/butterfly_X_re_reg[63]", "butterfly_X_re_ex\
+p_reg[7:0]", "/TESTBED/u_FFT/u_stage_0/butterfly_X_re_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU butterfly_Y_im_exp_reg[7:0] "/TESTBED/u_FFT/u_stage_0/butterfly_Y_im_reg[63:0]"==0?0:"/TESTBED/u_F\
+FT/u_stage_0/butterfly_Y_im_reg[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU butterfly_Y_im_32_reg[31:0] {"/TESTBED/u_FFT/u_stage_0/butterfly_Y_im_reg[63]", "butterfly_Y_im_ex\
+p_reg[7:0]", "/TESTBED/u_FFT/u_stage_0/butterfly_Y_im_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 8 -n UU butterfly_Y_re_exp_reg[7:0] "/TESTBED/u_FFT/u_stage_0/butterfly_Y_re_reg[63:0]"==0?0:"/TESTBED/u_F\
+FT/u_stage_0/butterfly_Y_re_reg[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU butterfly_Y_re_32_reg[31:0] {"/TESTBED/u_FFT/u_stage_0/butterfly_Y_re_reg[63]", "butterfly_Y_re_ex\
+p_reg[7:0]", "/TESTBED/u_FFT/u_stage_0/butterfly_Y_re_reg[51:29]"}
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+addGroup "PATTERN"
+activeDirFile "" "/home/daniel_kuo/Falcon/hardware/fft/01_RTL/FFT.fsdb"
+addSignal -h 15 /TESTBED/u_FFT/clk
+addSignal -h 15 -holdScope rst_n
+addSignal -h 15 -UNSIGNED -UDEC /TESTBED/u_PATTERN/i_in_deg[31:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope i_out_deg[31:0]
+addSignal -h 15 -holdScope in_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope fi_re[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope fi_im[63:0]
+addGroup "FFT_INPUT"
+addSignal -h 15 /TESTBED/u_FFT/u_stage_0/in_valid
+addSignal -h 15 -UNSIGNED -IEEE754 /fi_re_32[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope fi_im_32[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope s_re_32[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope s_im_32[31:0]
+addGroup "OUTPUT"
+addSignal -h 15 /TESTBED/u_FFT/out_valid
+addSignal -h 15 /TESTBED/u_FFT/u_stage_0/output_mux
+addSignal -h 15 -UNSIGNED -IEEE754 /fo_re_32[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope fo_im_32[31:0]
+addGroup "STAGE_0"
+addSignal -h 15 /TESTBED/u_FFT/u_stage_0/state_reg
+addSignal -h 15 -UNSIGNED -UDEC -holdScope cnt_reg[8:0]
+addSignal -h 15 -UNSIGNED -IEEE754 /delay_do_re_32[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope delay_do_im_32[31:0]
+addSignal -h 15 /TESTBED/u_FFT/u_stage_0/delay_mux
+addSignal -h 15 -UNSIGNED -IEEE754 /mult_d_re_32_reg[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope mult_d_im_32_reg[31:0]
+addGroup "DELAY_BUFFER"
+addSignal -h 15 /TESTBED/u_FFT/u_stage_0/u_DELAY_BUFFER/ena
+addSignal -h 15 -holdScope in_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope buf_valid[0:127]
+addGroup "G7"
+addSignal -h 15 -UNSIGNED -IEEE754 /butterfly_X_re_32_reg[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope butterfly_X_im_32_reg[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope butterfly_Y_re_32_reg[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope butterfly_Y_im_32_reg[31:0]
+addGroup "G3" -e FALSE
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_FFT/u_stage_0/butterfly_Y_im_reg[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope butterfly_Y_re_reg[63:0]
+addSignal -h 15 /butterfly_X_re_exp_reg[7:0]
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_FFT/u_stage_0/butterfly_X_re_reg[63:0]
+addSignal -h 15 /butterfly_Y_im_exp_reg[7:0]
+addSignal -h 15 -holdScope butterfly_Y_re_exp_reg[7:0]
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_FFT/u_stage_0/butterfly_X_im_reg[63:0]
+addSignal -h 15 /butterfly_X_im_exp_reg[7:0]
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_FFT/u_stage_0/delay_do_re[63:0]
+addSignal -h 15 /delay_do_re_exp[7:0]
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_FFT/u_stage_0/delay_do_im[63:0]
+addSignal -h 15 /delay_do_im_exp[7:0]
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_FFT/fi_im_reg[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope fi_re_reg[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope s_im_reg[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope s_re_reg[63:0]
+addSignal -h 15 /mult_d_im_exp_reg[7:0]
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_FFT/u_stage_0/mult_d_im_reg[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope mult_d_re_reg[63:0]
+addSignal -h 15 /mult_d_re_exp_reg[7:0]
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_FFT/fo_re[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope fo_im[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope s_im[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope s_re[63:0]
+addSignal -h 15 /s_im_exp[7:0]
+addSignal -h 15 -holdScope s_re_exp[7:0]
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_FFT/fi_im[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope fi_re[63:0]
+addSignal -h 15 /fi_re_exp[7:0]
+addSignal -h 15 -holdScope fi_im_exp[7:0]
+addGroup "G8"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+activeDirFile "" "/home/daniel_kuo/Falcon/hardware/fft/01_RTL/FFT.fsdb"
+
+GETSIGNALFORM_SCOPE_HIERARCHY_BEGIN
+getSignalForm close
+
+"/TESTBED"
+"/TESTBED/u_FFT"
+"/TESTBED/u_PATTERN"
+
+SCOPE_LIST_BEGIN
+"/TESTBED"
+"/TESTBED/u_FFT"
+"/TESTBED/u_FFT/u_stage_0"
+"/TESTBED/u_FFT/u_stage_0/u_DELAY_BUFFER"
+"/TESTBED/u_FFT/u_stage_0/u_FPC_MUL"
+"/TESTBED/u_PATTERN"
+SCOPE_LIST_END
+
+GETSIGNALFORM_SCOPE_HIERARCHY_END
+
+
