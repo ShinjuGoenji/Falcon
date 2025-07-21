@@ -3,6 +3,7 @@
 test_falcon
 *tmp*
 *TSMC*
+*tsmc*
 
 # 01_RTL
 csrc/
