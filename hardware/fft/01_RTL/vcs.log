@@ -4,7 +4,7 @@ vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/
 +define+RTL +define+ +notimingchecks
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Tue Jul 22 04:23:05 2025
+         Version T-2022.06_Full64 -- Tue Jul 22 18:48:05 2025
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -118,14 +118,6 @@ FPC_MUL, "DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB( .a (a_re
 Warning-[TFIPC] Too few instance port connections
 FPC.v, 155
 FPC_MUL, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD( .a (a_re_x_b_im),  .b (a_im_x_b_re),  .rnd (rnd),  .z (d_im));"
-  The above instance has fewer port connections than the module definition.
-  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
-  ports.
-
-
-Warning-[TFIPC] Too few instance port connections
-TESTBED.v, 58
-TESTBED, "FFT #(.FLOAT_PRECISION(FLOAT_PRECISION), .logn(logn)) u_FFT( .clk (clk),  .rst_n (rst_n),  .in_valid (in_valid),  .fi_re (fi_re),  .fi_im (fi_im),  .s_re_0 (s_re_0),  .s_im_0 (s_im_0),  .out_valid (out_valid),  .fo_re (fo_re),  .fo_im (fo_im));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
   ports.
@@ -247,7 +239,7 @@ Note-[VCS_PARAL] Parallel code-gen enabled
   VCS is running with parallel code generation(-j)...
 
 8 modules and 0 UDP read.
-recompiling module TESTBED
+recompiling module PATTERN
 	However, due to incremental compilation, only 1 module needs to be compiled. 
 make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/fft/01_RTL/csrc'
 rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
@@ -256,7 +248,7 @@ rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
--Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _18124_archive_1.so _18148_archive_1.so \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _9950_archive_1.so _9975_archive_1.so \
 _prev_archive_1.so _cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o \
 rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs \
 /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile \
@@ -269,7 +261,7 @@ make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/fft/01_RTL/csrc'
 Command: /home/daniel_kuo/Falcon/hardware/fft/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
 Chronologic VCS simulator copyright 1991-2022
 Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 22 04:23 2025
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 22 18:48 2025
 *Verdi* Loading libsscore_vcs202206.so
 FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 (C) 1996 - 2022 by Synopsys, Inc.
@@ -301,10 +293,10 @@ PASS PATTERN NO. 16
                   Your clock period = 2.0 ns                       
                   Total Latency = 0.0 ns                           
 --------------------------------------------------------------------
-$finish called from file "PATTERN.v", line 1276.
+$finish called from file "PATTERN.v", line 1285.
 $finish at simulation time              1245500
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 12455000 ps
-CPU Time:      0.890 seconds;       Data structure size:   0.1Mb
-Tue Jul 22 04:23:07 2025
-CPU time: .437 seconds to compile + .219 seconds to elab + .254 seconds to link + .909 seconds in simulation
+CPU Time:      0.590 seconds;       Data structure size:   0.1Mb
+Tue Jul 22 18:48:07 2025
+CPU time: .413 seconds to compile + .222 seconds to elab + .272 seconds to link + .606 seconds in simulation
