@@ -48,7 +48,7 @@ reg [FLOAT_PRECISION-1:0] s_im_0_reg;
 //   Submodule
 //---------------------------------------------------------------------
 RADIX2 #(FLOAT_PRECISION, logn, 1)
-u_stage_0 (
+u_stage_1 (
     // Input signals
     .clk(clk), .rst_n(rst_n),
     .in_valid(in_valid_reg),
