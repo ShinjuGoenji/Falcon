@@ -19,6 +19,7 @@ module PATTERN #(
     s_im_0,
     // Input signals
 	out_valid,
+    tw_idx_0,
     fo_re,
     fo_im
 );
@@ -37,6 +38,7 @@ output reg [FLOAT_PRECISION-1:0] s_re_0;
 output reg [FLOAT_PRECISION-1:0] s_im_0;
 
 input                       	 out_valid;
+input      [logn:0]          	 tw_idx_0;
 input 	   [FLOAT_PRECISION-1:0] fo_re;
 input 	   [FLOAT_PRECISION-1:0] fo_im;
 
@@ -1154,7 +1156,7 @@ task reset_task; begin
     force clk = 0;
     #CYCLE; rst_n = 0; 
     #CYCLE; rst_n = 1;
-    if(out_valid !== 'b0 || fo_re !== 0 || fo_im !== 0) begin 
+    if(out_valid !== 'b0 || tw_idx_0 !== 'b0 || fo_re !== 0 || fo_im !== 0) begin 
         $display("************************************************************");  
         $display("                          FAIL!                              ");    
         $display("*  Output signal should be 0 after initial RESET  at %8t   *",$time);
@@ -1183,17 +1185,23 @@ task input_task; begin
 	in_valid = 'b1;
 	fi_re = f_re[i_in_deg];
 	fi_im = f_im[i_in_deg];
-	if (s_index[i_in_deg] != -1) begin
-		s_re_0 = fpr_gm_tab[(s_index[i_in_deg] << 1) + 0];
-		s_im_0 = fpr_gm_tab[(s_index[i_in_deg] << 1) + 1];
-	end 
-	else begin
-		s_re_0 = 64'h3ff0000000000000;
-		s_im_0 = 64'h0000000000000000;
-	end 	
+	twiddle_factor;
+	// if (s_index[i_in_deg] != -1) begin
+	// 	s_re_0 = fpr_gm_tab[(s_index[i_in_deg] << 1) + 0];
+	// 	s_im_0 = fpr_gm_tab[(s_index[i_in_deg] << 1) + 1];
+	// end 
+	// else begin
+	// 	s_re_0 = 64'h3ff0000000000000;
+	// 	s_im_0 = 64'h0000000000000000;
+	// end 	
 	// $display("\tIN  DEGREE %3d\tRe = %f, Im = %f", i_in_deg, $bitstoreal(fi_re), $bitstoreal(fi_im));
 	i_in_deg = i_in_deg + 1;
 	@(negedge clk);		
+end endtask
+
+task twiddle_factor; begin
+	s_re_0 = fpr_gm_tab[(tw_idx_0 << 1) + 0];
+	s_im_0 = fpr_gm_tab[(tw_idx_0 << 1) + 1];
 end endtask
 
 task input_delay; begin
@@ -1204,8 +1212,9 @@ task input_delay; begin
 		in_valid = 'b0;
 		fi_re = 'bx;
 		fi_im = 'bx;
-		s_re_0 = 'bx;
-		s_im_0 = 'bx;
+		// s_re_0 = 'bx;
+		// s_im_0 = 'bx;
+		twiddle_factor;
 		@(negedge clk);
 end
 end endtask

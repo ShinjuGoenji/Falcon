@@ -10,7 +10,7 @@
 module RADIX2 #(
     parameter   FLOAT_PRECISION = 64,
     parameter   logn = 8,
-    parameter M = 0
+    parameter   U = 1   // stage
 )(
     // Input signals
     clk,
@@ -30,16 +30,18 @@ module RADIX2 #(
 //---------------------------------------------------------------------
 //   Parameter & Integer
 //---------------------------------------------------------------------
-parameter BUFFER_DEPTH = M / 2;
 parameter N = 1 << logn;
+
+parameter M = 1 << U;
+parameter HT = N / M;
+parameter T = HT << 1;
 parameter HN = N / 2;
 parameter CNT_MAX = N + HN;
 
 parameter S_IDLE = 0;
 parameter S_EXE = 1;
 
-parameter TW_IDX_0 = 2;
-parameter TWIDDLE_0 = 126;
+parameter i1_bit = (U-1 == 0) ? 1 : U-1;
 
 //---------------------------------------------------------------------
 //   Input & Output
@@ -53,7 +55,7 @@ input  [FLOAT_PRECISION-1:0] s_re;
 input  [FLOAT_PRECISION-1:0] s_im;
 
 output reg                   out_valid;
-output reg [8:0]             tw_idx;
+output reg [logn:0]          tw_idx;
 output [FLOAT_PRECISION-1:0] do_re;
 output [FLOAT_PRECISION-1:0] do_im;
 
@@ -76,6 +78,8 @@ reg state, state_reg;
 reg [logn:0] cnt, cnt_reg;
 reg in_valid_reg, _out_valid;
 
+reg [i1_bit-1:0] i1;
+
 //---------------------------------------------------------------------
 //   Submodule
 //---------------------------------------------------------------------
@@ -89,7 +93,7 @@ u_BUTTERFLY (
     .Y_re(butterfly_Y_re), .Y_im(butterfly_Y_im)
     );
 
-DELAY_BUFFER #(.FLOAT_PRECISION(FLOAT_PRECISION), .DEPTH(BUFFER_DEPTH))
+DELAY_BUFFER #(.FLOAT_PRECISION(FLOAT_PRECISION), .DEPTH(HT))
 u_DELAY_BUFFER (
     // Input signals
     .clk(clk), .rst_n(rst_n),
@@ -149,12 +153,16 @@ end
 
 assign delay_ena = (cnt_reg < N-1 && !in_valid) ? 0 : 1;
 
+/*
+ * Control twiddle factor index.
+ */
+assign i1 = (cnt_reg + 2) / T;
 always @(*) begin
-    if (cnt_reg < TWIDDLE_0) begin
-        if 
-    end
+    if (state_reg == S_EXE)
+        tw_idx = ((cnt_reg + 2) % T < HT) ? 0 : M + i1;
+    else 
+        tw_idx = 0;
 end
-assign tw_idx = (in_valid && cnt_reg < TWIDDLE_0) ? 0 : TW_IDX_0;
 
 /*
  * Multiplexer that choose the input source to delay buffer.

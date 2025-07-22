@@ -31,7 +31,7 @@ input  [FLOAT_PRECISION-1:0] s_re_0;
 input  [FLOAT_PRECISION-1:0] s_im_0;
 
 output reg                   out_valid;
-output reg [8:0] tw_idx_0;
+output reg [logn:0]          tw_idx_0;
 output [FLOAT_PRECISION-1:0] fo_re;
 output [FLOAT_PRECISION-1:0] fo_im;
 
@@ -47,7 +47,7 @@ reg [FLOAT_PRECISION-1:0] s_im_0_reg;
 //---------------------------------------------------------------------
 //   Submodule
 //---------------------------------------------------------------------
-RADIX2 #(FLOAT_PRECISION, logn, 256)
+RADIX2 #(FLOAT_PRECISION, logn, 1)
 u_stage_0 (
     // Input signals
     .clk(clk), .rst_n(rst_n),

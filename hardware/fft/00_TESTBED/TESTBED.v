@@ -34,6 +34,7 @@ wire [FLOAT_PRECISION-1:0] s_re_0;
 wire [FLOAT_PRECISION-1:0] s_im_0;
 
 wire                       out_valid;
+wire [logn:0]              tw_idx_0;
 wire [FLOAT_PRECISION-1:0] fo_re;
 wire [FLOAT_PRECISION-1:0] fo_im;
 
@@ -64,6 +65,7 @@ end
     .s_re_0(s_re_0),
     .s_im_0(s_im_0),
     .out_valid(out_valid),
+    .tw_idx_0(tw_idx_0),
     .fo_re(fo_re),
     .fo_im(fo_im)
     );
@@ -77,6 +79,7 @@ end
     .s_re_0(s_re_0),
     .s_im_0(s_im_0),
     .out_valid(out_valid),
+    .tw_idx_0(tw_idx_0),
     .fo_re(fo_re),
     .fo_im(fo_im)
     );
@@ -91,6 +94,7 @@ PATTERN #(.logn(logn)) u_PATTERN(
     .s_re_0(s_re_0),
     .s_im_0(s_im_0),
     .out_valid(out_valid),
+    .tw_idx_0(tw_idx_0),
     .fo_re(fo_re),
     .fo_im(fo_im)
     );
