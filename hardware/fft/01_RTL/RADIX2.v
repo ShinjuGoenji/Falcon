@@ -3,7 +3,6 @@
 `include "BUTTERFLY.v"
 `include "FPC.v"
 
-
 /*
  * Radix-2 Single-Path Delay Feedback (SDF) Unit for N-Point FFT
  */
@@ -56,27 +55,27 @@ input  [FLOAT_PRECISION-1:0] s_im;
 
 output reg                   out_valid;
 output reg [logn:0]          tw_idx;
-output [FLOAT_PRECISION-1:0] do_re;
-output [FLOAT_PRECISION-1:0] do_im;
+output reg [FLOAT_PRECISION-1:0] do_re;
+output reg [FLOAT_PRECISION-1:0] do_im;
 
 //---------------------------------------------------------------------
 //   Reg & Wire
 //---------------------------------------------------------------------
 reg [FLOAT_PRECISION-1:0] mult_d_re, mult_d_im, mult_d_re_reg, mult_d_im_reg;
 
-reg [FLOAT_PRECISION-1:0] butterfly_X_re, butterfly_X_im, butterfly_X_re_reg, butterfly_X_im_reg, 
-                          butterfly_Y_re, butterfly_Y_im, butterfly_Y_re_reg, butterfly_Y_im_reg;
-reg butterfly_X_valid, butterfly_Y_valid;
+reg [FLOAT_PRECISION-1:0] butterfly_X_re, butterfly_X_im; 
+reg [FLOAT_PRECISION-1:0] butterfly_Y_re, butterfly_Y_im;
 
 reg [FLOAT_PRECISION-1:0] delay_di_re, delay_di_im;
 reg [FLOAT_PRECISION-1:0] delay_do_re, delay_do_im;
 reg delay_ena, i_valid, o_valid;
 
 reg delay_mux, output_mux;
+reg [FLOAT_PRECISION-1:0] _do_re, _do_im;
 
 reg state, state_reg;
 reg [logn:0] cnt, cnt_reg;
-reg in_valid_reg, _out_valid;
+reg in_valid_reg;
 
 reg [i1_bit-1:0] i1;
 
@@ -156,74 +155,105 @@ assign delay_ena = (cnt_reg < N-1 && !in_valid) ? 0 : 1;
 /*
  * Control twiddle factor index.
  */
-assign i1 = (cnt_reg + 2) / T;
+assign i1 = (cnt_reg + 1) / T;
+reg mask;
 always @(*) begin
-    if (state_reg == S_EXE)
-        tw_idx = ((cnt_reg + 2) % T < HT) ? 0 : M + i1;
+    if (((cnt_reg + 2) % T) == 0)
+        if (!in_valid)
+            mask = 1;
+        else 
+            mask = 0;
+    else if (((cnt_reg + 2) % T) < HT)
+        mask = 0;
+    else if (((cnt_reg + 2) % T) == HT)
+        if (in_valid)
+            mask = 1;
+        else 
+            mask = 0;
     else 
-        tw_idx = 0;
+        mask = 1;
 end
+
+always @(*) begin
+    if (((cnt_reg + 2) % T) == 0)
+        if (!in_valid)
+            tw_idx = M + i1;
+        else 
+            tw_idx = 0;
+    else if (((cnt_reg + 2) % T) < HT)
+        tw_idx = 0;
+    else if (((cnt_reg + 2) % T) == HT)
+        if (in_valid)
+            tw_idx = M + i1;
+        else 
+            tw_idx = 0;
+    else
+        tw_idx = M + i1;
+end
+
+// always @(*) begin
+//     if (((cnt_reg + 1) % T) < (HT - 1))
+//         tw_idx = 0;
+//     else if (((cnt_reg + 1) % T) == (HT - 1))
+//         if (in_valid)
+//             tw_idx = M + i1;
+//         else 
+//             tw_idx = 0;
+//     else
+//         tw_idx = M + i1;
+// end
 
 /*
  * Multiplexer that choose the input source to delay buffer.
  */
-assign delay_mux = (cnt_reg < HN) ? 0 : 1;
-assign i_valid = delay_mux ? butterfly_Y_valid : in_valid_reg;
-assign delay_di_re = delay_mux ? butterfly_Y_re_reg : mult_d_re_reg;
-assign delay_di_im = delay_mux ? butterfly_Y_im_reg : mult_d_im_reg;
+assign delay_mux = (cnt_reg / HT) % 2;
+assign delay_di_re = delay_mux ? butterfly_Y_re : mult_d_re_reg;
+assign delay_di_im = delay_mux ? butterfly_Y_im : mult_d_im_reg;
 
 /*
  * Multiplexer that choose the output source.
  */
-assign output_mux = (state_reg == S_EXE && cnt_reg <= N) ? 0 : 1;
-assign out_valid = output_mux ? o_valid : butterfly_X_valid;
-assign do_re = output_mux ? delay_do_re : butterfly_X_re_reg;
-assign do_im = output_mux ? delay_do_im : butterfly_X_im_reg;
+assign output_mux = (cnt_reg < HT) ? 0 : (cnt_reg / HT) % 2 == 0;
+assign _do_re = output_mux ? delay_do_re : butterfly_X_re;
+assign _do_im = output_mux ? delay_do_im : butterfly_X_im;
 
 //---------------------------------------------------------------------
 //   Sequential Logic
 //---------------------------------------------------------------------
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        in_valid_reg <= 0;
+        i_valid <= 0;
         mult_d_re_reg <= 0;
         mult_d_im_reg <= 0;
-        butterfly_X_re_reg <= 0;
-        butterfly_X_im_reg <= 0;
-        butterfly_Y_re_reg <= 0;
-        butterfly_Y_im_reg <= 0;
-        butterfly_X_valid <= 0;
-        butterfly_Y_valid <= 0;
         state_reg <= 0;
         cnt_reg <= 0;
-        // out_valid <= 0;
+        out_valid <= 0;
+        do_re <= 0;
+        do_im <= 0;
+        in_valid_reg <= 0;
     end
     else begin
         state_reg <= state;
         cnt_reg <= cnt;
-        // out_valid <= _out_valid;
+        do_re <= _do_re;
+        do_im <= _do_im;
+        in_valid_reg <= in_valid;
         if (cnt_reg < N-1 && !in_valid) begin
-            in_valid_reg <= in_valid_reg;
+            i_valid <= i_valid;
             mult_d_re_reg <= mult_d_re_reg;
             mult_d_im_reg <= mult_d_im_reg;
-            butterfly_X_re_reg <= butterfly_X_re_reg;
-            butterfly_X_im_reg <= butterfly_X_im_reg;
-            butterfly_Y_re_reg <= butterfly_Y_re_reg;
-            butterfly_Y_im_reg <= butterfly_Y_im_reg;
-            butterfly_X_valid <= butterfly_X_valid;
-            butterfly_Y_valid <= butterfly_Y_valid;
         end
         else begin
-            in_valid_reg <= in_valid;
+            i_valid <= in_valid;
             mult_d_re_reg <= mult_d_re;
             mult_d_im_reg <= mult_d_im;
-            butterfly_X_re_reg <= butterfly_X_re;
-            butterfly_X_im_reg <= butterfly_X_im;
-            butterfly_Y_re_reg <= butterfly_Y_re;
-            butterfly_Y_im_reg <= butterfly_Y_im;
-            butterfly_X_valid <= o_valid;
-            butterfly_Y_valid <= in_valid_reg;
         end
+        if (cnt_reg >= N)
+            out_valid <= o_valid;
+        else if (in_valid_reg)
+            out_valid <= o_valid;
+        else
+            out_valid <= 0;
     end
 end
 

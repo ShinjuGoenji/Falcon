@@ -30,11 +30,17 @@ wire                       rst_n;
 wire                       in_valid;
 wire [FLOAT_PRECISION-1:0] fi_re;
 wire [FLOAT_PRECISION-1:0] fi_im;
-wire [FLOAT_PRECISION-1:0] s_re_0;
-wire [FLOAT_PRECISION-1:0] s_im_0;
+wire [FLOAT_PRECISION-1:0] s_re_1;
+wire [FLOAT_PRECISION-1:0] s_im_1;
+wire [FLOAT_PRECISION-1:0] s_re_2;
+wire [FLOAT_PRECISION-1:0] s_im_2;
+wire [FLOAT_PRECISION-1:0] s_re_3;
+wire [FLOAT_PRECISION-1:0] s_im_3;
 
 wire                       out_valid;
-wire [logn:0]              tw_idx_0;
+wire [logn:0]              tw_idx_1;
+wire [logn:0]              tw_idx_2;
+wire [logn:0]              tw_idx_3;
 wire [FLOAT_PRECISION-1:0] fo_re;
 wire [FLOAT_PRECISION-1:0] fo_im;
 
@@ -62,10 +68,16 @@ end
     .in_valid(in_valid),
     .fi_re(fi_re),
     .fi_im(fi_im),
-    .s_re_0(s_re_0),
-    .s_im_0(s_im_0),
+    .s_re_1(s_re_1),
+    .s_im_1(s_im_1),
+    .s_re_2(s_re_2),
+    .s_im_2(s_im_2),
+    .s_re_3(s_re_3),
+    .s_im_3(s_im_3),
     .out_valid(out_valid),
-    .tw_idx_0(tw_idx_0),
+    .tw_idx_1(tw_idx_1),
+    .tw_idx_2(tw_idx_2),
+    .tw_idx_3(tw_idx_3),
     .fo_re(fo_re),
     .fo_im(fo_im)
     );
@@ -76,10 +88,16 @@ end
     .in_valid(in_valid),
     .fi_re(fi_re),
     .fi_im(fi_im),
-    .s_re_0(s_re_0),
-    .s_im_0(s_im_0),
+    .s_re_1(s_re_1),
+    .s_im_1(s_im_1),
+    .s_re_2(s_re_2),
+    .s_im_2(s_im_2),
+    .s_re_3(s_re_3),
+    .s_im_3(s_im_3),
     .out_valid(out_valid),
-    .tw_idx_0(tw_idx_0),
+    .tw_idx_1(tw_idx_1),
+    .tw_idx_2(tw_idx_2),
+    .tw_idx_3(tw_idx_3),
     .fo_re(fo_re),
     .fo_im(fo_im)
     );
@@ -91,10 +109,16 @@ PATTERN #(.logn(logn)) u_PATTERN(
     .in_valid(in_valid),
     .fi_re(fi_re),
     .fi_im(fi_im),
-    .s_re_0(s_re_0),
-    .s_im_0(s_im_0),
+    .s_re_1(s_re_1),
+    .s_im_1(s_im_1),
+    .s_re_2(s_re_2),
+    .s_im_2(s_im_2),
+    .s_re_3(s_re_3),
+    .s_im_3(s_im_3),
     .out_valid(out_valid),
-    .tw_idx_0(tw_idx_0),
+    .tw_idx_1(tw_idx_1),
+    .tw_idx_2(tw_idx_2),
+    .tw_idx_3(tw_idx_3),
     .fo_re(fo_re),
     .fo_im(fo_im)
     );
