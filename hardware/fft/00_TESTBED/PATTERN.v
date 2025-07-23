@@ -13,15 +13,16 @@ module PATTERN #(
     clk,
     rst_n,
     in_valid,
-    fi_re,
-    fi_im,
-    s_re_0,
-    s_im_0,
+    fi_re, fi_im,
+    s_re_1, s_im_1,
+    s_re_2, s_im_2,
+    s_re_3, s_im_3,
     // Input signals
-	out_valid,
-    tw_idx_0,
-    fo_re,
-    fo_im
+    out_valid,
+    tw_idx_1, 
+    tw_idx_2, 
+    tw_idx_3,
+    fo_re, fo_im
 );
 
 parameter n = 1 << logn;
@@ -34,11 +35,14 @@ output reg                       rst_n;
 output reg                       in_valid;
 output reg [FLOAT_PRECISION-1:0] fi_re;
 output reg [FLOAT_PRECISION-1:0] fi_im;
-output reg [FLOAT_PRECISION-1:0] s_re_0;
-output reg [FLOAT_PRECISION-1:0] s_im_0;
+output reg [FLOAT_PRECISION-1:0] s_re_1, s_im_1;
+output reg [FLOAT_PRECISION-1:0] s_re_2, s_im_2;
+output reg [FLOAT_PRECISION-1:0] s_re_3, s_im_3;
 
 input                       	 out_valid;
-input      [logn:0]          	 tw_idx_0;
+input      [logn:0]          	 tw_idx_1;
+input      [logn:0]          	 tw_idx_2;
+input      [logn:0]          	 tw_idx_3;
 input 	   [FLOAT_PRECISION-1:0] fo_re;
 input 	   [FLOAT_PRECISION-1:0] fo_im;
 
@@ -47,7 +51,7 @@ input 	   [FLOAT_PRECISION-1:0] fo_im;
 //---------------------------------------------------------------------
 parameter INPUT_PATH  = "../00_TESTBED/input.txt";
 parameter INDEX_PATH  = "../00_TESTBED/index.txt";
-parameter OUTPUT_PATH = "../00_TESTBED/output.txt";
+parameter OUTPUT_PATH = "../00_TESTBED/output3.txt";
 parameter PATNUM_PATH = "../00_TESTBED/PATNUM.txt";
 integer file_in, file_idx, file_out, file_num;
 
@@ -1120,26 +1124,26 @@ initial begin
 		i_out_deg = 0;
 		while (i_in_deg < n) begin
 			input_task;
-			check_ans_task;
 			if (i_in_deg != n)
 				input_delay;
-		end	
-		// @(negedge clk);		
+		end		
 		in_valid = 'b0;
 		fi_re = 'bx;
 		fi_im = 'bx;
-		s_re_0 = 'bx;
-		s_im_0 = 'bx;
 		while (i_out_deg < n) begin
 			@(negedge clk);		
 			in_valid = 'b0;
 			wait_out_task;
-			check_ans_task;
 		end
 		$display("PASS PATTERN NO.%3d", i_pat+1);
 		repeat($urandom_range(2, 4)) @(negedge clk);
 	end
 	YOU_PASS_task;
+end
+
+always @(negedge clk) begin
+	check_ans_task;
+	twiddle_factor;
 end
 
 //---------------------------------------------------------------------
@@ -1150,16 +1154,60 @@ task reset_task; begin
     in_valid = 'b0;
     fi_re = 'bx;
     fi_im = 'bx;
-    s_re_0 = 'bx;
-    s_im_0 = 'bx;
+    s_re_1 = 'bx;
+    s_im_1 = 'bx;
+    s_re_2 = 'bx;
+    s_im_2 = 'bx;
+    s_re_3 = 'bx;
+    s_im_3 = 'bx;
 	
     force clk = 0;
     #CYCLE; rst_n = 0; 
     #CYCLE; rst_n = 1;
-    if(out_valid !== 'b0 || tw_idx_0 !== 'b0 || fo_re !== 0 || fo_im !== 0) begin 
+    if(out_valid !== 'b0) begin 
         $display("************************************************************");  
-        $display("                          FAIL!                              ");    
-        $display("*  Output signal should be 0 after initial RESET  at %8t   *",$time);
+        $display("                          FAIL!                             ");    
+        $display("  'out_valid' should be 0 after initial RESET  at %8t   	  ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(tw_idx_1 !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'tw_idx_1' should be 0 after initial RESET  at %8t   	  ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(tw_idx_2 !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'tw_idx_2' should be 0 after initial RESET  at %8t   	  ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(tw_idx_3 !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'tw_idx_3' should be 0 after initial RESET  at %8t   	  ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(fo_re !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'fo_re' should be 0 after initial RESET  at %8t   	  ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(fo_im !== 0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'fo_im' should be 0 after initial RESET  at %8t   	  ",$time);
         $display("************************************************************");
         repeat(2) #CYCLE;
         $finish;
@@ -1185,43 +1233,37 @@ task input_task; begin
 	in_valid = 'b1;
 	fi_re = f_re[i_in_deg];
 	fi_im = f_im[i_in_deg];
-	twiddle_factor;
-	// if (s_index[i_in_deg] != -1) begin
-	// 	s_re_0 = fpr_gm_tab[(s_index[i_in_deg] << 1) + 0];
-	// 	s_im_0 = fpr_gm_tab[(s_index[i_in_deg] << 1) + 1];
-	// end 
-	// else begin
-	// 	s_re_0 = 64'h3ff0000000000000;
-	// 	s_im_0 = 64'h0000000000000000;
-	// end 	
 	// $display("\tIN  DEGREE %3d\tRe = %f, Im = %f", i_in_deg, $bitstoreal(fi_re), $bitstoreal(fi_im));
 	i_in_deg = i_in_deg + 1;
 	@(negedge clk);		
 end endtask
 
 task twiddle_factor; begin
-	s_re_0 = fpr_gm_tab[(tw_idx_0 << 1) + 0];
-	s_im_0 = fpr_gm_tab[(tw_idx_0 << 1) + 1];
+	s_re_1 = fpr_gm_tab[(tw_idx_1 << 1) + 0];
+	s_im_1 = fpr_gm_tab[(tw_idx_1 << 1) + 1];
+	s_re_2 = fpr_gm_tab[(tw_idx_2 << 1) + 0];
+	s_im_2 = fpr_gm_tab[(tw_idx_2 << 1) + 1];
+	s_re_3 = fpr_gm_tab[(tw_idx_3 << 1) + 0];
+	s_im_3 = fpr_gm_tab[(tw_idx_3 << 1) + 1];
+	// $display("s1: Re = %f, Im = %f", $bitstoreal(s_re_1), $bitstoreal(s_im_1));
+	// $display("s2 (%3d): Re = %f, Im = %f", tw_idx_2, $bitstoreal(s_re_2), $bitstoreal(s_im_2));
 end endtask
 
 task input_delay; begin
 	integer DELAY_NUM;
-	// DELAY_NUM = $urandom_range(0, 4);
+	// DELAY_NUM = $urandom_range(1, 4);
 	DELAY_NUM = 0;
 	for (i_delay = 0; i_delay < DELAY_NUM; i_delay=i_delay+1) begin
 		in_valid = 'b0;
 		fi_re = 'bx;
 		fi_im = 'bx;
-		// s_re_0 = 'bx;
-		// s_im_0 = 'bx;
-		twiddle_factor;
 		@(negedge clk);
 end
 end endtask
 
 task wait_out_task; begin
 	out_latency = 1;
-	while(out_valid !== 1)begin
+	while(out_valid !== 1 && i_out_deg < n) begin
 		if(out_latency === MAX_OUT_LATENCY + 1) begin
             $display("***********************************************************");    
             $display("                          FAIL!                          	 ");
@@ -1231,12 +1273,12 @@ task wait_out_task; begin
 			$finish;
 		end
 		out_latency = out_latency + 1;
-		// @(negedge clk);
+		@(negedge clk);
 	end
 end endtask
 
 task check_out_valid_task; begin
-	if(out_valid !== 0)begin
+	if(out_valid !== 0) begin
 		$display("***********************************************************");     
         $display("*                          FAIL!                          *");
 		$display("*  out_valid should not be raised when in_valid is high.  *");
@@ -1254,22 +1296,14 @@ task check_ans_task; begin
             $display("                          FAIL!                          	 ");  
             $display("                  Degree #%3d (%8t)                   	 ", i_out_deg, $time);
             $display("                      Golden answer                      	 ");
-            $display("Re = %b, Im = %b                    	     ", golden_fo_re[i_out_deg], golden_fo_im[i_out_deg]);
             $display("              Re = %f, Im = %f                    	     ", $bitstoreal(golden_fo_re[i_out_deg]), $bitstoreal(golden_fo_im[i_out_deg]));
             $display("                       Your answer                       	 ");
-            $display("Re = %b, Im = %b                    	     ", fo_re, fo_im);
             $display("              Re = %f, Im = %f                    	     ", $bitstoreal(fo_re), $bitstoreal(fo_im));
             $display("***********************************************************");    
                 repeat(2) @(negedge clk);
                 $finish;
 		end
 		i_out_deg = i_out_deg + 1;
-		// in_valid = 'b0;
-		// fi_re = 'bx;
-		// fi_im = 'bx;
-		// s_re_0 = 'bx;
-		// s_im_0 = 'bx;
-		// @(negedge clk);
 	end
 end endtask
 
