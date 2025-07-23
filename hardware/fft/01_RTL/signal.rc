@@ -2,11 +2,11 @@ Magic 271485
 Revision Verdi_T-2022.06
 
 ; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
-viewPort 0 25 1920 729 311 103
+viewPort 8 31 1920 1009 311 103
 
 ; File list:
 ; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
-openDirFile -d / -i 0 "" "/home/daniel_kuo/Falcon/hardware/fft/01_RTL/FFT.fsdb"
+openDirFile -d / "" "/home/daniel_kuo/Falcon/hardware/fft/01_RTL/FFT.fsdb"
 
 ; file time scale:
 ; fileTimeScale ### s|ms|us|ns|ps
@@ -16,14 +16,16 @@ signalSpacing 5
 
 ; windowTimeUnit is used for zoom, cursor & marker
 ; waveform viewport range
-zoom 43835.296622 48379.000000
-cursor 181600.000000
+zoom 53904.518920 56661.000000
+cursor 55626.38083444378
 marker 0.000000
 
+; user define markers
+; userMarker time_pos marker_name color linestyle
 ; visible top row signal index
-top 1
+top 0
 ; marker line index
-markerPos 73
+markerPos 85
 
 ; rename signal list
 ; addRenameSig new_name org_name
@@ -399,6 +401,30 @@ ED/u_FFT/u_stage_3/di_im[51:29]"}
 ; logical expression list
 ; addExprSig expr_name expression_string
 
+addExprSig -b 32 -n UU input_re_exp_8[31:0] "/TESTBED/u_FFT/u_stage_8/di_re[63:0]"==0?0:"/TESTBED/u_FFT/u_stage_8/\
+di_re[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU input_re_8[31:0] {"/TESTBED/u_FFT/u_stage_8/di_re[63]", "/input_re_exp_8[7:0]", "/TESTB\
+ED/u_FFT/u_stage_8/di_re[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU input_im_exp_8[31:0] "/TESTBED/u_FFT/u_stage_8/di_im[63:0]"==0?0:"/TESTBED/u_FFT/u_stage_8/\
+di_im[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU input_im_8[31:0] {"/TESTBED/u_FFT/u_stage_8/di_im[63]", "/input_im_exp_8[7:0]", "/TESTB\
+ED/u_FFT/u_stage_8/di_im[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
 addExprSig -b 32 -n UU twid_re_exp_2[31:0] "/TESTBED/u_FFT/u_stage_2/s_re[63:0]"==0?0:"/TESTBED/u_FFT/u_stage_2/s\
 _re[62:52]"-1023+127
 
@@ -443,6 +469,30 @@ _im[62:52]"-1023+127
 
 addExprSig -b 32 -n UUU twid_im_3[31:0] {"/TESTBED/u_FFT/u_stage_3/s_im[63]", "/twid_im_exp_3[7:0]", "/TESTBED\
 /u_FFT/u_stage_3/s_im[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU twid_re_exp_8[31:0] "/TESTBED/u_FFT/u_stage_8/s_re[63:0]"==0?0:"/TESTBED/u_FFT/u_stage_8/s\
+_re[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU twid_re_8[31:0] {"/TESTBED/u_FFT/u_stage_8/s_re[63]", "/twid_re_exp_8[7:0]", "/TESTBED\
+/u_FFT/u_stage_8/s_re[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU twid_im_exp_8[31:0] "/TESTBED/u_FFT/u_stage_8/s_im[63:0]"==0?0:"/TESTBED/u_FFT/u_stage_8/s\
+_im[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU twid_im_8[31:0] {"/TESTBED/u_FFT/u_stage_8/s_im[63]", "/twid_im_exp_8[7:0]", "/TESTBED\
+/u_FFT/u_stage_8/s_im[51:29]"}
 
 ; event list
 ; addEvent event_name event_expression
@@ -557,7 +607,20 @@ addSignal -h 15 -UNSIGNED -IEEE754 -holdScope input_im_3[31:0]
 addSignal -h 15 -UNSIGNED -IEEE754 -holdScope twid_re_3[31:0]
 addSignal -h 15 -UNSIGNED -IEEE754 -holdScope twid_im_3[31:0]
 endSubGroup "INPUT"
-addGroup "G5"
+addGroup "STAGE_8"
+addSignal -h 15 /TESTBED/u_FFT/u_stage_8/state_reg
+addSignal -h 15 -UNSIGNED -HEX -holdScope cnt_reg[8:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope i1[6:0]
+addSignal -h 15 -holdScope mask
+addSignal -h 15 -UNSIGNED -UDEC -holdScope tw_idx[8:0]
+addSubGroup "INPUT" -e FALSE
+addSignal -h 15 /TESTBED/u_FFT/u_stage_8/in_valid_8
+addSignal -h 15 -UNSIGNED -IEEE754 /input_re_8[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope input_im_8[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope twid_re_8[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope twid_im_8[31:0]
+endSubGroup "INPUT"
+addGroup "G6"
 
 ; getSignalForm Scope Hierarchy Status
 ; active file of getSignalForm
@@ -568,12 +631,7 @@ getSignalForm close
 
 "/TESTBED"
 "/TESTBED/u_FFT"
-"/TESTBED/u_FFT/u_stage_2"
-"/TESTBED/u_FFT/u_stage_3"
-"/TESTBED/u_FFT/u_stage_3/u_BUTTERFLY"
-"/TESTBED/u_FFT/u_stage_3/u_BUTTERFLY/u_FPC_ADD"
-"/TESTBED/u_FFT/u_stage_3/u_BUTTERFLY/u_FPC_ADD/u_FPC_ADD_0"
-"/TESTBED/u_FFT/u_stage_3/u_BUTTERFLY/u_FPC_ADD/u_FPC_ADD_0/U1"
+"/TESTBED/u_FFT/u_stage_8"
 
 SCOPE_LIST_BEGIN
 "/TESTBED"
@@ -592,6 +650,7 @@ SCOPE_LIST_BEGIN
 "/TESTBED/u_FFT/u_stage_3/u_BUTTERFLY/u_FPC_ADD/u_FPC_ADD_0"
 "/TESTBED/u_FFT/u_stage_3/u_BUTTERFLY/u_FPC_ADD/u_FPC_ADD_0/U1"
 "/TESTBED/u_FFT/u_stage_3/u_BUTTERFLY/u_FPC_ADD/u_FPC_ADD_0/U1/parameter_check"
+"/TESTBED/u_FFT/u_stage_8"
 SCOPE_LIST_END
 
 GETSIGNALFORM_SCOPE_HIERARCHY_END

@@ -17,11 +17,21 @@ module PATTERN #(
     s_re_1, s_im_1,
     s_re_2, s_im_2,
     s_re_3, s_im_3,
+    s_re_4, s_im_4,
+    s_re_5, s_im_5,
+    s_re_6, s_im_6,
+    s_re_7, s_im_7,
+    s_re_8, s_im_8,
     // Input signals
     out_valid,
     tw_idx_1, 
     tw_idx_2, 
     tw_idx_3,
+    tw_idx_4,
+    tw_idx_5,
+    tw_idx_6,
+    tw_idx_7,
+    tw_idx_8,
     fo_re, fo_im
 );
 
@@ -38,25 +48,35 @@ output reg [FLOAT_PRECISION-1:0] fi_im;
 output reg [FLOAT_PRECISION-1:0] s_re_1, s_im_1;
 output reg [FLOAT_PRECISION-1:0] s_re_2, s_im_2;
 output reg [FLOAT_PRECISION-1:0] s_re_3, s_im_3;
+output reg [FLOAT_PRECISION-1:0] s_re_4, s_im_4;
+output reg [FLOAT_PRECISION-1:0] s_re_5, s_im_5;
+output reg [FLOAT_PRECISION-1:0] s_re_6, s_im_6;
+output reg [FLOAT_PRECISION-1:0] s_re_7, s_im_7;
+output reg [FLOAT_PRECISION-1:0] s_re_8, s_im_8;
 
-input                       	 out_valid;
-input      [logn:0]          	 tw_idx_1;
-input      [logn:0]          	 tw_idx_2;
-input      [logn:0]          	 tw_idx_3;
-input 	   [FLOAT_PRECISION-1:0] fo_re;
-input 	   [FLOAT_PRECISION-1:0] fo_im;
+input                  	 	out_valid;
+input [logn:0]          	tw_idx_1;
+input [logn:0]          	tw_idx_2;
+input [logn:0]          	tw_idx_3;
+input [logn:0]          	tw_idx_4;
+input [logn:0]          	tw_idx_5;
+input [logn:0]          	tw_idx_6;
+input [logn:0]          	tw_idx_7;
+input [logn:0]          	tw_idx_8;
+input [FLOAT_PRECISION-1:0] fo_re;
+input [FLOAT_PRECISION-1:0] fo_im;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
 //---------------------------------------------------------------------
 parameter INPUT_PATH  = "../00_TESTBED/input.txt";
 parameter INDEX_PATH  = "../00_TESTBED/index.txt";
-parameter OUTPUT_PATH = "../00_TESTBED/output3.txt";
+parameter OUTPUT_PATH = "../00_TESTBED/output8.txt";
 parameter PATNUM_PATH = "../00_TESTBED/PATNUM.txt";
 integer file_in, file_idx, file_out, file_num;
 
 parameter MAX_OUT_LATENCY = 2000;
-integer total_latency, out_latency;
+integer total_latency, out_latency, pattern_latency;
 integer random_delay;
 
 integer i_pat, i_in_deg, i_delay, i_out_deg;
@@ -1122,6 +1142,7 @@ initial begin
 		read_pattern;
 		i_in_deg = 0;
 		i_out_deg = 0;
+		pattern_latency = 0;
 		while (i_in_deg < n) begin
 			input_task;
 			if (i_in_deg != n)
@@ -1134,8 +1155,10 @@ initial begin
 			@(negedge clk);		
 			in_valid = 'b0;
 			wait_out_task;
+			pattern_latency = pattern_latency + out_latency;			
+			total_latency = total_latency + out_latency;
 		end
-		$display("PASS PATTERN NO.%3d", i_pat+1);
+		$display("PASS PATTERN NO.%4d, %4d CYCLES", i_pat+1, pattern_latency);
 		repeat($urandom_range(2, 4)) @(negedge clk);
 	end
 	YOU_PASS_task;
@@ -1154,12 +1177,14 @@ task reset_task; begin
     in_valid = 'b0;
     fi_re = 'bx;
     fi_im = 'bx;
-    s_re_1 = 'bx;
-    s_im_1 = 'bx;
-    s_re_2 = 'bx;
-    s_im_2 = 'bx;
-    s_re_3 = 'bx;
-    s_im_3 = 'bx;
+    s_re_1 = 'bx; s_im_1 = 'bx;
+    s_re_2 = 'bx; s_im_2 = 'bx;
+    s_re_3 = 'bx; s_im_3 = 'bx;
+    s_re_4 = 'bx; s_im_4 = 'bx;
+    s_re_5 = 'bx; s_im_5 = 'bx;
+    s_re_6 = 'bx; s_im_6 = 'bx;
+    s_re_7 = 'bx; s_im_7 = 'bx;
+    s_re_8 = 'bx; s_im_8 = 'bx;
 	
     force clk = 0;
     #CYCLE; rst_n = 0; 
@@ -1192,6 +1217,46 @@ task reset_task; begin
         $display("************************************************************");  
         $display("                          FAIL!                             ");    
         $display("  'tw_idx_3' should be 0 after initial RESET  at %8t   	  ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(tw_idx_4 !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'tw_idx_4' should be 0 after initial RESET  at %8t   	  ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(tw_idx_5 !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'tw_idx_5' should be 0 after initial RESET  at %8t   	  ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(tw_idx_6 !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'tw_idx_6' should be 0 after initial RESET  at %8t   	  ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(tw_idx_7 !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'tw_idx_7' should be 0 after initial RESET  at %8t   	  ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(tw_idx_8 !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'tw_idx_8' should be 0 after initial RESET  at %8t   	  ",$time);
         $display("************************************************************");
         repeat(2) #CYCLE;
         $finish;
@@ -1245,14 +1310,24 @@ task twiddle_factor; begin
 	s_im_2 = fpr_gm_tab[(tw_idx_2 << 1) + 1];
 	s_re_3 = fpr_gm_tab[(tw_idx_3 << 1) + 0];
 	s_im_3 = fpr_gm_tab[(tw_idx_3 << 1) + 1];
+	s_re_4 = fpr_gm_tab[(tw_idx_4 << 1) + 0];
+	s_im_4 = fpr_gm_tab[(tw_idx_4 << 1) + 1];
+	s_re_5 = fpr_gm_tab[(tw_idx_5 << 1) + 0];
+	s_im_5 = fpr_gm_tab[(tw_idx_5 << 1) + 1];
+	s_re_6 = fpr_gm_tab[(tw_idx_6 << 1) + 0];
+	s_im_6 = fpr_gm_tab[(tw_idx_6 << 1) + 1];
+	s_re_7 = fpr_gm_tab[(tw_idx_7 << 1) + 0];
+	s_im_7 = fpr_gm_tab[(tw_idx_7 << 1) + 1];
+	s_re_8 = fpr_gm_tab[(tw_idx_8 << 1) + 0];
+	s_im_8 = fpr_gm_tab[(tw_idx_8 << 1) + 1];
 	// $display("s1: Re = %f, Im = %f", $bitstoreal(s_re_1), $bitstoreal(s_im_1));
 	// $display("s2 (%3d): Re = %f, Im = %f", tw_idx_2, $bitstoreal(s_re_2), $bitstoreal(s_im_2));
 end endtask
 
 task input_delay; begin
 	integer DELAY_NUM;
-	// DELAY_NUM = $urandom_range(1, 4);
-	DELAY_NUM = 0;
+	DELAY_NUM = $urandom_range(1, 4);
+	// DELAY_NUM = 0;
 	for (i_delay = 0; i_delay < DELAY_NUM; i_delay=i_delay+1) begin
 		in_valid = 'b0;
 		fi_re = 'bx;

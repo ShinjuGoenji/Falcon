@@ -77,6 +77,7 @@ reg state, state_reg;
 reg [logn:0] cnt, cnt_reg;
 reg in_valid_reg;
 
+reg tw_mask;
 reg [i1_bit-1:0] i1;
 
 //---------------------------------------------------------------------
@@ -156,52 +157,29 @@ assign delay_ena = (cnt_reg < N-1 && !in_valid) ? 0 : 1;
  * Control twiddle factor index.
  */
 assign i1 = (cnt_reg + 1) / T;
-reg mask;
+assign tw_idx = tw_mask ? M + i1 : 0;
 always @(*) begin
-    if (((cnt_reg + 2) % T) == 0)
-        if (!in_valid)
-            mask = 1;
+    if (state == S_EXE && cnt == 0 && T == 2)
+        tw_mask = 1;   
+    else if (state_reg == S_EXE) begin
+        if (((cnt_reg + 2) % T) == 0)
+            if (!in_valid)
+                tw_mask = 1;
+            else 
+                tw_mask = 0;
+        else if (((cnt_reg + 2) % T) < HT)
+            tw_mask = 0;
+        else if (((cnt_reg + 2) % T) == HT)
+            if (in_valid)
+                tw_mask = 1;
+            else 
+                tw_mask = 0;
         else 
-            mask = 0;
-    else if (((cnt_reg + 2) % T) < HT)
-        mask = 0;
-    else if (((cnt_reg + 2) % T) == HT)
-        if (in_valid)
-            mask = 1;
-        else 
-            mask = 0;
+            tw_mask = 1;
+        end
     else 
-        mask = 1;
+        tw_mask = 0;
 end
-
-always @(*) begin
-    if (((cnt_reg + 2) % T) == 0)
-        if (!in_valid)
-            tw_idx = M + i1;
-        else 
-            tw_idx = 0;
-    else if (((cnt_reg + 2) % T) < HT)
-        tw_idx = 0;
-    else if (((cnt_reg + 2) % T) == HT)
-        if (in_valid)
-            tw_idx = M + i1;
-        else 
-            tw_idx = 0;
-    else
-        tw_idx = M + i1;
-end
-
-// always @(*) begin
-//     if (((cnt_reg + 1) % T) < (HT - 1))
-//         tw_idx = 0;
-//     else if (((cnt_reg + 1) % T) == (HT - 1))
-//         if (in_valid)
-//             tw_idx = M + i1;
-//         else 
-//             tw_idx = 0;
-//     else
-//         tw_idx = M + i1;
-// end
 
 /*
  * Multiplexer that choose the input source to delay buffer.
