@@ -1,32 +1,18 @@
 `include "RADIX2.v"
 
 /*
- * FFT algorithm in bit-reversal order uses the following
- * iterative algorithm:
+ * Hardware implementation of a pipelined, N-point Fast Fourier Transform (FFT)
+ * processor, where N = 2^logn. This module connects several FFT stages
+ * to form a complete FFT pipeline.
  *
- *   t = N
- *   for m = 1; m < N; m *= 2:
- *       ht = t/2
- *       for i1 = 0; i1 < m; i1 ++:
- *           j1 = i1 * t
- *           s = GM[m + i1]
- *           for j = j1; j < (j1 + ht); j ++:
- *               x = f[j]
- *               y = s * f[j + ht]
- *               f[j] = x + y
- *               f[j + ht] = x - y
- *       t = ht
+ * The architecture is a fully unrolled pipeline, where each of the 'logn'
+ * stages of the FFT is implemented by a dedicated 'RADIX2' hardware submodule.
+ * This provides high throughput, as a new FFT computation can begin before
+ * the previous one has finished.
  *
- * GM[k] contains w^rev(k) for primitive root w = exp(i*pi/N).
- *
- * In the description above, f[] is supposed to contain complex
- * numbers. In our in-memory representation, the real and
- * imaginary parts of f[k] are in array slots k and k+N/2.
- *
- * We only keep the first half of the complex numbers. We can
- * see that after the first iteration, the first and second halves
- * of the array of complex numbers have separate lives, so we
- * simply ignore the second part.
+ * The module implements a Decimation-In-Time (DIT) FFT algorithm. Input data
+ * 'fi_re'/'fi_im' flows sequentially through the 'logn' stages. Each stage
+ * performs its butterfly computations and passes the result to the next.
  */
 module FFT #(
     parameter   FLOAT_PRECISION = 64,
@@ -123,7 +109,11 @@ reg [FLOAT_PRECISION-1:0] s_re_8_reg, s_im_8_reg;
 //---------------------------------------------------------------------
 //   Submodule
 //---------------------------------------------------------------------
-
+/*
+ * The FFT pipeline is constructed by chaining `logn` (8) RADIX2 stages.
+ * The output of one stage becomes the input for the next. Each stage `U`
+ * receives its own twiddle factor stream.
+ */
 RADIX2 #(FLOAT_PRECISION, logn, 1)
 u_stage_1 (
     // Input signals
