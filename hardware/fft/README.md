@@ -38,8 +38,14 @@ module FFT #(
 
 ## Description
 Current FFT implement radix-2 unit in a stage (critical path marked as red line).
-![](./img/radix-2.jpg)
-![](./img/radix-2%20data%20flow.gif)
+<figure align="center" style="width:100%">
+  <img src="./img/radix-2.jpg" />
+  <figcaption>Radix-2 Unit</figcaption>
+</figure>
+<figure align="center" style="width:100%">
+  <img src="./img/radix-2%20data%20flow.gif" />
+  <figcaption>FFT Data Path</figcaption>
+</figure>
 
 ## Latency
 |           | radix-2   |
