@@ -1,5 +1,33 @@
 `include "RADIX2.v"
 
+/*
+ * FFT algorithm in bit-reversal order uses the following
+ * iterative algorithm:
+ *
+ *   t = N
+ *   for m = 1; m < N; m *= 2:
+ *       ht = t/2
+ *       for i1 = 0; i1 < m; i1 ++:
+ *           j1 = i1 * t
+ *           s = GM[m + i1]
+ *           for j = j1; j < (j1 + ht); j ++:
+ *               x = f[j]
+ *               y = s * f[j + ht]
+ *               f[j] = x + y
+ *               f[j + ht] = x - y
+ *       t = ht
+ *
+ * GM[k] contains w^rev(k) for primitive root w = exp(i*pi/N).
+ *
+ * In the description above, f[] is supposed to contain complex
+ * numbers. In our in-memory representation, the real and
+ * imaginary parts of f[k] are in array slots k and k+N/2.
+ *
+ * We only keep the first half of the complex numbers. We can
+ * see that after the first iteration, the first and second halves
+ * of the array of complex numbers have separate lives, so we
+ * simply ignore the second part.
+ */
 module FFT #(
     parameter   FLOAT_PRECISION = 64,
     parameter   logn = 8
