@@ -4,7 +4,7 @@ vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/
 +define+RTL +define+ +notimingchecks
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Thu Jul 24 16:39:17 2025
+         Version T-2022.06_Full64 -- Thu Jul 24 21:39:01 2025
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -129,7 +129,8 @@ Note-[VCS_PARAL] Parallel code-gen enabled
   VCS is running with parallel code generation(-j)...
 
 8 modules and 0 UDP read.
-	However, due to incremental compilation, no re-compilation is necessary.
+recompiling module PATTERN
+	However, due to incremental compilation, only 1 module needs to be compiled. 
 make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/fft/01_RTL/csrc'
 rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
 ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
@@ -137,19 +138,20 @@ rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
--Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _17492_archive_1.so _prev_archive_1.so \
-_cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o \
-rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a \
--lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o \
--Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   \
-/usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a \
--ldl -lm  -lc -lpthread -ldl 
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _17877_archive_1.so _17895_archive_1.so \
+_prev_archive_1.so _cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o \
+rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs \
+/usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile \
+-luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o   -Wl,-whole-archive \
+-lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o \
+/usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a -ldl -lm  -lc -lpthread \
+-ldl 
 ../simv up to date
 make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/fft/01_RTL/csrc'
 Command: /home/daniel_kuo/Falcon/hardware/fft/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
 Chronologic VCS simulator copyright 1991-2022
 Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 24 16:39 2025
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 24 21:39 2025
 *Verdi* Loading libsscore_vcs202206.so
 FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 (C) 1996 - 2022 by Synopsys, Inc.
@@ -400,10 +402,10 @@ PASS PATTERN NO. 235,  280 CYCLES
                   Your clock period = 2.0 ns                       
                   Total Latency = 131600.0 ns                           
 --------------------------------------------------------------------
-$finish called from file "PATTERN.v", line 1394.
-$finish at simulation time             25337500
+$finish called from file "PATTERN.v", line 1397.
+$finish at simulation time             61290500
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 253375000 ps
-CPU Time:     33.770 seconds;       Data structure size:   0.4Mb
-Thu Jul 24 16:39:37 2025
-CPU time: .577 seconds to compile + .254 seconds to elab + .268 seconds to link + 33.819 seconds in simulation
+Time: 612905000 ps
+CPU Time:     37.500 seconds;       Data structure size:   0.4Mb
+Thu Jul 24 21:39:20 2025
+CPU time: .592 seconds to compile + .243 seconds to elab + .208 seconds to link + 37.521 seconds in simulation
