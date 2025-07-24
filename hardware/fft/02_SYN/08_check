@@ -1,6 +1,6 @@
 #!/bin/bash
 #dcnxt_shell -f syn.tcl | tee syn.log
-Design="POLY_SMALL_SQNORM"
+Design="FFT"
 
 NO_COLOR='\033[0m'
 RED='\033[0;31m'

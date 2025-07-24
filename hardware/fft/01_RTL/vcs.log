@@ -4,7 +4,7 @@ vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/
 +define+RTL +define+ +notimingchecks
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Wed Jul 23 20:45:23 2025
+         Version T-2022.06_Full64 -- Thu Jul 24 16:39:17 2025
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -76,7 +76,7 @@ FPC_SUB, "DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB_1( .a (a_
 
 
 Warning-[TFIPC] Too few instance port connections
-FPC.v, 140
+FPC.v, 148
 FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (a_re_x_b_re));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
@@ -84,7 +84,7 @@ FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_0( .a (a
 
 
 Warning-[TFIPC] Too few instance port connections
-FPC.v, 143
+FPC.v, 151
 FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (a_im_x_b_im));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
@@ -92,7 +92,7 @@ FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_1( .a (a
 
 
 Warning-[TFIPC] Too few instance port connections
-FPC.v, 146
+FPC.v, 154
 FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_2( .a (a_re),  .b (b_im),  .rnd (rnd),  .z (a_re_x_b_im));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
@@ -100,7 +100,7 @@ FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_2( .a (a
 
 
 Warning-[TFIPC] Too few instance port connections
-FPC.v, 149
+FPC.v, 157
 FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_3( .a (a_im),  .b (b_re),  .rnd (rnd),  .z (a_im_x_b_re));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
@@ -108,129 +108,19 @@ FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_3( .a (a
 
 
 Warning-[TFIPC] Too few instance port connections
-FPC.v, 152
-FPC_MUL, "DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB( .a (a_re_x_b_re),  .b (a_im_x_b_im),  .rnd (rnd),  .z (d_re));"
+FPC.v, 160
+FPC_MUL, "DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB( .a (a_re_x_b_re_reg),  .b (a_im_x_b_im_reg),  .rnd (rnd),  .z (d_re));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
   ports.
 
 
 Warning-[TFIPC] Too few instance port connections
-FPC.v, 155
-FPC_MUL, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD( .a (a_re_x_b_im),  .b (a_im_x_b_re),  .rnd (rnd),  .z (d_im));"
+FPC.v, 163
+FPC_MUL, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD( .a (a_re_x_b_im_reg),  .b (a_im_x_b_re_reg),  .rnd (rnd),  .z (d_im));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
   ports.
-
-
-Warning-[PCWM-W] Port connection width mismatch
-FPC.v, 41
-"DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (d_re));"
-  The following 1-bit expression is connected to 3-bit port "rnd" of module 
-  "DW_fp_add", instance "u_FPC_ADD_0".
-  Expression: rnd
-  Instantiated module defined at: 
-  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_add.v", 64
-  Use +lint=PCWM for more details.
-
-
-Warning-[PCWM-W] Port connection width mismatch
-FPC.v, 44
-"DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (d_im));"
-  The following 1-bit expression is connected to 3-bit port "rnd" of module 
-  "DW_fp_add", instance "u_FPC_ADD_1".
-  Expression: rnd
-  Instantiated module defined at: 
-  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_add.v", 64
-  Use +lint=PCWM for more details.
-
-
-Warning-[PCWM-W] Port connection width mismatch
-FPC.v, 88
-"DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (d_re));"
-  The following 1-bit expression is connected to 3-bit port "rnd" of module 
-  "DW_fp_sub", instance "u_FPC_SUB_0".
-  Expression: rnd
-  Instantiated module defined at: 
-  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_sub.v", 61
-  Use +lint=PCWM for more details.
-
-
-Warning-[PCWM-W] Port connection width mismatch
-FPC.v, 91
-"DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (d_im));"
-  The following 1-bit expression is connected to 3-bit port "rnd" of module 
-  "DW_fp_sub", instance "u_FPC_SUB_1".
-  Expression: rnd
-  Instantiated module defined at: 
-  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_sub.v", 61
-  Use +lint=PCWM for more details.
-
-
-Warning-[PCWM-W] Port connection width mismatch
-FPC.v, 140
-"DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (a_re_x_b_re));"
-  The following 1-bit expression is connected to 3-bit port "rnd" of module 
-  "DW_fp_mult", instance "u_FPC_MUL_0".
-  Expression: rnd
-  Instantiated module defined at: 
-  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_mult.v", 88
-  Use +lint=PCWM for more details.
-
-
-Warning-[PCWM-W] Port connection width mismatch
-FPC.v, 143
-"DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (a_im_x_b_im));"
-  The following 1-bit expression is connected to 3-bit port "rnd" of module 
-  "DW_fp_mult", instance "u_FPC_MUL_1".
-  Expression: rnd
-  Instantiated module defined at: 
-  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_mult.v", 88
-  Use +lint=PCWM for more details.
-
-
-Warning-[PCWM-W] Port connection width mismatch
-FPC.v, 146
-"DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_2( .a (a_re),  .b (b_im),  .rnd (rnd),  .z (a_re_x_b_im));"
-  The following 1-bit expression is connected to 3-bit port "rnd" of module 
-  "DW_fp_mult", instance "u_FPC_MUL_2".
-  Expression: rnd
-  Instantiated module defined at: 
-  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_mult.v", 88
-  Use +lint=PCWM for more details.
-
-
-Warning-[PCWM-W] Port connection width mismatch
-FPC.v, 149
-"DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPC_MUL_3( .a (a_im),  .b (b_re),  .rnd (rnd),  .z (a_im_x_b_re));"
-  The following 1-bit expression is connected to 3-bit port "rnd" of module 
-  "DW_fp_mult", instance "u_FPC_MUL_3".
-  Expression: rnd
-  Instantiated module defined at: 
-  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_mult.v", 88
-  Use +lint=PCWM for more details.
-
-
-Warning-[PCWM-W] Port connection width mismatch
-FPC.v, 152
-"DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPC_SUB( .a (a_re_x_b_re),  .b (a_im_x_b_im),  .rnd (rnd),  .z (d_re));"
-  The following 1-bit expression is connected to 3-bit port "rnd" of module 
-  "DW_fp_sub", instance "u_FPC_SUB".
-  Expression: rnd
-  Instantiated module defined at: 
-  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_sub.v", 61
-  Use +lint=PCWM for more details.
-
-
-Warning-[PCWM-W] Port connection width mismatch
-FPC.v, 155
-"DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPC_ADD( .a (a_re_x_b_im),  .b (a_im_x_b_re),  .rnd (rnd),  .z (d_im));"
-  The following 1-bit expression is connected to 3-bit port "rnd" of module 
-  "DW_fp_add", instance "u_FPC_ADD".
-  Expression: rnd
-  Instantiated module defined at: 
-  "/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_add.v", 64
-  Use +lint=PCWM for more details.
 
 Starting vcs inline pass...
 
@@ -238,9 +128,8 @@ Starting vcs inline pass...
 Note-[VCS_PARAL] Parallel code-gen enabled
   VCS is running with parallel code generation(-j)...
 
-9 modules and 0 UDP read.
-recompiling module PATTERN
-	However, due to incremental compilation, only 1 module needs to be compiled. 
+8 modules and 0 UDP read.
+	However, due to incremental compilation, no re-compilation is necessary.
 make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/fft/01_RTL/csrc'
 rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
 ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
@@ -248,20 +137,19 @@ rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
--Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _15413_archive_1.so _15443_archive_1.so \
-_prev_archive_1.so _cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o \
-rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs \
-/usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile \
--luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o   -Wl,-whole-archive \
--lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o \
-/usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a -ldl -lm  -lc -lpthread \
--ldl 
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _17492_archive_1.so _prev_archive_1.so \
+_cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o \
+rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a \
+-lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o \
+-Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   \
+/usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a \
+-ldl -lm  -lc -lpthread -ldl 
 ../simv up to date
 make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/fft/01_RTL/csrc'
 Command: /home/daniel_kuo/Falcon/hardware/fft/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
 Chronologic VCS simulator copyright 1991-2022
 Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 23 20:45 2025
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 24 16:39 2025
 *Verdi* Loading libsscore_vcs202206.so
 FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 (C) 1996 - 2022 by Synopsys, Inc.
@@ -270,252 +158,252 @@ FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 *Verdi* : Begin traversing the scopes, layer (0).
 *Verdi* : Enable +mda dumping.
 *Verdi* : End of traversing.
-PASS PATTERN NO.   1,  272 CYCLES
-PASS PATTERN NO.   2,  272 CYCLES
-PASS PATTERN NO.   3,  272 CYCLES
-PASS PATTERN NO.   4,  272 CYCLES
-PASS PATTERN NO.   5,  272 CYCLES
-PASS PATTERN NO.   6,  272 CYCLES
-PASS PATTERN NO.   7,  272 CYCLES
-PASS PATTERN NO.   8,  272 CYCLES
-PASS PATTERN NO.   9,  272 CYCLES
-PASS PATTERN NO.  10,  272 CYCLES
-PASS PATTERN NO.  11,  272 CYCLES
-PASS PATTERN NO.  12,  272 CYCLES
-PASS PATTERN NO.  13,  272 CYCLES
-PASS PATTERN NO.  14,  272 CYCLES
-PASS PATTERN NO.  15,  272 CYCLES
-PASS PATTERN NO.  16,  272 CYCLES
-PASS PATTERN NO.  17,  272 CYCLES
-PASS PATTERN NO.  18,  272 CYCLES
-PASS PATTERN NO.  19,  272 CYCLES
-PASS PATTERN NO.  20,  272 CYCLES
-PASS PATTERN NO.  21,  272 CYCLES
-PASS PATTERN NO.  22,  272 CYCLES
-PASS PATTERN NO.  23,  272 CYCLES
-PASS PATTERN NO.  24,  272 CYCLES
-PASS PATTERN NO.  25,  272 CYCLES
-PASS PATTERN NO.  26,  272 CYCLES
-PASS PATTERN NO.  27,  272 CYCLES
-PASS PATTERN NO.  28,  272 CYCLES
-PASS PATTERN NO.  29,  272 CYCLES
-PASS PATTERN NO.  30,  272 CYCLES
-PASS PATTERN NO.  31,  272 CYCLES
-PASS PATTERN NO.  32,  272 CYCLES
-PASS PATTERN NO.  33,  272 CYCLES
-PASS PATTERN NO.  34,  272 CYCLES
-PASS PATTERN NO.  35,  272 CYCLES
-PASS PATTERN NO.  36,  272 CYCLES
-PASS PATTERN NO.  37,  272 CYCLES
-PASS PATTERN NO.  38,  272 CYCLES
-PASS PATTERN NO.  39,  272 CYCLES
-PASS PATTERN NO.  40,  272 CYCLES
-PASS PATTERN NO.  41,  272 CYCLES
-PASS PATTERN NO.  42,  272 CYCLES
-PASS PATTERN NO.  43,  272 CYCLES
-PASS PATTERN NO.  44,  272 CYCLES
-PASS PATTERN NO.  45,  272 CYCLES
-PASS PATTERN NO.  46,  272 CYCLES
-PASS PATTERN NO.  47,  272 CYCLES
-PASS PATTERN NO.  48,  272 CYCLES
-PASS PATTERN NO.  49,  272 CYCLES
-PASS PATTERN NO.  50,  272 CYCLES
-PASS PATTERN NO.  51,  272 CYCLES
-PASS PATTERN NO.  52,  272 CYCLES
-PASS PATTERN NO.  53,  272 CYCLES
-PASS PATTERN NO.  54,  272 CYCLES
-PASS PATTERN NO.  55,  272 CYCLES
-PASS PATTERN NO.  56,  272 CYCLES
-PASS PATTERN NO.  57,  272 CYCLES
-PASS PATTERN NO.  58,  272 CYCLES
-PASS PATTERN NO.  59,  272 CYCLES
-PASS PATTERN NO.  60,  272 CYCLES
-PASS PATTERN NO.  61,  272 CYCLES
-PASS PATTERN NO.  62,  272 CYCLES
-PASS PATTERN NO.  63,  272 CYCLES
-PASS PATTERN NO.  64,  272 CYCLES
-PASS PATTERN NO.  65,  272 CYCLES
-PASS PATTERN NO.  66,  272 CYCLES
-PASS PATTERN NO.  67,  272 CYCLES
-PASS PATTERN NO.  68,  272 CYCLES
-PASS PATTERN NO.  69,  272 CYCLES
-PASS PATTERN NO.  70,  272 CYCLES
-PASS PATTERN NO.  71,  272 CYCLES
-PASS PATTERN NO.  72,  272 CYCLES
-PASS PATTERN NO.  73,  272 CYCLES
-PASS PATTERN NO.  74,  272 CYCLES
-PASS PATTERN NO.  75,  272 CYCLES
-PASS PATTERN NO.  76,  272 CYCLES
-PASS PATTERN NO.  77,  272 CYCLES
-PASS PATTERN NO.  78,  272 CYCLES
-PASS PATTERN NO.  79,  272 CYCLES
-PASS PATTERN NO.  80,  272 CYCLES
-PASS PATTERN NO.  81,  272 CYCLES
-PASS PATTERN NO.  82,  272 CYCLES
-PASS PATTERN NO.  83,  272 CYCLES
-PASS PATTERN NO.  84,  272 CYCLES
-PASS PATTERN NO.  85,  272 CYCLES
-PASS PATTERN NO.  86,  272 CYCLES
-PASS PATTERN NO.  87,  272 CYCLES
-PASS PATTERN NO.  88,  272 CYCLES
-PASS PATTERN NO.  89,  272 CYCLES
-PASS PATTERN NO.  90,  272 CYCLES
-PASS PATTERN NO.  91,  272 CYCLES
-PASS PATTERN NO.  92,  272 CYCLES
-PASS PATTERN NO.  93,  272 CYCLES
-PASS PATTERN NO.  94,  272 CYCLES
-PASS PATTERN NO.  95,  272 CYCLES
-PASS PATTERN NO.  96,  272 CYCLES
-PASS PATTERN NO.  97,  272 CYCLES
-PASS PATTERN NO.  98,  272 CYCLES
-PASS PATTERN NO.  99,  272 CYCLES
-PASS PATTERN NO. 100,  272 CYCLES
-PASS PATTERN NO. 101,  272 CYCLES
-PASS PATTERN NO. 102,  272 CYCLES
-PASS PATTERN NO. 103,  272 CYCLES
-PASS PATTERN NO. 104,  272 CYCLES
-PASS PATTERN NO. 105,  272 CYCLES
-PASS PATTERN NO. 106,  272 CYCLES
-PASS PATTERN NO. 107,  272 CYCLES
-PASS PATTERN NO. 108,  272 CYCLES
-PASS PATTERN NO. 109,  272 CYCLES
-PASS PATTERN NO. 110,  272 CYCLES
-PASS PATTERN NO. 111,  272 CYCLES
-PASS PATTERN NO. 112,  272 CYCLES
-PASS PATTERN NO. 113,  272 CYCLES
-PASS PATTERN NO. 114,  272 CYCLES
-PASS PATTERN NO. 115,  272 CYCLES
-PASS PATTERN NO. 116,  272 CYCLES
-PASS PATTERN NO. 117,  272 CYCLES
-PASS PATTERN NO. 118,  272 CYCLES
-PASS PATTERN NO. 119,  272 CYCLES
-PASS PATTERN NO. 120,  272 CYCLES
-PASS PATTERN NO. 121,  272 CYCLES
-PASS PATTERN NO. 122,  272 CYCLES
-PASS PATTERN NO. 123,  272 CYCLES
-PASS PATTERN NO. 124,  272 CYCLES
-PASS PATTERN NO. 125,  272 CYCLES
-PASS PATTERN NO. 126,  272 CYCLES
-PASS PATTERN NO. 127,  272 CYCLES
-PASS PATTERN NO. 128,  272 CYCLES
-PASS PATTERN NO. 129,  272 CYCLES
-PASS PATTERN NO. 130,  272 CYCLES
-PASS PATTERN NO. 131,  272 CYCLES
-PASS PATTERN NO. 132,  272 CYCLES
-PASS PATTERN NO. 133,  272 CYCLES
-PASS PATTERN NO. 134,  272 CYCLES
-PASS PATTERN NO. 135,  272 CYCLES
-PASS PATTERN NO. 136,  272 CYCLES
-PASS PATTERN NO. 137,  272 CYCLES
-PASS PATTERN NO. 138,  272 CYCLES
-PASS PATTERN NO. 139,  272 CYCLES
-PASS PATTERN NO. 140,  272 CYCLES
-PASS PATTERN NO. 141,  272 CYCLES
-PASS PATTERN NO. 142,  272 CYCLES
-PASS PATTERN NO. 143,  272 CYCLES
-PASS PATTERN NO. 144,  272 CYCLES
-PASS PATTERN NO. 145,  272 CYCLES
-PASS PATTERN NO. 146,  272 CYCLES
-PASS PATTERN NO. 147,  272 CYCLES
-PASS PATTERN NO. 148,  272 CYCLES
-PASS PATTERN NO. 149,  272 CYCLES
-PASS PATTERN NO. 150,  272 CYCLES
-PASS PATTERN NO. 151,  272 CYCLES
-PASS PATTERN NO. 152,  272 CYCLES
-PASS PATTERN NO. 153,  272 CYCLES
-PASS PATTERN NO. 154,  272 CYCLES
-PASS PATTERN NO. 155,  272 CYCLES
-PASS PATTERN NO. 156,  272 CYCLES
-PASS PATTERN NO. 157,  272 CYCLES
-PASS PATTERN NO. 158,  272 CYCLES
-PASS PATTERN NO. 159,  272 CYCLES
-PASS PATTERN NO. 160,  272 CYCLES
-PASS PATTERN NO. 161,  272 CYCLES
-PASS PATTERN NO. 162,  272 CYCLES
-PASS PATTERN NO. 163,  272 CYCLES
-PASS PATTERN NO. 164,  272 CYCLES
-PASS PATTERN NO. 165,  272 CYCLES
-PASS PATTERN NO. 166,  272 CYCLES
-PASS PATTERN NO. 167,  272 CYCLES
-PASS PATTERN NO. 168,  272 CYCLES
-PASS PATTERN NO. 169,  272 CYCLES
-PASS PATTERN NO. 170,  272 CYCLES
-PASS PATTERN NO. 171,  272 CYCLES
-PASS PATTERN NO. 172,  272 CYCLES
-PASS PATTERN NO. 173,  272 CYCLES
-PASS PATTERN NO. 174,  272 CYCLES
-PASS PATTERN NO. 175,  272 CYCLES
-PASS PATTERN NO. 176,  272 CYCLES
-PASS PATTERN NO. 177,  272 CYCLES
-PASS PATTERN NO. 178,  272 CYCLES
-PASS PATTERN NO. 179,  272 CYCLES
-PASS PATTERN NO. 180,  272 CYCLES
-PASS PATTERN NO. 181,  272 CYCLES
-PASS PATTERN NO. 182,  272 CYCLES
-PASS PATTERN NO. 183,  272 CYCLES
-PASS PATTERN NO. 184,  272 CYCLES
-PASS PATTERN NO. 185,  272 CYCLES
-PASS PATTERN NO. 186,  272 CYCLES
-PASS PATTERN NO. 187,  272 CYCLES
-PASS PATTERN NO. 188,  272 CYCLES
-PASS PATTERN NO. 189,  272 CYCLES
-PASS PATTERN NO. 190,  272 CYCLES
-PASS PATTERN NO. 191,  272 CYCLES
-PASS PATTERN NO. 192,  272 CYCLES
-PASS PATTERN NO. 193,  272 CYCLES
-PASS PATTERN NO. 194,  272 CYCLES
-PASS PATTERN NO. 195,  272 CYCLES
-PASS PATTERN NO. 196,  272 CYCLES
-PASS PATTERN NO. 197,  272 CYCLES
-PASS PATTERN NO. 198,  272 CYCLES
-PASS PATTERN NO. 199,  272 CYCLES
-PASS PATTERN NO. 200,  272 CYCLES
-PASS PATTERN NO. 201,  272 CYCLES
-PASS PATTERN NO. 202,  272 CYCLES
-PASS PATTERN NO. 203,  272 CYCLES
-PASS PATTERN NO. 204,  272 CYCLES
-PASS PATTERN NO. 205,  272 CYCLES
-PASS PATTERN NO. 206,  272 CYCLES
-PASS PATTERN NO. 207,  272 CYCLES
-PASS PATTERN NO. 208,  272 CYCLES
-PASS PATTERN NO. 209,  272 CYCLES
-PASS PATTERN NO. 210,  272 CYCLES
-PASS PATTERN NO. 211,  272 CYCLES
-PASS PATTERN NO. 212,  272 CYCLES
-PASS PATTERN NO. 213,  272 CYCLES
-PASS PATTERN NO. 214,  272 CYCLES
-PASS PATTERN NO. 215,  272 CYCLES
-PASS PATTERN NO. 216,  272 CYCLES
-PASS PATTERN NO. 217,  272 CYCLES
-PASS PATTERN NO. 218,  272 CYCLES
-PASS PATTERN NO. 219,  272 CYCLES
-PASS PATTERN NO. 220,  272 CYCLES
-PASS PATTERN NO. 221,  272 CYCLES
-PASS PATTERN NO. 222,  272 CYCLES
-PASS PATTERN NO. 223,  272 CYCLES
-PASS PATTERN NO. 224,  272 CYCLES
-PASS PATTERN NO. 225,  272 CYCLES
-PASS PATTERN NO. 226,  272 CYCLES
-PASS PATTERN NO. 227,  272 CYCLES
-PASS PATTERN NO. 228,  272 CYCLES
-PASS PATTERN NO. 229,  272 CYCLES
-PASS PATTERN NO. 230,  272 CYCLES
-PASS PATTERN NO. 231,  272 CYCLES
-PASS PATTERN NO. 232,  272 CYCLES
-PASS PATTERN NO. 233,  272 CYCLES
-PASS PATTERN NO. 234,  272 CYCLES
-PASS PATTERN NO. 235,  272 CYCLES
+PASS PATTERN NO.   1,  280 CYCLES
+PASS PATTERN NO.   2,  280 CYCLES
+PASS PATTERN NO.   3,  280 CYCLES
+PASS PATTERN NO.   4,  280 CYCLES
+PASS PATTERN NO.   5,  280 CYCLES
+PASS PATTERN NO.   6,  280 CYCLES
+PASS PATTERN NO.   7,  280 CYCLES
+PASS PATTERN NO.   8,  280 CYCLES
+PASS PATTERN NO.   9,  280 CYCLES
+PASS PATTERN NO.  10,  280 CYCLES
+PASS PATTERN NO.  11,  280 CYCLES
+PASS PATTERN NO.  12,  280 CYCLES
+PASS PATTERN NO.  13,  280 CYCLES
+PASS PATTERN NO.  14,  280 CYCLES
+PASS PATTERN NO.  15,  280 CYCLES
+PASS PATTERN NO.  16,  280 CYCLES
+PASS PATTERN NO.  17,  280 CYCLES
+PASS PATTERN NO.  18,  280 CYCLES
+PASS PATTERN NO.  19,  280 CYCLES
+PASS PATTERN NO.  20,  280 CYCLES
+PASS PATTERN NO.  21,  280 CYCLES
+PASS PATTERN NO.  22,  280 CYCLES
+PASS PATTERN NO.  23,  280 CYCLES
+PASS PATTERN NO.  24,  280 CYCLES
+PASS PATTERN NO.  25,  280 CYCLES
+PASS PATTERN NO.  26,  280 CYCLES
+PASS PATTERN NO.  27,  280 CYCLES
+PASS PATTERN NO.  28,  280 CYCLES
+PASS PATTERN NO.  29,  280 CYCLES
+PASS PATTERN NO.  30,  280 CYCLES
+PASS PATTERN NO.  31,  280 CYCLES
+PASS PATTERN NO.  32,  280 CYCLES
+PASS PATTERN NO.  33,  280 CYCLES
+PASS PATTERN NO.  34,  280 CYCLES
+PASS PATTERN NO.  35,  280 CYCLES
+PASS PATTERN NO.  36,  280 CYCLES
+PASS PATTERN NO.  37,  280 CYCLES
+PASS PATTERN NO.  38,  280 CYCLES
+PASS PATTERN NO.  39,  280 CYCLES
+PASS PATTERN NO.  40,  280 CYCLES
+PASS PATTERN NO.  41,  280 CYCLES
+PASS PATTERN NO.  42,  280 CYCLES
+PASS PATTERN NO.  43,  280 CYCLES
+PASS PATTERN NO.  44,  280 CYCLES
+PASS PATTERN NO.  45,  280 CYCLES
+PASS PATTERN NO.  46,  280 CYCLES
+PASS PATTERN NO.  47,  280 CYCLES
+PASS PATTERN NO.  48,  280 CYCLES
+PASS PATTERN NO.  49,  280 CYCLES
+PASS PATTERN NO.  50,  280 CYCLES
+PASS PATTERN NO.  51,  280 CYCLES
+PASS PATTERN NO.  52,  280 CYCLES
+PASS PATTERN NO.  53,  280 CYCLES
+PASS PATTERN NO.  54,  280 CYCLES
+PASS PATTERN NO.  55,  280 CYCLES
+PASS PATTERN NO.  56,  280 CYCLES
+PASS PATTERN NO.  57,  280 CYCLES
+PASS PATTERN NO.  58,  280 CYCLES
+PASS PATTERN NO.  59,  280 CYCLES
+PASS PATTERN NO.  60,  280 CYCLES
+PASS PATTERN NO.  61,  280 CYCLES
+PASS PATTERN NO.  62,  280 CYCLES
+PASS PATTERN NO.  63,  280 CYCLES
+PASS PATTERN NO.  64,  280 CYCLES
+PASS PATTERN NO.  65,  280 CYCLES
+PASS PATTERN NO.  66,  280 CYCLES
+PASS PATTERN NO.  67,  280 CYCLES
+PASS PATTERN NO.  68,  280 CYCLES
+PASS PATTERN NO.  69,  280 CYCLES
+PASS PATTERN NO.  70,  280 CYCLES
+PASS PATTERN NO.  71,  280 CYCLES
+PASS PATTERN NO.  72,  280 CYCLES
+PASS PATTERN NO.  73,  280 CYCLES
+PASS PATTERN NO.  74,  280 CYCLES
+PASS PATTERN NO.  75,  280 CYCLES
+PASS PATTERN NO.  76,  280 CYCLES
+PASS PATTERN NO.  77,  280 CYCLES
+PASS PATTERN NO.  78,  280 CYCLES
+PASS PATTERN NO.  79,  280 CYCLES
+PASS PATTERN NO.  80,  280 CYCLES
+PASS PATTERN NO.  81,  280 CYCLES
+PASS PATTERN NO.  82,  280 CYCLES
+PASS PATTERN NO.  83,  280 CYCLES
+PASS PATTERN NO.  84,  280 CYCLES
+PASS PATTERN NO.  85,  280 CYCLES
+PASS PATTERN NO.  86,  280 CYCLES
+PASS PATTERN NO.  87,  280 CYCLES
+PASS PATTERN NO.  88,  280 CYCLES
+PASS PATTERN NO.  89,  280 CYCLES
+PASS PATTERN NO.  90,  280 CYCLES
+PASS PATTERN NO.  91,  280 CYCLES
+PASS PATTERN NO.  92,  280 CYCLES
+PASS PATTERN NO.  93,  280 CYCLES
+PASS PATTERN NO.  94,  280 CYCLES
+PASS PATTERN NO.  95,  280 CYCLES
+PASS PATTERN NO.  96,  280 CYCLES
+PASS PATTERN NO.  97,  280 CYCLES
+PASS PATTERN NO.  98,  280 CYCLES
+PASS PATTERN NO.  99,  280 CYCLES
+PASS PATTERN NO. 100,  280 CYCLES
+PASS PATTERN NO. 101,  280 CYCLES
+PASS PATTERN NO. 102,  280 CYCLES
+PASS PATTERN NO. 103,  280 CYCLES
+PASS PATTERN NO. 104,  280 CYCLES
+PASS PATTERN NO. 105,  280 CYCLES
+PASS PATTERN NO. 106,  280 CYCLES
+PASS PATTERN NO. 107,  280 CYCLES
+PASS PATTERN NO. 108,  280 CYCLES
+PASS PATTERN NO. 109,  280 CYCLES
+PASS PATTERN NO. 110,  280 CYCLES
+PASS PATTERN NO. 111,  280 CYCLES
+PASS PATTERN NO. 112,  280 CYCLES
+PASS PATTERN NO. 113,  280 CYCLES
+PASS PATTERN NO. 114,  280 CYCLES
+PASS PATTERN NO. 115,  280 CYCLES
+PASS PATTERN NO. 116,  280 CYCLES
+PASS PATTERN NO. 117,  280 CYCLES
+PASS PATTERN NO. 118,  280 CYCLES
+PASS PATTERN NO. 119,  280 CYCLES
+PASS PATTERN NO. 120,  280 CYCLES
+PASS PATTERN NO. 121,  280 CYCLES
+PASS PATTERN NO. 122,  280 CYCLES
+PASS PATTERN NO. 123,  280 CYCLES
+PASS PATTERN NO. 124,  280 CYCLES
+PASS PATTERN NO. 125,  280 CYCLES
+PASS PATTERN NO. 126,  280 CYCLES
+PASS PATTERN NO. 127,  280 CYCLES
+PASS PATTERN NO. 128,  280 CYCLES
+PASS PATTERN NO. 129,  280 CYCLES
+PASS PATTERN NO. 130,  280 CYCLES
+PASS PATTERN NO. 131,  280 CYCLES
+PASS PATTERN NO. 132,  280 CYCLES
+PASS PATTERN NO. 133,  280 CYCLES
+PASS PATTERN NO. 134,  280 CYCLES
+PASS PATTERN NO. 135,  280 CYCLES
+PASS PATTERN NO. 136,  280 CYCLES
+PASS PATTERN NO. 137,  280 CYCLES
+PASS PATTERN NO. 138,  280 CYCLES
+PASS PATTERN NO. 139,  280 CYCLES
+PASS PATTERN NO. 140,  280 CYCLES
+PASS PATTERN NO. 141,  280 CYCLES
+PASS PATTERN NO. 142,  280 CYCLES
+PASS PATTERN NO. 143,  280 CYCLES
+PASS PATTERN NO. 144,  280 CYCLES
+PASS PATTERN NO. 145,  280 CYCLES
+PASS PATTERN NO. 146,  280 CYCLES
+PASS PATTERN NO. 147,  280 CYCLES
+PASS PATTERN NO. 148,  280 CYCLES
+PASS PATTERN NO. 149,  280 CYCLES
+PASS PATTERN NO. 150,  280 CYCLES
+PASS PATTERN NO. 151,  280 CYCLES
+PASS PATTERN NO. 152,  280 CYCLES
+PASS PATTERN NO. 153,  280 CYCLES
+PASS PATTERN NO. 154,  280 CYCLES
+PASS PATTERN NO. 155,  280 CYCLES
+PASS PATTERN NO. 156,  280 CYCLES
+PASS PATTERN NO. 157,  280 CYCLES
+PASS PATTERN NO. 158,  280 CYCLES
+PASS PATTERN NO. 159,  280 CYCLES
+PASS PATTERN NO. 160,  280 CYCLES
+PASS PATTERN NO. 161,  280 CYCLES
+PASS PATTERN NO. 162,  280 CYCLES
+PASS PATTERN NO. 163,  280 CYCLES
+PASS PATTERN NO. 164,  280 CYCLES
+PASS PATTERN NO. 165,  280 CYCLES
+PASS PATTERN NO. 166,  280 CYCLES
+PASS PATTERN NO. 167,  280 CYCLES
+PASS PATTERN NO. 168,  280 CYCLES
+PASS PATTERN NO. 169,  280 CYCLES
+PASS PATTERN NO. 170,  280 CYCLES
+PASS PATTERN NO. 171,  280 CYCLES
+PASS PATTERN NO. 172,  280 CYCLES
+PASS PATTERN NO. 173,  280 CYCLES
+PASS PATTERN NO. 174,  280 CYCLES
+PASS PATTERN NO. 175,  280 CYCLES
+PASS PATTERN NO. 176,  280 CYCLES
+PASS PATTERN NO. 177,  280 CYCLES
+PASS PATTERN NO. 178,  280 CYCLES
+PASS PATTERN NO. 179,  280 CYCLES
+PASS PATTERN NO. 180,  280 CYCLES
+PASS PATTERN NO. 181,  280 CYCLES
+PASS PATTERN NO. 182,  280 CYCLES
+PASS PATTERN NO. 183,  280 CYCLES
+PASS PATTERN NO. 184,  280 CYCLES
+PASS PATTERN NO. 185,  280 CYCLES
+PASS PATTERN NO. 186,  280 CYCLES
+PASS PATTERN NO. 187,  280 CYCLES
+PASS PATTERN NO. 188,  280 CYCLES
+PASS PATTERN NO. 189,  280 CYCLES
+PASS PATTERN NO. 190,  280 CYCLES
+PASS PATTERN NO. 191,  280 CYCLES
+PASS PATTERN NO. 192,  280 CYCLES
+PASS PATTERN NO. 193,  280 CYCLES
+PASS PATTERN NO. 194,  280 CYCLES
+PASS PATTERN NO. 195,  280 CYCLES
+PASS PATTERN NO. 196,  280 CYCLES
+PASS PATTERN NO. 197,  280 CYCLES
+PASS PATTERN NO. 198,  280 CYCLES
+PASS PATTERN NO. 199,  280 CYCLES
+PASS PATTERN NO. 200,  280 CYCLES
+PASS PATTERN NO. 201,  280 CYCLES
+PASS PATTERN NO. 202,  280 CYCLES
+PASS PATTERN NO. 203,  280 CYCLES
+PASS PATTERN NO. 204,  280 CYCLES
+PASS PATTERN NO. 205,  280 CYCLES
+PASS PATTERN NO. 206,  280 CYCLES
+PASS PATTERN NO. 207,  280 CYCLES
+PASS PATTERN NO. 208,  280 CYCLES
+PASS PATTERN NO. 209,  280 CYCLES
+PASS PATTERN NO. 210,  280 CYCLES
+PASS PATTERN NO. 211,  280 CYCLES
+PASS PATTERN NO. 212,  280 CYCLES
+PASS PATTERN NO. 213,  280 CYCLES
+PASS PATTERN NO. 214,  280 CYCLES
+PASS PATTERN NO. 215,  280 CYCLES
+PASS PATTERN NO. 216,  280 CYCLES
+PASS PATTERN NO. 217,  280 CYCLES
+PASS PATTERN NO. 218,  280 CYCLES
+PASS PATTERN NO. 219,  280 CYCLES
+PASS PATTERN NO. 220,  280 CYCLES
+PASS PATTERN NO. 221,  280 CYCLES
+PASS PATTERN NO. 222,  280 CYCLES
+PASS PATTERN NO. 223,  280 CYCLES
+PASS PATTERN NO. 224,  280 CYCLES
+PASS PATTERN NO. 225,  280 CYCLES
+PASS PATTERN NO. 226,  280 CYCLES
+PASS PATTERN NO. 227,  280 CYCLES
+PASS PATTERN NO. 228,  280 CYCLES
+PASS PATTERN NO. 229,  280 CYCLES
+PASS PATTERN NO. 230,  280 CYCLES
+PASS PATTERN NO. 231,  280 CYCLES
+PASS PATTERN NO. 232,  280 CYCLES
+PASS PATTERN NO. 233,  280 CYCLES
+PASS PATTERN NO. 234,  280 CYCLES
+PASS PATTERN NO. 235,  280 CYCLES
 --------------------------------------------------------------------
                          Congratulations!                           
                   You have passed all patterns!                     
-                  Your execution cycles = 63920 cycles                
+                  Your execution cycles = 65800 cycles                
                   Your clock period = 2.0 ns                       
-                  Total Latency = 127840.0 ns                           
+                  Total Latency = 131600.0 ns                           
 --------------------------------------------------------------------
 $finish called from file "PATTERN.v", line 1394.
-$finish at simulation time             54926100
+$finish at simulation time             25337500
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 549261000 ps
-CPU Time:     37.900 seconds;       Data structure size:   0.4Mb
-Wed Jul 23 20:45:44 2025
-CPU time: .528 seconds to compile + .236 seconds to elab + .288 seconds to link + 37.947 seconds in simulation
+Time: 253375000 ps
+CPU Time:     33.770 seconds;       Data structure size:   0.4Mb
+Thu Jul 24 16:39:37 2025
+CPU time: .577 seconds to compile + .254 seconds to elab + .268 seconds to link + 33.819 seconds in simulation

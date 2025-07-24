@@ -61,6 +61,7 @@ output reg [FLOAT_PRECISION-1:0] do_im;
 //---------------------------------------------------------------------
 //   Reg & Wire
 //---------------------------------------------------------------------
+reg mult_valid;
 reg [FLOAT_PRECISION-1:0] mult_d_re, mult_d_im, mult_d_re_reg, mult_d_im_reg;
 
 reg [FLOAT_PRECISION-1:0] butterfly_X_re, butterfly_X_im; 
@@ -108,9 +109,12 @@ u_DELAY_BUFFER (
 FPC_MUL #(FLOAT_PRECISION) 
 u_FPC_MUL (
     // Input signals
+    .clk(clk), .rst_n(rst_n),
+    .in_valid(in_valid),
     .a_re(di_re), .a_im(di_im), 
     .b_re(s_re), .b_im(s_im), 
     // Output signals
+    .mult_valid(mult_valid),
     .d_re(mult_d_re), .d_im(mult_d_im)
     );
 
@@ -123,7 +127,7 @@ u_FPC_MUL (
 always @(*) begin
     case (state_reg)
         S_IDLE: begin
-            if (in_valid)
+            if (mult_valid)
                 state = S_EXE;
             else
                 state = state_reg;
@@ -143,7 +147,7 @@ always @(*) begin
         S_EXE: begin
             if (cnt_reg >= N-1)
                 cnt = cnt_reg + 1;
-            else if (in_valid)
+            else if (mult_valid)
                 cnt = cnt_reg + 1;
             else
                 cnt = cnt_reg;
@@ -151,25 +155,28 @@ always @(*) begin
     endcase
 end
 
-assign delay_ena = (cnt_reg < N-1 && !in_valid) ? 0 : 1;
+assign delay_ena = (cnt_reg < N-1 && !mult_valid) ? 0 : 1;
 
 /*
  * Control twiddle factor index.
  */
-assign i1 = (cnt_reg + 1) / T;
+assign i1 = (cnt + 1) / T;
 assign tw_idx = tw_mask ? M + i1 : 0;
 always @(*) begin
-    if (state == S_EXE && cnt == 0 && T == 2)
-        tw_mask = 1;   
-    else if (state_reg == S_EXE) begin
-        if (((cnt_reg + 2) % T) == 0)
+    if (in_valid && cnt == 0 && T == 2)
+        if (state == S_EXE)
+            tw_mask = 0;   
+        else 
+            tw_mask = 1;   
+    else if (state == S_EXE) begin
+        if (((cnt + 2) % T) == 0)
             if (!in_valid)
                 tw_mask = 1;
             else 
                 tw_mask = 0;
-        else if (((cnt_reg + 2) % T) < HT)
+        else if (((cnt + 2) % T) < HT)
             tw_mask = 0;
-        else if (((cnt_reg + 2) % T) == HT)
+        else if (((cnt + 2) % T) == HT)
             if (in_valid)
                 tw_mask = 1;
             else 
@@ -184,7 +191,7 @@ end
 /*
  * Multiplexer that choose the input source to delay buffer.
  */
-assign delay_mux = (cnt_reg / HT) % 2;
+assign delay_mux = (cnt_reg == 0) ? 0 : ((cnt_reg) / HT) % 2;
 assign delay_di_re = delay_mux ? butterfly_Y_re : mult_d_re_reg;
 assign delay_di_im = delay_mux ? butterfly_Y_im : mult_d_im_reg;
 
@@ -215,14 +222,14 @@ always @(posedge clk or negedge rst_n) begin
         cnt_reg <= cnt;
         do_re <= _do_re;
         do_im <= _do_im;
-        in_valid_reg <= in_valid;
-        if (cnt_reg < N-1 && !in_valid) begin
+        in_valid_reg <= mult_valid;
+        if (cnt_reg < N-1 && !mult_valid) begin
             i_valid <= i_valid;
             mult_d_re_reg <= mult_d_re_reg;
             mult_d_im_reg <= mult_d_im_reg;
         end
         else begin
-            i_valid <= in_valid;
+            i_valid <= mult_valid;
             mult_d_re_reg <= mult_d_re;
             mult_d_im_reg <= mult_d_im;
         end

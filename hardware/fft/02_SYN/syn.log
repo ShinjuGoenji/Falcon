@@ -1,0 +1,1799 @@
+#======================================================
+#
+# Synopsys Synthesis Scripts (Design Vision dctcl mode)
+#
+#======================================================
+#======================================================
+# (A) Global Parameters
+#======================================================
+set DESIGN "FFT"
+FFT
+set CYCLE 2.1
+2.1
+set INPUT_DLY [expr 0.5*$CYCLE]
+1.05
+set OUTPUT_DLY [expr 0.5*$CYCLE]
+1.05
+#======================================================
+# (B) Read RTL Code
+#======================================================
+# (B-1) analyze + elaborate
+set hdlin_auto_save_templates TRUE
+TRUE
+analyze -f sverilog $DESIGN\.v 
+Running PRESTO HDLC
+Compiling source file ../01_RTL/FFT.v
+Opening include file ../01_RTL/RADIX2.v
+Opening include file ../01_RTL/DELAY_BUFFER.v
+Opening include file ../01_RTL/BUTTERFLY.v
+Opening include file ../01_RTL/FPC.v
+Warning:  ../01_RTL/RADIX2.v:32: Parameter keyword used in local parameter declaration. (VER-329)
+Presto compilation completed successfully.
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/standard.sldb'
+1
+elaborate $DESIGN  
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db'
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb'
+  Loading link library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+
+Inferred memory devices in process
+        in routine FFT line 206 in file
+                '../01_RTL/FFT.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   s_im_8_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  in_valid_reg_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|    fi_re_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    fi_im_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_re_1_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_im_1_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_re_2_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_im_2_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_re_3_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_im_3_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_re_4_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_im_4_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_re_5_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_im_5_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_re_6_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_im_6_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_re_7_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_im_7_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   s_re_8_reg_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (FFT)
+Elaborated 1 design.
+Current design is now 'FFT'.
+Information: Building the design 'RADIX2' instantiated from design 'FFT' with
+        the parameters "64,8,1". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:136: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:148: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:158: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:226: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 127 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           128            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 144 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           145            |    auto/auto     |
+===============================================
+Warning:  ../01_RTL/RADIX2.v:167: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Inferred memory devices in process
+        in routine RADIX2_FLOAT_PRECISION64_logn8_U1 line 208 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  in_valid_reg_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_re_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_im_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|      do_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      do_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_FLOAT_PRECISION64_logn8_U1)
+Information: Building the design 'RADIX2' instantiated from design 'FFT' with
+        the parameters "64,8,2". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:136: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:148: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:158: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:226: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 127 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           128            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 144 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           145            |    auto/auto     |
+===============================================
+Warning:  ../01_RTL/RADIX2.v:167: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Inferred memory devices in process
+        in routine RADIX2_FLOAT_PRECISION64_logn8_U2 line 208 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  in_valid_reg_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_re_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_im_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|      do_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      do_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_FLOAT_PRECISION64_logn8_U2)
+Information: Building the design 'RADIX2' instantiated from design 'FFT' with
+        the parameters "64,8,3". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:136: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:148: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:158: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:226: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 127 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           128            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 144 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           145            |    auto/auto     |
+===============================================
+Warning:  ../01_RTL/RADIX2.v:167: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Inferred memory devices in process
+        in routine RADIX2_FLOAT_PRECISION64_logn8_U3 line 208 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  in_valid_reg_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_re_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_im_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|      do_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      do_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_FLOAT_PRECISION64_logn8_U3)
+Information: Building the design 'RADIX2' instantiated from design 'FFT' with
+        the parameters "64,8,4". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:136: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:148: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:158: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:226: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 127 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           128            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 144 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           145            |    auto/auto     |
+===============================================
+Warning:  ../01_RTL/RADIX2.v:167: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Inferred memory devices in process
+        in routine RADIX2_FLOAT_PRECISION64_logn8_U4 line 208 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  in_valid_reg_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_re_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_im_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|      do_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      do_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_FLOAT_PRECISION64_logn8_U4)
+Information: Building the design 'RADIX2' instantiated from design 'FFT' with
+        the parameters "64,8,5". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:136: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:148: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:158: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:226: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 127 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           128            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 144 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           145            |    auto/auto     |
+===============================================
+Warning:  ../01_RTL/RADIX2.v:167: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Inferred memory devices in process
+        in routine RADIX2_FLOAT_PRECISION64_logn8_U5 line 208 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  in_valid_reg_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_re_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_im_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|      do_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      do_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_FLOAT_PRECISION64_logn8_U5)
+Information: Building the design 'RADIX2' instantiated from design 'FFT' with
+        the parameters "64,8,6". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:136: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:148: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:158: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:226: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 127 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           128            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 144 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           145            |    auto/auto     |
+===============================================
+Warning:  ../01_RTL/RADIX2.v:167: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Inferred memory devices in process
+        in routine RADIX2_FLOAT_PRECISION64_logn8_U6 line 208 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  in_valid_reg_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_re_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_im_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|      do_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      do_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_FLOAT_PRECISION64_logn8_U6)
+Information: Building the design 'RADIX2' instantiated from design 'FFT' with
+        the parameters "64,8,7". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:136: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:148: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:158: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:226: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 127 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           128            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 144 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           145            |    auto/auto     |
+===============================================
+Warning:  ../01_RTL/RADIX2.v:167: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Inferred memory devices in process
+        in routine RADIX2_FLOAT_PRECISION64_logn8_U7 line 208 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  in_valid_reg_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_re_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_im_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|      do_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      do_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_FLOAT_PRECISION64_logn8_U7)
+Information: Building the design 'RADIX2' instantiated from design 'FFT' with
+        the parameters "64,8,8". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:136: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:148: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:158: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:226: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 127 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           128            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 144 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           145            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine RADIX2_FLOAT_PRECISION64_logn8_U8 line 208 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  in_valid_reg_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_re_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_im_reg_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|      do_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      do_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_FLOAT_PRECISION64_logn8_U8)
+Information: Building the design 'BUTTERFLY' instantiated from design 'RADIX2_FLOAT_PRECISION64_logn8_U1' with
+        the parameters "FLOAT_PRECISION=64". (HDL-193)
+Presto compilation completed successfully. (BUTTERFLY_FLOAT_PRECISION64)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_FLOAT_PRECISION64_logn8_U1' with
+        the parameters "FLOAT_PRECISION=64,DEPTH=128". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH128 line 38 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH128 line 61 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop | 8128  |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |  127  |  Y  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop | 8128  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_FLOAT_PRECISION64_DEPTH128)
+Information: Building the design 'FPC_MUL' instantiated from design 'RADIX2_FLOAT_PRECISION64_logn8_U1' with
+        the parameters "64". (HDL-193)
+
+Inferred memory devices in process
+        in routine FPC_MUL_FLOAT_PRECISION64 line 168 in file
+                '../01_RTL/FPC.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| a_im_x_b_re_reg_reg | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   mult_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+| a_re_x_b_re_reg_reg | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+| a_im_x_b_im_reg_reg | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+| a_re_x_b_im_reg_reg | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (FPC_MUL_FLOAT_PRECISION64)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_FLOAT_PRECISION64_logn8_U2' with
+        the parameters "FLOAT_PRECISION=64,DEPTH=64". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH64 line 38 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH64 line 61 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop | 4032  |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |  63   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop | 4032  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_FLOAT_PRECISION64_DEPTH64)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_FLOAT_PRECISION64_logn8_U3' with
+        the parameters "FLOAT_PRECISION=64,DEPTH=32". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH32 line 38 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH32 line 61 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop | 1984  |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop | 1984  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_FLOAT_PRECISION64_DEPTH32)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_FLOAT_PRECISION64_logn8_U4' with
+        the parameters "FLOAT_PRECISION=64,DEPTH=16". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH16 line 38 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH16 line 61 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  960  |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |  15   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  960  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_FLOAT_PRECISION64_DEPTH16)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_FLOAT_PRECISION64_logn8_U5' with
+        the parameters "FLOAT_PRECISION=64,DEPTH=8". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH8 line 38 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH8 line 61 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  448  |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  448  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_FLOAT_PRECISION64_DEPTH8)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_FLOAT_PRECISION64_logn8_U6' with
+        the parameters "FLOAT_PRECISION=64,DEPTH=4". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH4 line 38 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH4 line 61 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  192  |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  192  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_FLOAT_PRECISION64_DEPTH4)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_FLOAT_PRECISION64_logn8_U7' with
+        the parameters "FLOAT_PRECISION=64,DEPTH=2". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH2 line 38 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH2 line 61 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_FLOAT_PRECISION64_DEPTH2)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_FLOAT_PRECISION64_logn8_U8' with
+        the parameters "FLOAT_PRECISION=64,DEPTH=1". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_FLOAT_PRECISION64_DEPTH1 line 38 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     buf_im_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     buf_re_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_FLOAT_PRECISION64_DEPTH1)
+Information: Building the design 'FPC_ADD' instantiated from design 'BUTTERFLY_FLOAT_PRECISION64' with
+        the parameters "FLOAT_PRECISION=64". (HDL-193)
+Presto compilation completed successfully. (FPC_ADD_FLOAT_PRECISION64)
+Information: Building the design 'FPC_SUB' instantiated from design 'BUTTERFLY_FLOAT_PRECISION64' with
+        the parameters "FLOAT_PRECISION=64". (HDL-193)
+Presto compilation completed successfully. (FPC_SUB_FLOAT_PRECISION64)
+1
+# (B-2) read_sverilog
+# read_sverilog $DESIGN\.v
+# (B-3) set current design
+current_design $DESIGN
+Current design is 'FFT'.
+{FFT}
+link
+
+  Linking design 'FFT'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (21 designs)              /home/daniel_kuo/Falcon/hardware/fft/02_SYN/FFT.db, etc
+  sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db
+  dw_foundation.sldb (library) /usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb
+
+1
+#======================================================
+#  (C) Global Setting
+#======================================================
+set_wire_load_mode top
+1
+# set_operating_conditions -max WCCOM -min BCCOM
+# set_wire_load_model -name umc18_wl10 -library slow
+#======================================================
+#  (D) Set Design Constraints
+#======================================================
+# (D-1) Setting Clock Constraints
+create_clock -name clk -period $CYCLE [get_ports clk] 
+1
+set_dont_touch_network             [get_clocks clk]
+1
+set_fix_hold                       [get_clocks clk]
+1
+set_clock_uncertainty       0.1    [get_clocks clk]
+1
+# set_clock_latency   -source 0      [get_clocks clk]
+# set_clock_latency           1      [get_clocks clk] 
+set_input_transition        0.5    [all_inputs] 
+1
+set_clock_transition        0.1    [all_clocks] 
+1
+# (D-2) Setting in/out Constraints
+set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
+1
+set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
+1
+set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time check 
+1
+set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
+1
+set_input_delay 0 -clock clk clk
+1
+set_input_delay 0 -clock clk rst_n
+1
+#set_max_delay $CYCLE -from [all_inputs] -to [all_outputs]
+# (D-3) Setting Design Environment
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [get_ports clk]
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [remove_from_collection [all_inputs] [get_ports clk]]
+# set_load  [load_of "umc18io3v5v_slow/P8C/A"]       [all_outputs] ; # ~= 0.038
+set_load 0.05 [all_outputs]
+1
+# (D-4) Setting DRC Constraint
+#set_max_delay           0     ; # Optimize delay max effort                 
+#set_max_area            0      ; # Optimize area max effort           
+set_max_transition      3       [all_inputs]   ; # U18 LUT Max Transition Value  
+1
+set_max_capacitance     0.15    [all_inputs]   ; # U18 LUT Max Capacitance Value
+1
+set_max_fanout          10      [all_inputs]
+1
+# set_dont_use slow/JKFF*
+#set_dont_touch [get_cells core_reg_macro]
+#set hdlin_ff_always_sync_set_reset true
+# (D-5) Report Clock skew
+report_clock -skew clk
+Information: Checking out the license 'DesignWare'. (SEC-104)
+  Allocating blocks in 'DW_fp_mult_sig_width52_exp_width11_ieee_compliance0'
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+  Allocating blocks in 'DW_lzd_a_width53'
+  Allocating blocks in 'DW_lzod_a_width53_detect_10'
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+  Allocating blocks in 'DW_fp_sub_sig_width52_exp_width11_ieee_compliance0'
+  Allocating blocks in 'DW_fp_addsub_sig_width52_exp_width11_ieee_compliance0'
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+  Allocating blocks in 'DW_lzd_a_width56'
+  Allocating blocks in 'DW_lzod_a_width56_detect_10'
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Dont_touch on net '*cell*6/*Logic0*' may be overridden by compile because it
+        is connected to generic logic. Use all_connected to see net
+        connections. (OPT-461)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+  Allocating blocks in 'DW_fp_addsub_sig_width52_exp_width11_ieee_compliance0'
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+  Allocating blocks in 'DW_lzd_a_width56'
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+  Allocating blocks in 'DW_fp_add_sig_width52_exp_width11_ieee_compliance0'
+Warning: Dont_touch on net '*cell*6/*Logic0*' may be overridden by compile because it
+        is connected to generic logic. Use all_connected to see net
+        connections. (OPT-461)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Updating design information... (UID-85)
+Warning: Design 'FFT' contains 37 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : clock_skew
+Design : FFT
+Version: T-2022.03
+Date   : Thu Jul 24 16:40:02 2025
+****************************************
+
+                 Rise      Fall  Min Rise  Min fall        Uncertainty
+Object          Delay     Delay     Delay     Delay     Plus      Minus
+--------------------------------------------------------------------------------
+clk                 -         -         -         -      0.10      0.10
+
+                 Max Transition      Min Transition
+Object           Rise      Fall      Rise      Fall
+-------------------------------------------------------
+clk              0.10      0.10      0.10      0.10
+1
+check_timing
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+#======================================================
+#  (E) Optimization
+#======================================================
+check_design > Report/$DESIGN\.check
+set_fix_multiple_port_nets -all -buffer_constants [get_designs *]
+1
+set_fix_hold [all_clocks]
+1
+compile_ultra
+Information: Performing power optimization. (PWR-850)
+Alib files are up-to-date.
+Information: Running optimization using a maximum of 4 cores. (OPT-1500)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | S-2021.06-DWBB_202106.0 |     *     |
+| Licensed DW Building Blocks        | S-2021.06-DWBB_202106.0 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT WLM                                                           |
+| Comand line  | compile_ultra                                                                     |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 39321                                  |
+| Number of User Hierarchies                              | 48                                     |
+| Sequential Cell Count                                   | 38256                                  |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 369                                    |
+| Number of Dont Touch nets                               | 25                                     |
+| Number of size only cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 555 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+Information: Uniquified 8 instances of design 'BUTTERFLY_FLOAT_PRECISION64'. (OPT-1056)
+Information: Uniquified 8 instances of design 'FPC_MUL_FLOAT_PRECISION64'. (OPT-1056)
+Information: Uniquified 8 instances of design 'FPC_ADD_FLOAT_PRECISION64'. (OPT-1056)
+Information: Uniquified 8 instances of design 'FPC_SUB_FLOAT_PRECISION64'. (OPT-1056)
+  Simplifying Design 'FFT'
+
+Loaded alib file './alib-52/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+Loaded alib file './alib-52/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db.alib'
+Loaded alib file './alib-52/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+  Building model 'DW01_NAND2'
+Information: Ungrouping hierarchy u_stage_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_3 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_4 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_5 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_6 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_7 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_8 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_1/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_1/u_FPC_MUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_3/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_4/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_5/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_6/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_7/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_8/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_8/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_7/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_6/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_5/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_4/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_3/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_2/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_8/u_FPC_MUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_7/u_FPC_MUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_6/u_FPC_MUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_5/u_FPC_MUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_4/u_FPC_MUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_3/u_FPC_MUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_2/u_FPC_MUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_1/u_BUTTERFLY/u_FPC_ADD before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_1/u_BUTTERFLY/u_FPC_SUB before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_8/u_BUTTERFLY/u_FPC_ADD before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_7/u_BUTTERFLY/u_FPC_ADD before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_6/u_BUTTERFLY/u_FPC_ADD before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_5/u_BUTTERFLY/u_FPC_ADD before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_4/u_BUTTERFLY/u_FPC_ADD before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_3/u_BUTTERFLY/u_FPC_ADD before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_2/u_BUTTERFLY/u_FPC_ADD before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_8/u_BUTTERFLY/u_FPC_SUB before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_7/u_BUTTERFLY/u_FPC_SUB before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_6/u_BUTTERFLY/u_FPC_SUB before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_5/u_BUTTERFLY/u_FPC_SUB before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_4/u_BUTTERFLY/u_FPC_SUB before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_3/u_BUTTERFLY/u_FPC_SUB before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_stage_2/u_BUTTERFLY/u_FPC_SUB before Pass 1 (OPT-776)
+Information: Ungrouping 46 of 49 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+...........
+  Processing 'DELAY_BUFFER_FLOAT_PRECISION64_DEPTH128'
+  Processing 'FFT'
+Information: Added key list 'DesignWare' to design 'FFT'. (DDB-72)
+ Implement Synthetic for 'FFT'.
+  Processing 'FFT_DW_fp_addsub_J2_0'
+  Processing 'FFT_DW_lzd_J2_0'
+  Processing 'FFT_DW_fp_addsub_J2_1'
+  Processing 'FFT_DW_lzd_J2_1'
+  Processing 'FFT_DW_fp_addsub_J2_2'
+  Processing 'FFT_DW_lzd_J2_2'
+  Processing 'FFT_DW_fp_addsub_J2_3'
+  Processing 'FFT_DW_lzd_J2_3'
+  Processing 'FFT_DW_fp_addsub_J2_4'
+  Processing 'FFT_DW_lzd_J2_4'
+  Processing 'FFT_DW_fp_addsub_J2_5'
+  Processing 'FFT_DW_lzd_J2_5'
+  Processing 'FFT_DW_fp_addsub_J2_6'
+  Processing 'FFT_DW_lzd_J2_6'
+  Processing 'FFT_DW_fp_addsub_J2_7'
+  Processing 'FFT_DW_lzd_J2_7'
+  Processing 'FFT_DW_fp_addsub_J2_8'
+  Processing 'FFT_DW_lzd_J2_8'
+  Processing 'FFT_DW_fp_addsub_J2_9'
+  Processing 'FFT_DW_lzd_J2_9'
+  Processing 'FFT_DW_fp_addsub_J2_10'
+  Processing 'FFT_DW_lzd_J2_10'
+  Processing 'FFT_DW_fp_addsub_J2_11'
+  Processing 'FFT_DW_lzd_J2_11'
+  Processing 'FFT_DW_fp_addsub_J2_12'
+  Processing 'FFT_DW_lzd_J2_12'
+  Processing 'FFT_DW_fp_addsub_J2_13'
+  Processing 'FFT_DW_lzd_J2_13'
+  Processing 'FFT_DW_fp_addsub_J2_14'
+  Processing 'FFT_DW_lzd_J2_14'
+  Processing 'FFT_DW_fp_addsub_J2_15'
+  Processing 'FFT_DW_lzd_J2_15'
+  Processing 'FFT_DW_fp_addsub_J2_16'
+  Processing 'FFT_DW_lzd_J2_16'
+  Processing 'FFT_DW_fp_addsub_J2_17'
+  Processing 'FFT_DW_lzd_J2_17'
+  Processing 'FFT_DW_fp_addsub_J2_18'
+  Processing 'FFT_DW_lzd_J2_18'
+  Processing 'FFT_DW_fp_addsub_J2_19'
+  Processing 'FFT_DW_lzd_J2_19'
+  Processing 'FFT_DW_fp_addsub_J2_20'
+  Processing 'FFT_DW_lzd_J2_20'
+  Processing 'FFT_DW_fp_addsub_J2_21'
+  Processing 'FFT_DW_lzd_J2_21'
+  Processing 'FFT_DW_fp_addsub_J2_22'
+  Processing 'FFT_DW_lzd_J2_22'
+  Processing 'FFT_DW_fp_addsub_J2_23'
+  Processing 'FFT_DW_lzd_J2_23'
+  Processing 'FFT_DW_fp_addsub_J2_24'
+  Processing 'FFT_DW_lzd_J2_24'
+  Processing 'FFT_DW_fp_addsub_J2_25'
+  Processing 'FFT_DW_lzd_J2_25'
+  Processing 'FFT_DW_fp_addsub_J2_26'
+  Processing 'FFT_DW_lzd_J2_26'
+  Processing 'FFT_DW_fp_addsub_J2_27'
+  Processing 'FFT_DW_lzd_J2_27'
+  Processing 'FFT_DW_fp_addsub_J2_28'
+  Processing 'FFT_DW_lzd_J2_28'
+  Processing 'FFT_DW_fp_addsub_J2_29'
+  Processing 'FFT_DW_lzd_J2_29'
+  Processing 'FFT_DW_fp_addsub_J2_30'
+  Processing 'FFT_DW_lzd_J2_30'
+  Processing 'FFT_DW_fp_addsub_J2_31'
+  Processing 'FFT_DW_lzd_J2_31'
+  Processing 'FFT_DW_fp_mult_J2_0'
+  Processing 'FFT_DW_lzd_J2_32'
+  Processing 'FFT_DW_lzd_J2_33'
+  Processing 'FFT_DW_fp_mult_J2_1'
+  Processing 'FFT_DW_lzd_J2_34'
+  Processing 'FFT_DW_lzd_J2_35'
+  Processing 'FFT_DW_fp_mult_J2_2'
+  Processing 'FFT_DW_lzd_J2_36'
+  Processing 'FFT_DW_lzd_J2_37'
+  Processing 'FFT_DW_fp_mult_J2_3'
+  Processing 'FFT_DW_lzd_J2_38'
+  Processing 'FFT_DW_lzd_J2_39'
+  Processing 'FFT_DW_fp_addsub_J2_32'
+  Processing 'FFT_DW_lzd_J2_40'
+  Processing 'FFT_DW_fp_addsub_J2_33'
+  Processing 'FFT_DW_lzd_J2_41'
+  Processing 'FFT_DW_fp_mult_J2_4'
+  Processing 'FFT_DW_lzd_J2_42'
+  Processing 'FFT_DW_lzd_J2_43'
+  Processing 'FFT_DW_fp_mult_J2_5'
+  Processing 'FFT_DW_lzd_J2_44'
+  Processing 'FFT_DW_lzd_J2_45'
+  Processing 'FFT_DW_fp_mult_J2_6'
+  Processing 'FFT_DW_lzd_J2_46'
+  Processing 'FFT_DW_lzd_J2_47'
+  Processing 'FFT_DW_fp_mult_J2_7'
+  Processing 'FFT_DW_lzd_J2_48'
+  Processing 'FFT_DW_lzd_J2_49'
+  Processing 'FFT_DW_fp_addsub_J2_34'
+  Processing 'FFT_DW_lzd_J2_50'
+  Processing 'FFT_DW_fp_addsub_J2_35'
+  Processing 'FFT_DW_lzd_J2_51'
+  Processing 'FFT_DW_fp_mult_J2_8'
+  Processing 'FFT_DW_lzd_J2_52'
+  Processing 'FFT_DW_lzd_J2_53'
+  Processing 'FFT_DW_fp_mult_J2_9'
+  Processing 'FFT_DW_lzd_J2_54'
+  Processing 'FFT_DW_lzd_J2_55'
+  Processing 'FFT_DW_fp_mult_J2_10'
+  Processing 'FFT_DW_lzd_J2_56'
+  Processing 'FFT_DW_lzd_J2_57'
+  Processing 'FFT_DW_fp_mult_J2_11'
+  Processing 'FFT_DW_lzd_J2_58'
+  Processing 'FFT_DW_lzd_J2_59'
+  Processing 'FFT_DW_fp_addsub_J2_36'
+  Processing 'FFT_DW_lzd_J2_60'
+  Processing 'FFT_DW_fp_addsub_J2_37'
+  Processing 'FFT_DW_lzd_J2_61'
+  Processing 'FFT_DW_fp_mult_J2_12'
+  Processing 'FFT_DW_lzd_J2_62'
+  Processing 'FFT_DW_lzd_J2_63'
+  Processing 'FFT_DW_fp_mult_J2_13'
+  Processing 'FFT_DW_lzd_J2_64'
+  Processing 'FFT_DW_lzd_J2_65'
+  Processing 'FFT_DW_fp_mult_J2_14'
+  Processing 'FFT_DW_lzd_J2_66'
+  Processing 'FFT_DW_lzd_J2_67'
+  Processing 'FFT_DW_fp_mult_J2_15'
+  Processing 'FFT_DW_lzd_J2_68'
+  Processing 'FFT_DW_lzd_J2_69'
+  Processing 'FFT_DW_fp_addsub_J2_38'
+  Processing 'FFT_DW_lzd_J2_70'
+  Processing 'FFT_DW_fp_addsub_J2_39'
+  Processing 'FFT_DW_lzd_J2_71'
+  Processing 'FFT_DW_fp_mult_J2_16'
+  Processing 'FFT_DW_lzd_J2_72'
+  Processing 'FFT_DW_lzd_J2_73'
+  Processing 'FFT_DW_fp_mult_J2_17'
+  Processing 'FFT_DW_lzd_J2_74'
+  Processing 'FFT_DW_lzd_J2_75'
+  Processing 'FFT_DW_fp_mult_J2_18'
+  Processing 'FFT_DW_lzd_J2_76'
+  Processing 'FFT_DW_lzd_J2_77'
+  Processing 'FFT_DW_fp_mult_J2_19'
+  Processing 'FFT_DW_lzd_J2_78'
+  Processing 'FFT_DW_lzd_J2_79'
+  Processing 'FFT_DW_fp_addsub_J2_40'
+  Processing 'FFT_DW_lzd_J2_80'
+  Processing 'FFT_DW_fp_addsub_J2_41'
+  Processing 'FFT_DW_lzd_J2_81'
+  Processing 'FFT_DW_fp_mult_J2_20'
+  Processing 'FFT_DW_lzd_J2_82'
+  Processing 'FFT_DW_lzd_J2_83'
+  Processing 'FFT_DW_fp_mult_J2_21'
+  Processing 'FFT_DW_lzd_J2_84'
+  Processing 'FFT_DW_lzd_J2_85'
+  Processing 'FFT_DW_fp_mult_J2_22'
+  Processing 'FFT_DW_lzd_J2_86'
+  Processing 'FFT_DW_lzd_J2_87'
+  Processing 'FFT_DW_fp_mult_J2_23'
+  Processing 'FFT_DW_lzd_J2_88'
+  Processing 'FFT_DW_lzd_J2_89'
+  Processing 'FFT_DW_fp_addsub_J2_42'
+  Processing 'FFT_DW_lzd_J2_90'
+  Processing 'FFT_DW_fp_addsub_J2_43'
+  Processing 'FFT_DW_lzd_J2_91'
+  Processing 'FFT_DW_fp_mult_J2_24'
+  Processing 'FFT_DW_lzd_J2_92'
+  Processing 'FFT_DW_lzd_J2_93'
+  Processing 'FFT_DW_fp_mult_J2_25'
+  Processing 'FFT_DW_lzd_J2_94'
+  Processing 'FFT_DW_lzd_J2_95'
+  Processing 'FFT_DW_fp_mult_J2_26'
+  Processing 'FFT_DW_lzd_J2_96'
+  Processing 'FFT_DW_lzd_J2_97'
+  Processing 'FFT_DW_fp_mult_J2_27'
+  Processing 'FFT_DW_lzd_J2_98'
+  Processing 'FFT_DW_lzd_J2_99'
+  Processing 'FFT_DW_fp_addsub_J2_44'
+  Processing 'FFT_DW_lzd_J2_100'
+  Processing 'FFT_DW_fp_addsub_J2_45'
+  Processing 'FFT_DW_lzd_J2_101'
+  Processing 'FFT_DW_fp_mult_J2_28'
+  Processing 'FFT_DW_lzd_J2_102'
+  Processing 'FFT_DW_lzd_J2_103'
+  Processing 'FFT_DW_fp_mult_J2_29'
+  Processing 'FFT_DW_lzd_J2_104'
+  Processing 'FFT_DW_lzd_J2_105'
+  Processing 'FFT_DW_fp_mult_J2_30'
+  Processing 'FFT_DW_lzd_J2_106'
+  Processing 'FFT_DW_lzd_J2_107'
+  Processing 'FFT_DW_fp_mult_J2_31'
+  Processing 'FFT_DW_lzd_J2_108'
+  Processing 'FFT_DW_lzd_J2_109'
+  Processing 'FFT_DW_fp_addsub_J2_46'
+  Processing 'FFT_DW_lzd_J2_110'
+  Processing 'FFT_DW_fp_addsub_J2_47'
+  Processing 'FFT_DW_lzd_J2_111'
+  Processing 'DELAY_BUFFER_FLOAT_PRECISION64_DEPTH64'
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIELO_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+Information: Complementing port 'rst_n' in design 'DELAY_BUFFER_FLOAT_PRECISION64_DEPTH128'.
+         The new name of the port is 'rst_n_BAR'. (OPT-319)
+Information: Complementing port 'rst_n' in design 'DELAY_BUFFER_FLOAT_PRECISION64_DEPTH64'.
+         The new name of the port is 'rst_n_BAR'. (OPT-319)
+Information: Complementing port 'ena' in design 'DELAY_BUFFER_FLOAT_PRECISION64_DEPTH128'.
+         The new name of the port is 'ena_BAR'. (OPT-319)
+Information: Complementing port 'rst_n_BAR' in design 'DELAY_BUFFER_FLOAT_PRECISION64_DEPTH64'.
+         The new name of the port is 'rst_n'. (OPT-319)
+Information: Complementing port 'rst_n_BAR' in design 'DELAY_BUFFER_FLOAT_PRECISION64_DEPTH128'.
+         The new name of the port is 'rst_n'. (OPT-319)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+..
+  Mapping Optimization (Phase 1)
+  Mapping Optimization (Phase 2)
+  Mapping Optimization (Phase 3)
+  Mapping Optimization (Phase 4)
+  Mapping Optimization (Phase 5)
+  Mapping Optimization (Phase 6)
+  Mapping Optimization (Phase 7)
+  Mapping Optimization (Phase 8)
+  Mapping Optimization (Phase 9)
+  Mapping Optimization (Phase 10)
+  Mapping Optimization (Phase 11)
+  Mapping Optimization (Phase 12)
+  Mapping Optimization (Phase 13)
+  Mapping Optimization (Phase 14)
+  Mapping Optimization (Phase 15)
+  Mapping Optimization (Phase 16)
+  Mapping Optimization (Phase 17)
+  Mapping Optimization (Phase 18)
+  Mapping Optimization (Phase 19)
+  Mapping Optimization (Phase 20)
+  Mapping Optimization (Phase 21)
+  Mapping Optimization (Phase 22)
+  Mapping Optimization (Phase 23)
+  Mapping Optimization (Phase 24)
+  Mapping Optimization (Phase 25)
+  Mapping Optimization (Phase 26)
+  Mapping Optimization (Phase 27)
+  Mapping Optimization (Phase 28)
+  Mapping Optimization (Phase 29)
+  Mapping Optimization (Phase 30)
+  Mapping Optimization (Phase 31)
+  Mapping Optimization (Phase 32)
+  Mapping Optimization (Phase 33)
+  Mapping Optimization (Phase 34)
+  Mapping Optimization (Phase 35)
+  Mapping Optimization (Phase 36)
+  Mapping Optimization (Phase 37)
+  Mapping Optimization (Phase 38)
+  Mapping Optimization (Phase 39)
+  Mapping Optimization (Phase 40)
+  Mapping Optimization (Phase 41)
+  Mapping Optimization (Phase 42)
+  Mapping Optimization (Phase 43)
+  Mapping Optimization (Phase 44)
+  Mapping Optimization (Phase 45)
+  Mapping Optimization (Phase 46)
+  Mapping Optimization (Phase 47)
+  Mapping Optimization (Phase 48)
+  Mapping Optimization (Phase 49)
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:29:17 2097971.4      2.02    8968.3      59.4                           14435.6133      0.00  
+    0:29:34 2065249.4      3.65   11077.1    4789.2                           14214.4141      0.00  
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    0:29:44 2067437.6      3.56   10494.9    3687.1                           14240.1338      0.00  
+    0:29:58 2065251.9      3.56   10528.8    4509.4                           14226.5391      0.00  
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+  Mapping 'FFT_DP_OP_66J15_524_2805_2'
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:32:17 1130752.9      3.36   11010.7    3205.2                           6572.1777      0.00  
+    0:32:24 1133677.2      2.30    9990.1    2629.1                           6597.8262      0.00  
+    0:32:24 1133677.2      2.30    9990.1    2629.1                           6597.8262      0.00  
+    0:32:25 1133697.2      2.30    9998.1    2589.0                           6598.0391      0.00  
+.........
+    0:34:28 1131837.2      2.79   11512.9    3556.7                           6586.1675      0.00  
+    0:34:50 1123513.0      3.26   11812.7    3715.7                           6527.7095      0.00  
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:37:11 1123051.4      3.26   11857.0    3715.0                           6517.7832      0.00  
+    0:37:12 1122714.2      3.25   11856.5    3682.1                           6511.2080      0.00  
+    0:37:13 1121900.0      3.25   11856.3    3589.4                           6499.3042      0.00  
+    0:37:14 1121321.2      3.25   11839.9    3532.6                           6495.3506      0.00  
+    0:37:15 1120732.2      3.25   11837.6    3531.3                           6490.5815      0.00  
+    0:37:16 1120219.6      3.25   11834.4    3531.3                           6486.8140      0.00  
+    0:37:16 1119512.2      3.25   11831.4    3531.3                           6481.8037      0.00  
+    0:37:17 1118842.3      3.25   11829.9    3531.3                           6476.8516      0.00  
+    0:37:18 1118269.6      3.24   11822.8    3528.9                           6472.7114      0.00  
+    0:37:19 1117740.2      3.24   11823.3    3528.9                           6468.6489      0.00  
+    0:37:19 1117198.2      3.24   11822.9    3525.5                           6464.4546      0.00  
+    0:37:20 1116808.1      3.24   11822.4    3525.5                           6461.2666      0.00  
+    0:37:21 1116255.4      3.24   11821.3    3525.5                           6456.6357      0.00  
+    0:37:21 1115867.3      3.24   11820.2    3525.5                           6453.7949      0.00  
+    0:37:23 1115618.1      3.24   11816.9    3525.5                           6451.1777      0.00  
+    0:37:24 1114589.5      3.24   11788.0    3525.5                           6441.3306      0.00  
+    0:37:43 1113979.0      3.24   11782.2    3472.3                           6436.8882      0.00  
+    0:38:07 1113334.6      3.24   12102.0    3459.4                           6433.3301      0.00  
+    0:38:08 1112438.8      3.24   12064.5    3458.9                           6424.7549      0.00  
+    0:38:17 1111799.4      3.24   12048.5    3237.2                           6418.7837      0.00  
+    0:38:18 1110912.6      3.24   11998.7    3202.7                           6410.5913      0.00  
+    0:38:20 1109903.4      3.24   11998.6    3202.7                           6401.5508      0.00  
+    0:38:21 1108581.4      3.24   12007.6    3202.7                           6388.9546      0.00  
+    0:38:23 1107583.9      3.24   12009.0    3202.7                           6379.7197      0.00  
+    0:38:25 1106037.1      3.24   11997.0    3196.1                           6364.2852      0.00  
+    0:38:26 1104489.7      3.00   11943.2    3139.4                           6348.6514      0.00  
+    0:38:28 1103404.7      2.93   11907.5    3037.5                           6337.8809      0.00  
+    0:38:29 1102429.4      2.93   11904.2    3037.5                           6328.0928      0.00  
+    0:38:30 1100943.2      2.93   11903.3    3033.5                           6313.0879      0.00  
+    0:38:31 1099883.6      2.93   11900.9    3003.9                           6301.9233      0.00  
+    0:38:32 1098907.4      2.93   11898.9    2996.2                           6291.3647      0.00  
+    0:38:33 1098191.9      2.93   11899.3    2977.2                           6284.1074      0.00  
+    0:38:33 1097908.4      2.93   11902.4    2977.2                           6281.1758      0.00  
+    0:38:34 1097462.5      2.93   11901.4    2975.0                           6277.3540      0.00  
+    0:38:35 1097397.0      2.93   11900.8    2975.0                           6277.0039      0.00  
+    0:38:35 1097356.8      2.93   11900.8    2975.0                           6276.7466      0.00  
+    0:38:36 1097062.7      2.93   11895.7    2975.0                           6274.0371      0.00  
+    0:38:37 1096467.1      2.93   11868.4    2945.2                           6268.3960      0.00  
+    0:38:38 1095420.8      2.86   11842.4    2945.2                           6258.6909      0.00  
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:38:39 1095407.5      2.86   11842.4    2945.2                           6258.5820      0.00  
+    0:38:39 1095407.5      2.86   11842.4    2945.2                           6258.5820      0.00  
+    0:38:39 1095407.5      2.86   11842.4    2945.2                           6258.5820      0.00  
+    0:38:53 1111842.1      2.08   10295.2    3268.6                           6808.8301      0.00  
+    0:38:55 1111842.1      2.08   10295.2    3268.6                           6808.8301      0.00  
+    0:38:55 1111842.1      2.08   10295.2    3268.6                           6808.8301      0.00  
+    0:38:55 1111842.1      2.08   10295.2    3268.6                           6808.8301      0.00  
+    0:39:02 1117414.8      1.92    9649.5    3500.4                           7261.3569      0.00  
+    0:39:04 1117414.8      1.92    9649.5    3500.4                           7261.3569      0.00  
+    0:39:10 1116862.1      1.86    9438.4    3460.2                           7394.7349      0.00  
+    0:39:15 1116597.2      1.86    9334.2    3434.6                           7465.8003      0.00  
+    0:39:19 1116307.3      1.84    9196.5    3430.0                           7558.5459      0.00  
+    0:39:24 1116208.9      1.83    9099.4    3400.2                           7619.8335      0.00  
+    0:39:28 1116075.5      1.80    9026.6    3375.0                           7683.3882      0.00  
+    0:39:32 1116023.6      1.80    8979.2    3379.0                           7729.1704      0.00  
+    0:39:35 1115869.1      1.80    8892.7    3327.3                           7782.9692      0.00  
+    0:39:39 1115711.3      1.80    8841.0    3333.4                           7824.9287      0.00  
+    0:39:42 1115595.6      1.79    8775.1    3323.7                           7877.1675      0.00  
+    0:39:45 1115423.2      1.79    8720.1    3276.7                           7922.6113      0.00  
+    0:39:49 1115288.5      1.78    8654.4    3269.2                           7977.9404      0.00  
+    0:39:52 1115294.9      1.78    8586.9    3049.8                           8059.0146      0.00  
+    0:39:56 1115159.7      1.78    8522.5    3040.5                           8138.8179      0.00  
+    0:39:59 1115093.3      1.78    8467.5    3041.2                           8219.2793      0.00  
+    0:40:03 1115013.2      1.78    8422.5    3041.5                           8306.0371      0.00  
+    0:40:04 1114965.6      1.78    8409.9    3029.3                           8339.4131      0.00  
+    0:40:04 1114965.6      1.78    8409.9    3029.3                           8339.4131      0.00  
+    0:40:28 1095773.1      1.77    7747.2    2330.7                           8401.5127      0.00  
+    0:40:28 1095773.1      1.77    7747.2    2330.7                           8401.5127      0.00  
+    0:40:44 1099784.3      1.54    7422.4    2064.3                           9292.0156      0.00  
+    0:40:44 1099784.3      1.54    7422.4    2064.3                           9292.0156      0.00  
+    0:41:50 1090458.9      0.78    3748.7    1483.4                           15864.1621      0.00  
+    0:41:50 1090458.9      0.78    3748.7    1483.4                           15864.1621      0.00  
+    0:42:11 1097662.1      0.76    3630.4    1564.4                           16554.8242      0.00  
+    0:42:11 1097662.1      0.76    3630.4    1564.4                           16554.8242      0.00  
+    0:45:10 1106161.2      0.27    1284.8    2012.5                           23705.2227      0.00  
+    0:45:10 1106161.2      0.27    1284.8    2012.5                           23705.2227      0.00  
+    0:45:51 1113698.9      0.28    1257.5    2050.6                           24250.6152      0.00  
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:45:51 1113698.9      0.28    1257.5    2050.6                           24250.6152      0.00  
+    0:46:36 1119093.3      0.21     956.4    1702.9                           25516.4648      0.00  
+    0:46:36 1119093.3      0.21     956.4    1702.9                           25516.4648      0.00  
+    0:46:40 1119802.5      0.21     954.9    1702.9                           25563.5371      0.00  
+    0:46:40 1119802.5      0.21     954.9    1702.9                           25563.5371      0.00  
+    0:47:05 1123031.7      0.18     822.5    1355.2                           26185.6387      0.00  
+    0:47:05 1123031.7      0.18     822.5    1355.2                           26185.6387      0.00  
+    0:47:40 1129577.4      0.18     808.3    1334.1                           26640.5605      0.00  
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:47:40 1129577.4      0.18     808.3    1334.1                           26640.5605      0.00  
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+    0:47:52 1130272.8      0.24     824.3      47.2 u_stage_2/u_DELAY_BUFFER/buf_im_reg[0][43]/D 26723.7266      0.00  
+    0:47:54 1130516.8      0.21     815.4      47.2 u_stage_1/do_re_reg[28]/D 26759.1484      0.00  
+    0:47:56 1130662.4      0.18     809.5      47.2 u_stage_1/do_re_reg[28]/D 26781.0137      0.00  
+    0:47:58 1130859.0      0.17     802.2      47.2 u_stage_8/u_DELAY_BUFFER/buf_im_reg[0][39]/D 26809.8242      0.00  
+    0:48:02 1131333.9      0.17     781.6      46.9 u_stage_1/do_re_reg[28]/D 26906.4355      0.00  
+    0:48:06 1131738.1      0.17     764.0      46.9 u_stage_1/do_re_reg[42]/D 26985.1133      0.00  
+    0:48:10 1132142.9      0.16     751.2      46.8 u_stage_2/u_FPC_MUL/a_im_x_b_re_reg_reg[12]/D 27048.9492      0.00  
+    0:48:14 1132548.9      0.16     734.3      46.1 u_stage_3/u_FPC_MUL/a_re_x_b_re_reg_reg[5]/D 27144.0332      0.00  
+    0:48:18 1132985.1      0.16     724.1      45.4 u_stage_1/do_re_reg[28]/D 27218.5059      0.00  
+    0:48:22 1133237.3      0.15     713.7      45.1 u_stage_3/u_FPC_MUL/a_re_x_b_im_reg_reg[29]/D 27270.6230      0.00  
+    0:48:26 1133651.6      0.15     699.7      45.1 u_stage_1/u_DELAY_BUFFER/buf_re_reg[0][21]/D 27344.9160      0.00  
+    0:48:29 1133917.9      0.15     691.1      45.1 u_stage_4/u_FPC_MUL/a_re_x_b_im_reg_reg[4]/D 27394.8574      0.00  
+    0:48:33 1134052.6      0.15     681.4      45.1 u_stage_6/u_FPC_MUL/a_im_x_b_re_reg_reg[44]/D 27438.2617      0.00  
+    0:48:38 1134460.6      0.15     669.9      45.1 u_stage_8/u_FPC_MUL/a_re_x_b_re_reg_reg[16]/D 27527.6055      0.00  
+    0:48:41 1134870.4      0.14     660.1      44.7 u_stage_4/u_FPC_MUL/a_im_x_b_re_reg_reg[6]/D 27584.7109      0.00  
+    0:48:45 1135162.1      0.19     653.8      44.5 u_stage_5/mult_d_re_reg_reg[35]/D 27637.7676      0.00  
+    0:48:47 1135427.7      0.14     645.1      44.5 u_stage_2/do_im_reg[18]/D 27685.7168      0.00  
+    0:48:51 1135720.0      0.14     637.8      44.1 u_stage_2/u_FPC_MUL/a_re_x_b_im_reg_reg[31]/D 27743.8828      0.00  
+    0:48:54 1135889.2      0.14     632.3      44.1 u_stage_5/u_FPC_MUL/a_re_x_b_re_reg_reg[12]/D 27774.4473      0.00  
+    0:48:57 1136253.9      0.14     624.0      44.1 u_stage_2/mult_d_re_reg_reg[51]/D 27831.3691      0.00  
+    0:49:00 1136506.4      0.13     617.9      44.1 u_stage_5/u_DELAY_BUFFER/buf_re_reg[0][30]/D 27874.1094      0.00  
+    0:49:02 1136604.8      0.13     611.7      44.1 u_stage_1/u_DELAY_BUFFER/buf_re_reg[0][21]/D 27902.3555      0.00  
+    0:49:06 1136816.2      0.13     605.6      43.8 u_stage_3/u_FPC_MUL/a_re_x_b_im_reg_reg[3]/D 27951.6133      0.00  
+    0:49:09 1137011.4      0.13     600.9      43.1 u_stage_1/do_re_reg[35]/D 27992.2461      0.00  
+    0:49:10 1137101.0      0.13     598.3      43.1 u_stage_1/do_re_reg[35]/D 28008.9805      0.00  
+    0:49:12 1137147.3      0.13     595.9      43.1 u_stage_4/u_FPC_MUL/a_im_x_b_im_reg_reg[3]/D 28023.4238      0.00  
+    0:49:14 1137341.2      0.13     592.4      43.1 u_stage_8/mult_d_re_reg_reg[35]/D 28053.2617      0.00  
+    0:49:17 1137485.7      0.14     584.5      42.4 u_stage_4/do_im_reg[36]/D 28093.8398      0.00  
+    0:49:21 1137699.1      0.13     578.6      39.1 net2257443                28131.5430      0.00  
+    0:49:26 1137803.6      0.13     578.5       0.0                           28144.1406      0.00  
+    0:49:39 1140766.1      0.14     575.6       0.0                           28332.0312      0.00  
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:49:39 1140766.1      0.14     575.6       0.0                           28332.0312      0.00  
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+  Global Optimization (Phase 50)
+  Global Optimization (Phase 51)
+  Global Optimization (Phase 52)
+  Global Optimization (Phase 53)
+  Global Optimization (Phase 54)
+  Global Optimization (Phase 55)
+    0:52:07 1074387.6      0.57    1666.2       1.2                           24754.0781      0.00  
+    0:53:12 1087274.4      0.35    1273.7     161.7                           25531.7207      0.00  
+    0:53:12 1087274.4      0.35    1273.7     161.7                           25531.7207      0.00  
+    0:53:54 1027648.9      0.35    1191.3       1.1                           24610.1230      0.00  
+    0:53:55 1027648.9      0.35    1191.3       1.1                           24610.1230      0.00  
+    0:54:23 1033519.6      0.30    1113.3      18.3                           24930.6328      0.00  
+    0:54:23 1033519.6      0.30    1113.3      18.3                           24930.6328      0.00  
+    0:54:37 1040111.8      0.18     693.8      50.0                           25638.5508      0.00  
+    0:54:38 1040111.8      0.18     693.8      50.0                           25638.5508      0.00  
+    0:55:03 1045362.0      0.17     674.1      96.1                           25939.2129      0.00  
+    0:55:03 1045362.0      0.17     674.1      96.1                           25939.2129      0.00  
+    0:55:39 1053180.7      0.09     335.0     152.4                           26781.8730      0.00  
+    0:55:39 1053180.7      0.09     335.0     152.4                           26781.8730      0.00  
+    0:56:10 1058459.3      0.09     318.5     220.3                           27089.0430      0.00  
+    0:56:10 1058459.3      0.09     318.5     220.3                           27089.0430      0.00  
+    0:56:49 1067279.5      0.04     115.0     243.2                           27952.3516      0.00  
+    0:56:49 1067279.5      0.04     115.0     243.2                           27952.3516      0.00  
+    0:57:19 1072440.1      0.04     107.7     245.3                           28239.9492      0.00  
+    0:57:19 1072440.1      0.04     107.7     245.3                           28239.9492      0.00  
+    0:57:43 1077937.7      0.01      21.3     236.4                           28769.9453      0.00  
+    0:57:43 1077937.7      0.01      21.3     236.4                           28769.9453      0.00  
+    0:58:06 1082608.9      0.01      18.0     236.4                           29038.9082      0.00  
+    0:58:11 1082630.7      0.01      18.0     236.4                           29038.9727      0.00  
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:58:23 1082630.7      0.01      18.0     236.4                           29038.9727      0.00  
+    1:03:28  943525.6      0.06     169.1      94.1                           22519.8926      0.00  
+    1:03:31  944145.5      0.04     152.5     103.2 u_stage_2/u_DELAY_BUFFER/buf_im_reg[0][1]/D 22567.1172      0.00  
+    1:03:34  944686.4      0.04     144.2     111.1 u_stage_2/mult_d_re_reg_reg[4]/D 22611.7559      0.00  
+    1:03:36  945073.5      0.04     138.0     111.1 u_stage_7/u_DELAY_BUFFER/buf_re_reg[0][11]/D 22643.3145      0.00  
+    1:03:38  945479.7      0.04     133.2     111.1 u_stage_1/mult_d_im_reg_reg[8]/D 22675.0469      0.00  
+    1:03:40  945876.2      0.04     127.1     111.1 u_stage_8/u_FPC_MUL/a_re_x_b_im_reg_reg[33]/D 22710.8477      0.00  
+    1:03:42  946346.8      0.04     121.9     111.1 u_stage_8/do_re_reg[44]/D 22748.7227      0.00  
+    1:03:44  946635.7      0.03     119.0     111.1 u_stage_4/u_FPC_MUL/a_im_x_b_re_reg_reg[36]/D 22772.2734      0.00  
+    1:03:46  947015.4      0.03     114.6     111.1 u_stage_5/mult_d_im_reg_reg[51]/D 22802.5801      0.00  
+    1:03:49  947364.2      0.03     110.8     111.1 u_stage_1/u_FPC_MUL/a_im_x_b_re_reg_reg[35]/D 22830.4316      0.00  
+    1:03:51  947819.4      0.03     106.3     111.1 u_stage_4/mult_d_im_reg_reg[51]/D 22865.0898      0.00  
+    1:03:53  948175.5      0.03     102.8     114.6 u_stage_8/do_im_reg[44]/D 22892.5898      0.00  
+    1:03:55  948636.3      0.03      98.5     131.7 u_stage_3/mult_d_im_reg_reg[25]/D 22929.9023      0.00  
+    1:03:57  949125.1      0.03      93.4     131.7 u_stage_7/mult_d_re_reg_reg[41]/D 22968.5566      0.00  
+    1:04:00  949573.3      0.03      89.9     131.7 u_stage_2/u_DELAY_BUFFER/buf_im_reg[0][37]/D 23002.4531      0.00  
+    1:04:02  949994.9      0.03      86.1     124.7 u_stage_3/u_DELAY_BUFFER/buf_re_reg[0][15]/D 23034.7441      0.00  
+    1:04:04  950313.5      0.03      82.8     124.7 u_stage_7/u_DELAY_BUFFER/buf_im_reg[0][46]/D 23060.0938      0.00  
+    1:04:05  950615.9      0.03      79.9     127.6 u_stage_2/u_FPC_MUL/a_im_x_b_re_reg_reg[12]/D 23082.3887      0.00  
+    1:04:08  950958.5      0.03      77.4     127.6 u_stage_7/mult_d_im_reg_reg[51]/D 23108.6484      0.00  
+    1:04:10  951276.3      0.02      74.8     127.6 u_stage_5/u_DELAY_BUFFER/buf_re_reg[0][50]/D 23132.9062      0.00  
+    1:04:11  951533.5      0.02      73.0     127.6 u_stage_1/u_FPC_MUL/a_re_x_b_im_reg_reg[4]/D 23153.2148      0.00  
+    1:04:13  951745.5      0.02      70.8     127.6 u_stage_2/mult_d_re_reg_reg[4]/D 23170.9180      0.00  
+    1:04:15  952083.2      0.02      68.4     127.6 u_stage_5/mult_d_im_reg_reg[51]/D 23196.6641      0.00  
+    1:04:17  952440.0      0.02      65.7     127.6 u_stage_7/u_FPC_MUL/a_im_x_b_im_reg_reg[6]/D 23224.5645      0.00  
+    1:04:20  952757.1      0.02      63.3     127.6 u_stage_6/u_DELAY_BUFFER/buf_im_reg[0][31]/D 23248.6465      0.00  
+    1:04:21  953067.1      0.02      60.9     127.6 u_stage_2/u_FPC_MUL/a_im_x_b_im_reg_reg[40]/D 23273.9336      0.00  
+    1:04:23  953399.8      0.02      58.7     127.6 u_stage_3/u_DELAY_BUFFER/buf_re_reg[0][15]/D 23297.5234      0.00  
+    1:04:26  953672.0      0.02      57.2     127.6 u_stage_3/u_DELAY_BUFFER/buf_re_reg[0][15]/D 23317.7539      0.00  
+    1:04:28  953981.1      0.02      54.6     127.6 u_stage_7/mult_d_re_reg_reg[41]/D 23340.7461      0.00  
+    1:04:30  954204.5      0.02      53.1     134.9 u_stage_5/do_im_reg[35]/D 23358.4141      0.00  
+    1:04:31  954454.0      0.02      51.1     134.9 u_stage_6/do_re_reg[45]/D 23376.6445      0.00  
+    1:04:34  954698.0      0.02      49.0     134.9 u_stage_6/u_DELAY_BUFFER/buf_re_reg[0][38]/D 23394.5684      0.00  
+    1:04:36  954941.6      0.02      47.0     134.9 u_stage_6/mult_d_im_reg_reg[25]/D 23412.7891      0.00  
+    1:04:38  955237.6      0.02      45.1     134.9 u_stage_3/u_FPC_MUL/a_re_x_b_re_reg_reg[3]/D 23433.4922      0.00  
+    1:04:40  955529.9      0.02      43.2     134.9 u_stage_7/mult_d_re_reg_reg[41]/D 23454.9473      0.00  
+    1:04:42  955698.9      0.02      41.7     134.9                           23466.8496      0.00  
+    1:04:42  955674.2      0.02      41.7     134.9                           23465.4023      0.00  
+    1:04:43  955674.2      0.02      41.7     134.9                           23465.4023      0.00  
+    1:05:25  942555.6      0.03      78.4      50.8                           22425.2227      0.00  
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    1:05:27  942555.6      0.03      78.4      50.8                           22425.2227      0.00  
+    1:05:27  942555.6      0.03      78.4      50.8                           22425.2227      0.00  
+    1:05:27  942555.6      0.03      78.4      50.8                           22425.2227      0.00  
+    1:05:44  944459.6      0.02      46.0      50.8                           22532.8809      0.00  
+    1:05:45  944459.6      0.02      46.0      50.8                           22532.8809      0.00  
+    1:05:45  944459.6      0.02      46.0      50.8                           22532.8809      0.00  
+    1:05:45  944459.6      0.02      46.0      50.8                           22532.8809      0.00  
+    1:05:57  949392.9      0.03      37.9      50.8                           22660.7871      0.00  
+    1:06:00  949221.7      0.03      40.2      50.8                           22648.5078      0.00  
+    1:06:01  949099.9      0.03      43.9      50.8                           22639.5039      0.00  
+    1:06:02  948976.8      0.03      48.9      50.8                           22632.6816      0.00  
+    1:06:03  948824.1      0.03      51.1      50.8                           22622.0469      0.00  
+    1:06:17  948642.7      0.03      53.9      46.7                           22610.1191      0.00  
+    1:07:21  948513.0      0.03      55.2      45.3                           22601.9688      0.00  
+    1:07:23  948491.2      0.03      55.9      44.8                           22600.2422      0.00  
+    1:07:24  948316.8      0.03      58.8      44.8                           22587.6133      0.00  
+    1:07:25  948064.8      0.03      62.5      44.8                           22571.2266      0.00  
+    1:07:26  947882.9      0.03      66.7      44.8                           22558.7715      0.00  
+    1:07:27  947640.5      0.03      68.4      44.8                           22544.6445      0.00  
+    1:07:28  947423.6      0.03      68.5      44.8                           22534.5801      0.00  
+    1:07:29  947297.3      0.03      69.4      44.8                           22527.4648      0.00  
+    1:07:30  947097.5      0.03      70.7      44.8                           22516.0000      0.00  
+    1:07:30  946879.5      0.03      71.0      44.7                           22504.2070      0.00  
+    1:07:31  946794.3      0.03      71.0      44.7                           22499.5840      0.00  
+    1:07:35  946743.7      0.03      72.6      44.6                           22493.4961      0.00  
+    1:07:37  946790.9      0.03      73.1      44.6                           22485.2246      0.00  
+    1:07:38  946791.5      0.03      73.3      36.8                           22479.2031      0.00  
+    1:07:39  946817.6      0.03      73.4      36.8                           22475.9004      0.00  
+    1:07:40  946835.1      0.03      73.5      36.8                           22471.3340      0.00  
+    1:07:41  946840.3      0.03      73.9      36.8                           22463.9941      0.00  
+    1:07:41  946846.7      0.03      73.6      36.8                           22452.5312      0.00  
+    1:07:42  946857.5      0.03      73.7      36.8                           22441.0742      0.00  
+    1:07:43  946873.0      0.03      73.7      36.8                           22431.4258      0.00  
+    1:07:44  946887.7      0.03      73.4      36.8                           22423.8633      0.00  
+    1:07:45  946888.4      0.03      73.3      36.8                           22416.6074      0.00  
+    1:07:46  946907.4      0.03      73.2      36.8                           22404.3945      0.00  
+    1:07:47  946933.8      0.03      73.2      36.8                           22391.3262      0.00  
+    1:07:53  947310.0      0.02      56.2      35.7 u_stage_6/u_DELAY_BUFFER/buf_im_reg[0][44]/D 22413.1914      0.00  
+    1:07:57  948222.4      0.02      34.6      43.5 u_stage_2/u_DELAY_BUFFER/buf_im_reg[0][31]/D 22472.2012      0.00  
+    1:08:01  948851.6      0.01      24.6      43.5 u_stage_8/do_re_reg[40]/D 22513.7227      0.00  
+    1:08:03  949265.5      0.01      20.2      43.5 u_stage_3/do_re_reg[22]/D 22539.6855      0.00  
+    1:08:06  949743.8      0.01      15.9      50.7 u_stage_2/mult_d_im_reg_reg[40]/D 22570.8105      0.00  
+    1:08:08  950108.0      0.01      12.4      50.7 u_stage_4/do_re_reg[49]/D 22595.5625      0.00  
+    1:08:10  950354.8      0.01      10.4      50.7 u_stage_6/do_re_reg[46]/D 22610.1699      0.00  
+    1:08:12  950649.2      0.01       8.4      50.7 u_stage_5/do_re_reg[37]/D 22628.2734      0.00  
+    1:08:14  950928.8      0.01       6.8      50.7 u_stage_2/u_DELAY_BUFFER/buf_im_reg[0][22]/D 22647.5645      0.00  
+    1:08:15  951273.1      0.00       5.1      50.7 u_stage_2/u_FPC_MUL/a_re_x_b_re_reg_reg[26]/D 22672.0039      0.00  
+    1:08:17  951548.0      0.00       3.6      50.7 u_stage_5/mult_d_re_reg_reg[30]/D 22690.1836      0.00  
+    1:08:18  951733.3      0.00       2.9      50.7 u_stage_2/u_DELAY_BUFFER/buf_im_reg[0][22]/D 22702.8086      0.00  
+    1:08:20  951873.5      0.00       2.1      50.7 u_stage_8/u_FPC_MUL/a_im_x_b_re_reg_reg[36]/D 22712.6699      0.00  
+    1:08:21  952056.5      0.00       1.5      50.7 u_stage_7/u_FPC_MUL/a_re_x_b_im_reg_reg[27]/D 22724.9922      0.00  
+    1:08:23  952194.8      0.00       0.9      50.7 u_stage_6/u_DELAY_BUFFER/buf_im_reg[0][17]/D 22734.5215      0.00  
+    1:08:24  952355.4      0.00       0.6      50.7 u_stage_3/mult_d_im_reg_reg[39]/D 22745.1387      0.00  
+    1:08:26  952609.0      0.00       0.2      50.7 u_stage_3/u_DELAY_BUFFER/buf_re_reg[0][37]/D 22761.9297      0.00  
+    1:08:27  952727.1      0.00       0.1      50.7 u_stage_7/mult_d_re_reg_reg[41]/D 22769.0625      0.00  
+    1:08:28  952767.0      0.00       0.0      50.7 u_stage_3/mult_d_im_reg_reg[57]/D 22771.0938      0.00  
+    1:08:29  952809.9      0.00       0.0      50.7 u_stage_7/u_DELAY_BUFFER/buf_im_reg[0][38]/D 22774.0898      0.00  
+    1:08:30  952845.3      0.00       0.0       0.2 u_stage_2/u_DELAY_BUFFER/net3247320 22776.6953      0.00  
+    1:08:35  952846.4      0.00       0.0       0.0                           22775.6914      0.00  
+    1:08:35  952846.4      0.00       0.0       0.0                           22775.6914      0.00  
+    1:08:35  952846.4      0.00       0.0       0.0                           22775.6914      0.00  
+    1:08:36  952846.4      0.00       0.0       0.0                           22775.6914      0.00  
+    1:08:38  952846.4      0.00       0.0       0.0                           22775.6914      0.00  
+    1:08:38  952846.4      0.00       0.0       0.0                           22775.6914      0.00  
+    1:08:55  949984.4      0.00       0.0       0.0                           22584.6758      0.00  
+    1:09:08  945095.1      0.00       0.0       0.0                           22315.1035      0.00  
+    1:09:17  939678.4      0.00       0.0       0.0                           22053.6426      0.00  
+    1:09:29  935374.7      0.00       0.0       0.0                           21848.8672      0.00  
+    1:09:47  933035.2      0.00       0.0       0.0                           21733.7090      0.00  
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'FFT' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'u_stage_2/u_DELAY_BUFFER/clk': 38256 load(s), 1 driver(s)
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+#uniquify
+#compile
+#======================================================
+#  (F) Output Reports 
+#======================================================
+report_design  >  Report/$DESIGN\.design
+report_resource >  Report/$DESIGN\.resource
+report_timing -max_paths 3 >  Report/$DESIGN\.timing
+report_area >  Report/$DESIGN\.area
+report_power > Report/$DESIGN\.power
+report_clock > Report/$DESIGN\.clock
+report_port >  Report/$DESIGN\.port
+report_power >  Report/$DESIGN\.power
+#report_reference > Report/$DESIGN\.reference
+#======================================================
+#  (G) Change Naming Rule
+#======================================================
+set bus_inference_style "%s\[%d\]"
+%s[%d]
+set bus_naming_style "%s\[%d\]"
+%s[%d]
+set hdlout_internal_busses true
+true
+change_names -hierarchy -rule verilog
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
+1
+define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+1
+define_name_rules name_rule -case_insensitive
+1
+change_names -hierarchy -rules name_rule
+1
+#======================================================
+#  (H) Output Results
+#======================================================
+set verilogout_higher_designs_first true
+true
+write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
+Writing verilog file '/home/daniel_kuo/Falcon/hardware/fft/02_SYN/Netlist/FFT_SYN.v'.
+1
+write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
+Writing ddc file 'FFT_SYN.ddc'.
+1
+write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
+Information: Writing timing information to file '/home/daniel_kuo/Falcon/hardware/fft/02_SYN/Netlist/FFT_SYN.sdf'. (WT-3)
+1
+write_sdc Netlist/$DESIGN\_SYN.sdc
+1
+#======================================================
+#  (I) Finish and Quit
+#======================================================
+report_area
+ 
+****************************************
+Report : area
+Design : FFT
+Version: T-2022.03
+Date   : Thu Jul 24 17:50:55 2025
+****************************************
+
+Library(s) Used:
+
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+
+Number of ports:                         1878
+Number of nets:                        501398
+Number of cells:                       456752
+Number of combinational cells:         418494
+Number of sequential cells:             38256
+Number of macros/black boxes:               0
+Number of buf/inv:                      65051
+Number of references:                    1108
+
+Combinational area:             757358.671629
+Buf/Inv area:                    63945.125796
+Noncombinational area:          175676.550707
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                933035.222337
+Total area:                     933035.222337
+1
+report_timing 
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : FFT
+Version: T-2022.03
+Date   : Thu Jul 24 17:50:55 2025
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: u_stage_3_u_FPC_MUL_a_im_x_b_im_reg_reg_39_
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: u_stage_3_mult_d_re_reg_reg_38_
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FFT                Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  u_stage_3_u_FPC_MUL_a_im_x_b_im_reg_reg_39_/CK (DFFRPQ_X2M_A9TL)
+                                                          0.00 #     0.00 r
+  u_stage_3_u_FPC_MUL_a_im_x_b_im_reg_reg_39_/Q (DFFRPQ_X2M_A9TL)
+                                                          0.14       0.14 r
+  U91646/Y (INV_X3M_A9TL)                                 0.03       0.17 f
+  U151367/Y (NOR2_X4A_A9TL)                               0.03       0.20 r
+  U276253/Y (OAI21_X3M_A9TL)                              0.03       0.23 f
+  U194205/Y (AOI21_X2M_A9TL)                              0.03       0.26 r
+  U309794/Y (OAI21_X3M_A9TL)                              0.03       0.30 f
+  U85161/Y (AOI21_X3M_A9TL)                               0.04       0.34 r
+  U228275/Y (OAI211_X4M_A9TL)                             0.04       0.38 f
+  U42381/Y (AOI21_X8M_A9TL)                               0.03       0.41 r
+  U44693/Y (INV_X16M_A9TL)                                0.03       0.44 f
+  U231774/Y (BUFH_X13M_A9TL)                              0.04       0.48 f
+  U83280/Y (INV_X11M_A9TL)                                0.03       0.50 r
+  U292141/Y (MXIT2_X4M_A9TL)                              0.05       0.55 r
+  U214783/Y (OA22_X2M_A9TL)                               0.07       0.62 r
+  U144748/Y (NAND2_X3M_A9TL)                              0.03       0.65 f
+  U78997/Y (INV_X2M_A9TR)                                 0.03       0.68 r
+  U248823/Y (AOI22_X2M_A9TL)                              0.03       0.71 f
+  U33294/Y (AO21A1AI2_X2M_A9TL)                           0.06       0.77 r
+  U231807/Y (NOR2_X6B_A9TL)                               0.05       0.82 f
+  U32565/Y (XNOR2_X3M_A9TL)                               0.04       0.85 r
+  U54256/Y (AOI21_X8M_A9TL)                               0.04       0.89 f
+  u_stage_3_u_FPC_MUL_u_FPC_SUB_U1_U2_U1_UOR20_0_1_5/Y (NOR2_X3A_A9TL)
+                                                          0.05       0.94 r
+  U72647/Y (INV_X2M_A9TL)                                 0.02       0.96 f
+  u_stage_3_u_FPC_MUL_u_FPC_SUB_U1_U2_U1_UEN1_0_2_2/Y (OAI21_X2M_A9TL)
+                                                          0.04       1.00 r
+  u_stage_3_u_FPC_MUL_u_FPC_SUB_U1_U2_U1_UEN0_0_3_1/Y (AOI21_X2M_A9TL)
+                                                          0.04       1.04 f
+  u_stage_3_u_FPC_MUL_u_FPC_SUB_U1_U2_U1_UEN1_0_4_0/Y (OAI21_X3M_A9TL)
+                                                          0.03       1.07 r
+  U158145/Y (NAND2_X2M_A9TL)                              0.02       1.09 f
+  U179984/Y (NAND2_X4M_A9TL)                              0.03       1.12 r
+  U123151/Y (INV_X7P5M_A9TL)                              0.02       1.14 f
+  U284616/Y (NOR2_X8A_A9TL)                               0.03       1.17 r
+  U137848/Y (INV_X11M_A9TL)                               0.02       1.19 f
+  U27665/Y (BUFH_X9M_A9TL)                                0.04       1.23 f
+  U96683/Y (NOR2_X4A_A9TL)                                0.03       1.26 r
+  U96294/Y (AOI21_X3M_A9TL)                               0.03       1.29 f
+  U178029/Y (NAND3_X3A_A9TL)                              0.03       1.32 r
+  U228340/Y (NAND2B_X6M_A9TL)                             0.04       1.35 r
+  U155674/Y (AOI21_X3M_A9TL)                              0.03       1.39 f
+  U204027/Y (NOR2_X4B_A9TL)                               0.03       1.42 r
+  U231759/Y (NAND3_X6A_A9TL)                              0.04       1.46 f
+  U24627/Y (NAND2_X2M_A9TL)                               0.04       1.49 r
+  U51329/Y (AO21A1AI2_X4M_A9TL)                           0.04       1.53 f
+  U108213/Y (NAND2_X2M_A9TL)                              0.04       1.58 r
+  U56043/Y (OA21_X8M_A9TL)                                0.05       1.63 r
+  U134896/Y (OAI21_X6M_A9TL)                              0.03       1.66 f
+  U23152/Y (NAND3BB_X6M_A9TL)                             0.03       1.68 r
+  U234086/Y (NAND2B_X8M_A9TL)                             0.03       1.71 f
+  U22326/Y (NAND2_X3M_A9TL)                               0.02       1.73 r
+  U22271/Y (NAND2_X4M_A9TL)                               0.02       1.75 f
+  U56178/Y (XNOR2_X4M_A9TL)                               0.04       1.79 f
+  U55577/Y (NOR2_X8A_A9TL)                                0.03       1.82 r
+  U21635/Y (NAND3BB_X4M_A9TL)                             0.02       1.85 f
+  U231784/Y (NOR2_X6A_A9TL)                               0.03       1.88 r
+  U229387/Y (NOR2_X8B_A9TL)                               0.02       1.90 f
+  U40782/Y (INV_X9M_A9TL)                                 0.02       1.92 r
+  U244375/Y (INV_X16M_A9TL)                               0.02       1.95 f
+  U228311/Y (AOI22_X1P4M_A9TL)                            0.04       1.99 r
+  U58867/Y (AO21B_X3M_A9TL)                               0.02       2.01 f
+  u_stage_3_mult_d_re_reg_reg_38_/D (DFFRPQ_X4M_A9TL)     0.00       2.01 f
+  data arrival time                                                  2.01
+
+  clock clk (rise edge)                                   2.10       2.10
+  clock network delay (ideal)                             0.00       2.10
+  clock uncertainty                                      -0.10       2.00
+  u_stage_3_mult_d_re_reg_reg_38_/CK (DFFRPQ_X4M_A9TL)
+                                                          0.00       2.00 r
+  library setup time                                      0.01       2.01
+  data required time                                                 2.01
+  --------------------------------------------------------------------------
+  data required time                                                 2.01
+  data arrival time                                                 -2.01
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1
+exit
+
+Memory usage for this session 3555 Mbytes.
+Memory usage for this session including child processes 6105 Mbytes.
+CPU usage for this session 11414 seconds ( 3.17 hours ).
+Elapsed time for this session 4267 seconds ( 1.19 hours ).
+
+Thank you...
+
