@@ -4,12 +4,25 @@
 `include "FPC.v"
 
 /*
- * Radix-2 Single-Path Delay Feedback (SDF) Unit for N-Point FFT
+ * Implements one stage (stage 'U') of a Radix-2, Decimation-In-Time (DIT)
+ * FFT. The implementation uses a Single-path Delay Feedback (SDF)
+ * architecture, which is area-efficient for hardware FFTs.
+ *
+ * The core computation is the DIT butterfly operation:
+ * X' = X + S * Y
+ * Y' = X - S * Y
+ * where S is the complex twiddle factor.
+ *
+ * In the SDF architecture, a single butterfly unit is reused. For a processing
+ * block of size T = 2^U, the first HT = T/2 data points (the 'X' terms) are
+ * stored in a DELAY_BUFFER. As the next HT data points (the 'Y' terms)
+ * arrive, they are multiplied by the twiddle factor S. Simultaneously, the
+ * 'X' terms are read from the buffer, and both are fed into the butterfly unit.
  */
 module RADIX2 #(
     parameter   FLOAT_PRECISION = 64,
     parameter   logn = 8,
-    parameter   U = 1   // stage
+    parameter   U = 1
 )(
     // Input signals
     clk,
