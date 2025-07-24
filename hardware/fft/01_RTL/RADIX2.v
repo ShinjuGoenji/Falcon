@@ -77,6 +77,7 @@ reg [FLOAT_PRECISION-1:0] _do_re, _do_im;
 reg state, state_reg;
 reg [logn:0] cnt, cnt_reg;
 reg in_valid_reg;
+reg stall;
 
 reg tw_mask;
 reg [i1_bit-1:0] i1;
@@ -155,7 +156,11 @@ always @(*) begin
     endcase
 end
 
-assign delay_ena = (cnt_reg < N-1 && !mult_valid) ? 0 : 1;
+/*
+ * Stall control if non continuous input.
+ */
+assign stall = (cnt_reg < N-1) && !mult_valid;
+assign delay_ena = stall ? 0 : 1;
 
 /*
  * Control twiddle factor index.
@@ -187,6 +192,10 @@ always @(*) begin
     else 
         tw_mask = 0;
 end
+
+/*
+ * Multiplexer that choose the input source to delay buffer.
+ */
 
 /*
  * Multiplexer that choose the input source to delay buffer.
@@ -223,7 +232,7 @@ always @(posedge clk or negedge rst_n) begin
         do_re <= _do_re;
         do_im <= _do_im;
         in_valid_reg <= mult_valid;
-        if (cnt_reg < N-1 && !mult_valid) begin
+        if (stall) begin
             i_valid <= i_valid;
             mult_d_re_reg <= mult_d_re_reg;
             mult_d_im_reg <= mult_d_im_reg;
