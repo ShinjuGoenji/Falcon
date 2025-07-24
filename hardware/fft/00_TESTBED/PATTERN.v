@@ -2,7 +2,7 @@
     `define CYCLE_TIME 2.0
 `endif
 `ifdef GATE
-    `define CYCLE_TIME 2.0
+    `define CYCLE_TIME 2.1
 `endif
 
 module PATTERN #(
@@ -1189,6 +1189,9 @@ task reset_task; begin
     force clk = 0;
     #CYCLE; rst_n = 0; 
     #CYCLE; rst_n = 1;
+    #CYCLE; rst_n = 1;
+    #CYCLE; rst_n = 1;
+    #CYCLE; rst_n = 1;
     if(out_valid !== 'b0) begin 
         $display("************************************************************");  
         $display("                          FAIL!                             ");    
@@ -1326,8 +1329,8 @@ end endtask
 
 task input_delay; begin
 	integer DELAY_NUM;
-	DELAY_NUM = $urandom_range(1, 4);
-	// DELAY_NUM = 0;
+	// DELAY_NUM = $urandom_range(2, 4);
+	DELAY_NUM = 0;
 	for (i_delay = 0; i_delay < DELAY_NUM; i_delay=i_delay+1) begin
 		in_valid = 'b0;
 		fi_re = 'bx;

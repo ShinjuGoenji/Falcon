@@ -22,6 +22,7 @@ alib-52/
 *.syn
 *.svf
 *.mr
+*.sdf
 
 # 03_GATE
 check.log

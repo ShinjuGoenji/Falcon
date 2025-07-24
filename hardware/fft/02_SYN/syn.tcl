@@ -7,8 +7,8 @@
 #======================================================
 # (A) Global Parameters
 #======================================================
-set DESIGN "POLY_SMALL_SQNORM"
-set CYCLE 2.0
+set DESIGN "FFT"
+set CYCLE 2.1
 set INPUT_DLY [expr 0.5*$CYCLE]
 set OUTPUT_DLY [expr 0.5*$CYCLE]
 
