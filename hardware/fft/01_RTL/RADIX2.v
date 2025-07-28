@@ -20,9 +20,9 @@
  * 'X' terms are read from the buffer, and both are fed into the butterfly unit.
  */
 module RADIX2 #(
-    parameter   FLOAT_PRECISION = 64,
-    parameter   logn = 8,
-    parameter   U = 1
+    parameter FLOAT_PRECISION = 64,
+    parameter logn = 8,
+    parameter U = 1
 )(
     // Input signals
     clk,

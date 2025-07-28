@@ -15,8 +15,8 @@
  * performs its butterfly computations and passes the result to the next.
  */
 module FFT #(
-    parameter   FLOAT_PRECISION = 64,
-    parameter   logn = 8
+    parameter FLOAT_PRECISION = 64,
+    parameter logn = 8
 )(
     // Input signals
     clk,
