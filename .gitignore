@@ -4,6 +4,7 @@ test_falcon
 *tmp*
 *TSMC*
 *tsmc*
+.vscode/
 
 # 01_RTL
 csrc/

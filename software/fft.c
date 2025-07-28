@@ -45,101 +45,113 @@
 /*
  * Addition of two complex numbers (d = a + b).
  */
-#define FPC_ADD(d_re, d_im, a_re, a_im, b_re, b_im)   do { \
-		fpr fpct_re, fpct_im; \
-		fpct_re = fpr_add(a_re, b_re); \
-		fpct_im = fpr_add(a_im, b_im); \
-		(d_re) = fpct_re; \
-		(d_im) = fpct_im; \
+#define FPC_ADD(d_re, d_im, a_re, a_im, b_re, b_im) \
+	do                                              \
+	{                                               \
+		fpr fpct_re, fpct_im;                       \
+		fpct_re = fpr_add(a_re, b_re);              \
+		fpct_im = fpr_add(a_im, b_im);              \
+		(d_re) = fpct_re;                           \
+		(d_im) = fpct_im;                           \
 	} while (0)
 
 /*
  * Subtraction of two complex numbers (d = a - b).
  */
-#define FPC_SUB(d_re, d_im, a_re, a_im, b_re, b_im)   do { \
-		fpr fpct_re, fpct_im; \
-		fpct_re = fpr_sub(a_re, b_re); \
-		fpct_im = fpr_sub(a_im, b_im); \
-		(d_re) = fpct_re; \
-		(d_im) = fpct_im; \
+#define FPC_SUB(d_re, d_im, a_re, a_im, b_re, b_im) \
+	do                                              \
+	{                                               \
+		fpr fpct_re, fpct_im;                       \
+		fpct_re = fpr_sub(a_re, b_re);              \
+		fpct_im = fpr_sub(a_im, b_im);              \
+		(d_re) = fpct_re;                           \
+		(d_im) = fpct_im;                           \
 	} while (0)
 
 /*
  * Multplication of two complex numbers (d = a * b).
  */
-#define FPC_MUL(d_re, d_im, a_re, a_im, b_re, b_im)   do { \
-		fpr fpct_a_re, fpct_a_im; \
-		fpr fpct_b_re, fpct_b_im; \
-		fpr fpct_d_re, fpct_d_im; \
-		fpct_a_re = (a_re); \
-		fpct_a_im = (a_im); \
-		fpct_b_re = (b_re); \
-		fpct_b_im = (b_im); \
-		fpct_d_re = fpr_sub( \
-			fpr_mul(fpct_a_re, fpct_b_re), \
-			fpr_mul(fpct_a_im, fpct_b_im)); \
-		fpct_d_im = fpr_add( \
-			fpr_mul(fpct_a_re, fpct_b_im), \
-			fpr_mul(fpct_a_im, fpct_b_re)); \
-		(d_re) = fpct_d_re; \
-		(d_im) = fpct_d_im; \
+#define FPC_MUL(d_re, d_im, a_re, a_im, b_re, b_im) \
+	do                                              \
+	{                                               \
+		fpr fpct_a_re, fpct_a_im;                   \
+		fpr fpct_b_re, fpct_b_im;                   \
+		fpr fpct_d_re, fpct_d_im;                   \
+		fpct_a_re = (a_re);                         \
+		fpct_a_im = (a_im);                         \
+		fpct_b_re = (b_re);                         \
+		fpct_b_im = (b_im);                         \
+		fpct_d_re = fpr_sub(                        \
+			fpr_mul(fpct_a_re, fpct_b_re),          \
+			fpr_mul(fpct_a_im, fpct_b_im));         \
+		fpct_d_im = fpr_add(                        \
+			fpr_mul(fpct_a_re, fpct_b_im),          \
+			fpr_mul(fpct_a_im, fpct_b_re));         \
+		(d_re) = fpct_d_re;                         \
+		(d_im) = fpct_d_im;                         \
 	} while (0)
 
 /*
  * Squaring of a complex number (d = a * a).
  */
-#define FPC_SQR(d_re, d_im, a_re, a_im)   do { \
-		fpr fpct_a_re, fpct_a_im; \
-		fpr fpct_d_re, fpct_d_im; \
-		fpct_a_re = (a_re); \
-		fpct_a_im = (a_im); \
+#define FPC_SQR(d_re, d_im, a_re, a_im)                              \
+	do                                                               \
+	{                                                                \
+		fpr fpct_a_re, fpct_a_im;                                    \
+		fpr fpct_d_re, fpct_d_im;                                    \
+		fpct_a_re = (a_re);                                          \
+		fpct_a_im = (a_im);                                          \
 		fpct_d_re = fpr_sub(fpr_sqr(fpct_a_re), fpr_sqr(fpct_a_im)); \
-		fpct_d_im = fpr_double(fpr_mul(fpct_a_re, fpct_a_im)); \
-		(d_re) = fpct_d_re; \
-		(d_im) = fpct_d_im; \
+		fpct_d_im = fpr_double(fpr_mul(fpct_a_re, fpct_a_im));       \
+		(d_re) = fpct_d_re;                                          \
+		(d_im) = fpct_d_im;                                          \
 	} while (0)
 
 /*
  * Inversion of a complex number (d = 1 / a).
  */
-#define FPC_INV(d_re, d_im, a_re, a_im)   do { \
-		fpr fpct_a_re, fpct_a_im; \
-		fpr fpct_d_re, fpct_d_im; \
-		fpr fpct_m; \
-		fpct_a_re = (a_re); \
-		fpct_a_im = (a_im); \
+#define FPC_INV(d_re, d_im, a_re, a_im)                           \
+	do                                                            \
+	{                                                             \
+		fpr fpct_a_re, fpct_a_im;                                 \
+		fpr fpct_d_re, fpct_d_im;                                 \
+		fpr fpct_m;                                               \
+		fpct_a_re = (a_re);                                       \
+		fpct_a_im = (a_im);                                       \
 		fpct_m = fpr_add(fpr_sqr(fpct_a_re), fpr_sqr(fpct_a_im)); \
-		fpct_m = fpr_inv(fpct_m); \
-		fpct_d_re = fpr_mul(fpct_a_re, fpct_m); \
-		fpct_d_im = fpr_mul(fpr_neg(fpct_a_im), fpct_m); \
-		(d_re) = fpct_d_re; \
-		(d_im) = fpct_d_im; \
+		fpct_m = fpr_inv(fpct_m);                                 \
+		fpct_d_re = fpr_mul(fpct_a_re, fpct_m);                   \
+		fpct_d_im = fpr_mul(fpr_neg(fpct_a_im), fpct_m);          \
+		(d_re) = fpct_d_re;                                       \
+		(d_im) = fpct_d_im;                                       \
 	} while (0)
 
 /*
  * Division of complex numbers (d = a / b).
  */
-#define FPC_DIV(d_re, d_im, a_re, a_im, b_re, b_im)   do { \
-		fpr fpct_a_re, fpct_a_im; \
-		fpr fpct_b_re, fpct_b_im; \
-		fpr fpct_d_re, fpct_d_im; \
-		fpr fpct_m; \
-		fpct_a_re = (a_re); \
-		fpct_a_im = (a_im); \
-		fpct_b_re = (b_re); \
-		fpct_b_im = (b_im); \
+#define FPC_DIV(d_re, d_im, a_re, a_im, b_re, b_im)               \
+	do                                                            \
+	{                                                             \
+		fpr fpct_a_re, fpct_a_im;                                 \
+		fpr fpct_b_re, fpct_b_im;                                 \
+		fpr fpct_d_re, fpct_d_im;                                 \
+		fpr fpct_m;                                               \
+		fpct_a_re = (a_re);                                       \
+		fpct_a_im = (a_im);                                       \
+		fpct_b_re = (b_re);                                       \
+		fpct_b_im = (b_im);                                       \
 		fpct_m = fpr_add(fpr_sqr(fpct_b_re), fpr_sqr(fpct_b_im)); \
-		fpct_m = fpr_inv(fpct_m); \
-		fpct_b_re = fpr_mul(fpct_b_re, fpct_m); \
-		fpct_b_im = fpr_mul(fpr_neg(fpct_b_im), fpct_m); \
-		fpct_d_re = fpr_sub( \
-			fpr_mul(fpct_a_re, fpct_b_re), \
-			fpr_mul(fpct_a_im, fpct_b_im)); \
-		fpct_d_im = fpr_add( \
-			fpr_mul(fpct_a_re, fpct_b_im), \
-			fpr_mul(fpct_a_im, fpct_b_re)); \
-		(d_re) = fpct_d_re; \
-		(d_im) = fpct_d_im; \
+		fpct_m = fpr_inv(fpct_m);                                 \
+		fpct_b_re = fpr_mul(fpct_b_re, fpct_m);                   \
+		fpct_b_im = fpr_mul(fpr_neg(fpct_b_im), fpct_m);          \
+		fpct_d_re = fpr_sub(                                      \
+			fpr_mul(fpct_a_re, fpct_b_re),                        \
+			fpr_mul(fpct_a_im, fpct_b_im));                       \
+		fpct_d_im = fpr_add(                                      \
+			fpr_mul(fpct_a_re, fpct_b_im),                        \
+			fpr_mul(fpct_a_im, fpct_b_re));                       \
+		(d_re) = fpct_d_re;                                       \
+		(d_im) = fpct_d_im;                                       \
 	} while (0)
 
 /*
@@ -168,8 +180,7 @@
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(FFT)(fpr *f, unsigned logn)
+void Zf(FFT)(fpr *f, unsigned logn)
 {
 	/*
 	 * FFT algorithm in bit-reversal order uses the following
@@ -217,50 +228,57 @@ Zf(FFT)(fpr *f, unsigned logn)
 	n = (size_t)1 << logn;
 	hn = n >> 1;
 	t = hn;
-	for (u = 1, m = 2; u < logn; u ++, m <<= 1) {
+	for (u = 1, m = 2; u < logn; u++, m <<= 1)
+	{
 		size_t ht, hm, i1, j1;
 
 		ht = t >> 1;
 		hm = m >> 1;
-		for (i1 = 0, j1 = 0; i1 < hm; i1 ++, j1 += t) {
+		for (i1 = 0, j1 = 0; i1 < hm; i1++, j1 += t)
+		{
 			size_t j, j2;
 
 			j2 = j1 + ht;
 #if FALCON_AVX2 // yyyAVX2+1
-			if (ht >= 4) {
+			if (ht >= 4)
+			{
 				__m256d s_re, s_im;
 
 				s_re = _mm256_set1_pd(
 					fpr_gm_tab[((m + i1) << 1) + 0].v);
 				s_im = _mm256_set1_pd(
 					fpr_gm_tab[((m + i1) << 1) + 1].v);
-				for (j = j1; j < j2; j += 4) {
+				for (j = j1; j < j2; j += 4)
+				{
 					__m256d x_re, x_im, y_re, y_im;
 					__m256d z_re, z_im;
 
 					x_re = _mm256_loadu_pd(&f[j].v);
 					x_im = _mm256_loadu_pd(&f[j + hn].v);
-					z_re = _mm256_loadu_pd(&f[j+ht].v);
-					z_im = _mm256_loadu_pd(&f[j+ht + hn].v);
+					z_re = _mm256_loadu_pd(&f[j + ht].v);
+					z_im = _mm256_loadu_pd(&f[j + ht + hn].v);
 					y_re = FMSUB(z_re, s_re,
-						_mm256_mul_pd(z_im, s_im));
+								 _mm256_mul_pd(z_im, s_im));
 					y_im = FMADD(z_re, s_im,
-						_mm256_mul_pd(z_im, s_re));
+								 _mm256_mul_pd(z_im, s_re));
 					_mm256_storeu_pd(&f[j].v,
-						_mm256_add_pd(x_re, y_re));
+									 _mm256_add_pd(x_re, y_re));
 					_mm256_storeu_pd(&f[j + hn].v,
-						_mm256_add_pd(x_im, y_im));
+									 _mm256_add_pd(x_im, y_im));
 					_mm256_storeu_pd(&f[j + ht].v,
-						_mm256_sub_pd(x_re, y_re));
+									 _mm256_sub_pd(x_re, y_re));
 					_mm256_storeu_pd(&f[j + ht + hn].v,
-						_mm256_sub_pd(x_im, y_im));
+									 _mm256_sub_pd(x_im, y_im));
 				}
-			} else {
+			}
+			else
+			{
 				fpr s_re, s_im;
 
 				s_re = fpr_gm_tab[((m + i1) << 1) + 0];
 				s_im = fpr_gm_tab[((m + i1) << 1) + 1];
-				for (j = j1; j < j2; j ++) {
+				for (j = j1; j < j2; j++)
+				{
 					fpr x_re, x_im, y_re, y_im;
 
 					x_re = f[j];
@@ -268,19 +286,20 @@ Zf(FFT)(fpr *f, unsigned logn)
 					y_re = f[j + ht];
 					y_im = f[j + ht + hn];
 					FPC_MUL(y_re, y_im,
-						y_re, y_im, s_re, s_im);
+							y_re, y_im, s_re, s_im);
 					FPC_ADD(f[j], f[j + hn],
-						x_re, x_im, y_re, y_im);
+							x_re, x_im, y_re, y_im);
 					FPC_SUB(f[j + ht], f[j + ht + hn],
-						x_re, x_im, y_re, y_im);
+							x_re, x_im, y_re, y_im);
 				}
 			}
-#else // yyyAVX2+0
+#else  // yyyAVX2+0
 			fpr s_re, s_im;
 
 			s_re = fpr_gm_tab[((m + i1) << 1) + 0];
 			s_im = fpr_gm_tab[((m + i1) << 1) + 1];
-			for (j = j1; j < j2; j ++) {
+			for (j = j1; j < j2; j++)
+			{
 				fpr x_re, x_im, y_re, y_im;
 
 				x_re = f[j];
@@ -289,9 +308,9 @@ Zf(FFT)(fpr *f, unsigned logn)
 				y_im = f[j + ht + hn];
 				FPC_MUL(y_re, y_im, y_re, y_im, s_re, s_im);
 				FPC_ADD(f[j], f[j + hn],
-					x_re, x_im, y_re, y_im);
+						x_re, x_im, y_re, y_im);
 				FPC_SUB(f[j + ht], f[j + ht + hn],
-					x_re, x_im, y_re, y_im);
+						x_re, x_im, y_re, y_im);
 			}
 #endif // yyyAVX2-
 		}
@@ -301,8 +320,7 @@ Zf(FFT)(fpr *f, unsigned logn)
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(iFFT)(fpr *f, unsigned logn)
+void Zf(iFFT)(fpr *f, unsigned logn)
 {
 	/*
 	 * Inverse FFT algorithm in bit-reversal order uses the following
@@ -352,50 +370,57 @@ Zf(iFFT)(fpr *f, unsigned logn)
 	t = 1;
 	m = n;
 	hn = n >> 1;
-	for (u = logn; u > 1; u --) {
+	for (u = logn; u > 1; u--)
+	{
 		size_t hm, dt, i1, j1;
 
 		hm = m >> 1;
 		dt = t << 1;
-		for (i1 = 0, j1 = 0; j1 < hn; i1 ++, j1 += dt) {
+		for (i1 = 0, j1 = 0; j1 < hn; i1++, j1 += dt)
+		{
 			size_t j, j2;
 
 			j2 = j1 + t;
 #if FALCON_AVX2 // yyyAVX2+1
-			if (t >= 4) {
+			if (t >= 4)
+			{
 				__m256d s_re, s_im;
 
 				s_re = _mm256_set1_pd(
 					fpr_gm_tab[((hm + i1) << 1) + 0].v);
 				s_im = _mm256_set1_pd(
 					fpr_gm_tab[((hm + i1) << 1) + 1].v);
-				for (j = j1; j < j2; j += 4) {
+				for (j = j1; j < j2; j += 4)
+				{
 					__m256d x_re, x_im, y_re, y_im;
 					__m256d z_re, z_im;
 
 					x_re = _mm256_loadu_pd(&f[j].v);
 					x_im = _mm256_loadu_pd(&f[j + hn].v);
-					y_re = _mm256_loadu_pd(&f[j+t].v);
-					y_im = _mm256_loadu_pd(&f[j+t + hn].v);
+					y_re = _mm256_loadu_pd(&f[j + t].v);
+					y_im = _mm256_loadu_pd(&f[j + t + hn].v);
 					_mm256_storeu_pd(&f[j].v,
-						_mm256_add_pd(x_re, y_re));
+									 _mm256_add_pd(x_re, y_re));
 					_mm256_storeu_pd(&f[j + hn].v,
-						_mm256_add_pd(x_im, y_im));
+									 _mm256_add_pd(x_im, y_im));
 					x_re = _mm256_sub_pd(y_re, x_re);
 					x_im = _mm256_sub_pd(x_im, y_im);
 					z_re = FMSUB(x_im, s_im,
-						_mm256_mul_pd(x_re, s_re));
+								 _mm256_mul_pd(x_re, s_re));
 					z_im = FMADD(x_re, s_im,
-						_mm256_mul_pd(x_im, s_re));
-					_mm256_storeu_pd(&f[j+t].v, z_re);
-					_mm256_storeu_pd(&f[j+t + hn].v, z_im);
+								 _mm256_mul_pd(x_im, s_re));
+					_mm256_storeu_pd(&f[j + t].v, z_re);
+					_mm256_storeu_pd(&f[j + t + hn].v, z_im);
 				}
-			} else {
+			}
+			else
+			{
 				fpr s_re, s_im;
 
-				s_re = fpr_gm_tab[((hm + i1) << 1)+0];
-				s_im = fpr_neg(fpr_gm_tab[((hm + i1) << 1)+1]);
-				for (j = j1; j < j2; j ++) {
+				s_re = fpr_gm_tab[((hm + i1) << 1) + 0];
+				s_im = fpr_neg(fpr_gm_tab[((hm + i1) << 1) + 1]);
+				for (j = j1; j < j2; j++)
+				{
 					fpr x_re, x_im, y_re, y_im;
 
 					x_re = f[j];
@@ -403,19 +428,20 @@ Zf(iFFT)(fpr *f, unsigned logn)
 					y_re = f[j + t];
 					y_im = f[j + t + hn];
 					FPC_ADD(f[j], f[j + hn],
-						x_re, x_im, y_re, y_im);
+							x_re, x_im, y_re, y_im);
 					FPC_SUB(x_re, x_im,
-						x_re, x_im, y_re, y_im);
+							x_re, x_im, y_re, y_im);
 					FPC_MUL(f[j + t], f[j + t + hn],
-						x_re, x_im, s_re, s_im);
+							x_re, x_im, s_re, s_im);
 				}
 			}
-#else // yyyAVX2+0
+#else  // yyyAVX2+0
 			fpr s_re, s_im;
 
 			s_re = fpr_gm_tab[((hm + i1) << 1) + 0];
 			s_im = fpr_neg(fpr_gm_tab[((hm + i1) << 1) + 1]);
-			for (j = j1; j < j2; j ++) {
+			for (j = j1; j < j2; j++)
+			{
 				fpr x_re, x_im, y_re, y_im;
 
 				x_re = f[j];
@@ -423,10 +449,10 @@ Zf(iFFT)(fpr *f, unsigned logn)
 				y_re = f[j + t];
 				y_im = f[j + t + hn];
 				FPC_ADD(f[j], f[j + hn],
-					x_re, x_im, y_re, y_im);
+						x_re, x_im, y_re, y_im);
 				FPC_SUB(x_re, x_im, x_re, x_im, y_re, y_im);
 				FPC_MUL(f[j + t], f[j + t + hn],
-					x_re, x_im, s_re, s_im);
+						x_re, x_im, s_re, s_im);
 			}
 #endif // yyyAVX2-
 		}
@@ -438,11 +464,13 @@ Zf(iFFT)(fpr *f, unsigned logn)
 	 * Last iteration is a no-op, provided that we divide by N/2
 	 * instead of N. We need to make a special case for logn = 0.
 	 */
-	if (logn > 0) {
+	if (logn > 0)
+	{
 		fpr ni;
 
 		ni = fpr_p2_tab[logn];
-		for (u = 0; u < n; u ++) {
+		for (u = 0; u < n; u++)
+		{
 			f[u] = fpr_mul(f[u], ni);
 		}
 	}
@@ -450,28 +478,33 @@ Zf(iFFT)(fpr *f, unsigned logn)
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_add)(
+void Zf(poly_add)(
 	fpr *restrict a, const fpr *restrict b, unsigned logn)
 {
 	size_t n, u;
 
 	n = (size_t)1 << logn;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 4) {
-		for (u = 0; u < n; u += 4) {
+	if (n >= 4)
+	{
+		for (u = 0; u < n; u += 4)
+		{
 			_mm256_storeu_pd(&a[u].v,
-				_mm256_add_pd(
-					_mm256_loadu_pd(&a[u].v),
-					_mm256_loadu_pd(&b[u].v)));
+							 _mm256_add_pd(
+								 _mm256_loadu_pd(&a[u].v),
+								 _mm256_loadu_pd(&b[u].v)));
 		}
-	} else {
-		for (u = 0; u < n; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < n; u++)
+		{
 			a[u] = fpr_add(a[u], b[u]);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < n; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < n; u++)
+	{
 		a[u] = fpr_add(a[u], b[u]);
 	}
 #endif // yyyAVX2-
@@ -479,28 +512,33 @@ Zf(poly_add)(
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_sub)(
+void Zf(poly_sub)(
 	fpr *restrict a, const fpr *restrict b, unsigned logn)
 {
 	size_t n, u;
 
 	n = (size_t)1 << logn;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 4) {
-		for (u = 0; u < n; u += 4) {
+	if (n >= 4)
+	{
+		for (u = 0; u < n; u += 4)
+		{
 			_mm256_storeu_pd(&a[u].v,
-				_mm256_sub_pd(
-					_mm256_loadu_pd(&a[u].v),
-					_mm256_loadu_pd(&b[u].v)));
+							 _mm256_sub_pd(
+								 _mm256_loadu_pd(&a[u].v),
+								 _mm256_loadu_pd(&b[u].v)));
 		}
-	} else {
-		for (u = 0; u < n; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < n; u++)
+		{
 			a[u] = fpr_sub(a[u], b[u]);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < n; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < n; u++)
+	{
 		a[u] = fpr_sub(a[u], b[u]);
 	}
 #endif // yyyAVX2-
@@ -508,28 +546,33 @@ Zf(poly_sub)(
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_neg)(fpr *a, unsigned logn)
+void Zf(poly_neg)(fpr *a, unsigned logn)
 {
 	size_t n, u;
 
 	n = (size_t)1 << logn;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 4) {
+	if (n >= 4)
+	{
 		__m256d s;
 
 		s = _mm256_set1_pd(-0.0);
-		for (u = 0; u < n; u += 4) {
+		for (u = 0; u < n; u += 4)
+		{
 			_mm256_storeu_pd(&a[u].v,
-				_mm256_xor_pd(_mm256_loadu_pd(&a[u].v), s));
+							 _mm256_xor_pd(_mm256_loadu_pd(&a[u].v), s));
 		}
-	} else {
-		for (u = 0; u < n; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < n; u++)
+		{
 			a[u] = fpr_neg(a[u]);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < n; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < n; u++)
+	{
 		a[u] = fpr_neg(a[u]);
 	}
 #endif // yyyAVX2-
@@ -537,28 +580,33 @@ Zf(poly_neg)(fpr *a, unsigned logn)
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_adj_fft)(fpr *a, unsigned logn)
+void Zf(poly_adj_fft)(fpr *a, unsigned logn)
 {
 	size_t n, u;
 
 	n = (size_t)1 << logn;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
+	if (n >= 8)
+	{
 		__m256d s;
 
 		s = _mm256_set1_pd(-0.0);
-		for (u = (n >> 1); u < n; u += 4) {
+		for (u = (n >> 1); u < n; u += 4)
+		{
 			_mm256_storeu_pd(&a[u].v,
-				_mm256_xor_pd(_mm256_loadu_pd(&a[u].v), s));
+							 _mm256_xor_pd(_mm256_loadu_pd(&a[u].v), s));
 		}
-	} else {
-		for (u = (n >> 1); u < n; u ++) {
+	}
+	else
+	{
+		for (u = (n >> 1); u < n; u++)
+		{
 			a[u] = fpr_neg(a[u]);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = (n >> 1); u < n; u ++) {
+#else  // yyyAVX2+0
+	for (u = (n >> 1); u < n; u++)
+	{
 		a[u] = fpr_neg(a[u]);
 	}
 #endif // yyyAVX2-
@@ -566,8 +614,7 @@ Zf(poly_adj_fft)(fpr *a, unsigned logn)
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_mul_fft)(
+void Zf(poly_mul_fft)(
 	fpr *restrict a, const fpr *restrict b, unsigned logn)
 {
 	size_t n, hn, u;
@@ -575,8 +622,10 @@ Zf(poly_mul_fft)(
 	n = (size_t)1 << logn;
 	hn = n >> 1;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
-		for (u = 0; u < hn; u += 4) {
+	if (n >= 8)
+	{
+		for (u = 0; u < hn; u += 4)
+		{
 			__m256d a_re, a_im, b_re, b_im, c_re, c_im;
 
 			a_re = _mm256_loadu_pd(&a[u].v);
@@ -590,8 +639,11 @@ Zf(poly_mul_fft)(
 			_mm256_storeu_pd(&a[u].v, c_re);
 			_mm256_storeu_pd(&a[u + hn].v, c_im);
 		}
-	} else {
-		for (u = 0; u < hn; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < hn; u++)
+		{
 			fpr a_re, a_im, b_re, b_im;
 
 			a_re = a[u];
@@ -601,8 +653,9 @@ Zf(poly_mul_fft)(
 			FPC_MUL(a[u], a[u + hn], a_re, a_im, b_re, b_im);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < hn; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < hn; u++)
+	{
 		fpr a_re, a_im, b_re, b_im;
 
 		a_re = a[u];
@@ -616,8 +669,7 @@ Zf(poly_mul_fft)(
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_muladj_fft)(
+void Zf(poly_muladj_fft)(
 	fpr *restrict a, const fpr *restrict b, unsigned logn)
 {
 	size_t n, hn, u;
@@ -625,8 +677,10 @@ Zf(poly_muladj_fft)(
 	n = (size_t)1 << logn;
 	hn = n >> 1;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
-		for (u = 0; u < hn; u += 4) {
+	if (n >= 8)
+	{
+		for (u = 0; u < hn; u += 4)
+		{
 			__m256d a_re, a_im, b_re, b_im, c_re, c_im;
 
 			a_re = _mm256_loadu_pd(&a[u].v);
@@ -640,8 +694,11 @@ Zf(poly_muladj_fft)(
 			_mm256_storeu_pd(&a[u].v, c_re);
 			_mm256_storeu_pd(&a[u + hn].v, c_im);
 		}
-	} else {
-		for (u = 0; u < hn; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < hn; u++)
+		{
 			fpr a_re, a_im, b_re, b_im;
 
 			a_re = a[u];
@@ -651,8 +708,9 @@ Zf(poly_muladj_fft)(
 			FPC_MUL(a[u], a[u + hn], a_re, a_im, b_re, b_im);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < hn; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < hn; u++)
+	{
 		fpr a_re, a_im, b_re, b_im;
 
 		a_re = a[u];
@@ -666,8 +724,7 @@ Zf(poly_muladj_fft)(
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_mulselfadj_fft)(fpr *a, unsigned logn)
+void Zf(poly_mulselfadj_fft)(fpr *a, unsigned logn)
 {
 	/*
 	 * Since each coefficient is multiplied with its own conjugate,
@@ -678,22 +735,27 @@ Zf(poly_mulselfadj_fft)(fpr *a, unsigned logn)
 	n = (size_t)1 << logn;
 	hn = n >> 1;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
+	if (n >= 8)
+	{
 		__m256d zero;
 
 		zero = _mm256_setzero_pd();
-		for (u = 0; u < hn; u += 4) {
+		for (u = 0; u < hn; u += 4)
+		{
 			__m256d a_re, a_im;
 
 			a_re = _mm256_loadu_pd(&a[u].v);
 			a_im = _mm256_loadu_pd(&a[u + hn].v);
 			_mm256_storeu_pd(&a[u].v,
-				FMADD(a_re, a_re,
-					_mm256_mul_pd(a_im, a_im)));
+							 FMADD(a_re, a_re,
+								   _mm256_mul_pd(a_im, a_im)));
 			_mm256_storeu_pd(&a[u + hn].v, zero);
 		}
-	} else {
-		for (u = 0; u < hn; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < hn; u++)
+		{
 			fpr a_re, a_im;
 
 			a_re = a[u];
@@ -702,8 +764,9 @@ Zf(poly_mulselfadj_fft)(fpr *a, unsigned logn)
 			a[u + hn] = fpr_zero;
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < hn; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < hn; u++)
+	{
 		fpr a_re, a_im;
 
 		a_re = a[u];
@@ -716,28 +779,33 @@ Zf(poly_mulselfadj_fft)(fpr *a, unsigned logn)
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_mulconst)(fpr *a, fpr x, unsigned logn)
+void Zf(poly_mulconst)(fpr *a, fpr x, unsigned logn)
 {
 	size_t n, u;
 
 	n = (size_t)1 << logn;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 4) {
+	if (n >= 4)
+	{
 		__m256d x4;
 
 		x4 = _mm256_set1_pd(x.v);
-		for (u = 0; u < n; u += 4) {
+		for (u = 0; u < n; u += 4)
+		{
 			_mm256_storeu_pd(&a[u].v,
-				_mm256_mul_pd(x4, _mm256_loadu_pd(&a[u].v)));
+							 _mm256_mul_pd(x4, _mm256_loadu_pd(&a[u].v)));
 		}
-	} else {
-		for (u = 0; u < n; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < n; u++)
+		{
 			a[u] = fpr_mul(a[u], x);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < n; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < n; u++)
+	{
 		a[u] = fpr_mul(a[u], x);
 	}
 #endif // yyyAVX2-
@@ -745,8 +813,7 @@ Zf(poly_mulconst)(fpr *a, fpr x, unsigned logn)
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_div_fft)(
+void Zf(poly_div_fft)(
 	fpr *restrict a, const fpr *restrict b, unsigned logn)
 {
 	size_t n, hn, u;
@@ -754,11 +821,13 @@ Zf(poly_div_fft)(
 	n = (size_t)1 << logn;
 	hn = n >> 1;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
+	if (n >= 8)
+	{
 		__m256d one;
 
 		one = _mm256_set1_pd(1.0);
-		for (u = 0; u < hn; u += 4) {
+		for (u = 0; u < hn; u += 4)
+		{
 			__m256d a_re, a_im, b_re, b_im, c_re, c_im, t;
 
 			a_re = _mm256_loadu_pd(&a[u].v);
@@ -766,8 +835,8 @@ Zf(poly_div_fft)(
 			b_re = _mm256_loadu_pd(&b[u].v);
 			b_im = _mm256_loadu_pd(&b[u + hn].v);
 			t = _mm256_div_pd(one,
-				FMADD(b_re, b_re,
-					_mm256_mul_pd(b_im, b_im)));
+							  FMADD(b_re, b_re,
+									_mm256_mul_pd(b_im, b_im)));
 			b_re = _mm256_mul_pd(b_re, t);
 			b_im = _mm256_mul_pd(b_im, t);
 			c_re = FMADD(
@@ -777,8 +846,11 @@ Zf(poly_div_fft)(
 			_mm256_storeu_pd(&a[u].v, c_re);
 			_mm256_storeu_pd(&a[u + hn].v, c_im);
 		}
-	} else {
-		for (u = 0; u < hn; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < hn; u++)
+		{
 			fpr a_re, a_im, b_re, b_im;
 
 			a_re = a[u];
@@ -788,8 +860,9 @@ Zf(poly_div_fft)(
 			FPC_DIV(a[u], a[u + hn], a_re, a_im, b_re, b_im);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < hn; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < hn; u++)
+	{
 		fpr a_re, a_im, b_re, b_im;
 
 		a_re = a[u];
@@ -803,20 +876,21 @@ Zf(poly_div_fft)(
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_invnorm2_fft)(fpr *restrict d,
-	const fpr *restrict a, const fpr *restrict b, unsigned logn)
+void Zf(poly_invnorm2_fft)(fpr *restrict d,
+						   const fpr *restrict a, const fpr *restrict b, unsigned logn)
 {
 	size_t n, hn, u;
 
 	n = (size_t)1 << logn;
 	hn = n >> 1;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
+	if (n >= 8)
+	{
 		__m256d one;
 
 		one = _mm256_set1_pd(1.0);
-		for (u = 0; u < hn; u += 4) {
+		for (u = 0; u < hn; u += 4)
+		{
 			__m256d a_re, a_im, b_re, b_im, dv;
 
 			a_re = _mm256_loadu_pd(&a[u].v);
@@ -824,15 +898,18 @@ Zf(poly_invnorm2_fft)(fpr *restrict d,
 			b_re = _mm256_loadu_pd(&b[u].v);
 			b_im = _mm256_loadu_pd(&b[u + hn].v);
 			dv = _mm256_div_pd(one,
-				_mm256_add_pd(
-					FMADD(a_re, a_re,
-						_mm256_mul_pd(a_im, a_im)),
-					FMADD(b_re, b_re,
-						_mm256_mul_pd(b_im, b_im))));
+							   _mm256_add_pd(
+								   FMADD(a_re, a_re,
+										 _mm256_mul_pd(a_im, a_im)),
+								   FMADD(b_re, b_re,
+										 _mm256_mul_pd(b_im, b_im))));
 			_mm256_storeu_pd(&d[u].v, dv);
 		}
-	} else {
-		for (u = 0; u < hn; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < hn; u++)
+		{
 			fpr a_re, a_im;
 			fpr b_re, b_im;
 
@@ -845,8 +922,9 @@ Zf(poly_invnorm2_fft)(fpr *restrict d,
 				fpr_add(fpr_sqr(b_re), fpr_sqr(b_im))));
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < hn; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < hn; u++)
+	{
 		fpr a_re, a_im;
 		fpr b_re, b_im;
 
@@ -863,18 +941,19 @@ Zf(poly_invnorm2_fft)(fpr *restrict d,
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_add_muladj_fft)(fpr *restrict d,
-	const fpr *restrict F, const fpr *restrict G,
-	const fpr *restrict f, const fpr *restrict g, unsigned logn)
+void Zf(poly_add_muladj_fft)(fpr *restrict d,
+							 const fpr *restrict F, const fpr *restrict G,
+							 const fpr *restrict f, const fpr *restrict g, unsigned logn)
 {
 	size_t n, hn, u;
 
 	n = (size_t)1 << logn;
 	hn = n >> 1;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
-		for (u = 0; u < hn; u += 4) {
+	if (n >= 8)
+	{
+		for (u = 0; u < hn; u += 4)
+		{
 			__m256d F_re, F_im, G_re, G_im;
 			__m256d f_re, f_im, g_re, g_im;
 			__m256d a_re, a_im, b_re, b_im;
@@ -889,20 +968,23 @@ Zf(poly_add_muladj_fft)(fpr *restrict d,
 			g_im = _mm256_loadu_pd(&g[u + hn].v);
 
 			a_re = FMADD(F_re, f_re,
-				_mm256_mul_pd(F_im, f_im));
+						 _mm256_mul_pd(F_im, f_im));
 			a_im = FMSUB(F_im, f_re,
-				_mm256_mul_pd(F_re, f_im));
+						 _mm256_mul_pd(F_re, f_im));
 			b_re = FMADD(G_re, g_re,
-				_mm256_mul_pd(G_im, g_im));
+						 _mm256_mul_pd(G_im, g_im));
 			b_im = FMSUB(G_im, g_re,
-				_mm256_mul_pd(G_re, g_im));
+						 _mm256_mul_pd(G_re, g_im));
 			_mm256_storeu_pd(&d[u].v,
-				_mm256_add_pd(a_re, b_re));
+							 _mm256_add_pd(a_re, b_re));
 			_mm256_storeu_pd(&d[u + hn].v,
-				_mm256_add_pd(a_im, b_im));
+							 _mm256_add_pd(a_im, b_im));
 		}
-	} else {
-		for (u = 0; u < hn; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < hn; u++)
+		{
 			fpr F_re, F_im, G_re, G_im;
 			fpr f_re, f_im, g_re, g_im;
 			fpr a_re, a_im, b_re, b_im;
@@ -922,8 +1004,9 @@ Zf(poly_add_muladj_fft)(fpr *restrict d,
 			d[u + hn] = fpr_add(a_im, b_im);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < hn; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < hn; u++)
+	{
 		fpr F_re, F_im, G_re, G_im;
 		fpr f_re, f_im, g_re, g_im;
 		fpr a_re, a_im, b_re, b_im;
@@ -947,8 +1030,7 @@ Zf(poly_add_muladj_fft)(fpr *restrict d,
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_mul_autoadj_fft)(
+void Zf(poly_mul_autoadj_fft)(
 	fpr *restrict a, const fpr *restrict b, unsigned logn)
 {
 	size_t n, hn, u;
@@ -956,26 +1038,32 @@ Zf(poly_mul_autoadj_fft)(
 	n = (size_t)1 << logn;
 	hn = n >> 1;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
-		for (u = 0; u < hn; u += 4) {
+	if (n >= 8)
+	{
+		for (u = 0; u < hn; u += 4)
+		{
 			__m256d a_re, a_im, bv;
 
 			a_re = _mm256_loadu_pd(&a[u].v);
 			a_im = _mm256_loadu_pd(&a[u + hn].v);
 			bv = _mm256_loadu_pd(&b[u].v);
 			_mm256_storeu_pd(&a[u].v,
-				_mm256_mul_pd(a_re, bv));
+							 _mm256_mul_pd(a_re, bv));
 			_mm256_storeu_pd(&a[u + hn].v,
-				_mm256_mul_pd(a_im, bv));
+							 _mm256_mul_pd(a_im, bv));
 		}
-	} else {
-		for (u = 0; u < hn; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < hn; u++)
+		{
 			a[u] = fpr_mul(a[u], b[u]);
 			a[u + hn] = fpr_mul(a[u + hn], b[u]);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < hn; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < hn; u++)
+	{
 		a[u] = fpr_mul(a[u], b[u]);
 		a[u + hn] = fpr_mul(a[u + hn], b[u]);
 	}
@@ -984,8 +1072,7 @@ Zf(poly_mul_autoadj_fft)(
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_div_autoadj_fft)(
+void Zf(poly_div_autoadj_fft)(
 	fpr *restrict a, const fpr *restrict b, unsigned logn)
 {
 	size_t n, hn, u;
@@ -993,11 +1080,13 @@ Zf(poly_div_autoadj_fft)(
 	n = (size_t)1 << logn;
 	hn = n >> 1;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
+	if (n >= 8)
+	{
 		__m256d one;
 
 		one = _mm256_set1_pd(1.0);
-		for (u = 0; u < hn; u += 4) {
+		for (u = 0; u < hn; u += 4)
+		{
 			__m256d ib, a_re, a_im;
 
 			ib = _mm256_div_pd(one, _mm256_loadu_pd(&b[u].v));
@@ -1006,8 +1095,11 @@ Zf(poly_div_autoadj_fft)(
 			_mm256_storeu_pd(&a[u].v, _mm256_mul_pd(a_re, ib));
 			_mm256_storeu_pd(&a[u + hn].v, _mm256_mul_pd(a_im, ib));
 		}
-	} else {
-		for (u = 0; u < hn; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < hn; u++)
+		{
 			fpr ib;
 
 			ib = fpr_inv(b[u]);
@@ -1015,8 +1107,9 @@ Zf(poly_div_autoadj_fft)(
 			a[u + hn] = fpr_mul(a[u + hn], ib);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < hn; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < hn; u++)
+	{
 		fpr ib;
 
 		ib = fpr_inv(b[u]);
@@ -1028,8 +1121,7 @@ Zf(poly_div_autoadj_fft)(
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_LDL_fft)(
+void Zf(poly_LDL_fft)(
 	const fpr *restrict g00,
 	fpr *restrict g01, fpr *restrict g11, unsigned logn)
 {
@@ -1038,11 +1130,13 @@ Zf(poly_LDL_fft)(
 	n = (size_t)1 << logn;
 	hn = n >> 1;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
+	if (n >= 8)
+	{
 		__m256d one;
 
 		one = _mm256_set1_pd(1.0);
-		for (u = 0; u < hn; u += 4) {
+		for (u = 0; u < hn; u += 4)
+		{
 			__m256d g00_re, g00_im, g01_re, g01_im, g11_re, g11_im;
 			__m256d t, mu_re, mu_im, xi_re, xi_im;
 
@@ -1054,27 +1148,30 @@ Zf(poly_LDL_fft)(
 			g11_im = _mm256_loadu_pd(&g11[u + hn].v);
 
 			t = _mm256_div_pd(one,
-				FMADD(g00_re, g00_re,
-					_mm256_mul_pd(g00_im, g00_im)));
+							  FMADD(g00_re, g00_re,
+									_mm256_mul_pd(g00_im, g00_im)));
 			g00_re = _mm256_mul_pd(g00_re, t);
 			g00_im = _mm256_mul_pd(g00_im, t);
 			mu_re = FMADD(g01_re, g00_re,
-				_mm256_mul_pd(g01_im, g00_im));
+						  _mm256_mul_pd(g01_im, g00_im));
 			mu_im = FMSUB(g01_re, g00_im,
-				_mm256_mul_pd(g01_im, g00_re));
+						  _mm256_mul_pd(g01_im, g00_re));
 			xi_re = FMSUB(mu_re, g01_re,
-				_mm256_mul_pd(mu_im, g01_im));
+						  _mm256_mul_pd(mu_im, g01_im));
 			xi_im = FMADD(mu_im, g01_re,
-				_mm256_mul_pd(mu_re, g01_im));
+						  _mm256_mul_pd(mu_re, g01_im));
 			_mm256_storeu_pd(&g11[u].v,
-				_mm256_sub_pd(g11_re, xi_re));
+							 _mm256_sub_pd(g11_re, xi_re));
 			_mm256_storeu_pd(&g11[u + hn].v,
-				_mm256_add_pd(g11_im, xi_im));
+							 _mm256_add_pd(g11_im, xi_im));
 			_mm256_storeu_pd(&g01[u].v, mu_re);
 			_mm256_storeu_pd(&g01[u + hn].v, mu_im);
 		}
-	} else {
-		for (u = 0; u < hn; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < hn; u++)
+		{
 			fpr g00_re, g00_im, g01_re, g01_im, g11_re, g11_im;
 			fpr mu_re, mu_im;
 
@@ -1086,15 +1183,16 @@ Zf(poly_LDL_fft)(
 			g11_im = g11[u + hn];
 			FPC_DIV(mu_re, mu_im, g01_re, g01_im, g00_re, g00_im);
 			FPC_MUL(g01_re, g01_im,
-				mu_re, mu_im, g01_re, fpr_neg(g01_im));
+					mu_re, mu_im, g01_re, fpr_neg(g01_im));
 			FPC_SUB(g11[u], g11[u + hn],
-				g11_re, g11_im, g01_re, g01_im);
+					g11_re, g11_im, g01_re, g01_im);
 			g01[u] = mu_re;
 			g01[u + hn] = fpr_neg(mu_im);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < hn; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < hn; u++)
+	{
 		fpr g00_re, g00_im, g01_re, g01_im, g11_re, g11_im;
 		fpr mu_re, mu_im;
 
@@ -1115,8 +1213,7 @@ Zf(poly_LDL_fft)(
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_LDLmv_fft)(
+void Zf(poly_LDLmv_fft)(
 	fpr *restrict d11, fpr *restrict l10,
 	const fpr *restrict g00, const fpr *restrict g01,
 	const fpr *restrict g11, unsigned logn)
@@ -1126,11 +1223,13 @@ Zf(poly_LDLmv_fft)(
 	n = (size_t)1 << logn;
 	hn = n >> 1;
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
+	if (n >= 8)
+	{
 		__m256d one;
 
 		one = _mm256_set1_pd(1.0);
-		for (u = 0; u < hn; u += 4) {
+		for (u = 0; u < hn; u += 4)
+		{
 			__m256d g00_re, g00_im, g01_re, g01_im, g11_re, g11_im;
 			__m256d t, mu_re, mu_im, xi_re, xi_im;
 
@@ -1142,27 +1241,30 @@ Zf(poly_LDLmv_fft)(
 			g11_im = _mm256_loadu_pd(&g11[u + hn].v);
 
 			t = _mm256_div_pd(one,
-				FMADD(g00_re, g00_re,
-					_mm256_mul_pd(g00_im, g00_im)));
+							  FMADD(g00_re, g00_re,
+									_mm256_mul_pd(g00_im, g00_im)));
 			g00_re = _mm256_mul_pd(g00_re, t);
 			g00_im = _mm256_mul_pd(g00_im, t);
 			mu_re = FMADD(g01_re, g00_re,
-				_mm256_mul_pd(g01_im, g00_im));
+						  _mm256_mul_pd(g01_im, g00_im));
 			mu_im = FMSUB(g01_re, g00_im,
-				_mm256_mul_pd(g01_im, g00_re));
+						  _mm256_mul_pd(g01_im, g00_re));
 			xi_re = FMSUB(mu_re, g01_re,
-				_mm256_mul_pd(mu_im, g01_im));
+						  _mm256_mul_pd(mu_im, g01_im));
 			xi_im = FMADD(mu_im, g01_re,
-				_mm256_mul_pd(mu_re, g01_im));
+						  _mm256_mul_pd(mu_re, g01_im));
 			_mm256_storeu_pd(&d11[u].v,
-				_mm256_sub_pd(g11_re, xi_re));
+							 _mm256_sub_pd(g11_re, xi_re));
 			_mm256_storeu_pd(&d11[u + hn].v,
-				_mm256_add_pd(g11_im, xi_im));
+							 _mm256_add_pd(g11_im, xi_im));
 			_mm256_storeu_pd(&l10[u].v, mu_re);
 			_mm256_storeu_pd(&l10[u + hn].v, mu_im);
 		}
-	} else {
-		for (u = 0; u < hn; u ++) {
+	}
+	else
+	{
+		for (u = 0; u < hn; u++)
+		{
 			fpr g00_re, g00_im, g01_re, g01_im, g11_re, g11_im;
 			fpr mu_re, mu_im;
 
@@ -1174,15 +1276,16 @@ Zf(poly_LDLmv_fft)(
 			g11_im = g11[u + hn];
 			FPC_DIV(mu_re, mu_im, g01_re, g01_im, g00_re, g00_im);
 			FPC_MUL(g01_re, g01_im,
-				mu_re, mu_im, g01_re, fpr_neg(g01_im));
+					mu_re, mu_im, g01_re, fpr_neg(g01_im));
 			FPC_SUB(d11[u], d11[u + hn],
-				g11_re, g11_im, g01_re, g01_im);
+					g11_re, g11_im, g01_re, g01_im);
 			l10[u] = mu_re;
 			l10[u + hn] = fpr_neg(mu_im);
 		}
 	}
-#else // yyyAVX2+0
-	for (u = 0; u < hn; u ++) {
+#else  // yyyAVX2+0
+	for (u = 0; u < hn; u++)
+	{
 		fpr g00_re, g00_im, g01_re, g01_im, g11_re, g11_im;
 		fpr mu_re, mu_im;
 
@@ -1203,8 +1306,7 @@ Zf(poly_LDLmv_fft)(
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_split_fft)(
+void Zf(poly_split_fft)(
 	fpr *restrict f0, fpr *restrict f1,
 	const fpr *restrict f, unsigned logn)
 {
@@ -1221,12 +1323,14 @@ Zf(poly_split_fft)(
 	qn = hn >> 1;
 
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 8) {
+	if (n >= 8)
+	{
 		__m256d half, sv;
 
 		half = _mm256_set1_pd(0.5);
 		sv = _mm256_set_pd(-0.0, 0.0, -0.0, 0.0);
-		for (u = 0; u < qn; u += 2) {
+		for (u = 0; u < qn; u += 2)
+		{
 			__m256d ab_re, ab_im, ff0, ff1, ff2, ff3, gmt;
 
 			ab_re = _mm256_loadu_pd(&f[(u << 1)].v);
@@ -1234,9 +1338,9 @@ Zf(poly_split_fft)(
 			ff0 = _mm256_mul_pd(_mm256_hadd_pd(ab_re, ab_im), half);
 			ff0 = _mm256_permute4x64_pd(ff0, 0xD8);
 			_mm_storeu_pd(&f0[u].v,
-				_mm256_extractf128_pd(ff0, 0));
+						  _mm256_extractf128_pd(ff0, 0));
 			_mm_storeu_pd(&f0[u + qn].v,
-				_mm256_extractf128_pd(ff0, 1));
+						  _mm256_extractf128_pd(ff0, 1));
 
 			ff1 = _mm256_mul_pd(_mm256_hsub_pd(ab_re, ab_im), half);
 			gmt = _mm256_loadu_pd(&fpr_gm_tab[(u + hn) << 1].v);
@@ -1246,15 +1350,18 @@ Zf(poly_split_fft)(
 				_mm256_xor_pd(_mm256_mul_pd(ff2, gmt), sv));
 			ff3 = _mm256_permute4x64_pd(ff3, 0xD8);
 			_mm_storeu_pd(&f1[u].v,
-				_mm256_extractf128_pd(ff3, 0));
+						  _mm256_extractf128_pd(ff3, 0));
 			_mm_storeu_pd(&f1[u + qn].v,
-				_mm256_extractf128_pd(ff3, 1));
+						  _mm256_extractf128_pd(ff3, 1));
 		}
-	} else {
+	}
+	else
+	{
 		f0[0] = f[0];
 		f1[0] = f[hn];
 
-		for (u = 0; u < qn; u ++) {
+		for (u = 0; u < qn; u++)
+		{
 			fpr a_re, a_im, b_re, b_im;
 			fpr t_re, t_im;
 
@@ -1269,13 +1376,13 @@ Zf(poly_split_fft)(
 
 			FPC_SUB(t_re, t_im, a_re, a_im, b_re, b_im);
 			FPC_MUL(t_re, t_im, t_re, t_im,
-				fpr_gm_tab[((u + hn) << 1) + 0],
-				fpr_neg(fpr_gm_tab[((u + hn) << 1) + 1]));
+					fpr_gm_tab[((u + hn) << 1) + 0],
+					fpr_neg(fpr_gm_tab[((u + hn) << 1) + 1]));
 			f1[u] = fpr_half(t_re);
 			f1[u + qn] = fpr_half(t_im);
 		}
 	}
-#else // yyyAVX2+0
+#else  // yyyAVX2+0
 	/*
 	 * We process complex values by pairs. For logn = 1, there is only
 	 * one complex value (the other one is the implicit conjugate),
@@ -1285,7 +1392,8 @@ Zf(poly_split_fft)(
 	f0[0] = f[0];
 	f1[0] = f[hn];
 
-	for (u = 0; u < qn; u ++) {
+	for (u = 0; u < qn; u++)
+	{
 		fpr a_re, a_im, b_re, b_im;
 		fpr t_re, t_im;
 
@@ -1300,8 +1408,8 @@ Zf(poly_split_fft)(
 
 		FPC_SUB(t_re, t_im, a_re, a_im, b_re, b_im);
 		FPC_MUL(t_re, t_im, t_re, t_im,
-			fpr_gm_tab[((u + hn) << 1) + 0],
-			fpr_neg(fpr_gm_tab[((u + hn) << 1) + 1]));
+				fpr_gm_tab[((u + hn) << 1) + 0],
+				fpr_neg(fpr_gm_tab[((u + hn) << 1) + 1]));
 		f1[u] = fpr_half(t_re);
 		f1[u + qn] = fpr_half(t_im);
 	}
@@ -1310,8 +1418,7 @@ Zf(poly_split_fft)(
 
 /* see inner.h */
 TARGET_AVX2
-void
-Zf(poly_merge_fft)(
+void Zf(poly_merge_fft)(
 	fpr *restrict f,
 	const fpr *restrict f0, const fpr *restrict f1, unsigned logn)
 {
@@ -1322,8 +1429,10 @@ Zf(poly_merge_fft)(
 	qn = hn >> 1;
 
 #if FALCON_AVX2 // yyyAVX2+1
-	if (n >= 16) {
-		for (u = 0; u < qn; u += 4) {
+	if (n >= 16)
+	{
+		for (u = 0; u < qn; u += 4)
+		{
 			__m256d a_re, a_im, b_re, b_im, c_re, c_im;
 			__m256d gm1, gm2, g_re, g_im;
 			__m256d t_re, t_im, u_re, u_im;
@@ -1356,27 +1465,30 @@ Zf(poly_merge_fft)(
 			tu1_im = _mm256_unpacklo_pd(t_im, u_im);
 			tu2_im = _mm256_unpackhi_pd(t_im, u_im);
 			_mm256_storeu_pd(&f[(u << 1)].v,
-				_mm256_permute2f128_pd(tu1_re, tu2_re, 0x20));
+							 _mm256_permute2f128_pd(tu1_re, tu2_re, 0x20));
 			_mm256_storeu_pd(&f[(u << 1) + 4].v,
-				_mm256_permute2f128_pd(tu1_re, tu2_re, 0x31));
+							 _mm256_permute2f128_pd(tu1_re, tu2_re, 0x31));
 			_mm256_storeu_pd(&f[(u << 1) + hn].v,
-				_mm256_permute2f128_pd(tu1_im, tu2_im, 0x20));
+							 _mm256_permute2f128_pd(tu1_im, tu2_im, 0x20));
 			_mm256_storeu_pd(&f[(u << 1) + 4 + hn].v,
-				_mm256_permute2f128_pd(tu1_im, tu2_im, 0x31));
+							 _mm256_permute2f128_pd(tu1_im, tu2_im, 0x31));
 		}
-	} else {
+	}
+	else
+	{
 		f[0] = f0[0];
 		f[hn] = f1[0];
 
-		for (u = 0; u < qn; u ++) {
+		for (u = 0; u < qn; u++)
+		{
 			fpr a_re, a_im, b_re, b_im;
 			fpr t_re, t_im;
 
 			a_re = f0[u];
 			a_im = f0[u + qn];
 			FPC_MUL(b_re, b_im, f1[u], f1[u + qn],
-				fpr_gm_tab[((u + hn) << 1) + 0],
-				fpr_gm_tab[((u + hn) << 1) + 1]);
+					fpr_gm_tab[((u + hn) << 1) + 0],
+					fpr_gm_tab[((u + hn) << 1) + 1]);
 			FPC_ADD(t_re, t_im, a_re, a_im, b_re, b_im);
 			f[(u << 1) + 0] = t_re;
 			f[(u << 1) + 0 + hn] = t_im;
@@ -1385,22 +1497,23 @@ Zf(poly_merge_fft)(
 			f[(u << 1) + 1 + hn] = t_im;
 		}
 	}
-#else // yyyAVX2+0
+#else  // yyyAVX2+0
 	/*
 	 * An extra copy to handle the special case logn = 1.
 	 */
 	f[0] = f0[0];
 	f[hn] = f1[0];
 
-	for (u = 0; u < qn; u ++) {
+	for (u = 0; u < qn; u++)
+	{
 		fpr a_re, a_im, b_re, b_im;
 		fpr t_re, t_im;
 
 		a_re = f0[u];
 		a_im = f0[u + qn];
 		FPC_MUL(b_re, b_im, f1[u], f1[u + qn],
-			fpr_gm_tab[((u + hn) << 1) + 0],
-			fpr_gm_tab[((u + hn) << 1) + 1]);
+				fpr_gm_tab[((u + hn) << 1) + 0],
+				fpr_gm_tab[((u + hn) << 1) + 1]);
 		FPC_ADD(t_re, t_im, a_re, a_im, b_re, b_im);
 		f[(u << 1) + 0] = t_re;
 		f[(u << 1) + 0 + hn] = t_im;
