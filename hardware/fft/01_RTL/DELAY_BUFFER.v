@@ -1,5 +1,5 @@
 module DELAY_BUFFER #(
-    parameter   FLOAT_PRECISION = 64,
+    parameter FLOAT_PRECISION = 64,
     parameter DEPTH = 0
 )(
     // Input signals
