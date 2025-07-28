@@ -209,10 +209,6 @@ end
 /*
  * Multiplexer that choose the input source to delay buffer.
  */
-
-/*
- * Multiplexer that choose the input source to delay buffer.
- */
 assign delay_mux = (cnt_reg == 0) ? 0 : ((cnt_reg) / HT) % 2;
 assign delay_di_re = delay_mux ? butterfly_Y_re : mult_d_re_reg;
 assign delay_di_im = delay_mux ? butterfly_Y_im : mult_d_im_reg;
