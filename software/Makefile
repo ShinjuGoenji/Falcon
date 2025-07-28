@@ -43,9 +43,9 @@
 #               code that calls this library may need: -lm
 #               (normally not needed on x86, both 32-bit and 64-bit)
 
-CC = gcc
-CFLAGS = -g -std=c99 -Wall -Wextra -Wshadow -Wundef -Og #-pg -fno-pie
-LD = gcc
+CC = gcc#clang
+CFLAGS = -g -std=c99 -Wall -Wextra -Wshadow -Wundef -O0 #-pg -fno-pie
+LD = gcc#clang
 LDFLAGS = #-pg -no-pie
 LIBS = #-lm
 
@@ -56,10 +56,13 @@ OBJ = codec.o common.o falcon.o fft.o fpr.o keygen.o rng.o shake.o sign.o vrfy.o
 all: test_falcon speed
 
 clean:
-	-rm -f $(OBJ) test_falcon test_falcon.o speed speed.o
+	-del -f $(OBJ) test_falcon test_falcon.o speed speed.o
 
 test_falcon: test_falcon.o $(OBJ)
 	$(LD) $(LDFLAGS) -o test_falcon test_falcon.o $(OBJ) $(LIBS)
+
+gen_pat: pattern_generator.o $(OBJ)
+	$(LD) $(LDFLAGS) -o pattern_generator pattern_generator.o $(OBJ) $(LIBS)
 
 speed: speed.o $(OBJ)
 	$(LD) $(LDFLAGS) -o speed speed.o $(OBJ) $(LIBS)
