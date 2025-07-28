@@ -5,6 +5,7 @@ test_falcon
 *TSMC*
 *tsmc*
 .vscode/
+*.exe
 
 # 01_RTL
 csrc/
