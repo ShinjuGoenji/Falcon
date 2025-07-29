@@ -5352,3 +5352,46 @@ Time: 266050050 ps
 CPU Time:   6334.670 seconds;       Data structure size: 144.5Mb
 Thu Jul 24 20:08:43 2025
 CPU time: 40.956 seconds to compile + 7.015 seconds to elab + .893 seconds to link + 6334.685 seconds in simulation
+stage_1_u_DELAY_BUFFER.buf_re_reg_13__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_re_reg_14__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_re_reg_15__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_re_reg_16__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_re_reg_17__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_re_reg_18__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_re_reg_19__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_re_reg_20__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_re_reg_21__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_re_reg_22__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_re_reg_23__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_re_reg_24__0_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+"../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v", 59874: Timing violation in TESTBED.u_FFT.u_stage_1_u_DELAY_BUFFER.buf_im_reg_123__63_
+    $width( posedge R &&& (ENABLE_NOT_CK_AND_NOT_D == 1'b1):10021,  : 10767, limit: 1000 );
+
+*Verdi* FSDB: For performance reasons, the Memory Size Limit has been increased to 128M.
+PASS PATTERN NO.   1,  280 CYCLES
+PASS PATTERN NO.   2,  280 CYCLES
+PASS PATTERN NO.   3,  280 CYCLES

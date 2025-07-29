@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version T-2022.03 for linux64 -- Feb 22, 2022
-#@ # Date:   Thu Jul 24 16:39:50 2025
+#@ # Date:   Fri Jul 25 00:58:03 2025
 #@ # Run by: daniel_kuo@eda_root
 #@ 
 
@@ -8704,49 +8704,3 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/fft/02_SYN/syn.tcl
 #@ set_fix_multiple_port_nets -all -buffer_constants [get_designs *]
 #@ set_fix_hold [all_clocks]
 #@ compile_ultra
-#@ #uniquify
-#@ #compile
-#@ 
-#@ #======================================================
-#@ #  (F) Output Reports 
-#@ #======================================================
-#@ report_design  >  Report/$DESIGN\.design
-#@ report_resource >  Report/$DESIGN\.resource
-#@ report_timing -max_paths 3 >  Report/$DESIGN\.timing
-#@ report_area >  Report/$DESIGN\.area
-#@ report_power > Report/$DESIGN\.power
-#@ report_clock > Report/$DESIGN\.clock
-#@ report_port >  Report/$DESIGN\.port
-#@ report_power >  Report/$DESIGN\.power
-#@ #report_reference > Report/$DESIGN\.reference
-#@ 
-#@ #======================================================
-#@ #  (G) Change Naming Rule
-#@ #======================================================
-#@ set bus_inference_style "%s\[%d\]"
-#@ set bus_naming_style "%s\[%d\]"
-#@ set hdlout_internal_busses true
-#@ change_names -hierarchy -rule verilog
-#@ define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
-#@ define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
-#@ define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
-#@ define_name_rules name_rule -case_insensitive
-#@ change_names -hierarchy -rules name_rule
-#@ 
-#@ 
-#@ #======================================================
-#@ #  (H) Output Results
-#@ #======================================================
-#@ set verilogout_higher_designs_first true
-#@ write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
-#@ write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
-#@ write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
-#@ write_sdc Netlist/$DESIGN\_SYN.sdc
-#@ 
-#@ #======================================================
-#@ #  (I) Finish and Quit
-#@ #======================================================
-#@ 
-#@ report_area
-#@ report_timing 
-#@ exit
