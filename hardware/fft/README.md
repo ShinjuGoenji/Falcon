@@ -60,6 +60,7 @@ Current FFT implement radix-2 unit in a stage (critical path marked as red line)
 ## Future Optimization
 1. optimize critical path
 2. adopt radix- $2^2$ or radix- $2^3$
+2. Self written fpu instead of designware.
 
 > [!WARNING]  
 > `rst_n` has timing violation.
