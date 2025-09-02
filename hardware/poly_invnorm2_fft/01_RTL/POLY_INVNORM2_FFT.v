@@ -12,9 +12,11 @@ module POLY_INVNORM2_FFT #(
     // Input signals
     clk, 
     rst_n,
+    in_valid,
     a_re, a_im,
     b_re, b_im,
     // Output signals
+    out_valid,
     d
 );
 
@@ -30,9 +32,11 @@ localparam ieee_compliance = 0;
 //---------------------------------------------------------------------
 input                             clk;
 input                             rst_n;
+input                             in_valid;
 input       [FLOAT_PRECISION-1:0] a_re, a_im;
 input       [FLOAT_PRECISION-1:0] b_re, b_im;
 
+output reg                        out_valid;
 output reg  [FLOAT_PRECISION-1:0] d;
 
 //---------------------------------------------------------------------
@@ -41,6 +45,7 @@ output reg  [FLOAT_PRECISION-1:0] d;
 wire [2:0] rnd = 3'b000;
 wire [FLOAT_PRECISION-1:0] one_fp = 64'h3FF0_0000_0000_0000;
 
+reg in_valid_reg_1;
 reg [FLOAT_PRECISION-1:0] a_re_2, next_a_re_2;
 reg [FLOAT_PRECISION-1:0] a_im_2, next_a_im_2;
 reg [FLOAT_PRECISION-1:0] b_re_2, next_b_re_2;
@@ -49,6 +54,7 @@ reg [FLOAT_PRECISION-1:0] b_im_2, next_b_im_2;
 reg [FLOAT_PRECISION-1:0] a_norm_2;
 reg [FLOAT_PRECISION-1:0] b_norm_2;
 
+reg in_valid_reg_2;
 reg [FLOAT_PRECISION-1:0] a_norm_2_b_norm_2, next_a_norm_2_b_norm_2;
 reg [FLOAT_PRECISION-1:0] next_d;
 
@@ -90,6 +96,8 @@ always @(posedge clk or negedge rst_n) begin
         b_im_2 <= 0;
         a_norm_2_b_norm_2 <= 0;
         d <= 0;
+        in_valid_reg_1 <= 0;
+        in_valid_reg_2 <= 0;
     end
     else begin
         a_re_2 <= next_a_re_2;
@@ -98,6 +106,9 @@ always @(posedge clk or negedge rst_n) begin
         b_im_2 <= next_b_im_2;
         a_norm_2_b_norm_2 <= next_a_norm_2_b_norm_2;
         d <= next_d;
+        in_valid_reg_1 <= in_valid;
+        in_valid_reg_2 <= in_valid_reg_1;
+        out_valid <= in_valid_reg_2;
     end
 end
 

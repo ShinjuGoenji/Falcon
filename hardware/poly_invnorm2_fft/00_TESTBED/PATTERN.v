@@ -40,10 +40,11 @@ parameter OUTPUT_PATH = "../00_TESTBED/output.txt";
 parameter PATNUM_PATH = "../00_TESTBED/PATNUM.txt";
 integer file_in, file_idx, file_out, file_num;
 
-parameter MAX_OUT_LATENCY = 2000;
-integer total_latency, out_latency;
+parameter PIPLINE_STAGES = 4;
+parameter MAX_OUT_LATENCY = PIPLINE_STAGES + 10;
+integer out_latency[0:PIPLINE_STAGES-1];
 
-integer i_pat, i_delay;
+integer i_pat, i_stage;
 integer PAT_NUM, out_cnt;
 
 integer fscanf_int;
@@ -51,10 +52,6 @@ integer fscanf_int;
 //---------------------------------------------------------------------
 //   REG & WIRE DECLARATION
 //---------------------------------------------------------------------
-// reg [FLOAT_PRECISION-1:0] f_re [0:n-1], f_im[0:n-1];
-// reg [FLOAT_PRECISION-1:0] s_index [0:n-1];
-// reg [FLOAT_PRECISION-1:0] golden_fo_re [0:n-1], golden_fo_im [0:n-1];
-// reg [FLOAT_PRECISION-1:0] your_fo_re [0:n-1], your_fo_im [0:n-1];
 
 //---------------------------------------------------------------------
 //   Clock
@@ -72,8 +69,10 @@ initial begin
 	fscanf_int = $fscanf(file_num, "%d", PAT_NUM);	
 
 	reset_task;
-	total_latency = 0;
 	repeat(4) @(negedge clk);
+	for (i_stage = 0; i_stage < PIPLINE_STAGES; i_stage = i_stage + 1)
+		out_latency[i_stage] = -1;
+
 	for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1)begin
 		input_task;
 		repeat($urandom_range(0, 4)) @(negedge clk);
@@ -131,20 +130,6 @@ task reset_task; begin
 	#CYCLE; release clk;
 end endtask
 
-
-task read_pattern; begin
-	for (i_in_deg = 0; i_in_deg < n; i_in_deg = i_in_deg + 1) 
-		fscanf_int = $fscanf(file_in, "%h", f_re[i_in_deg]);
-	for (i_in_deg = 0; i_in_deg < n; i_in_deg = i_in_deg + 1) 
-		fscanf_int = $fscanf(file_in, "%h", f_im[i_in_deg]);
-	for (i_in_deg = 0; i_in_deg < n; i_in_deg = i_in_deg + 1) 
-		fscanf_int = $fscanf(file_out, "%h", golden_fo_re[i_in_deg]);
-	for (i_in_deg = 0; i_in_deg < n; i_in_deg = i_in_deg + 1) 
-		fscanf_int = $fscanf(file_out, "%h", golden_fo_im[i_in_deg]);
-	for (i_in_deg = 0; i_in_deg < n; i_in_deg = i_in_deg + 1) 
-		fscanf_int = $fscanf(file_idx, "%d", s_index[i_in_deg]);
-end endtask
-
 task input_task;
 	reg [FLOAT_PRECISION-1:0] a_re_pat;
 	reg [FLOAT_PRECISION-1:0] a_im_pat;
@@ -157,6 +142,12 @@ task input_task;
 	a_im = a_im_pat;
 	b_re = b_re_pat;
 	b_im = b_im_pat;
+	for (i_stage = 0; i_stage < PIPLINE_STAGES; i_stage = i_stage + 1)
+		if (out_latency[i_stage] == -1) begin
+			out_latency[i_stage] = 0;
+			break;
+		end
+
 	@(negedge clk);		
 	in_valid = 'b0;
 	a_re = 'bx;
@@ -165,33 +156,21 @@ task input_task;
 	b_im = 'bx;
 end endtask
 
-task input_delay; begin
-	integer DELAY_NUM;
-	// DELAY_NUM = $urandom_range(2, 4);
-	DELAY_NUM = 0;
-	for (i_delay = 0; i_delay < DELAY_NUM; i_delay=i_delay+1) begin
-		in_valid = 'b0;
-		fi_re = 'bx;
-		fi_im = 'bx;
-		@(negedge clk);
-end
-end endtask
-
-task wait_out_task; begin
-	out_latency = 1;
-	while(out_valid !== 1 && i_out_deg < n) begin
-		if(out_latency === MAX_OUT_LATENCY + 1) begin
-            $display("***********************************************************");    
-            $display("                          FAIL!                          	 ");
-			$display("         The execution latency are over %d cycles        	 ", MAX_OUT_LATENCY);
-		    $display("***********************************************************"); 
-			repeat(2) @(negedge clk);
-			$finish;
-		end
-		out_latency = out_latency + 1;
-		@(negedge clk);
-	end
-end endtask
+// task wait_out_task; begin
+// 	out_latency = 1;
+// 	while(out_valid !== 1 && i_out_deg < n) begin
+// 		if(out_latency === MAX_OUT_LATENCY + 1) begin
+//             $display("***********************************************************");    
+//             $display("                          FAIL!                          	 ");
+// 			$display("         The execution latency are over %d cycles        	 ", MAX_OUT_LATENCY);
+// 		    $display("***********************************************************"); 
+// 			repeat(2) @(negedge clk);
+// 			$finish;
+// 		end
+// 		out_latency = out_latency + 1;
+// 		@(negedge clk);
+// 	end
+// end endtask
 
 task check_out_valid_task; begin
 	if(out_valid !== 0) begin
@@ -204,22 +183,36 @@ task check_out_valid_task; begin
 	end
 end endtask
 
-task check_ans_task; begin
-	if(out_valid == 1) begin
-		// $display("\tOUT DEGREE %3d\tRe = %f, Im = %f", i_out_deg, $bitstoreal(golden_fo_re[i_out_deg]), $bitstoreal(golden_fo_im[i_out_deg]));
-		if(fo_re !== golden_fo_re[i_out_deg] || fo_im !== golden_fo_im[i_out_deg])begin
+task check_ans_task; 
+	reg [FLOAT_PRECISION-1:0] d_pat;
+	begin
+	for (i_stage = 0; i_stage < PIPLINE_STAGES; i_stage = i_stage + 1)
+		out_latency[i_stage] = out_latency[i_stage] + 1;
+	if (out_latency[0] > MAX_OUT_LATENCY) begin
+		$display("***********************************************************");    
+		$display("                          FAIL!                          	 ");
+		$display("         The execution latency are over %d cycles        	 ", MAX_OUT_LATENCY);
+		$display("***********************************************************"); 
+		repeat(2) @(negedge clk);
+		$finish;
+	end
+
+	if(out_valid === 1) begin
+		fscanf_int = $fscanf(file_out, "%h", d_pat);
+		if(d !== d_pat)begin
             $display("***********************************************************");     
             $display("                          FAIL!                          	 ");  
-            $display("                  Degree #%3d (%8t)                   	 ", i_out_deg, $time);
             $display("                      Golden answer                      	 ");
-            $display("              Re = %f, Im = %f                    	     ", $bitstoreal(golden_fo_re[i_out_deg]), $bitstoreal(golden_fo_im[i_out_deg]));
+            $display("              			  %f                    	     ", $bitstoreal(d_pat));
             $display("                       Your answer                       	 ");
-            $display("              Re = %f, Im = %f                    	     ", $bitstoreal(fo_re), $bitstoreal(fo_im));
+            $display("              			  %f                    	     ", $bitstoreal(d));
             $display("***********************************************************");    
-                repeat(2) @(negedge clk);
-                $finish;
+			repeat(2) @(negedge clk);
+			$finish;
 		end
-		i_out_deg = i_out_deg + 1;
+		for (i_stage = 0; i_stage < PIPLINE_STAGES - 1; i_stage = i_stage + 1)
+			out_latency[i_stage] = out_latency[i_stage + 1];
+		out_latency[PIPLINE_STAGES - 1] = -1;
 	end
 end endtask
 
@@ -227,9 +220,7 @@ task YOU_PASS_task; begin
     $display ("--------------------------------------------------------------------");
     $display ("                         Congratulations!                           ");
     $display ("                  You have passed all patterns!                     ");
-    $display ("                  Your execution cycles = %5d cycles                ", total_latency);
 	$display ("                  Your clock period = %.1f ns                       ", CYCLE);
-    $display ("                  Total Latency = %.1f ns                           ", total_latency*CYCLE);
     $display ("--------------------------------------------------------------------");     
     repeat(2)@(negedge clk);
     $finish;
