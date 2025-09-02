@@ -6,6 +6,11 @@ test_falcon
 *tsmc*
 .vscode/
 *.exe
+__pycache__/
+
+# side-channel-attack
+*trace*
+correlations/
 
 # 01_RTL
 csrc/
