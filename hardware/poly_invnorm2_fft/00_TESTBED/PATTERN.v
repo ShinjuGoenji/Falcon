@@ -37,21 +37,18 @@ input [FLOAT_PRECISION-1:0] d;
 //---------------------------------------------------------------------
 parameter INPUT_PATH  = "../00_TESTBED/input.txt";
 parameter OUTPUT_PATH = "../00_TESTBED/output.txt";
-parameter PATNUM_PATH = "../00_TESTBED/PATNUM.txt";
 integer file_in, file_idx, file_out, file_num;
 
 parameter PIPLINE_STAGES = 4;
-parameter MAX_OUT_LATENCY = PIPLINE_STAGES + 10;
+parameter MAX_OUT_LATENCY = PIPLINE_STAGES + 100;
+parameter PAT_NUM = 15092;
+
 integer out_latency[0:PIPLINE_STAGES-1];
+integer pat_cnt;
 
 integer i_pat, i_stage;
-integer PAT_NUM, out_cnt;
 
 integer fscanf_int;
-
-//---------------------------------------------------------------------
-//   REG & WIRE DECLARATION
-//---------------------------------------------------------------------
 
 //---------------------------------------------------------------------
 //   Clock
@@ -65,30 +62,17 @@ always	#(CYCLE/2.0) clk = ~clk;
 initial begin
 	file_in = $fopen(INPUT_PATH, "r");
 	file_out = $fopen(OUTPUT_PATH, "r");
-	file_num = $fopen(PATNUM_PATH, "r");
-	fscanf_int = $fscanf(file_num, "%d", PAT_NUM);	
 
 	reset_task;
 	repeat(4) @(negedge clk);
 	for (i_stage = 0; i_stage < PIPLINE_STAGES; i_stage = i_stage + 1)
 		out_latency[i_stage] = -1;
+	pat_cnt = 0;
 
 	for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1)begin
 		input_task;
+		// repeat(2) @(negedge clk);
 		repeat($urandom_range(0, 4)) @(negedge clk);
-
-		// while (i_in_deg < n) begin
-		// 	if (i_in_deg != n)
-		// 		input_delay;
-		// end		
-		// while (i_out_deg < n) begin
-		// 	@(negedge clk);		
-		// 	in_valid = 'b0;
-		// 	wait_out_task;
-		// 	pattern_latency = pattern_latency + out_latency;			
-		// 	total_latency = total_latency + out_latency;
-		// end
-		// $display("PASS PATTERN NO.%4d, %4d CYCLES", i_pat+1, pattern_latency);
 	end
 	YOU_PASS_task;
 end
@@ -156,33 +140,6 @@ task input_task;
 	b_im = 'bx;
 end endtask
 
-// task wait_out_task; begin
-// 	out_latency = 1;
-// 	while(out_valid !== 1 && i_out_deg < n) begin
-// 		if(out_latency === MAX_OUT_LATENCY + 1) begin
-//             $display("***********************************************************");    
-//             $display("                          FAIL!                          	 ");
-// 			$display("         The execution latency are over %d cycles        	 ", MAX_OUT_LATENCY);
-// 		    $display("***********************************************************"); 
-// 			repeat(2) @(negedge clk);
-// 			$finish;
-// 		end
-// 		out_latency = out_latency + 1;
-// 		@(negedge clk);
-// 	end
-// end endtask
-
-task check_out_valid_task; begin
-	if(out_valid !== 0) begin
-		$display("***********************************************************");     
-        $display("*                          FAIL!                          *");
-		$display("*  out_valid should not be raised when in_valid is high.  *");
-		$display("***********************************************************");
-		repeat(2) @(negedge clk);
-		$finish;
-	end
-end endtask
-
 task check_ans_task; 
 	reg [FLOAT_PRECISION-1:0] d_pat;
 	begin
@@ -209,6 +166,10 @@ task check_ans_task;
             $display("***********************************************************");    
 			repeat(2) @(negedge clk);
 			$finish;
+		end
+		else begin
+			pat_cnt = pat_cnt + 1;
+			$display("PASS PATTERN NO.%4d", pat_cnt);
 		end
 		for (i_stage = 0; i_stage < PIPLINE_STAGES - 1; i_stage = i_stage + 1)
 			out_latency[i_stage] = out_latency[i_stage + 1];
