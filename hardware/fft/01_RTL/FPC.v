@@ -38,10 +38,10 @@ wire [2:0] rnd = 3'b000;
 //   Submodule
 //---------------------------------------------------------------------
 DW_fp_add #(sig_width, exp_width, ieee_compliance)
-u_FPC_ADD_0 ( .a(a_re), .b(b_re), .rnd(rnd), .z(d_re));
+u_FPR_ADD_0 ( .a(a_re), .b(b_re), .rnd(rnd), .z(d_re));
 
 DW_fp_add #(sig_width, exp_width, ieee_compliance)
-u_FPC_ADD_1 ( .a(a_im), .b(b_im), .rnd(rnd), .z(d_im));
+u_FPR_ADD_1 ( .a(a_im), .b(b_im), .rnd(rnd), .z(d_im));
 
 endmodule
 
@@ -85,10 +85,10 @@ wire [2:0] rnd = 3'b000;
 //   Submodule
 //---------------------------------------------------------------------
 DW_fp_sub #(sig_width, exp_width, ieee_compliance)
-u_FPC_SUB_0 ( .a(a_re), .b(b_re), .rnd(rnd), .z(d_re));
+u_FPR_SUB_0 ( .a(a_re), .b(b_re), .rnd(rnd), .z(d_re));
 
 DW_fp_sub #(sig_width, exp_width, ieee_compliance)
-u_FPC_SUB_1 ( .a(a_im), .b(b_im), .rnd(rnd), .z(d_im));
+u_FPR_SUB_1 ( .a(a_im), .b(b_im), .rnd(rnd), .z(d_im));
 
 endmodule
 
@@ -145,22 +145,22 @@ reg [FLOAT_PRECISION-1:0] a_im_x_b_re, a_im_x_b_re_reg;
 //   Submodule
 //---------------------------------------------------------------------
 DW_fp_mult #(sig_width, exp_width, ieee_compliance)
-u_FPC_MUL_0 ( .a(a_re), .b(b_re), .rnd(rnd), .z(a_re_x_b_re));
+u_FPR_MUL_0 ( .a(a_re), .b(b_re), .rnd(rnd), .z(a_re_x_b_re));
 
 DW_fp_mult #(sig_width, exp_width, ieee_compliance)
-u_FPC_MUL_1 ( .a(a_im), .b(b_im), .rnd(rnd), .z(a_im_x_b_im));
+u_FPR_MUL_1 ( .a(a_im), .b(b_im), .rnd(rnd), .z(a_im_x_b_im));
 
 DW_fp_mult #(sig_width, exp_width, ieee_compliance)
-u_FPC_MUL_2 ( .a(a_re), .b(b_im), .rnd(rnd), .z(a_re_x_b_im));
+u_FPR_MUL_2 ( .a(a_re), .b(b_im), .rnd(rnd), .z(a_re_x_b_im));
 
 DW_fp_mult #(sig_width, exp_width, ieee_compliance)
-u_FPC_MUL_3 ( .a(a_im), .b(b_re), .rnd(rnd), .z(a_im_x_b_re));
+u_FPR_MUL_3 ( .a(a_im), .b(b_re), .rnd(rnd), .z(a_im_x_b_re));
 
 DW_fp_sub #(sig_width, exp_width, ieee_compliance)
-u_FPC_SUB ( .a(a_re_x_b_re_reg), .b(a_im_x_b_im_reg), .rnd(rnd), .z(d_re));
+u_FPR_SUB ( .a(a_re_x_b_re_reg), .b(a_im_x_b_im_reg), .rnd(rnd), .z(d_re));
 
 DW_fp_add #(sig_width, exp_width, ieee_compliance)
-u_FPC_ADD ( .a(a_re_x_b_im_reg), .b(a_im_x_b_re_reg), .rnd(rnd), .z(d_im));
+u_FPR_ADD ( .a(a_re_x_b_im_reg), .b(a_im_x_b_re_reg), .rnd(rnd), .z(d_im));
 
 //---------------------------------------------------------------------
 //   Sequential Logic
