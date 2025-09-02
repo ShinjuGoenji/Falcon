@@ -42,20 +42,24 @@ end
     POLY_INVNORM2_FFT #(.FLOAT_PRECISION(FLOAT_PRECISION)) u_POLY_INVNORM2_FFT (
     .clk(clk),
     .rst_n(rst_n),
+    .in_valid(in_valid),
     .a_re(a_re),
     .a_im(a_im),
     .b_re(b_re),
     .b_im(b_im),
+    .out_valid(out_valid),
     .d(d)
     );
 `elsif GATE
     POLY_INVNORM2_FFT #(.FLOAT_PRECISION(FLOAT_PRECISION)) u_POLY_INVNORM2_FFT (
     .clk(clk),
     .rst_n(rst_n),
+    .in_valid(in_valid),
     .a_re(a_re),
     .a_im(a_im),
     .b_re(b_re),
     .b_im(b_im),
+    .out_valid(out_valid),
     .d(d)
     );
 `endif
@@ -63,10 +67,12 @@ end
 PATTERN #(.FLOAT_PRECISION(FLOAT_PRECISION)) u_PATTERN (
     .clk(clk),
     .rst_n(rst_n),
+    .in_valid(in_valid),
     .a_re(a_re),
     .a_im(a_im),
     .b_re(b_re),
     .b_im(b_im),
+    .out_valid(out_valid),
     .d(d)
     );
  
