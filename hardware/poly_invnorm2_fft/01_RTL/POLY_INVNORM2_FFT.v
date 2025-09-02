@@ -46,10 +46,10 @@ reg [FLOAT_PRECISION-1:0] a_im_2;
 reg [FLOAT_PRECISION-1:0] b_re_2;
 reg [FLOAT_PRECISION-1:0] b_im_2;
 
-reg [FLOAT_PRECISION-1:0] a_norm_2, next_a_norm_2;
-reg [FLOAT_PRECISION-1:0] b_norm_2, next_b_norm_2;
+reg [FLOAT_PRECISION-1:0] a_norm_2;
+reg [FLOAT_PRECISION-1:0] b_norm_2;
 
-reg [FLOAT_PRECISION-1:0] a_norm_2_b_norm_2;
+reg [FLOAT_PRECISION-1:0] a_norm_2_b_norm_2, next_a_norm_2_b_norm_2;
 reg [FLOAT_PRECISION-1:0] next_d;
 
 //---------------------------------------------------------------------
@@ -68,13 +68,13 @@ DW_fp_square #(sig_width, exp_width, ieee_compliance)
 u_FPR_SQR_3 ( .a(b_im), .rnd(rnd), .z(b_im_2));
 
 DW_fp_add #(sig_width, exp_width, ieee_compliance)
-u_FPR_ADD_0 ( .a(a_re_2), .b(a_im_2), .rnd(rnd), .z(next_a_norm_2));
+u_FPR_ADD_0 ( .a(a_re_2), .b(a_im_2), .rnd(rnd), .z(a_norm_2));
 
 DW_fp_add #(sig_width, exp_width, ieee_compliance)
-u_FPR_ADD_1 ( .a(b_re_2), .b(b_im_2), .rnd(rnd), .z(next_b_norm_2));
+u_FPR_ADD_1 ( .a(b_re_2), .b(b_im_2), .rnd(rnd), .z(b_norm_2));
 
 DW_fp_add #(sig_width, exp_width, ieee_compliance)
-u_FPR_ADD_2 ( .a(a_norm_2), .b(b_norm_2), .rnd(rnd), .z(a_norm_2_b_norm_2));
+u_FPR_ADD_2 ( .a(a_norm_2), .b(b_norm_2), .rnd(rnd), .z(next_a_norm_2_b_norm_2));
 
 DW_fp_div #(sig_width, exp_width, ieee_compliance)
 u_FPR_DIV ( .a(one_fp), .b(a_norm_2_b_norm_2), .rnd(rnd), .z(next_d));
@@ -84,13 +84,11 @@ u_FPR_DIV ( .a(one_fp), .b(a_norm_2_b_norm_2), .rnd(rnd), .z(next_d));
 //---------------------------------------------------------------------
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        a_norm_2 <= 0;
-        b_norm_2 <= 0;
+        a_norm_2_b_norm_2 <= 0;
         d <= 0;
     end
     else begin
-        a_norm_2 <= next_a_norm_2;
-        b_norm_2 <= next_b_norm_2;
+        a_norm_2_b_norm_2 <= next_a_norm_2_b_norm_2;
         d <= next_d;
     end
 end
