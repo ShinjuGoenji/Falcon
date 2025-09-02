@@ -1,0 +1,78 @@
+ 
+****************************************
+check_design summary:
+Version:     T-2022.03
+Date:        Tue Sep  2 20:37:43 2025
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Nets                                                               64
+    Unloaded nets (LINT-2)                                         64
+--------------------------------------------------------------------------------
+
+Warning: In design 'POLY_INVNORM2_FFT', net 'net68' driven by pin 'u_FPR_DIV/status_0' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net67' driven by pin 'u_FPR_DIV/status_1' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net66' driven by pin 'u_FPR_DIV/status_2' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net65' driven by pin 'u_FPR_DIV/status_3' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net64' driven by pin 'u_FPR_DIV/status_4' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net63' driven by pin 'u_FPR_DIV/status_5' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net62' driven by pin 'u_FPR_DIV/status_6' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net61' driven by pin 'u_FPR_DIV/status_7' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net60' driven by pin 'u_FPR_ADD_1/status_0' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net59' driven by pin 'u_FPR_ADD_1/status_1' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net58' driven by pin 'u_FPR_ADD_1/status_2' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net57' driven by pin 'u_FPR_ADD_1/status_3' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net56' driven by pin 'u_FPR_ADD_1/status_4' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net55' driven by pin 'u_FPR_ADD_1/status_5' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net54' driven by pin 'u_FPR_ADD_1/status_6' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net53' driven by pin 'u_FPR_ADD_1/status_7' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net52' driven by pin 'u_FPR_ADD_0/status_0' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net51' driven by pin 'u_FPR_ADD_0/status_1' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net50' driven by pin 'u_FPR_ADD_0/status_2' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net49' driven by pin 'u_FPR_ADD_0/status_3' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net48' driven by pin 'u_FPR_ADD_0/status_4' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net47' driven by pin 'u_FPR_ADD_0/status_5' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net46' driven by pin 'u_FPR_ADD_0/status_6' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net45' driven by pin 'u_FPR_ADD_0/status_7' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net44' driven by pin 'u_FPR_ADD_2/status_0' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net43' driven by pin 'u_FPR_ADD_2/status_1' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net42' driven by pin 'u_FPR_ADD_2/status_2' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net41' driven by pin 'u_FPR_ADD_2/status_3' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net40' driven by pin 'u_FPR_ADD_2/status_4' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net39' driven by pin 'u_FPR_ADD_2/status_5' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net38' driven by pin 'u_FPR_ADD_2/status_6' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net37' driven by pin 'u_FPR_ADD_2/status_7' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net36' driven by pin 'u_FPR_SQR_3/status_0' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net35' driven by pin 'u_FPR_SQR_3/status_1' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net34' driven by pin 'u_FPR_SQR_3/status_2' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net33' driven by pin 'u_FPR_SQR_3/status_3' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net32' driven by pin 'u_FPR_SQR_3/status_4' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net31' driven by pin 'u_FPR_SQR_3/status_5' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net30' driven by pin 'u_FPR_SQR_3/status_6' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net29' driven by pin 'u_FPR_SQR_3/status_7' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net28' driven by pin 'u_FPR_SQR_2/status_0' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net27' driven by pin 'u_FPR_SQR_2/status_1' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net26' driven by pin 'u_FPR_SQR_2/status_2' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net25' driven by pin 'u_FPR_SQR_2/status_3' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net24' driven by pin 'u_FPR_SQR_2/status_4' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net23' driven by pin 'u_FPR_SQR_2/status_5' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net22' driven by pin 'u_FPR_SQR_2/status_6' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net21' driven by pin 'u_FPR_SQR_2/status_7' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net20' driven by pin 'u_FPR_SQR_1/status_0' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net19' driven by pin 'u_FPR_SQR_1/status_1' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net18' driven by pin 'u_FPR_SQR_1/status_2' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net17' driven by pin 'u_FPR_SQR_1/status_3' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net16' driven by pin 'u_FPR_SQR_1/status_4' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net15' driven by pin 'u_FPR_SQR_1/status_5' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net14' driven by pin 'u_FPR_SQR_1/status_6' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net13' driven by pin 'u_FPR_SQR_1/status_7' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net12' driven by pin 'u_FPR_SQR_0/status_0' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net11' driven by pin 'u_FPR_SQR_0/status_1' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net10' driven by pin 'u_FPR_SQR_0/status_2' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net9' driven by pin 'u_FPR_SQR_0/status_3' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net8' driven by pin 'u_FPR_SQR_0/status_4' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net7' driven by pin 'u_FPR_SQR_0/status_5' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net6' driven by pin 'u_FPR_SQR_0/status_6' has no loads. (LINT-2)
+Warning: In design 'POLY_INVNORM2_FFT', net 'net5' driven by pin 'u_FPR_SQR_0/status_7' has no loads. (LINT-2)
+1
