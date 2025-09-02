@@ -30,7 +30,7 @@ alib-52/
 *.svf
 *.mr
 *.sdf
-# filenames_*
+filenames_*
 
 # 03_GATE
 check.log
