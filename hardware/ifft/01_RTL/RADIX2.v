@@ -213,15 +213,15 @@ assign mult_di_im = output_mux ? delay_do_im : butterfly_X_im;
 //---------------------------------------------------------------------
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        i_valid <= 0;
-        di_re_reg <= 0;
-        di_im_reg <= 0;
-        state_reg <= 0;
+        i_valid <= 1'b0;
+        di_re_reg <= {FLOAT_PRECISION{1'b0}};
+        di_im_reg <= {FLOAT_PRECISION{1'b0}};
+        state_reg <= 1'b0;
         cnt_reg <= 0;
-        mult_di_re_reg <= 0;
-        mult_di_im_reg <= 0;
-        in_valid_reg <= 0;
-        mult_in_valid <= 0;
+        mult_di_re_reg <= {FLOAT_PRECISION{1'b0}};
+        mult_di_im_reg <= {FLOAT_PRECISION{1'b0}};
+        in_valid_reg <= 1'b0;
+        mult_in_valid <= 1'b0;
     end
     else begin
         state_reg <= state;

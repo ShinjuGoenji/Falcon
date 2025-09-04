@@ -226,28 +226,28 @@ u_stage_8 (
 //---------------------------------------------------------------------
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        in_valid_reg <= 0;
-        fi_re_reg <= 0;
-        fi_im_reg <= 0;
-        s_re_1_reg <= 0;
-        s_im_1_reg <= 0;
-        s_re_2_reg <= 0;
-        s_im_2_reg <= 0;
-        s_re_3_reg <= 0;
-        s_im_3_reg <= 0;
-        s_re_4_reg <= 0;
-        s_im_4_reg <= 0;
-        s_re_5_reg <= 0;
-        s_im_5_reg <= 0;
-        s_re_6_reg <= 0;
-        s_im_6_reg <= 0;
-        s_re_7_reg <= 0;
-        s_im_7_reg <= 0;
-        s_re_8_reg <= 0;
-        s_im_8_reg <= 0;
-        out_valid <= 0;
-        fo_re <= 0;
-        fo_im <= 0; 
+        in_valid_reg <= 1'b0;
+        fi_re_reg <= {FLOAT_PRECISION{1'b0}};
+        fi_im_reg <= {FLOAT_PRECISION{1'b0}};
+        s_re_1_reg <= {FLOAT_PRECISION{1'b0}};
+        s_im_1_reg <= {FLOAT_PRECISION{1'b0}};
+        s_re_2_reg <= {FLOAT_PRECISION{1'b0}};
+        s_im_2_reg <= {FLOAT_PRECISION{1'b0}};
+        s_re_3_reg <= {FLOAT_PRECISION{1'b0}};
+        s_im_3_reg <= {FLOAT_PRECISION{1'b0}};
+        s_re_4_reg <= {FLOAT_PRECISION{1'b0}};
+        s_im_4_reg <= {FLOAT_PRECISION{1'b0}};
+        s_re_5_reg <= {FLOAT_PRECISION{1'b0}};
+        s_im_5_reg <= {FLOAT_PRECISION{1'b0}};
+        s_re_6_reg <= {FLOAT_PRECISION{1'b0}};
+        s_im_6_reg <= {FLOAT_PRECISION{1'b0}};
+        s_re_7_reg <= {FLOAT_PRECISION{1'b0}};
+        s_im_7_reg <= {FLOAT_PRECISION{1'b0}};
+        s_re_8_reg <= {FLOAT_PRECISION{1'b0}};
+        s_im_8_reg <= {FLOAT_PRECISION{1'b0}};
+        out_valid <= 1'b0;
+        fo_re <= {FLOAT_PRECISION{1'b0}};
+        fo_im <= {FLOAT_PRECISION{1'b0}}; 
     end
     else begin
         in_valid_reg <= in_valid;

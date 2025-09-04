@@ -167,11 +167,11 @@ u_FPR_ADD ( .a(a_re_x_b_im_reg), .b(a_im_x_b_re_reg), .rnd(rnd), .z(d_im));
 //---------------------------------------------------------------------
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        mult_valid <= 0;
-        a_re_x_b_re_reg <= 0;
-        a_im_x_b_im_reg <= 0;
-        a_re_x_b_im_reg <= 0;
-        a_im_x_b_re_reg <= 0;
+        mult_valid <= 1'b0;
+        a_re_x_b_re_reg <= {FLOAT_PRECISION{1'b0}};
+        a_im_x_b_im_reg <= {FLOAT_PRECISION{1'b0}};
+        a_re_x_b_im_reg <= {FLOAT_PRECISION{1'b0}};
+        a_im_x_b_re_reg <= {FLOAT_PRECISION{1'b0}};
     end
     else begin
         mult_valid <= in_valid;

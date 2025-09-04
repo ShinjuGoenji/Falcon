@@ -8,7 +8,7 @@
 # (A) Global Parameters
 #======================================================
 set DESIGN "IFFT"
-set CYCLE 2.1
+set CYCLE 3.0
 set INPUT_DLY [expr 0.5*$CYCLE]
 set OUTPUT_DLY [expr 0.5*$CYCLE]
 
