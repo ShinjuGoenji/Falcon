@@ -3,7 +3,7 @@
 Report : area
 Design : POLY_INVNORM2_FFT
 Version: T-2022.03
-Date   : Wed Sep  3 01:09:20 2025
+Date   : Thu Sep  4 07:31:23 2025
 ****************************************
 
 Library(s) Used:
@@ -12,21 +12,21 @@ Library(s) Used:
     sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
 
-Number of ports:                          538
-Number of nets:                         64884
-Number of cells:                        59215
-Number of combinational cells:          58184
-Number of sequential cells:              1030
+Number of ports:                          539
+Number of nets:                         65495
+Number of cells:                        59742
+Number of combinational cells:          58221
+Number of sequential cells:              1520
 Number of macros/black boxes:               0
-Number of buf/inv:                      10539
-Number of references:                     521
+Number of buf/inv:                      10517
+Number of references:                     565
 
-Combinational area:             115671.174586
-Buf/Inv area:                     9844.027191
-Noncombinational area:            5009.785170
+Combinational area:             109788.209353
+Buf/Inv area:                     8811.633561
+Noncombinational area:            7277.558302
 Macro/Black Box area:                0.000000
 Net Interconnect area:               0.000000
 
-Total cell area:                120680.959756
-Total area:                     120680.959756
+Total cell area:                117065.767655
+Total area:                     117065.767655
 1

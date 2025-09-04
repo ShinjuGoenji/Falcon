@@ -3,45 +3,45 @@
 Report : resources
 Design : POLY_INVNORM2_FFT
 Version: T-2022.03
-Date   : Wed Sep  3 01:09:20 2025
+Date   : Thu Sep  4 07:31:22 2025
 ****************************************
 
 
-Resource Report for this hierarchy in file ../01_RTL/POLY_INVNORM2_FFT.v
+Resource Report for this hierarchy
 =============================================================================
 | Cell           | Module         | Parameters | Contained Operations       |
 =============================================================================
-| u_FPR_SQR_0    | DW_fp_square   | sig_width=52 | u_FPR_SQR_0 (POLY_INVNORM2_FFT.v:77) |
+| u_FPR_SQR_0    | DW_fp_square   | sig_width=52 | u_FPR_SQR_0 (POLY_INVNORM2_FFT.v:73) |
      |                | exp_width=11 |                          |
 |                |                | ieee_compliance=0 |                     |
-| u_FPR_SQR_1    | DW_fp_square   | sig_width=52 | u_FPR_SQR_1 (POLY_INVNORM2_FFT.v:80) |
+| u_FPR_SQR_1    | DW_fp_square   | sig_width=52 | u_FPR_SQR_1 (POLY_INVNORM2_FFT.v:76) |
      |                | exp_width=11 |                          |
 |                |                | ieee_compliance=0 |                     |
-| u_FPR_SQR_2    | DW_fp_square   | sig_width=52 | u_FPR_SQR_2 (POLY_INVNORM2_FFT.v:83) |
+| u_FPR_SQR_2    | DW_fp_square   | sig_width=52 | u_FPR_SQR_2 (POLY_INVNORM2_FFT.v:79) |
      |                | exp_width=11 |                          |
 |                |                | ieee_compliance=0 |                     |
-| u_FPR_SQR_3    | DW_fp_square   | sig_width=52 | u_FPR_SQR_3 (POLY_INVNORM2_FFT.v:86) |
+| u_FPR_SQR_3    | DW_fp_square   | sig_width=52 | u_FPR_SQR_3 (POLY_INVNORM2_FFT.v:82) |
      |                | exp_width=11 |                          |
 |                |                | ieee_compliance=0 |                     |
-| u_FPR_ADD_0    | DW_fp_add      | sig_width=52 | u_FPR_ADD_0 (POLY_INVNORM2_FFT.v:89) |
+| u_FPR_ADD_0    | DW_fp_add      | sig_width=52 | u_FPR_ADD_0 (POLY_INVNORM2_FFT.v:85) |
      |                | exp_width=11 |                          |
 |                |                | ieee_compliance=0 |                     |
-| u_FPR_ADD_1    | DW_fp_add      | sig_width=52 | u_FPR_ADD_1 (POLY_INVNORM2_FFT.v:92) |
+| u_FPR_ADD_1    | DW_fp_add      | sig_width=52 | u_FPR_ADD_1 (POLY_INVNORM2_FFT.v:88) |
      |                | exp_width=11 |                          |
 |                |                | ieee_compliance=0 |                     |
-| u_FPR_ADD_2    | DW_fp_add      | sig_width=52 | u_FPR_ADD_2 (POLY_INVNORM2_FFT.v:95) |
+| u_FPR_ADD_2    | DW_fp_add      | sig_width=52 | u_FPR_ADD_2 (POLY_INVNORM2_FFT.v:91) |
      |                | exp_width=11 |                          |
 |                |                | ieee_compliance=0 |                     |
-| u_FPR_DIV      | DW_lp_piped_fp_div | sig_width=52 | u_FPR_DIV (POLY_INVNORM2_FFT.v:101) |
-  |                | exp_width=11 |                          |
+| u_FPR_DIV      | DW_lp_piped_fp_div | sig_width=52 | u_FPR_DIV (POLY_INVNORM2_FFT.v:94) |
+   |                | exp_width=11 |                          |
 |                |                | ieee_compliance=0 |                     |
 |                |                | faithful_round=0 |                      |
-|                |                | op_iso_mode=0 |                         |
+|                |                | op_iso_mode=1 |                         |
 |                |                | id_width=1 |                            |
 |                |                | in_reg=0   |                            |
-|                |                | stages=2   |                            |
+|                |                | stages=4   |                            |
 |                |                | out_reg=0  |                            |
-|                |                | no_pm=0    |                            |
+|                |                | no_pm=1    |                            |
 |                |                | rst_mode=0 |                            |
 =============================================================================
 

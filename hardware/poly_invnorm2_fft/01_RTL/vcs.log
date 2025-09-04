@@ -4,7 +4,7 @@ vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/
 +define+RTL +define+ +notimingchecks
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Wed Sep  3 00:55:34 2025
+         Version T-2022.06_Full64 -- Thu Sep  4 03:56:41 2025
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -38,7 +38,7 @@ Top Level Modules:
 TimeScale is 1 ns / 10 ps
 
 Warning-[TFIPC] Too few instance port connections
-POLY_INVNORM2_FFT.v, 77
+POLY_INVNORM2_FFT.v, 73
 POLY_INVNORM2_FFT, "DW_fp_square #(sig_width, exp_width, ieee_compliance) u_FPR_SQR_0( .a (a_re),  .rnd (rnd),  .z (next_a_re_2));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
@@ -46,7 +46,7 @@ POLY_INVNORM2_FFT, "DW_fp_square #(sig_width, exp_width, ieee_compliance) u_FPR_
 
 
 Warning-[TFIPC] Too few instance port connections
-POLY_INVNORM2_FFT.v, 80
+POLY_INVNORM2_FFT.v, 76
 POLY_INVNORM2_FFT, "DW_fp_square #(sig_width, exp_width, ieee_compliance) u_FPR_SQR_1( .a (a_im),  .rnd (rnd),  .z (next_a_im_2));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
@@ -54,7 +54,7 @@ POLY_INVNORM2_FFT, "DW_fp_square #(sig_width, exp_width, ieee_compliance) u_FPR_
 
 
 Warning-[TFIPC] Too few instance port connections
-POLY_INVNORM2_FFT.v, 83
+POLY_INVNORM2_FFT.v, 79
 POLY_INVNORM2_FFT, "DW_fp_square #(sig_width, exp_width, ieee_compliance) u_FPR_SQR_2( .a (b_re),  .rnd (rnd),  .z (next_b_re_2));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
@@ -62,7 +62,7 @@ POLY_INVNORM2_FFT, "DW_fp_square #(sig_width, exp_width, ieee_compliance) u_FPR_
 
 
 Warning-[TFIPC] Too few instance port connections
-POLY_INVNORM2_FFT.v, 86
+POLY_INVNORM2_FFT.v, 82
 POLY_INVNORM2_FFT, "DW_fp_square #(sig_width, exp_width, ieee_compliance) u_FPR_SQR_3( .a (b_im),  .rnd (rnd),  .z (next_b_im_2));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
@@ -70,7 +70,7 @@ POLY_INVNORM2_FFT, "DW_fp_square #(sig_width, exp_width, ieee_compliance) u_FPR_
 
 
 Warning-[TFIPC] Too few instance port connections
-POLY_INVNORM2_FFT.v, 89
+POLY_INVNORM2_FFT.v, 85
 POLY_INVNORM2_FFT, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPR_ADD_0( .a (a_re_2),  .b (a_im_2),  .rnd (rnd),  .z (a_norm_2));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
@@ -78,7 +78,7 @@ POLY_INVNORM2_FFT, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPR_ADD
 
 
 Warning-[TFIPC] Too few instance port connections
-POLY_INVNORM2_FFT.v, 92
+POLY_INVNORM2_FFT.v, 88
 POLY_INVNORM2_FFT, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPR_ADD_1( .a (b_re_2),  .b (b_im_2),  .rnd (rnd),  .z (b_norm_2));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
@@ -86,7 +86,7 @@ POLY_INVNORM2_FFT, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPR_ADD
 
 
 Warning-[TFIPC] Too few instance port connections
-POLY_INVNORM2_FFT.v, 95
+POLY_INVNORM2_FFT.v, 91
 POLY_INVNORM2_FFT, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPR_ADD_2( .a (a_norm_2),  .b (b_norm_2),  .rnd (rnd),  .z (next_a_norm_2_b_norm_2));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
@@ -94,8 +94,8 @@ POLY_INVNORM2_FFT, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPR_ADD
 
 
 Warning-[TFIPC] Too few instance port connections
-POLY_INVNORM2_FFT.v, 101
-POLY_INVNORM2_FFT, "DW_lp_piped_fp_div #(sig_width, exp_width, ieee_compliance, faithful_round, op_iso_mode, id_width, in_reg, stages, out_reg, no_pm, rst_mode) u_FPR_DIV( .clk (clk),  .rst_n (rst_n),  .a (one_fp),  .b (a_norm_2_b_norm_2),  .rnd (rnd),  .z (next_d),  .launch (in_valid_reg_2),  .launch_id (1'b0),  .accept_n (1'b0),  .arrive (arrive));"
+POLY_INVNORM2_FFT.v, 94
+POLY_INVNORM2_FFT, "DW_lp_piped_fp_div #(sig_width, exp_width, ieee_compliance, faithful_round, op_iso_mode, id_width, in_reg, stages, out_reg, no_pm, rst_mode) u_FPR_DIV( .clk (clk),  .rst_n (rst_n),  .a (one_fp),  .b (a_norm_2_b_norm_2),  .rnd (rnd),  .z (next_d),  .launch (1'b1),  .launch_id (1'b0),  .accept_n (1'b0));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
   ports.
@@ -106,7 +106,7 @@ Starting vcs inline pass...
 Note-[VCS_PARAL] Parallel code-gen enabled
   VCS is running with parallel code generation(-j)...
 
-3 modules and 0 UDP read.
+4 modules and 0 UDP read.
 recompiling module TESTBED
 	However, due to incremental compilation, only 1 module needs to be compiled. 
 make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/poly_invnorm2_fft/01_RTL/csrc' \
@@ -117,7 +117,7 @@ rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
--Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _24359_archive_1.so _24376_archive_1.so \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _21454_archive_1.so _21477_archive_1.so \
 _prev_archive_1.so _cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o \
 rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs \
 /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile \
@@ -131,7 +131,7 @@ make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/poly_invnorm2_fft/0
 Command: /home/daniel_kuo/Falcon/hardware/poly_invnorm2_fft/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
 Chronologic VCS simulator copyright 1991-2022
 Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Sep  3 00:55 2025
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Sep  4 03:56 2025
 *Verdi* Loading libsscore_vcs202206.so
 FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 (C) 1996 - 2022 by Synopsys, Inc.
@@ -15231,16 +15231,16 @@ PASS PATTERN NO.15088
 PASS PATTERN NO.15089
 PASS PATTERN NO.15090
 PASS PATTERN NO.15091
-PASS PATTERN NO.15092
 --------------------------------------------------------------------
                          Congratulations!                           
                   You have passed all patterns!                     
                   Your clock period = 2.0 ns                       
 --------------------------------------------------------------------
+PASS PATTERN NO.15092
 $finish called from file "PATTERN.v", line 187.
 $finish at simulation time              9047900
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 90479000 ps
-CPU Time:      1.670 seconds;       Data structure size:   0.0Mb
-Wed Sep  3 00:55:37 2025
-CPU time: .367 seconds to compile + .245 seconds to elab + .234 seconds to link + 1.713 seconds in simulation
+CPU Time:      2.670 seconds;       Data structure size:   0.1Mb
+Thu Sep  4 03:56:45 2025
+CPU time: .380 seconds to compile + .214 seconds to elab + .163 seconds to link + 2.693 seconds in simulation
