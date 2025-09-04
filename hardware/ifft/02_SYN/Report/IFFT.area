@@ -1,0 +1,32 @@
+ 
+****************************************
+Report : area
+Design : IFFT
+Version: T-2022.03
+Date   : Thu Sep  4 07:57:54 2025
+****************************************
+
+Library(s) Used:
+
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+
+Number of ports:                         1356
+Number of nets:                        532635
+Number of cells:                       488975
+Number of combinational cells:         450598
+Number of sequential cells:             38377
+Number of macros/black boxes:               0
+Number of buf/inv:                      90946
+Number of references:                    1087
+
+Combinational area:             773483.018487
+Buf/Inv area:                    74124.363090
+Noncombinational area:          176348.332363
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                949831.350850
+Total area:                     949831.350850
+1

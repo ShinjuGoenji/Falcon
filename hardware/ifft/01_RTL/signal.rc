@@ -1,0 +1,413 @@
+Magic 271485
+Revision Verdi_T-2022.06
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 25 1920 756 237 65
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/home/daniel_kuo/Falcon/hardware/ifft/01_RTL/IFFT.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 101728.119197 111775.335277
+cursor 53400.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 35
+; marker line index
+markerPos 65
+
+; logical expression list
+; addExprSig expr_name expression_string
+activeDirFile "" "/home/daniel_kuo/Falcon/hardware/ifft/01_RTL/IFFT.fsdb"
+
+addExprSig -b 32 -n UU fi_re_exp_FFT[31:0] "/TESTBED/u_IFFT/fi_re[62:0]"==0?0:"/TESTBED/u_IFFT/fi_re[62:52]"-1023\
++127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU fi_re_exp_IFFT[31:0] "/TESTBED/u_IFFT/fi_re[62:0]"==0?0:"/TESTBED/u_IFFT/fi_re[62:52]"-1023\
++127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU fi_re[31:0] {"/TESTBED/u_IFFT/fi_re[63]", "/fi_re_exp_IFFT[7:0]", "/TESTBED/u_IFFT\
+/fi_re[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU fi_im_exp_IFFT[31:0] "/TESTBED/u_IFFT/fi_im[62:0]"==0?0:"/TESTBED/u_IFFT/fi_im[62:52]"-1023\
++127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU fi_im[31:0] {"/TESTBED/u_IFFT/fi_im[63]", "/fi_im_exp_IFFT[7:0]", "/TESTBED/u_IFFT\
+/fi_im[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU fi_im_reg_exp_IFFT[31:0] "/TESTBED/u_IFFT/fi_im_reg[62:0]"==0?0:"/TESTBED/u_IFFT/fi_im_reg[62:5\
+2]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU fi_re_reg_exp_IFFT[31:0] "/TESTBED/u_IFFT/fi_re_reg[62:0]"==0?0:"/TESTBED/u_IFFT/fi_re_reg[62:5\
+2]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU di_re_reg_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/di_re_reg[62:0]"==0?0:"/TESTBED/u_IFFT/u_st\
+age_1/di_re_reg[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU di_re_reg[31:0] {"/TESTBED/u_IFFT/u_stage_1/di_re_reg[63]", "/di_re_reg_exp_IFFT[7:0]"\
+, "/TESTBED/u_IFFT/u_stage_1/di_re_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU di_im_reg_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/di_im_reg[62:0]"==0?0:"/TESTBED/u_IFFT/u_st\
+age_1/di_im_reg[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU di_im_reg[31:0] {"/TESTBED/u_IFFT/u_stage_1/di_im_reg[63]", "/di_im_reg_exp_IFFT[7:0]"\
+, "/TESTBED/u_IFFT/u_stage_1/di_im_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU butterfly_X_re_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/butterfly_X_re[62:0]"==0?0:"/TESTBED/u_IFFT\
+/u_stage_1/butterfly_X_re[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU butterfly_X_re[31:0] {"/TESTBED/u_IFFT/u_stage_1/butterfly_X_re[63]", "/butterfly_X_re_exp_\
+IFFT[7:0]", "/TESTBED/u_IFFT/u_stage_1/butterfly_X_re[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU butterfly_X_im_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/butterfly_X_im[62:0]"==0?0:"/TESTBED/u_IFFT\
+/u_stage_1/butterfly_X_im[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU butterfly_X_im[31:0] {"/TESTBED/u_IFFT/u_stage_1/butterfly_X_im[63]", "/butterfly_X_im_exp_\
+IFFT[7:0]", "/TESTBED/u_IFFT/u_stage_1/butterfly_X_im[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU butterfly_Y_re_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/butterfly_Y_re[62:0]"==0?0:"/TESTBED/u_IFFT\
+/u_stage_1/butterfly_Y_re[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU butterfly_Y_re[31:0] {"/TESTBED/u_IFFT/u_stage_1/butterfly_Y_re[63]", "/butterfly_Y_re_exp_\
+IFFT[7:0]", "/TESTBED/u_IFFT/u_stage_1/butterfly_Y_re[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU butterfly_Y_im_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/butterfly_Y_im[62:0]"==0?0:"/TESTBED/u_IFFT\
+/u_stage_1/butterfly_Y_im[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU butterfly_Y_im[31:0] {"/TESTBED/u_IFFT/u_stage_1/butterfly_Y_im[63]", "/butterfly_Y_im_exp_\
+IFFT[7:0]", "/TESTBED/u_IFFT/u_stage_1/butterfly_Y_im[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU mult_di_re_reg_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/mult_di_re_reg[62:0]"==0?0:"/TESTBED/u_IFFT\
+/u_stage_1/mult_di_re_reg[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU mult_di_re_reg[31:0] {"/TESTBED/u_IFFT/u_stage_1/mult_di_re_reg[63]", "/mult_di_re_reg_exp_\
+IFFT[7:0]", "/TESTBED/u_IFFT/u_stage_1/mult_di_re_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU mult_di_im_reg_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/mult_di_im_reg[62:0]"==0?0:"/TESTBED/u_IFFT\
+/u_stage_1/mult_di_im_reg[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU mult_di_im_reg[31:0] {"/TESTBED/u_IFFT/u_stage_1/mult_di_im_reg[63]", "/mult_di_im_reg_exp_\
+IFFT[7:0]", "/TESTBED/u_IFFT/u_stage_1/mult_di_im_reg[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU s_re_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/s_re[62:0]"==0?0:"/TESTBED/u_IFFT/u_stage_1\
+/s_re[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU s_re[31:0] {"/TESTBED/u_IFFT/u_stage_1/s_re[63]", "/s_re_exp_IFFT[7:0]", "/TESTBE\
+D/u_IFFT/u_stage_1/s_re[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU s_im_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/s_im[62:0]"==0?0:"/TESTBED/u_IFFT/u_stage_1\
+/s_im[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU s_im[31:0] {"/TESTBED/u_IFFT/u_stage_1/s_im[63]", "/s_im_exp_IFFT[7:0]", "/TESTBE\
+D/u_IFFT/u_stage_1/s_im[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU do_re_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/do_re[62:0]"==0?0:"/TESTBED/u_IFFT/u_stage_\
+1/do_re[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU do_re[31:0] {"/TESTBED/u_IFFT/u_stage_1/do_re[63]", "/do_re_exp_IFFT[7:0]", "/TEST\
+BED/u_IFFT/u_stage_1/do_re[51:29]"}
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UU do_im_exp_IFFT[31:0] "/TESTBED/u_IFFT/u_stage_1/do_im[62:0]"==0?0:"/TESTBED/u_IFFT/u_stage_\
+1/do_im[62:52]"-1023+127
+
+; logical expression list
+; addExprSig expr_name expression_string
+
+addExprSig -b 32 -n UUU do_im[31:0] {"/TESTBED/u_IFFT/u_stage_1/do_im[63]", "/do_im_exp_IFFT[7:0]", "/TEST\
+BED/u_IFFT/u_stage_1/do_im[51:29]"}
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+aliasmapname TESTBED.u_PATTERN.i_in_deg
+nalias n		32'b00000000000000000000000100000000		NULL
+
+aliasmapname RADIX2(@8).cnt_reg
+nalias T		9'b100000000		NULL
+nalias HT		9'b000000001		NULL
+nalias HT		9'b010000000		NULL
+nalias CNT_MAX		9'b110000001		NULL
+
+aliasmapname RADIX2(@7).cnt_reg
+nalias HT		9'b001000000		NULL
+nalias CNT_MAX		9'b101000001		NULL
+nalias T		9'b010000000		NULL
+nalias HT		9'b000000010		NULL
+nalias CNT_MAX		9'b110000000		NULL
+
+aliasmapname RADIX2(@6).cnt_reg
+nalias T		9'b001000000		NULL
+nalias HT		9'b000000100		NULL
+nalias CNT_MAX		9'b101000000		NULL
+nalias HT		9'b000100000		NULL
+nalias CNT_MAX		9'b100100001		NULL
+
+aliasmapname RADIX2(@5).cnt_reg
+nalias HT		9'b000010000		NULL
+nalias CNT_MAX		9'b100010001		NULL
+nalias T		9'b000100000		NULL
+nalias HT		9'b000001000		NULL
+nalias CNT_MAX		9'b100100000		NULL
+
+aliasmapname RADIX2(@4).cnt_reg
+nalias T		9'b000010000		NULL
+nalias CNT_MAX		9'b100010000		NULL
+nalias HT		9'b000001000		NULL
+nalias CNT_MAX		9'b100001001		NULL
+
+aliasmapname RADIX2(@3).cnt_reg
+nalias HT		9'b000000100		NULL
+nalias CNT_MAX		9'b100000101		NULL
+nalias T		9'b000001000		NULL
+nalias HT		9'b000100000		NULL
+nalias CNT_MAX		9'b100001000		NULL
+
+aliasmapname RADIX2(@3).i1
+nalias T		5'b01000		NULL
+
+aliasmapname RADIX2(@2).cnt_reg
+nalias T		9'b000000100		NULL
+nalias HT		9'b001000000		NULL
+nalias CNT_MAX		9'b100000100		NULL
+nalias HT		9'b000000010		NULL
+nalias CNT_MAX		9'b100000011		NULL
+
+aliasmapname RADIX2(@2).i1
+nalias T		6'b000100		NULL
+
+aliasmapname RADIX2(@1).delay_mux
+nalias HT		1'b1		NULL
+
+aliasmapname TESTBED.u_IFFT.u_stage_1.state
+nalias S_IDLE		1'b0		NULL
+nalias S_EXE		1'b1		NULL
+
+aliasmapname RADIX2(@1).cnt_reg
+nalias HT		9'b000000001		NULL
+nalias T		9'b000000010		NULL
+nalias HT		9'b010000000		NULL
+nalias CNT_MAX		9'b100000010		NULL
+
+aliasmapname RADIX2(@1).i1
+nalias T		7'b0000010		NULL
+
+aliasmapname TESTBED.u_IFFT.u_stage_1.u_DELAY_BUFFER.buf_im
+nalias DEPTH		1'b1		NULL
+
+aliasmapname RADIX2(@8).delay_mux
+nalias HT		1'b1		NULL
+
+aliasmapname RADIX2(@8).i1
+nalias T		7'b0000010		NULL
+
+aliasmapname TESTBED.u_IFFT.u_stage_8.u_DELAY_BUFFER.buf_im
+nalias DEPTH		1'b1		NULL
+
+aliasmapname RADIX2(@7).i1
+nalias T		6'b000100		NULL
+
+aliasmapname RADIX2(@6).i1
+nalias T		5'b01000		NULL
+
+addGroup "G1"
+activeDirFile "" "/home/daniel_kuo/Falcon/hardware/ifft/01_RTL/IFFT.fsdb"
+addSignal -h 15 /TESTBED/u_IFFT/clk
+addSignal -h 15 -holdScope rst_n
+addSignal -h 15 -holdScope in_valid
+addSignal -h 15 -UNSIGNED -IEEE754 /fi_re[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope fi_im[31:0]
+addGroup "STAGE1" -e FALSE
+addSubGroup "G2"
+addSignal -h 15 /TESTBED/u_IFFT/u_stage_1/i_valid
+addSignal -h 15 -UNSIGNED -IEEE754 /di_re_reg[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope di_im_reg[31:0]
+endSubGroup "G2"
+addSubGroup "G3"
+aliasname RADIX2(@1).delay_mux
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_IFFT/u_stage_1/delay_mux
+addSignal -h 15 -holdScope i_valid
+aliasname TESTBED.u_IFFT.u_stage_1.state
+addSignal -h 15 -UNSIGNED -HEX -holdScope state_reg
+aliasname RADIX2(@1).cnt_reg
+addSignal -h 15 -UNSIGNED -HEX -holdScope cnt_reg[8:0]
+endSubGroup "G3"
+addSubGroup "G4"
+addSignal -h 15 -UNSIGNED -IEEE754 /butterfly_X_re[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope butterfly_X_im[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope butterfly_Y_re[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope butterfly_Y_im[31:0]
+endSubGroup "G4"
+addSubGroup "G5"
+addSignal -h 15 /TESTBED/u_IFFT/u_stage_1/output_mux
+addSignal -h 15 -UNSIGNED -IEEE754 /mult_di_re_reg[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope mult_di_im_reg[31:0]
+addSignal -h 15 /TESTBED/u_IFFT/u_stage_1/tw_mask
+aliasname RADIX2(@1).i1
+addSignal -h 15 -UNSIGNED -HEX -holdScope i1[7:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope tw_idx[8:0]
+addSignal -h 15 -UNSIGNED -IEEE754 /s_re[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope s_im[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope do_re[31:0]
+addSignal -h 15 -UNSIGNED -IEEE754 -holdScope do_im[31:0]
+addSignal -h 15 /TESTBED/u_IFFT/u_stage_1/out_valid
+endSubGroup "G5"
+addGroup "STAGE2"
+addSubGroup "G7"
+addSignal -h 15 /TESTBED/u_IFFT/u_stage_2/i_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope di_re_reg[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope di_im_reg[63:0]
+endSubGroup "G7"
+addSubGroup "G5"
+addSignal -h 15 /TESTBED/u_IFFT/u_stage_2/delay_mux
+addSignal -h 15 -holdScope i_valid
+aliasname TESTBED.u_IFFT.u_stage_1.state
+addSignal -h 15 -UNSIGNED -HEX -holdScope state_reg
+aliasname RADIX2(@2).cnt_reg
+addSignal -h 15 -UNSIGNED -HEX -holdScope cnt_reg[8:0]
+addSignal -h 15 -holdScope output_mux
+addSignal -h 15 -UNSIGNED -HEX -holdScope mult_di_re_reg[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope mult_di_im_reg[63:0]
+addSignal -h 15 -holdScope tw_mask
+aliasname RADIX2(@2).i1
+addSignal -h 15 -UNSIGNED -HEX -holdScope i1[6:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope tw_idx[8:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope s_re[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope s_im[63:0]
+endSubGroup "G5"
+addSubGroup "G6"
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_IFFT/u_stage_2/butterfly_X_re[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope butterfly_X_im[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope butterfly_Y_re[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope butterfly_Y_im[63:0]
+endSubGroup "G6"
+addGroup "STAGE8"
+addSubGroup "G5"
+addSignal -h 15 /TESTBED/u_IFFT/u_stage_8/i_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope di_re_reg[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope di_im_reg[63:0]
+endSubGroup "G5"
+addGroup "G5"
+addSignal -h 15 /TESTBED/u_IFFT/u_stage_8/delay_mux
+aliasname TESTBED.u_IFFT.u_stage_1.state
+addSignal -h 15 -UNSIGNED -HEX -holdScope state_reg
+aliasname RADIX2(@8).cnt_reg
+addSignal -h 15 -UNSIGNED -UDEC -holdScope cnt_reg[8:0]
+addSignal -h 15 -holdScope output_mux
+addGroup "G6"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+
