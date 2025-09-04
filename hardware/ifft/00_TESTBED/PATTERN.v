@@ -1,7 +1,7 @@
 `ifdef RTL
     `define CYCLE_TIME 2.0
 `elsif GATE
-    `define CYCLE_TIME 2.1
+    `define CYCLE_TIME 3.0
 `else
     `define CYCLE_TIME 2.0
 `endif

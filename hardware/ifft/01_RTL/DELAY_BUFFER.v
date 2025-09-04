@@ -37,9 +37,9 @@ reg [FLOAT_PRECISION-1:0] buf_im [0:DEPTH-1];
 //---------------------------------------------------------------------
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        buf_valid[0] <= 0;
-        buf_re[0] <= 0;
-        buf_im[0] <= 0;
+        buf_valid[0] <= 1'b0;
+        buf_re[0] <= {FLOAT_PRECISION{1'b0}};
+        buf_im[0] <= {FLOAT_PRECISION{1'b0}};
     end
     else begin
         if (ena) begin
@@ -60,9 +60,9 @@ generate
     for (i_depth = 1; i_depth < DEPTH; i_depth = i_depth + 1) begin
         always @(posedge clk or negedge rst_n) begin
             if (!rst_n) begin
-                buf_valid[i_depth] <= 0;
-                buf_re[i_depth] <= 0;
-                buf_im[i_depth] <= 0;
+                buf_valid[i_depth] <= 1'b0;
+                buf_re[i_depth] <= {FLOAT_PRECISION{1'b0}};
+                buf_im[i_depth] <= {FLOAT_PRECISION{1'b0}};
             end
             else begin
                 if (ena) begin
