@@ -71,7 +71,7 @@ initial begin
 
 	for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1)begin
 		input_task;
-		// repeat(2) @(negedge clk);
+		// repeat(0) @(negedge clk);
 		repeat($urandom_range(0, 4)) @(negedge clk);
 	end
 	YOU_PASS_task;

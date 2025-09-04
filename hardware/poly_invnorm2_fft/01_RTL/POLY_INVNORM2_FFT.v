@@ -27,12 +27,12 @@ localparam sig_width = 52;
 localparam exp_width = 11;
 localparam ieee_compliance = 0;
 localparam faithful_round = 0;
-localparam op_iso_mode = 0;
+localparam op_iso_mode = 1;
 localparam id_width = 1;
 localparam in_reg = 0;
-localparam stages = 3;
+localparam stages = 6;
 localparam out_reg = 0;
-localparam no_pm = 0;
+localparam no_pm = 1;
 localparam rst_mode = 0;
 
 //---------------------------------------------------------------------
@@ -53,7 +53,6 @@ output reg  [FLOAT_PRECISION-1:0] d;
 wire [2:0] rnd = 3'b000;
 wire [FLOAT_PRECISION-1:0] one_fp = 64'h3FF0_0000_0000_0000;
 
-reg in_valid_reg_1;
 reg [FLOAT_PRECISION-1:0] a_re_2, next_a_re_2;
 reg [FLOAT_PRECISION-1:0] a_im_2, next_a_im_2;
 reg [FLOAT_PRECISION-1:0] b_re_2, next_b_re_2;
@@ -62,11 +61,10 @@ reg [FLOAT_PRECISION-1:0] b_im_2, next_b_im_2;
 reg [FLOAT_PRECISION-1:0] a_norm_2;
 reg [FLOAT_PRECISION-1:0] b_norm_2;
 
-reg in_valid_reg_2;
 reg [FLOAT_PRECISION-1:0] a_norm_2_b_norm_2, next_a_norm_2_b_norm_2;
 reg [FLOAT_PRECISION-1:0] next_d;
 
-wire arrive;
+reg valid_reg [0:stages];
 
 //---------------------------------------------------------------------
 //   Submodule
@@ -96,7 +94,7 @@ DW_lp_piped_fp_div #(sig_width, exp_width, ieee_compliance, faithful_round, op_i
 u_FPR_DIV ( 
     .clk(clk), .rst_n(rst_n),
     .a(one_fp), .b(a_norm_2_b_norm_2), .rnd(rnd), .z(next_d),
-    .launch(in_valid_reg_2), .launch_id(1'b0), .accept_n(1'b0), .arrive(arrive)
+    .launch(1'b1), .launch_id(1'b0), .accept_n(1'b0)
     );
 
 //---------------------------------------------------------------------
@@ -109,9 +107,8 @@ always @(posedge clk or negedge rst_n) begin
         b_re_2 <= 0;
         b_im_2 <= 0;
         a_norm_2_b_norm_2 <= 0;
+        valid_reg[0] <= 0;
         d <= 0;
-        in_valid_reg_1 <= 0;
-        in_valid_reg_2 <= 0;
         out_valid <= 0;
     end
     else begin
@@ -120,11 +117,24 @@ always @(posedge clk or negedge rst_n) begin
         b_re_2 <= next_b_re_2;
         b_im_2 <= next_b_im_2;
         a_norm_2_b_norm_2 <= next_a_norm_2_b_norm_2;
-        d <= (arrive) ? next_d : 0;
-        in_valid_reg_1 <= in_valid;
-        in_valid_reg_2 <= in_valid_reg_1;
-        out_valid <= arrive;
+        valid_reg[0] <= in_valid;
+        d <= next_d;
+        out_valid <= valid_reg[stages];
     end
 end
+
+genvar valid_idx;
+generate
+    for (valid_idx = 1; valid_idx <= stages; valid_idx = valid_idx + 1) begin
+        always @(posedge clk or negedge rst_n) begin
+            if (!rst_n) begin
+                valid_reg[valid_idx] <= 0;
+            end
+            else begin
+                valid_reg[valid_idx] <= valid_reg[valid_idx-1];
+            end
+        end
+    end
+endgenerate
 
 endmodule

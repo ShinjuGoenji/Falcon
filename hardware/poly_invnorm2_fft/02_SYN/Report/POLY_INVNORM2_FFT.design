@@ -5,7 +5,7 @@ Warning: Design 'POLY_INVNORM2_FFT' contains 1 high-fanout nets. A fanout number
 Report : design
 Design : POLY_INVNORM2_FFT
 Version: T-2022.03
-Date   : Wed Sep  3 01:09:20 2025
+Date   : Thu Sep  4 07:31:22 2025
 ****************************************
 
 Design allows ideal nets on clock nets.

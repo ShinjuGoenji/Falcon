@@ -40,7 +40,7 @@ Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb
 Running PRESTO HDLC
 
 Inferred memory devices in process
-        in routine POLY_INVNORM2_FFT line 118 in file
+        in routine POLY_INVNORM2_FFT line 103 in file
                 '../01_RTL/POLY_INVNORM2_FFT.v'.
 =================================================================================
 |     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
@@ -51,10 +51,18 @@ Inferred memory devices in process
 |      b_re_2_reg       | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
 |      b_im_2_reg       | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
 | a_norm_2_b_norm_2_reg | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     valid_reg_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
 |         d_reg         | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
-|  in_valid_reg_1_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-|  in_valid_reg_2_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
 =================================================================================
+
+Inferred memory devices in process
+        in routine POLY_INVNORM2_FFT line 129 in file
+                '../01_RTL/POLY_INVNORM2_FFT.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    valid_reg_reg    | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
 Presto compilation completed successfully. (POLY_INVNORM2_FFT)
 Elaborated 1 design.
 Current design is now 'POLY_INVNORM2_FFT'.
@@ -230,8 +238,8 @@ Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-1
   Allocating blocks in 'DW_lzd_a_width56'
 Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
-  Allocating blocks in 'DW_lp_piped_fp_div_sig_width52_exp_width11_ieee_compliance0_faithful_round0_op_iso_mode0_id_width1_in_reg0_stages3_out_reg0_no_pm0_rst_mode0'
-  Allocating blocks in 'DW_lp_pipe_mgr_stages2_id_width1'
+  Allocating blocks in 'DW_lp_piped_fp_div_sig_width52_exp_width11_ieee_compliance0_faithful_round0_op_iso_mode1_id_width1_in_reg0_stages4_out_reg0_no_pm1_rst_mode0'
+  Allocating blocks in 'DW_lp_pipe_mgr_stages3_id_width1'
   Allocating blocks in 'DW_fp_div_sig_width52_exp_width11_ieee_compliance0_faithful_round0'
 Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
@@ -1791,7 +1799,7 @@ Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-1
 Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
-  Allocating blocks in 'DW_lp_piped_fp_div_sig_width52_exp_width11_ieee_compliance0_faithful_round0_op_iso_mode0_id_width1_in_reg0_stages3_out_reg0_no_pm0_rst_mode0'
+  Allocating blocks in 'DW_lp_piped_fp_div_sig_width52_exp_width11_ieee_compliance0_faithful_round0_op_iso_mode1_id_width1_in_reg0_stages4_out_reg0_no_pm1_rst_mode0'
 Warning: Dont_touch on net '*cell*21/*Logic0*' may be overridden by compile because it
         is connected to generic logic. Use all_connected to see net
         connections. (OPT-461)
@@ -2435,15 +2443,15 @@ Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-1
 Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
-  Allocating blocks in 'DW_lp_pipe_mgr_stages2_id_width1'
+  Allocating blocks in 'DW_lp_pipe_mgr_stages3_id_width1'
 Information: Updating design information... (UID-85)
-Warning: Design 'POLY_INVNORM2_FFT' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Warning: Design 'POLY_INVNORM2_FFT' contains 2 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
  
 ****************************************
 Report : clock_skew
 Design : POLY_INVNORM2_FFT
 Version: T-2022.03
-Date   : Wed Sep  3 02:15:58 2025
+Date   : Thu Sep  4 03:58:01 2025
 ****************************************
 
                  Rise      Fall  Min Rise  Min fall        Uncertainty
@@ -2470,7 +2478,8 @@ Warning: The following end-points are not constrained for maximum delay.
 
 End point
 ---------------
-u_FPR_DIV/*cell*200/U_PIPE_MGR/pipe_ovf_reg/next_state
+u_FPR_DIV/*cell*201/U_PIPE_MGR/idsr_reg[0][0]/synch_enable
+u_FPR_DIV/*cell*201/U_PIPE_MGR/pipe_ovf_reg/next_state
 
 Information: Checking pulse_clock_cell_type...
 
@@ -2508,15 +2517,15 @@ Information: Evaluating DesignWare library utilization. (UISN-27)
 | Design Information                                      | Value                                  |
 ====================================================================================================
 | Number of Scenarios                                     | 0                                      |
-| Leaf Cell Count                                         | 400                                    |
+| Leaf Cell Count                                         | 403                                    |
 | Number of User Hierarchies                              | 0                                      |
-| Sequential Cell Count                                   | 387                                    |
+| Sequential Cell Count                                   | 390                                    |
 | Macro Count                                             | 0                                      |
 | Number of Power Domains                                 | 0                                      |
 | Number of Path Groups                                   | 2                                      |
 | Number of VT class                                      | 0                                      |
 | Number of Clocks                                        | 1                                      |
-| Number of Dont Touch cells                              | 2                                      |
+| Number of Dont Touch cells                              | 0                                      |
 | Number of Dont Touch nets                               | 1                                      |
 | Number of size only cells                               | 0                                      |
 | Design with UPF Data                                    | false                                  |
@@ -2527,7 +2536,7 @@ Information: Evaluating DesignWare library utilization. (UISN-27)
 ====================================================================================================
 Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
 
-Information: There are 70 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+Information: There are 71 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
 
   Simplifying Design 'POLY_INVNORM2_FFT'
 
@@ -2577,49 +2586,13 @@ Information: The target library(s) contains cell(s), other than black boxes, tha
 Information: The register 'a_norm_2_b_norm_2_reg[63]' is a constant and will be removed. (OPT-1206)
 Information: The register 'u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][71]' is a constant and will be removed. (OPT-1206)
 Information: The register 'u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[2][71]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[3][71]' is a constant and will be removed. (OPT-1206)
 Information: The register 'd_reg[63]' is a constant and will be removed. (OPT-1206)
 
   Beginning Mapping Optimizations  (Ultra High effort)
   -------------------------------
 Information: Checking pipeline property of cell u_FPR_DIV (design POLY_INVNORM2_FFT_DW_lp_piped_fp_div_J1_0). (RTDC-137)
 Information: cell u_FPR_DIV (design POLY_INVNORM2_FFT_DW_lp_piped_fp_div_J1_0) is a pipeline. (RTDC-139)
-
-Stage 0 of u_FPR_DIV(POLY_INVNORM2_FFT_DW_lp_piped_fp_div_J1_0) has registers belonging to different classes
-
-Classes in slice 0:
-
-CLASS with 63 cell(s).
-SL: u_FPR_DIV/link5537/output (direct)
-AC: u_FPR_DIV/link5333/output (inverted)
-CLK: u_FPR_DIV/link5332/output (direct)
-Cells in class: u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][70] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][69] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][68] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][67] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][66] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][65] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][64] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][63] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][62] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][61] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][60] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][8] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][18] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][19] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][20] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][21] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][22] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][23] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][24] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][25] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][26] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][27] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][9] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][28] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][29] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][30] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][31] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][32] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][33] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][34] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][35] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][36] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][37] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][10] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][38] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][39] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][40] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][41] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][42] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][43] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][44] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][45] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][46] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][47] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][11] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][48] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][49] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][50] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][51] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][52] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][53] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][54] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][55] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][56] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][57] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][12] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][58] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][59] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][13] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][14] 
-u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][15] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][16] u_FPR_DIV/U_ZOUT_PL_REG/data_pipe_a_reg[1][17] 
-
-
-CLASS with 1 cell(s).
-AC: u_FPR_DIV/link5333/output (inverted)
-CLK: u_FPR_DIV/link5332/output (direct)
-Cells in class: u_FPR_DIV/U_PIPE_MGR/dtsr_reg[0] 
-
   Mapping Optimization (Phase 1)
   Mapping Optimization (Phase 2)
 Warning: Retiming is likely to run for an extended
@@ -2631,17 +2604,22 @@ Warning: The following cells only drive
         asynchronous pins of sequential cells which have no
         timing constraint. Therefore retiming will not optimize
         delay through them:
-        u_FPR_DIV/*cell*108056 (BUFH_X13M_A9TL)
-        u_FPR_DIV/*cell*108055 (BUFH_X13M_A9TL)
-        u_FPR_DIV/*cell*108054 (BUFH_X13M_A9TL)
-        u_FPR_DIV/*cell*108053 (BUFH_X13M_A9TL)
-        u_FPR_DIV/*cell*108052 (BUFH_X13M_A9TL)
-        u_FPR_DIV/*cell*108051 (BUFH_X13M_A9TL)
-        u_FPR_DIV/*cell*108057 (BUFH_X11M_A9TR)
-        u_FPR_DIV/*cell*108058 (BUFH_X11M_A9TR)
-        u_FPR_DIV/*cell*108059 (BUFH_X11M_A9TR)
-        u_FPR_DIV/*cell*108060 (BUFH_X13M_A9TL)
-        u_FPR_DIV/*cell*629 (INV_X5B_A9TH)
+        u_FPR_DIV/*cell*113018 (BUFH_X13M_A9TL)
+        u_FPR_DIV/*cell*113017 (BUFH_X13M_A9TL)
+        u_FPR_DIV/*cell*113016 (BUFH_X13M_A9TL)
+        u_FPR_DIV/*cell*113015 (BUFH_X13M_A9TL)
+        u_FPR_DIV/*cell*113014 (BUFH_X13M_A9TL)
+        u_FPR_DIV/*cell*113013 (BUFH_X13M_A9TL)
+        u_FPR_DIV/*cell*113012 (BUFH_X13M_A9TL)
+        u_FPR_DIV/*cell*113011 (BUFH_X13M_A9TL)
+        u_FPR_DIV/*cell*113019 (BUFH_X11M_A9TR)
+        u_FPR_DIV/*cell*113020 (BUFH_X11M_A9TR)
+        u_FPR_DIV/*cell*113021 (BUFH_X11M_A9TR)
+        u_FPR_DIV/*cell*113022 (BUFH_X11M_A9TR)
+        u_FPR_DIV/*cell*113024 (BUFH_X13M_A9TL)
+        u_FPR_DIV/*cell*113023 (BUFH_X13M_A9TL)
+        u_FPR_DIV/*cell*113025 (BUFH_X13M_A9TL)
+        u_FPR_DIV/*cell*844 (INV_X5B_A9TH)
 
  (RTDC-115)
 
@@ -2657,3 +2635,511 @@ Warning: The following cells only drive
   
   ... minimum area retiming step 3 done.
   Beginning final register move ...
+  ... final register move done.
+  Beginning minimum period retiming ...
+  ... minimum period retiming done.
+  Beginning minimum area retiming step 1 ...
+  ... minimum area retiming step 1 done.
+  Beginning minimum area retiming step 2 ...
+  
+  ... minimum area retiming step 2 done.
+  Beginning minimum area retiming step 3 ...
+  
+  ... minimum area retiming step 3 done.
+  Beginning final register move ...
+  ... final register move done.
+Warning: QoR may not be optimal with medium justification effort. (RTDC-133)
+  Lower bound estimate = 5.09
+  Critical path length = 5.09
+  Clock correction = 0.32 (clock-to-Q delay = 0.20, setup = 0.02, uncertainty = 0.10)
+  Mapping Optimization (Phase 3)
+  Mapping Optimization (Phase 4)
+  Mapping Optimization (Phase 5)
+  Mapping Optimization (Phase 6)
+  Mapping Optimization (Phase 7)
+  Mapping Optimization (Phase 8)
+  Mapping Optimization (Phase 9)
+  Mapping Optimization (Phase 10)
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    3:21:48  267780.9      2.86    2944.1       0.0 a_norm_2_b_norm_2_reg[35]/D 12561.3613      0.00  
+    3:21:48  267780.9      2.86    2944.1       0.0 a_norm_2_b_norm_2_reg[35]/D 12561.3613      0.00  
+    3:21:54  267396.1      2.77    2852.1       0.0 a_norm_2_b_norm_2_reg[42]/D 12555.8643      0.00  
+    3:22:00  267228.2      2.70    2809.5       0.0 a_norm_2_b_norm_2_reg[42]/D 12562.6338      0.00  
+    3:22:05  267334.4      2.65    2694.1       0.0 a_norm_2_b_norm_2_reg[42]/D 12586.8232      0.00  
+    3:22:09  267303.1      2.61    2680.8       0.0 a_norm_2_b_norm_2_reg[42]/D 12589.7061      0.00  
+    3:22:12  267260.2      2.57    2653.8       0.0 a_norm_2_b_norm_2_reg[42]/D 12594.8418      0.00  
+    3:22:17  267268.4      2.54    2578.9       0.0 a_norm_2_b_norm_2_reg[42]/D 12599.4648      0.00  
+    3:22:21  267165.4      2.51    2564.6       0.0 a_norm_2_b_norm_2_reg[42]/D 12599.6396      0.00  
+    3:22:28  267389.5      2.47    2553.4       0.0 u_FPR_DIV/U_fp_div/DP_OP_124_132_3002/clk_r_REG1004_S1/D 12624.8701      0.00  
+    3:22:30  267336.6      2.46    2547.1       0.0 a_norm_2_b_norm_2_reg[45]/D 12626.7314      0.00  
+    3:22:35  267231.4      2.44    2530.1       0.0 u_FPR_DIV/U_fp_div/DP_OP_124_132_3002/clk_r_REG546_S1/D 12625.6934      0.00  
+    3:22:38  267139.8      2.43    2509.5       0.0 a_norm_2_b_norm_2_reg[35]/D 12622.7715      0.00  
+    3:22:41  267138.0      2.42    2508.5       0.0 a_norm_2_b_norm_2_reg[35]/D 12625.3477      0.00  
+    3:22:43  267077.6      2.41    2507.7       0.0                           12623.7578      0.00  
+    3:22:46  234110.0     19.06    7307.6   13759.7                           10960.9727      0.00  
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    3:22:48  234567.0      2.45    1838.2       0.0                           10995.7109      0.00  
+    3:22:51  233827.6      2.47    1834.1       0.0                           10952.7900      0.00  
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+  Global Optimization (Phase 32)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+    3:23:26  124232.4      3.97    2504.4     375.1                           4398.5605      0.00  
+    3:23:36  128376.3      2.67    1983.6     402.8                           4692.1465      0.00  
+    3:23:36  128376.3      2.67    1983.6     402.8                           4692.1465      0.00  
+    3:23:38  128400.6      2.69    2008.0     359.6                           4695.5483      0.00  
+.
+    3:25:01  122438.9      4.77    2231.1     359.6                           4453.4292      0.00  
+    3:25:06  122318.2      4.77    2225.8     359.6                           4450.3560      0.00  
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    3:25:32  122227.1      4.71    2221.7     313.1                           4424.4424      0.00  
+    3:25:34  121936.8      4.71    2225.0     313.1                           4396.9023      0.00  
+    3:25:36  121293.1      3.99    2178.5      48.2                           4361.7241      0.00  
+    3:25:37  120580.9      3.92    2163.7      48.2                           4325.9980      0.00  
+    3:25:38  120423.8      3.61    2141.4      48.2                           4317.0615      0.00  
+    3:25:39  120292.7      3.61    2139.5      48.2                           4308.1201      0.00  
+    3:25:45  121321.9      2.56    1889.6      48.4                           4392.9805      0.00  
+    3:25:49  122481.1      2.56    1763.3      48.4                           4484.0312      0.00  
+    3:25:49  122485.8      2.56    1763.3      48.4                           4484.4478      0.00  
+    3:25:50  122485.8      2.56    1763.3      48.4                           4484.4478      0.00  
+    3:25:53  122467.2      2.56    1741.3       0.8                           4453.4355      0.00  
+    3:25:53  122467.2      2.56    1741.3       0.8                           4453.4355      0.00  
+    3:26:10  128596.7      2.26    1599.1       0.8                           4817.1797      0.00  
+    3:26:10  128596.7      2.26    1599.1       0.8                           4817.1797      0.00  
+    3:26:12  129643.0      2.10    1575.8       0.7                           4900.7974      0.00  
+    3:26:12  129643.0      2.10    1575.8       0.7                           4900.7974      0.00  
+    3:26:41  136138.5      1.96    1393.1       0.7                           5250.1582      0.00  
+    3:26:41  136138.5      1.96    1393.1       0.7                           5250.1582      0.00  
+    3:27:04  141020.2      1.63    1234.3     292.0                           5607.4741      0.00  
+    3:27:04  141020.2      1.63    1234.3     292.0                           5607.4741      0.00  
+    3:27:22  142007.9      1.62    1231.4     292.0                           5648.7266      0.00  
+    3:27:22  142007.9      1.62    1231.4     292.0                           5648.7266      0.00  
+    3:27:34  143786.0      1.55    1179.7     292.3                           5774.0781      0.00  
+    3:27:34  143786.0      1.55    1179.7     292.3                           5774.0781      0.00  
+    3:27:54  144899.1      1.55    1176.5     292.3                           5821.8467      0.00  
+    3:27:54  144899.1      1.55    1176.5     292.3                           5821.8467      0.00  
+    3:27:59  145381.1      1.53    1169.7     292.5                           5857.8750      0.00  
+    3:27:59  145381.1      1.53    1169.7     292.5                           5857.8750      0.00  
+    3:28:00  145381.1      1.53    1169.7     292.5                           5857.8750      0.00  
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    3:28:00  145381.1      1.53    1169.7     292.5                           5857.8750      0.00  
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+  Global Optimization (Phase 35)
+    3:28:02  145400.6      1.53    1169.2       0.1 u_FPR_DIV/clk_r_REG54_S2/D 5860.1792      0.00  
+    3:28:03  145432.8      1.52    1168.1       0.1 u_FPR_DIV/clk_r_REG54_S2/D 5862.9727      0.00  
+    3:28:04  145457.7      1.52    1167.9       0.1 u_FPR_DIV/clk_r_REG54_S2/D 5864.9771      0.00  
+    3:28:05  145499.9      1.52    1167.6       0.1 u_FPR_DIV/clk_r_REG54_S2/D 5867.4917      0.00  
+    3:28:06  145492.7      1.52    1167.4       0.1 u_FPR_DIV/clk_r_REG54_S2/D 5867.2788      0.00  
+    3:28:06  145493.3      1.52    1167.3       0.1 u_FPR_DIV/clk_r_REG54_S2/D 5867.3618      0.00  
+    3:28:07  145491.5      1.52    1167.2       0.1 u_FPR_DIV/clk_r_REG54_S2/D 5867.1499      0.00  
+    3:28:08  145521.0      1.52    1167.1       0.1 u_FPR_DIV/clk_r_REG54_S2/D 5869.2422      0.00  
+    3:28:09  145538.7      1.52    1167.0       0.1 u_FPR_DIV/clk_r_REG54_S2/D 5870.5054      0.00  
+    3:28:10  145563.0      1.52    1166.5       0.1 u_FPR_DIV/clk_r_REG54_S2/D 5871.8677      0.00  
+    3:28:12  145563.4      1.51    1166.2       0.0 u_FPR_DIV/clk_r_REG54_S2/D 5872.0674      0.00  
+    3:28:13  145606.3      1.51    1165.4       0.0 u_FPR_DIV/clk_r_REG66_S2/D 5875.5586      0.00  
+    3:28:14  145604.9      1.51    1165.4       0.0                           5875.6504      0.00  
+    3:28:26  146070.5      1.53    1165.9       0.0                           5899.3174      0.00  
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    3:28:26  146070.5      1.53    1165.9       0.0                           5899.3174      0.00  
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+  Global Optimization (Phase 50)
+  Global Optimization (Phase 51)
+  Global Optimization (Phase 52)
+    3:29:05  140203.9      1.62    1201.5       7.4 b_im_2_reg[41]/D          5493.3442      0.00  
+    3:29:07  140547.5      1.57    1189.6       7.4                           5519.9966      0.00  
+    3:29:25  142110.6      1.56    1182.8       7.4                           5603.0244      0.00  
+    3:29:25  142110.6      1.56    1182.8       7.4                           5603.0244      0.00  
+    3:29:27  142063.7      1.56    1146.5       7.6                           5594.3750      0.00  
+    3:29:28  142063.7      1.56    1146.5       7.6                           5594.3750      0.00  
+    3:29:30  142135.8      1.57    1146.7       7.6                           5597.7373      0.00  
+    3:29:30  142135.8      1.57    1146.7       7.6                           5597.7373      0.00  
+    3:29:30  142160.5      1.56    1146.6       7.6                           5599.0752      0.00  
+    3:29:30  142160.5      1.56    1146.6       7.6                           5599.0752      0.00  
+    3:29:36  142590.1      1.56    1145.1       7.6                           5621.1108      0.00  
+    3:29:36  142590.1      1.56    1145.1       7.6                           5621.1108      0.00  
+    3:29:45  143722.7      1.49    1106.7      11.3                           5708.0547      0.00  
+    3:29:45  143722.7      1.49    1106.7      11.3                           5708.0547      0.00  
+    3:29:46  143759.9      1.49    1105.2      11.3                           5710.6260      0.00  
+    3:29:46  143759.9      1.49    1105.2      11.3                           5710.6260      0.00  
+    3:29:50  144074.2      1.48    1101.0      12.2                           5733.7266      0.00  
+    3:29:50  144074.2      1.48    1101.0      12.2                           5733.7266      0.00  
+    3:29:54  144266.8      1.48    1100.3      12.2                           5743.6528      0.00  
+    3:29:54  144266.8      1.48    1100.3      12.2                           5743.6528      0.00  
+    3:29:55  144312.8      1.48    1099.9      12.2                           5747.0894      0.00  
+    3:29:55  144312.8      1.48    1099.9      12.2                           5747.0894      0.00  
+    3:29:56  144365.7      1.48    1099.8      12.2                           5750.3574      0.00  
+    3:29:57  144210.8      1.48    1099.8      12.2                           5748.7627      0.00  
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    3:29:58  144210.8      1.48    1099.8      12.2                           5748.7627      0.00  
+    3:31:52  117803.3      1.54    1230.7       0.0                           4017.9978      0.00  
+    3:31:56  118104.1      1.52    1221.3       0.0 a_norm_2_b_norm_2_reg[26]/D 4041.5034      0.00  
+    3:31:58  118299.6      1.51    1217.8       0.0 u_FPR_DIV/clk_r_REG74_S2/D 4055.4932      0.00  
+    3:32:00  118341.7      1.51    1217.6       0.0                           4058.8674      0.00  
+    3:32:01  118309.5      1.51    1217.6       0.0                           4057.1279      0.00  
+    3:32:02  118281.0      1.51    1217.6       0.0                           4055.4839      0.00  
+    3:32:02  118277.3      1.51    1217.6       0.0                           4055.3228      0.00  
+    3:32:02  118277.3      1.51    1217.6       0.0                           4055.3228      0.00  
+    3:32:05  118194.8      1.51    1208.9       0.0                           4054.1956      0.00  
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    3:32:07  118194.8      1.51    1208.9       0.0                           4054.1956      0.00  
+    3:32:07  118194.8      1.51    1208.9       0.0                           4054.1956      0.00  
+    3:32:07  118194.8      1.51    1208.9       0.0                           4054.1956      0.00  
+    3:32:14  118379.2      1.51    1205.5       0.0                           4065.5220      0.00  
+    3:32:16  118379.2      1.51    1205.5       0.0                           4065.5220      0.00  
+    3:32:16  118379.2      1.51    1205.5       0.0                           4065.5220      0.00  
+    3:32:16  118379.2      1.51    1205.5       0.0                           4065.5220      0.00  
+    3:32:17  118413.6      1.51    1205.5       0.0                           4066.7368      0.00  
+    3:32:22  118271.9      1.51    1214.9       0.0                           4056.5081      0.00  
+    3:32:23  118169.8      1.51    1217.3       0.0                           4050.7708      0.00  
+    3:32:24  118171.9      1.51    1218.3       0.0                           4045.5049      0.00  
+    3:32:25  118188.2      1.51    1218.3       0.0                           4040.8740      0.00  
+    3:32:26  118175.0      1.51    1218.3       0.0                           4039.1653      0.00  
+    3:32:36  120470.0      1.48    1191.1       0.0                           4203.5234      0.00  
+    3:32:36  120470.0      1.48    1191.1       0.0                           4203.5234      0.00  
+    3:32:37  120489.8      1.48    1191.0       0.0                           4204.7637      0.00  
+
+  Beginning Delay Optimization
+  ----------------------------
+    3:32:37  120489.8      1.48    1191.0       0.0                           4204.7637      0.00  
+    3:32:37  120489.8      1.48    1191.0       0.0                           4204.7637      0.00  
+    3:32:37  120489.8      1.48    1191.0       0.0                           4204.7637      0.00  
+    3:32:37  120489.8      1.48    1191.0       0.0                           4204.7637      0.00  
+    3:32:37  120489.8      1.48    1191.0       0.0                           4204.7637      0.00  
+    3:32:40  120788.2      1.47    1178.1       0.0                           4228.7822      0.00  
+    3:32:43  121509.7      1.47    1161.3       0.0                           4284.0435      0.00  
+    3:32:45  121908.6      1.47    1137.7       0.0                           4314.2676      0.00  
+    3:32:45  121908.6      1.47    1137.7       0.0                           4314.2681      0.00  
+    3:32:45  121994.8      1.47    1137.7       0.0                           4320.8071      0.00  
+    3:33:02  118369.6      1.47    1133.3       0.0                           4063.0686      0.00  
+    3:33:10  117065.8      1.47    1137.7       0.0                           3980.4717      0.00  
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'POLY_INVNORM2_FFT' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 1520 load(s), 1 driver(s)
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+#uniquify
+#compile
+#======================================================
+#  (F) Output Reports 
+#======================================================
+report_design  >  Report/$DESIGN\.design
+report_resource >  Report/$DESIGN\.resource
+report_timing -max_paths 3 >  Report/$DESIGN\.timing
+report_area >  Report/$DESIGN\.area
+report_power > Report/$DESIGN\.power
+report_clock > Report/$DESIGN\.clock
+report_port >  Report/$DESIGN\.port
+report_power >  Report/$DESIGN\.power
+#report_reference > Report/$DESIGN\.reference
+#======================================================
+#  (G) Change Naming Rule
+#======================================================
+set bus_inference_style "%s\[%d\]"
+%s[%d]
+set bus_naming_style "%s\[%d\]"
+%s[%d]
+set hdlout_internal_busses true
+true
+change_names -hierarchy -rule verilog
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
+1
+define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+1
+define_name_rules name_rule -case_insensitive
+1
+change_names -hierarchy -rules name_rule
+1
+#======================================================
+#  (H) Output Results
+#======================================================
+set verilogout_higher_designs_first true
+true
+write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
+Writing verilog file '/home/daniel_kuo/Falcon/hardware/poly_invnorm2_fft/02_SYN/Netlist/POLY_INVNORM2_FFT_SYN.v'.
+1
+write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
+Writing ddc file 'POLY_INVNORM2_FFT_SYN.ddc'.
+1
+write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
+Information: Writing timing information to file '/home/daniel_kuo/Falcon/hardware/poly_invnorm2_fft/02_SYN/Netlist/POLY_INVNORM2_FFT_SYN.sdf'. (WT-3)
+1
+write_sdc Netlist/$DESIGN\_SYN.sdc
+1
+#======================================================
+#  (I) Finish and Quit
+#======================================================
+report_area
+ 
+****************************************
+Report : area
+Design : POLY_INVNORM2_FFT
+Version: T-2022.03
+Date   : Thu Sep  4 07:31:26 2025
+****************************************
+
+Library(s) Used:
+
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+
+Number of ports:                          539
+Number of nets:                         65495
+Number of cells:                        59742
+Number of combinational cells:          58221
+Number of sequential cells:              1520
+Number of macros/black boxes:               0
+Number of buf/inv:                      10517
+Number of references:                     565
+
+Combinational area:             109788.209353
+Buf/Inv area:                     8811.633561
+Noncombinational area:            7277.558302
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                117065.767655
+Total area:                     117065.767655
+1
+report_timing 
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : POLY_INVNORM2_FFT
+Version: T-2022.03
+Date   : Thu Sep  4 07:31:26 2025
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: u_FPR_DIV/U_fp_div_DP_OP_124_132_3002_clk_r_REG695_S1
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: u_FPR_DIV/clk_r_REG54_S2
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  POLY_INVNORM2_FFT  Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  u_FPR_DIV/U_fp_div_DP_OP_124_132_3002_clk_r_REG695_S1/CK (DFFSQ_X4M_A9TL)
+                                                          0.00 #     0.00 r
+  u_FPR_DIV/U_fp_div_DP_OP_124_132_3002_clk_r_REG695_S1/Q (DFFSQ_X4M_A9TL)
+                                                          0.13       0.13 f
+  u_FPR_DIV/U13158/Y (INV_X1M_A9TR)                       0.04       0.17 r
+  u_FPR_DIV/U32396/Y (AO21A1AI2_X2M_A9TL)                 0.05       0.22 f
+  u_FPR_DIV/U4726/Y (INV_X3M_A9TL)                        0.04       0.26 r
+  u_FPR_DIV/U28504/Y (XOR2_X4M_A9TL)                      0.04       0.30 r
+  u_FPR_DIV/U7106/Y (XOR2_X4M_A9TL)                       0.04       0.34 r
+  u_FPR_DIV/U30254/CON (CGENI_X2M_A9TL)                   0.05       0.39 f
+  u_FPR_DIV/U25213/Y (BUF_X6M_A9TL)                       0.05       0.44 f
+  u_FPR_DIV/U6773/Y (NOR2_X3A_A9TL)                       0.03       0.48 r
+  u_FPR_DIV/U25128/Y (NAND2XB_X6M_A9TL)                   0.05       0.53 r
+  u_FPR_DIV/U29472/Y (NAND3_X1A_A9TL)                     0.04       0.57 f
+  u_FPR_DIV/U4389/Y (OR2_X0P7M_A9TL)                      0.08       0.64 f
+  u_FPR_DIV/U12907/Y (NAND3XXB_X4M_A9TL)                  0.04       0.68 r
+  u_FPR_DIV/U10580/Y (INV_X4M_A9TL)                       0.02       0.70 f
+  u_FPR_DIV/U28520/Y (NAND2XB_X6M_A9TL)                   0.03       0.73 r
+  u_FPR_DIV/U22677/Y (NAND2B_X6M_A9TL)                    0.03       0.77 f
+  u_FPR_DIV/U12871/Y (NAND2B_X4M_A9TL)                    0.05       0.82 f
+  u_FPR_DIV/U29660/Y (NOR2_X3A_A9TL)                      0.04       0.85 r
+  u_FPR_DIV/U32553/Y (AND2_X4M_A9TL)                      0.05       0.90 r
+  u_FPR_DIV/U4140/Y (NAND2_X6B_A9TR)                      0.03       0.93 f
+  u_FPR_DIV/U10363/Y (NAND2B_X3M_A9TL)                    0.04       0.97 f
+  u_FPR_DIV/U30791/Y (AO21A1AI2_X6M_A9TL)                 0.03       1.00 r
+  u_FPR_DIV/U6239/Y (INV_X9M_A9TL)                        0.02       1.02 f
+  u_FPR_DIV/U30692/Y (INV_X16M_A9TL)                      0.03       1.05 r
+  u_FPR_DIV/U2978/Y (XOR2_X3M_A9TL)                       0.05       1.09 r
+  u_FPR_DIV/U32749/Y (OAI22_X6M_A9TL)                     0.05       1.14 f
+  u_FPR_DIV/U26496/Y (XOR2_X3M_A9TL)                      0.04       1.18 f
+  u_FPR_DIV/U24203/Y (XOR2_X3M_A9TL)                      0.05       1.23 f
+  u_FPR_DIV/U8195/Y (INV_X2P5M_A9TL)                      0.03       1.26 r
+  u_FPR_DIV/U21776/Y (AO21A1AI2_X3M_A9TL)                 0.04       1.30 f
+  u_FPR_DIV/U28987/Y (XOR2_X4M_A9TL)                      0.06       1.36 f
+  u_FPR_DIV/U31086/Y (AO1B2_X4M_A9TL)                     0.03       1.39 r
+  u_FPR_DIV/U31085/Y (OAI21_X6M_A9TL)                     0.03       1.42 f
+  u_FPR_DIV/U15379/Y (INV_X3M_A9TL)                       0.02       1.44 r
+  u_FPR_DIV/U32759/CON (CGENI_X2M_A9TL)                   0.05       1.49 f
+  u_FPR_DIV/U28211/CON (CGENI_X2M_A9TL)                   0.07       1.57 r
+  u_FPR_DIV/U2324/Y (INV_X1P7B_A9TR)                      0.05       1.61 f
+  u_FPR_DIV/U28210/CON (CGENI_X2M_A9TL)                   0.05       1.67 r
+  u_FPR_DIV/U2228/Y (BUFH_X6M_A9TL)                       0.04       1.71 r
+  u_FPR_DIV/U21512/Y (NOR2_X4A_A9TL)                      0.02       1.73 f
+  u_FPR_DIV/U13708/Y (NOR2_X4A_A9TL)                      0.04       1.76 r
+  u_FPR_DIV/U15264/Y (NAND2_X4M_A9TL)                     0.03       1.79 f
+  u_FPR_DIV/U6317/Y (OR2_X11M_A9TL)                       0.05       1.84 f
+  u_FPR_DIV/U2000/Y (INV_X1P7M_A9TR)                      0.03       1.87 r
+  u_FPR_DIV/U1966/Y (AND2_X3B_A9TL)                       0.05       1.91 r
+  u_FPR_DIV/U1941/Y (NAND2_X2B_A9TR)                      0.04       1.96 f
+  u_FPR_DIV/U5595/Y (NOR2_X8B_A9TL)                       0.02       1.98 r
+  u_FPR_DIV/U27898/Y (MXIT2_X4M_A9TL)                     0.03       2.01 f
+  u_FPR_DIV/U7092/Y (AND2_X11B_A9TL)                      0.05       2.06 f
+  u_FPR_DIV/U5909/Y (BUFH_X13M_A9TL)                      0.03       2.09 f
+  u_FPR_DIV/U1701/Y (BUFH_X4M_A9TL)                       0.03       2.12 f
+  u_FPR_DIV/U12184/Y (XOR2_X1P4M_A9TL)                    0.04       2.16 f
+  u_FPR_DIV/U7690/Y (INV_X0P8M_A9TL)                      0.06       2.22 r
+  u_FPR_DIV/U33796/Y (AOI22_X4M_A9TL)                     0.05       2.27 f
+  u_FPR_DIV/U33798/Y (NOR2_X2A_A9TL)                      0.06       2.32 r
+  u_FPR_DIV/U6396/Y (AOI21_X4M_A9TL)                      0.03       2.36 f
+  u_FPR_DIV/U12067/Y (XOR2_X2M_A9TL)                      0.07       2.43 f
+  u_FPR_DIV/U33803/CON (CGENI_X2M_A9TL)                   0.07       2.50 r
+  u_FPR_DIV/U33804/Y (OAI22_X3M_A9TL)                     0.05       2.55 f
+  u_FPR_DIV/U5610/Y (NAND2_X4M_A9TL)                      0.03       2.58 r
+  u_FPR_DIV/U6395/Y (OA22_X4M_A9TL)                       0.05       2.63 r
+  u_FPR_DIV/U5974/Y (NAND2B_X6M_A9TL)                     0.02       2.65 f
+  u_FPR_DIV/U28185/Y (AND3_X6M_A9TL)                      0.04       2.68 f
+  u_FPR_DIV/U5471/Y (AO21A1AI2_X6M_A9TL)                  0.03       2.72 r
+  u_FPR_DIV/U28340/Y (AO21A1AI2_X6M_A9TL)                 0.04       2.75 f
+  u_FPR_DIV/U28269/Y (AO21A1AI2_X6M_A9TL)                 0.04       2.79 r
+  u_FPR_DIV/U31448/Y (AO21A1AI2_X6M_A9TL)                 0.04       2.83 f
+  u_FPR_DIV/U31553/Y (AO21B_X6M_A9TL)                     0.02       2.86 r
+  u_FPR_DIV/U31994/Y (OAI21_X8M_A9TL)                     0.03       2.88 f
+  u_FPR_DIV/U31997/Y (AOI21_X8M_A9TL)                     0.03       2.91 r
+  u_FPR_DIV/U33868/Y (OAI21_X8M_A9TL)                     0.03       2.94 f
+  u_FPR_DIV/U31591/Y (AOI21_X8M_A9TL)                     0.03       2.98 r
+  u_FPR_DIV/U31590/Y (OAI21_X8M_A9TL)                     0.04       3.01 f
+  u_FPR_DIV/U28161/Y (AOI21_X8M_A9TL)                     0.03       3.05 r
+  u_FPR_DIV/U31000/Y (XOR2_X4M_A9TL)                      0.04       3.09 r
+  u_FPR_DIV/U32137/Y (INV_X16M_A9TL)                      0.03       3.12 f
+  u_FPR_DIV/U32166/Y (INV_X16M_A9TL)                      0.02       3.14 r
+  u_FPR_DIV/U30527/Y (MXIT2_X4M_A9TL)                     0.03       3.17 r
+  u_FPR_DIV/U28309/Y (NAND4_X4A_A9TL)                     0.05       3.22 f
+  u_FPR_DIV/U6537/Y (NOR2_X8B_A9TL)                       0.03       3.25 r
+  u_FPR_DIV/U30542/Y (NOR3BB_X8M_A9TL)                    0.04       3.28 r
+  u_FPR_DIV/U5804/Y (NAND3_X6A_A9TL)                      0.03       3.31 f
+  u_FPR_DIV/U65/Y (INV_X3P5B_A9TL)                        0.02       3.33 r
+  u_FPR_DIV/U25531/Y (NAND2XB_X4M_A9TL)                   0.02       3.35 f
+  u_FPR_DIV/U30289/Y (OAI211_X4M_A9TL)                    0.02       3.37 r
+  u_FPR_DIV/clk_r_REG54_S2/D (DFFRPQ_X2M_A9TL)            0.00       3.37 r
+  data arrival time                                                  3.37
+
+  clock clk (rise edge)                                   2.00       2.00
+  clock network delay (ideal)                             0.00       2.00
+  clock uncertainty                                      -0.10       1.90
+  u_FPR_DIV/clk_r_REG54_S2/CK (DFFRPQ_X2M_A9TL)           0.00       1.90 r
+  library setup time                                     -0.01       1.89
+  data required time                                                 1.89
+  --------------------------------------------------------------------------
+  data required time                                                 1.89
+  data arrival time                                                 -3.37
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -1.47
+
+
+1
+exit
+
+Memory usage for this session 3469 Mbytes.
+Memory usage for this session including child processes 4269 Mbytes.
+CPU usage for this session 13912 seconds ( 3.86 hours ).
+Elapsed time for this session 12878 seconds ( 3.58 hours ).
+
+Thank you...
+

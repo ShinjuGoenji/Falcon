@@ -4,7 +4,7 @@ Report : power
         -analysis_effort low
 Design : POLY_INVNORM2_FFT
 Version: T-2022.03
-Date   : Wed Sep  3 01:09:20 2025
+Date   : Thu Sep  4 07:31:23 2025
 ****************************************
 
 
@@ -37,12 +37,12 @@ Attributes
 i - Including register clock pin internal power
 
 
-  Cell Internal Power  =   7.8972 mW   (47%)
-  Net Switching Power  =   8.8009 mW   (53%)
+  Cell Internal Power  =   9.7726 mW   (49%)
+  Net Switching Power  =  10.2021 mW   (51%)
                          ---------
-Total Dynamic Power    =  16.6981 mW  (100%)
+Total Dynamic Power    =  19.9747 mW  (100%)
 
-Cell Leakage Power     =   4.4412 mW
+Cell Leakage Power     =   3.9699 mW
 
 
                  Internal         Switching           Leakage            Total
@@ -51,10 +51,10 @@ Power Group      Power            Power               Power              Power  
 io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
-clock_network      1.6427            0.0000            0.0000            0.0000  (   0.00%)  i
-register           0.1861            0.1560          109.2417            2.0941  (   9.91%)
+clock_network      2.4942            0.0000            0.0000            0.0000  (   0.00%)  i
+register           0.2899            0.2583          146.5749            3.1890  (  13.32%)
 sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational      6.0683            8.6449        4.3320e+03           19.0451  (  90.09%)
+combinational      6.9885            9.9437        3.8233e+03           20.7556  (  86.68%)
 --------------------------------------------------------------------------------------------------
-Total              7.8971 mW         8.8009 mW     4.4412e+03 uW        21.1393 mW
+Total              9.7726 mW        10.2020 mW     3.9699e+03 uW        23.9445 mW
 1
