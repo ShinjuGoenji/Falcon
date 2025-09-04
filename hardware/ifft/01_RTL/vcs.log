@@ -1,0 +1,306 @@
+Command: vcs -timescale=1ns/1fs -j4 -sverilog +v2k -full64 -Mupdate -R -debug_access+all \
+-y /usr/cad/synopsys/synthesis/cur/dw/sim_ver/ +libext+.v -f filelist.f -o simv -l \
+vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a \
++define+RTL +define+ +notimingchecks
+*** Using c compiler gcc instead of cc ...
+                         Chronologic VCS (TM)
+         Version T-2022.06_Full64 -- Thu Sep  4 13:55:31 2025
+
+                    Copyright (c) 1991 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file 'TESTBED.v'
+Parsing included file 'PATTERN.v'.
+Back to file 'TESTBED.v'.
+Parsing included file 'IFFT.v'.
+Parsing included file 'RADIX2.v'.
+Parsing included file 'DELAY_BUFFER.v'.
+Back to file 'RADIX2.v'.
+Parsing included file 'BUTTERFLY.v'.
+Back to file 'RADIX2.v'.
+Parsing included file 'FPC.v'.
+Back to file 'RADIX2.v'.
+Back to file 'IFFT.v'.
+Back to file 'TESTBED.v'.
+Parsing library directory file '/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_add.v'
+Parsing library directory file '/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_mult.v'
+Parsing library directory file '/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_sub.v'
+Parsing library directory file '/usr/cad/synopsys/synthesis/cur/dw/sim_ver/DW_fp_addsub.v'
+Top Level Modules:
+       TESTBED
+TimeScale is 1 ns / 10 ps
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 41
+FPC_ADD, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPR_ADD_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (d_re));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 44
+FPC_ADD, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPR_ADD_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (d_im));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 88
+FPC_SUB, "DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPR_SUB_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (d_re));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 91
+FPC_SUB, "DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPR_SUB_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (d_im));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 148
+FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPR_MUL_0( .a (a_re),  .b (b_re),  .rnd (rnd),  .z (a_re_x_b_re));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 151
+FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPR_MUL_1( .a (a_im),  .b (b_im),  .rnd (rnd),  .z (a_im_x_b_im));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 154
+FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPR_MUL_2( .a (a_re),  .b (b_im),  .rnd (rnd),  .z (a_re_x_b_im));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 157
+FPC_MUL, "DW_fp_mult #(sig_width, exp_width, ieee_compliance) u_FPR_MUL_3( .a (a_im),  .b (b_re),  .rnd (rnd),  .z (a_im_x_b_re));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 160
+FPC_MUL, "DW_fp_sub #(sig_width, exp_width, ieee_compliance) u_FPR_SUB( .a (a_re_x_b_re_reg),  .b (a_im_x_b_im_reg),  .rnd (rnd),  .z (d_re));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+FPC.v, 163
+FPC_MUL, "DW_fp_add #(sig_width, exp_width, ieee_compliance) u_FPR_ADD( .a (a_re_x_b_im_reg),  .b (a_im_x_b_re_reg),  .rnd (rnd),  .z (d_im));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+Starting vcs inline pass...
+
+
+Note-[VCS_PARAL] Parallel code-gen enabled
+  VCS is running with parallel code generation(-j)...
+
+8 modules and 0 UDP read.
+	However, due to incremental compilation, no re-compilation is necessary.
+make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/ifft/01_RTL/csrc'
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
+rm -f _cuarc0.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
+-Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _31426_archive_1.so _prev_archive_1.so \
+_cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o \
+rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a \
+-lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o \
+-Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   \
+/usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a \
+-ldl -lm  -lc -lpthread -ldl 
+../simv up to date
+make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/ifft/01_RTL/csrc'
+Command: /home/daniel_kuo/Falcon/hardware/ifft/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
+Chronologic VCS simulator copyright 1991-2022
+Contains Synopsys proprietary information.
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Sep  4 13:55 2025
+*Verdi* Loading libsscore_vcs202206.so
+FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
+(C) 1996 - 2022 by Synopsys, Inc.
+*Verdi* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi* : Create FSDB file 'IFFT.fsdb'
+*Verdi* : Begin traversing the scopes, layer (0).
+*Verdi* : Enable +mda dumping.
+*Verdi* : End of traversing.
+PASS PATTERN NO.   1,  281 CYCLES
+PASS PATTERN NO.   2,  281 CYCLES
+PASS PATTERN NO.   3,  281 CYCLES
+PASS PATTERN NO.   4,  281 CYCLES
+PASS PATTERN NO.   5,  281 CYCLES
+PASS PATTERN NO.   6,  281 CYCLES
+PASS PATTERN NO.   7,  281 CYCLES
+PASS PATTERN NO.   8,  281 CYCLES
+PASS PATTERN NO.   9,  281 CYCLES
+PASS PATTERN NO.  10,  281 CYCLES
+PASS PATTERN NO.  11,  281 CYCLES
+PASS PATTERN NO.  12,  281 CYCLES
+PASS PATTERN NO.  13,  281 CYCLES
+PASS PATTERN NO.  14,  281 CYCLES
+PASS PATTERN NO.  15,  281 CYCLES
+PASS PATTERN NO.  16,  281 CYCLES
+PASS PATTERN NO.  17,  281 CYCLES
+PASS PATTERN NO.  18,  281 CYCLES
+PASS PATTERN NO.  19,  281 CYCLES
+PASS PATTERN NO.  20,  281 CYCLES
+PASS PATTERN NO.  21,  281 CYCLES
+PASS PATTERN NO.  22,  281 CYCLES
+PASS PATTERN NO.  23,  281 CYCLES
+PASS PATTERN NO.  24,  281 CYCLES
+PASS PATTERN NO.  25,  281 CYCLES
+PASS PATTERN NO.  26,  281 CYCLES
+PASS PATTERN NO.  27,  281 CYCLES
+PASS PATTERN NO.  28,  281 CYCLES
+PASS PATTERN NO.  29,  281 CYCLES
+PASS PATTERN NO.  30,  281 CYCLES
+PASS PATTERN NO.  31,  281 CYCLES
+PASS PATTERN NO.  32,  281 CYCLES
+PASS PATTERN NO.  33,  281 CYCLES
+PASS PATTERN NO.  34,  281 CYCLES
+PASS PATTERN NO.  35,  281 CYCLES
+PASS PATTERN NO.  36,  281 CYCLES
+PASS PATTERN NO.  37,  281 CYCLES
+PASS PATTERN NO.  38,  281 CYCLES
+PASS PATTERN NO.  39,  281 CYCLES
+PASS PATTERN NO.  40,  281 CYCLES
+PASS PATTERN NO.  41,  281 CYCLES
+PASS PATTERN NO.  42,  281 CYCLES
+PASS PATTERN NO.  43,  281 CYCLES
+PASS PATTERN NO.  44,  281 CYCLES
+PASS PATTERN NO.  45,  281 CYCLES
+PASS PATTERN NO.  46,  281 CYCLES
+PASS PATTERN NO.  47,  281 CYCLES
+PASS PATTERN NO.  48,  281 CYCLES
+PASS PATTERN NO.  49,  281 CYCLES
+PASS PATTERN NO.  50,  281 CYCLES
+PASS PATTERN NO.  51,  281 CYCLES
+PASS PATTERN NO.  52,  281 CYCLES
+PASS PATTERN NO.  53,  281 CYCLES
+PASS PATTERN NO.  54,  281 CYCLES
+PASS PATTERN NO.  55,  281 CYCLES
+PASS PATTERN NO.  56,  281 CYCLES
+PASS PATTERN NO.  57,  281 CYCLES
+PASS PATTERN NO.  58,  281 CYCLES
+PASS PATTERN NO.  59,  281 CYCLES
+PASS PATTERN NO.  60,  281 CYCLES
+PASS PATTERN NO.  61,  281 CYCLES
+PASS PATTERN NO.  62,  281 CYCLES
+PASS PATTERN NO.  63,  281 CYCLES
+PASS PATTERN NO.  64,  281 CYCLES
+PASS PATTERN NO.  65,  281 CYCLES
+PASS PATTERN NO.  66,  281 CYCLES
+PASS PATTERN NO.  67,  281 CYCLES
+PASS PATTERN NO.  68,  281 CYCLES
+PASS PATTERN NO.  69,  281 CYCLES
+PASS PATTERN NO.  70,  281 CYCLES
+PASS PATTERN NO.  71,  281 CYCLES
+PASS PATTERN NO.  72,  281 CYCLES
+PASS PATTERN NO.  73,  281 CYCLES
+PASS PATTERN NO.  74,  281 CYCLES
+PASS PATTERN NO.  75,  281 CYCLES
+PASS PATTERN NO.  76,  281 CYCLES
+PASS PATTERN NO.  77,  281 CYCLES
+PASS PATTERN NO.  78,  281 CYCLES
+PASS PATTERN NO.  79,  281 CYCLES
+PASS PATTERN NO.  80,  281 CYCLES
+PASS PATTERN NO.  81,  281 CYCLES
+PASS PATTERN NO.  82,  281 CYCLES
+PASS PATTERN NO.  83,  281 CYCLES
+PASS PATTERN NO.  84,  281 CYCLES
+PASS PATTERN NO.  85,  281 CYCLES
+PASS PATTERN NO.  86,  281 CYCLES
+PASS PATTERN NO.  87,  281 CYCLES
+PASS PATTERN NO.  88,  281 CYCLES
+PASS PATTERN NO.  89,  281 CYCLES
+PASS PATTERN NO.  90,  281 CYCLES
+PASS PATTERN NO.  91,  281 CYCLES
+PASS PATTERN NO.  92,  281 CYCLES
+PASS PATTERN NO.  93,  281 CYCLES
+PASS PATTERN NO.  94,  281 CYCLES
+PASS PATTERN NO.  95,  281 CYCLES
+PASS PATTERN NO.  96,  281 CYCLES
+PASS PATTERN NO.  97,  281 CYCLES
+PASS PATTERN NO.  98,  281 CYCLES
+PASS PATTERN NO.  99,  281 CYCLES
+PASS PATTERN NO. 100,  281 CYCLES
+PASS PATTERN NO. 101,  281 CYCLES
+PASS PATTERN NO. 102,  281 CYCLES
+PASS PATTERN NO. 103,  281 CYCLES
+PASS PATTERN NO. 104,  281 CYCLES
+PASS PATTERN NO. 105,  281 CYCLES
+PASS PATTERN NO. 106,  281 CYCLES
+PASS PATTERN NO. 107,  281 CYCLES
+PASS PATTERN NO. 108,  281 CYCLES
+PASS PATTERN NO. 109,  281 CYCLES
+PASS PATTERN NO. 110,  281 CYCLES
+PASS PATTERN NO. 111,  281 CYCLES
+PASS PATTERN NO. 112,  281 CYCLES
+PASS PATTERN NO. 113,  281 CYCLES
+PASS PATTERN NO. 114,  281 CYCLES
+PASS PATTERN NO. 115,  281 CYCLES
+PASS PATTERN NO. 116,  281 CYCLES
+PASS PATTERN NO. 117,  281 CYCLES
+PASS PATTERN NO. 118,  281 CYCLES
+PASS PATTERN NO. 119,  281 CYCLES
+PASS PATTERN NO. 120,  281 CYCLES
+PASS PATTERN NO. 121,  281 CYCLES
+PASS PATTERN NO. 122,  281 CYCLES
+PASS PATTERN NO. 123,  281 CYCLES
+PASS PATTERN NO. 124,  281 CYCLES
+PASS PATTERN NO. 125,  281 CYCLES
+PASS PATTERN NO. 126,  281 CYCLES
+PASS PATTERN NO. 127,  281 CYCLES
+PASS PATTERN NO. 128,  281 CYCLES
+PASS PATTERN NO. 129,  281 CYCLES
+PASS PATTERN NO. 130,  281 CYCLES
+PASS PATTERN NO. 131,  281 CYCLES
+PASS PATTERN NO. 132,  281 CYCLES
+--------------------------------------------------------------------
+                         Congratulations!                           
+                  You have passed all patterns!                     
+                  Your execution cycles = 37092 cycles                
+                  Your clock period = 2.0 ns                       
+                  Total Latency = 74184.0 ns                           
+--------------------------------------------------------------------
+$finish called from file "PATTERN.v", line 1398.
+$finish at simulation time             14260100
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 142601000 ps
+CPU Time:     22.340 seconds;       Data structure size:   0.4Mb
+Thu Sep  4 13:55:47 2025
+CPU time: .502 seconds to compile + .265 seconds to elab + .244 seconds to link + 22.403 seconds in simulation
