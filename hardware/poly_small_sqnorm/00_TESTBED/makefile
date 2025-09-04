@@ -21,15 +21,15 @@ TIMESCALE=-timescale=1ns/1fs
 TIMESCALE1=-timescale 1ns/1fs
 VERDI=/usr/cad/synopsys/verdi/2022.06
 DW_SIM=/usr/cad/synopsys/synthesis/cur/dw/sim_ver/
-TSMC40_HVT=../03_GATE/TSMC40/sc9_cln40g_base_hvt.v
-TSMC40_RVT=../03_GATE/TSMC40/sc9_cln40g_base_rvt.v
-TSMC40_LVT=../03_GATE/TSMC40/sc9_cln40g_base_lvt.v
-TSMC40_NEG_HVT=../03_GATE/TSMC40/sc9_cln40g_base_hvt_neg.v
-TSMC40_NEG_RVT=../03_GATE/TSMC40/sc9_cln40g_base_rvt_neg.v
-TSMC40_NEG_LVT=../03_GATE/TSMC40/sc9_cln40g_base_lvt_neg.v
-TSMC40_UDP_HVT=../03_GATE/TSMC40/sc9_cln40g_base_hvt_udp.v
-TSMC40_UDP_RVT=../03_GATE/TSMC40/sc9_cln40g_base_rvt_udp.v
-TSMC40_UDP_LVT=../03_GATE/TSMC40/sc9_cln40g_base_lvt_udp.v
+TSMC40_HVT=~/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt.v
+TSMC40_RVT=~/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_rvt.v
+TSMC40_LVT=~/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_lvt.v
+TSMC40_NEG_HVT=~/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v
+TSMC40_NEG_RVT=~/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_rvt_neg.v
+TSMC40_NEG_LVT=~/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_lvt_neg.v
+TSMC40_UDP_HVT=~/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_udp.v
+TSMC40_UDP_RVT=~/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_rvt_udp.v
+TSMC40_UDP_LVT=~/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_lvt_udp.v
 
 ######################################
 # Simulation Option and Command
