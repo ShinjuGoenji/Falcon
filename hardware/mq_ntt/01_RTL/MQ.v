@@ -98,6 +98,7 @@ module MQ_MONTYMUL (
     // Input signals
     clk,
     rst_n,
+    ena,
     in_valid,
     x,
     y,
@@ -118,16 +119,19 @@ localparam     Q0I = 14'd12287;
 //---------------------------------------------------------------------
 input                clk;
 input                rst_n;
+input                ena;
 input                in_valid;
 input  [Q_WIDTH-1:0] x;
 input  [Q_WIDTH-1:0] y;
     
-output reg           out_valid;
-output [Q_WIDTH-1:0] z;
+output reg               out_valid;
+output reg [Q_WIDTH-1:0] z;
 
 //---------------------------------------------------------------------
 //   Reg & Wire
 //---------------------------------------------------------------------
+reg  [Q_WIDTH-1:0]   x_reg;
+reg                  ena_reg;
 wire [Q_WIDTH*2-1:0] x_y;
 reg  [Q_WIDTH*2-1:0] x_y_reg;
 wire [Q_WIDTH*3-1:0] x_y_Q0I;
@@ -155,7 +159,7 @@ assign w = x_y_Q0I[15:0] * Q;
  * be no more than (2^15 - 1) * q + (q - 1)^2, which will
  * fit on 29 bits.
  */
-assign z_w = x_y + w;
+assign z_w = x_y_reg + w_reg;
 assign z_w_shift = z_w[Q_WIDTH+16:16];
 
 /*
@@ -163,18 +167,32 @@ assign z_w_shift = z_w[Q_WIDTH+16:16];
  * than 2q. We do a subtraction then conditional subtraction to
  * ensure the result is in the expected range.
  */
-assign z = (z_w_shift >= Q) ? z_w_shift - Q : z_w_shift;
+always @(*) begin
+    if (ena_reg) begin
+        if (z_w_shift >= Q)
+            z = z_w_shift - Q;
+        else
+            z = z_w_shift;
+    end
+    else begin
+        z = x_reg;
+    end
+end
 
 //---------------------------------------------------------------------
 //   Sequential Logic
 //---------------------------------------------------------------------
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
+        x_reg <= 0;
+        ena_reg <= 0;
         out_valid <= 0;
         x_y_reg <= 0;
         w_reg <= 0;
     end
     else begin
+        x_reg <= x;
+        ena_reg <= ena;
         out_valid <= in_valid;
         x_y_reg <= x_y;
         w_reg <= w;

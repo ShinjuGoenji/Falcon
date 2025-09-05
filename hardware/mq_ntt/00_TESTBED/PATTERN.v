@@ -185,8 +185,8 @@ task check_ans_task; begin
             $display("***********************************************************");     
             $display("                          FAIL!                          	 ");  
             $display("                  Degree #%3d (%8t)                   	 ", i_out_deg, $time);
-            $display("                  Gold = %14d                    	         ", golden_a[i_out_deg]);
-            $display("                  Your = %14d                    	         ", a_o);
+            $display("                       Gold = %5d                    	     ", golden_a[i_out_deg]);
+            $display("                       Your = %5d                    	     ", a_o);
             $display("***********************************************************");    
                 repeat(2) @(negedge clk);
                 $finish;

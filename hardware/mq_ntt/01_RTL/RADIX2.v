@@ -5,7 +5,7 @@
 
 module RADIX2 #(
     parameter logn = 9,
-    parameter U = 1
+    parameter U = 0
 )(
     // Input signals
     clk,
@@ -26,13 +26,13 @@ localparam  Q_WIDTH = 14;
 localparam        Q = 14'd12289;
 localparam LUT_SIZE = 1024;
 
-localparam       N = 1 << logn;
-localparam       M = 1 << U;
-localparam      HT = N / M;
-localparam       T = HT << 1;
-localparam      HN = N / 2;
-localparam CNT_MAX = N + HN;
-localparam i1_bit = (U-1 == 0) ? 1 : U-1;
+localparam     N = 1 << logn;
+localparam     M = 1 << U;
+localparam     T = N / M;
+localparam    HT = T >> 1;
+localparam i_bit = (U == 0) ? 1 : U;
+
+localparam CNT_MAX = N + N / 2;
 
 localparam S_IDLE = 0;
 localparam  S_EXE = 1;
@@ -63,15 +63,15 @@ reg [Q_WIDTH-1:0] delay_d_o;
 reg delay_ena, i_valid, o_valid;
 
 reg delay_mux, output_mux;
-reg [Q_WIDTH-1:0] _d_o;
+reg [Q_WIDTH-1:0] _a_o;
 
 reg state, state_reg;
 reg [logn:0] cnt, cnt_reg;
 reg in_valid_reg;
 reg stall;
 
-reg tw_mask;
-reg [i1_bit-1:0] i1;
+reg tw_mask, mult_en;
+reg [i_bit-1:0] i;
 
 //---------------------------------------------------------------------
 //   Submodule
@@ -94,12 +94,13 @@ u_DELAY_BUFFER (
     .d_i(delay_d_i), 
     // Output signals
     .o_valid(o_valid),
-    .d_o(delay_d_o), 
+    .d_o(delay_d_o)
     );
 
 MQ_MONTYMUL u_mq_montymul (
     // Input signals
     .clk(clk), .rst_n(rst_n),
+    .ena(mult_en), 
     .in_valid(in_valid),
     .x(a_i), 
     .y(s), 
@@ -154,8 +155,8 @@ assign delay_ena = stall ? 0 : 1;
 /*
  * Control twiddle factor index.
  */
-assign i1 = (cnt + 1) / T;
-assign tw_idx = tw_mask ? M + i1 : 0;
+assign i = (cnt + 1) / T;
+assign tw_idx = tw_mask ? M + i : 0;
 always @(*) begin
     if (in_valid && cnt == 0 && T == 2)
         if (state == S_EXE)
@@ -192,7 +193,7 @@ assign delay_d_i = delay_mux ? butterfly_Y : mult_d_reg;
  * Multiplexer that choose the output source.
  */
 assign output_mux = (cnt_reg < HT) ? 0 : (cnt_reg / HT) % 2 == 0;
-assign _d_o = output_mux ? delay_d_o : butterfly_X;
+assign _a_o = output_mux ? delay_d_o : butterfly_X;
 
 //---------------------------------------------------------------------
 //   Sequential Logic
@@ -204,13 +205,14 @@ always @(posedge clk or negedge rst_n) begin
         state_reg <= 0;
         cnt_reg <= 0;
         out_valid <= 0;
-        d_o <= 0;
+        a_o <= 0;
         in_valid_reg <= 0;
+        mult_en <= 0;
     end
     else begin
         state_reg <= state;
         cnt_reg <= cnt;
-        d_o <= _d_o;
+        a_o <= _a_o;
         in_valid_reg <= mult_valid;
         if (stall) begin
             i_valid <= i_valid;
@@ -226,6 +228,7 @@ always @(posedge clk or negedge rst_n) begin
             out_valid <= o_valid;
         else
             out_valid <= 0;
+        mult_en <= tw_mask;
     end
 end
 
