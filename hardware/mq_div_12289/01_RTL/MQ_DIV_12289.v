@@ -25,6 +25,10 @@ localparam MULT_STAGE = 1;
 localparam X_PIPE_NUM = (DIV_STAGE-1) * (MULT_STAGE+1);
 localparam Y0_PIPE_NUM = (DIV_STAGE-3) * (MULT_STAGE+1);
 localparam Y1_PIPE_NUM = 1 * (MULT_STAGE+1);
+localparam Y2_PIPE_NUM = 6 * (MULT_STAGE+1);
+localparam Y8_PIPE_NUM = 1 * (MULT_STAGE+1);
+localparam Y9_PIPE_NUM = 3 * (MULT_STAGE+1);
+localparam Y10_PIPE_NUM = 5 * (MULT_STAGE+1);
 
 localparam R2 = 14'd10952;
 
@@ -56,36 +60,17 @@ reg       mult_out_valid [0:DIV_STAGE-1], mult_out_valid_reg [0:DIV_STAGE-1];
 reg [Q_WIDTH-1:0] mult_z [0:DIV_STAGE-1], y [0:DIV_STAGE-1];
 
 // pipeline registers
-reg [Q_WIDTH-1:0] x_pipe_reg [0:X_PIPE_NUM-1];
-reg [Q_WIDTH-1:0] y0_pipe_reg [0:Y0_PIPE_NUM-1];
-reg [Q_WIDTH-1:0] y1_pipe_reg [0:Y1_PIPE_NUM-1];
+reg [Q_WIDTH-1:0] x_pipe_reg   [0:X_PIPE_NUM-1];
+reg [Q_WIDTH-1:0] y0_pipe_reg  [0:Y0_PIPE_NUM-1];
+reg [Q_WIDTH-1:0] y1_pipe_reg  [0:Y1_PIPE_NUM-1];
+reg [Q_WIDTH-1:0] y2_pipe_reg  [0:Y2_PIPE_NUM-1];
+reg [Q_WIDTH-1:0] y8_pipe_reg  [0:Y8_PIPE_NUM-1];
+reg [Q_WIDTH-1:0] y9_pipe_reg  [0:Y9_PIPE_NUM-1];
+reg [Q_WIDTH-1:0] y10_pipe_reg [0:Y10_PIPE_NUM-1];
 
 //---------------------------------------------------------------------
 //   Submodule
 //--------------------------------------------------------------------
-assign mult_in_valid[0] = in_valid_reg;
-assign mult_x[0] = y_i_reg;
-assign mult_y[0] = R2;
-assign mult_y[1] = y[0];
-assign mult_y[2] = y0_pipe_reg[1];
-assign mult_y[3] = y1_pipe_reg[1];
-assign mult_y[4] = y[3];
-assign mult_y[5] = y[4];
-assign mult_y[6] = y[5];
-assign mult_y[7] = y[6];
-assign mult_y[8] = y[7];
-assign mult_y[9] = 
-assign mult_y[10] = 
-assign mult_y[11] = 
-assign mult_y[12] = 
-assign mult_y[13] = 
-assign mult_y[14] = 
-assign mult_y[15] = 
-assign mult_y[16] = 
-assign mult_y[17] = 
-assign mult_y[18] = 
-assign mult_y[19] = 
-
 genvar u_mq_montymul_idx;
 generate
     for (u_mq_montymul_idx = 0; u_mq_montymul_idx < DIV_STAGE; u_mq_montymul_idx = u_mq_montymul_idx + 1) begin
@@ -102,6 +87,32 @@ generate
             );
     end
 endgenerate
+
+//---------------------------------------------------------------------
+//   Combinational Logic
+//--------------------------------------------------------------------
+assign mult_in_valid[0] = in_valid_reg;
+assign mult_x[0] = y_i_reg;
+assign mult_y[0] = R2;
+assign mult_y[1] = y[0];
+assign mult_y[2] = y0_pipe_reg[1];
+assign mult_y[3] = y1_pipe_reg[Y1_PIPE_NUM-1];
+assign mult_y[4] = y[3];
+assign mult_y[5] = y[4];
+assign mult_y[6] = y[5];
+assign mult_y[7] = y[6];
+assign mult_y[8] = y[7];
+assign mult_y[9] = y2_pipe_reg[Y2_PIPE_NUM-1];
+assign mult_y[10] = y8_pipe_reg[Y8_PIPE_NUM-1];
+assign mult_y[11] = y[10];
+assign mult_y[12] = y[11];
+assign mult_y[13] = y9_pipe_reg[Y9_PIPE_NUM-1];
+assign mult_y[14] = y[13];
+assign mult_y[15] = y[14];
+assign mult_y[16] = y10_pipe_reg[Y10_PIPE_NUM-1];
+assign mult_y[17] = y[16];
+assign mult_y[18] = y0_pipe_reg[Y0_PIPE_NUM-1];
+assign mult_y[19] = x_pipe_reg[X_PIPE_NUM-1];
 
 genvar mq_montymul_idx;
 generate
@@ -215,6 +226,98 @@ generate
             end
             else begin
                 y1_pipe_reg[y1_pipe_reg_idx] <= y1_pipe_reg[y1_pipe_reg_idx-1];
+            end
+        end
+    end
+endgenerate
+
+/* y2 */
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        y2_pipe_reg[0] <= 0;
+    end
+    else begin
+        y2_pipe_reg[0] <= y[2];
+    end
+end
+genvar y2_pipe_reg_idx;
+generate
+    for (y2_pipe_reg_idx = 1; y2_pipe_reg_idx < Y2_PIPE_NUM; y2_pipe_reg_idx = y2_pipe_reg_idx + 1) begin
+        always @(posedge clk or negedge rst_n) begin
+            if (!rst_n) begin
+                y2_pipe_reg[y2_pipe_reg_idx] <= 0;
+            end
+            else begin
+                y2_pipe_reg[y2_pipe_reg_idx] <= y2_pipe_reg[y2_pipe_reg_idx-1];
+            end
+        end
+    end
+endgenerate
+
+/* y8 */
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        y8_pipe_reg[0] <= 0;
+    end
+    else begin
+        y8_pipe_reg[0] <= y[8];
+    end
+end
+genvar y8_pipe_reg_idx;
+generate
+    for (y8_pipe_reg_idx = 1; y8_pipe_reg_idx < Y8_PIPE_NUM; y8_pipe_reg_idx = y8_pipe_reg_idx + 1) begin
+        always @(posedge clk or negedge rst_n) begin
+            if (!rst_n) begin
+                y8_pipe_reg[y8_pipe_reg_idx] <= 0;
+            end
+            else begin
+                y8_pipe_reg[y8_pipe_reg_idx] <= y8_pipe_reg[y8_pipe_reg_idx-1];
+            end
+        end
+    end
+endgenerate
+
+/* y9 */
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        y9_pipe_reg[0] <= 0;
+    end
+    else begin
+        y9_pipe_reg[0] <= y[9];
+    end
+end
+genvar y9_pipe_reg_idx;
+generate
+    for (y9_pipe_reg_idx = 1; y9_pipe_reg_idx < Y9_PIPE_NUM; y9_pipe_reg_idx = y9_pipe_reg_idx + 1) begin
+        always @(posedge clk or negedge rst_n) begin
+            if (!rst_n) begin
+                y9_pipe_reg[y9_pipe_reg_idx] <= 0;
+            end
+            else begin
+                y9_pipe_reg[y9_pipe_reg_idx] <= y9_pipe_reg[y9_pipe_reg_idx-1];
+            end
+        end
+    end
+endgenerate
+
+/* y10 */
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        y10_pipe_reg[0] <= 0;
+    end
+    else begin
+        y10_pipe_reg[0] <= y[10];
+    end
+end
+genvar y10_pipe_reg_idx;
+generate
+    for (y10_pipe_reg_idx = 1; y10_pipe_reg_idx < Y10_PIPE_NUM; y10_pipe_reg_idx = y10_pipe_reg_idx + 1) begin
+        always @(posedge clk or negedge rst_n) begin
+            if (!rst_n) begin
+                y10_pipe_reg[y10_pipe_reg_idx] <= 0;
+            end
+            else begin
+                y10_pipe_reg[y10_pipe_reg_idx] <= y10_pipe_reg[y10_pipe_reg_idx-1];
             end
         end
     end

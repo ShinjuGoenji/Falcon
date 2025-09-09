@@ -2,35 +2,36 @@
 `include "PATTERN.v"
 
 `ifdef RTL
-    `include "POLY_INVNORM2_FFT.v"
+    `include "MQ_DIV_12289.v"
 `elsif GATE
-    `include "POLY_INVNORM2_FFT_SYN.v"
+    `include "MQ_DIV_12289_SYN.v"
 `endif
 	  		  	
 module TESTBED;
 
-parameter FLOAT_PRECISION = 64;
+localparam Q_WIDTH = 14;
 
 //================================================================
 // Wire Declarations
 //================================================================
-wire                       clk;
-wire                       rst_n;
-wire [FLOAT_PRECISION-1:0] a_re, a_im;
-wire [FLOAT_PRECISION-1:0] b_re, b_im;
+wire               clk;
+wire               rst_n;
+wire               in_valid;
+wire [Q_WIDTH-1:0] x_i, y_i;
 
-wire [FLOAT_PRECISION-1:0] d;
+wire               out_valid;
+wire [Q_WIDTH-1:0] z_o;
 
 //================================================================
 // Dump Waveform
 //================================================================
 initial begin
   `ifdef RTL
-    $fsdbDumpfile("POLY_INVNORM2_FFT.fsdb");
+    $fsdbDumpfile("MQ_DIV_12289.fsdb");
     $fsdbDumpvars(0,"+mda");
   `elsif GATE
-    $sdf_annotate("POLY_INVNORM2_FFT_SYN.sdf",u_POLY_INVNORM2_FFT);
-    // $fsdbDumpfile("POLY_INVNORM2_FFT_SYN.fsdb");
+    $sdf_annotate("MQ_DIV_12289_SYN.sdf",u_MQ_DIV_12289);
+    // $fsdbDumpfile("MQ_DIV_12289_SYN.fsdb");
     // $fsdbDumpvars(0,"+mda");
   `endif
 end
@@ -39,41 +40,35 @@ end
 // Port Connection
 //================================================================
 `ifdef RTL
-    POLY_INVNORM2_FFT #(.FLOAT_PRECISION(FLOAT_PRECISION)) u_POLY_INVNORM2_FFT (
+    MQ_DIV_12289 u_MQ_DIV_12289 (
     .clk(clk),
     .rst_n(rst_n),
     .in_valid(in_valid),
-    .a_re(a_re),
-    .a_im(a_im),
-    .b_re(b_re),
-    .b_im(b_im),
+    .x_i(x_i),
+    .y_i(y_i),
     .out_valid(out_valid),
-    .d(d)
+    .z_o(z_o)
     );
 `elsif GATE
-    POLY_INVNORM2_FFT #(.FLOAT_PRECISION(FLOAT_PRECISION)) u_POLY_INVNORM2_FFT (
+    MQ_DIV_12289 u_MQ_DIV_12289 (
     .clk(clk),
     .rst_n(rst_n),
     .in_valid(in_valid),
-    .a_re(a_re),
-    .a_im(a_im),
-    .b_re(b_re),
-    .b_im(b_im),
+    .x_i(x_i),
+    .y_i(y_i),
     .out_valid(out_valid),
-    .d(d)
+    .z_o(z_o)
     );
 `endif
 	
-PATTERN #(.FLOAT_PRECISION(FLOAT_PRECISION)) u_PATTERN (
+PATTERN u_PATTERN (
     .clk(clk),
     .rst_n(rst_n),
     .in_valid(in_valid),
-    .a_re(a_re),
-    .a_im(a_im),
-    .b_re(b_re),
-    .b_im(b_im),
+    .x_i(x_i),
+    .y_i(y_i),
     .out_valid(out_valid),
-    .d(d)
+    .z_o(z_o)
     );
  
  
