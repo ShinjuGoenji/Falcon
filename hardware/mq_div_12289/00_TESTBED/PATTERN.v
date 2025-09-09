@@ -6,42 +6,30 @@
     `define CYCLE_TIME 2.0
 `endif
 
-module PATTERN #(
-    parameter FLOAT_PRECISION = 64
-)( 
+module PATTERN ( 
     // Output signals
     clk, 
     rst_n,
     in_valid,
-    a_re, a_im,
-    b_re, b_im,
+    x_i,
+    y_i,
     // Input signals
     out_valid,
-    d
+    z_o
 );
-
-//---------------------------------------------------------------------
-//   Input & Output
-//---------------------------------------------------------------------
-output reg           	   		  clk;
-output reg           	   		  rst_n;
-output reg                        in_valid;
-output reg  [FLOAT_PRECISION-1:0] a_re, a_im;
-output reg  [FLOAT_PRECISION-1:0] b_re, b_im;
-
-input                  	  	out_valid;
-input [FLOAT_PRECISION-1:0] d;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
 //---------------------------------------------------------------------
+localparam Q_WIDTH = 14;
+
 parameter INPUT_PATH  = "../00_TESTBED/input.txt";
 parameter OUTPUT_PATH = "../00_TESTBED/output.txt";
-integer file_in, file_idx, file_out, file_num;
+integer file_in, file_out;
 
-parameter PIPLINE_STAGES = 4;
+parameter PIPLINE_STAGES = 40;
 parameter MAX_OUT_LATENCY = PIPLINE_STAGES + 100;
-parameter PAT_NUM = 15092;
+parameter PAT_NUM = 12638;
 
 integer out_latency[0:PIPLINE_STAGES-1];
 integer pat_cnt;
@@ -49,6 +37,19 @@ integer pat_cnt;
 integer i_pat, i_stage;
 
 integer fscanf_int;
+
+
+//---------------------------------------------------------------------
+//   Input & Output
+//---------------------------------------------------------------------
+output reg               clk;
+output reg               rst_n;
+output reg               in_valid;
+output reg [Q_WIDTH-1:0] x_i;
+output reg [Q_WIDTH-1:0] y_i;
+
+input                    out_valid;
+input      [Q_WIDTH-1:0] z_o;
 
 //---------------------------------------------------------------------
 //   Clock
@@ -87,10 +88,8 @@ end
 task reset_task; begin 
     rst_n = 'b1;
     in_valid = 'b0;
-    a_re = 'bx;
-	a_im = 'bx;
-    b_re = 'bx;
-	b_im = 'bx;
+    x_i = 'bx;
+	y_i = 'bx;
 	
     force clk = 0;
     #CYCLE; rst_n = 0; 
@@ -103,10 +102,10 @@ task reset_task; begin
         repeat(2) #CYCLE;
         $finish;
     end
-    if(d !== 'b0) begin 
+    if(z_o !== 'b0) begin 
         $display("************************************************************");  
         $display("                          FAIL!                             ");    
-        $display("  	'd' should be 0 after initial RESET  at %8t   	  	  ",$time);
+        $display("  	'z_o' should be 0 after initial RESET  at %8t   	  ",$time);
         $display("************************************************************");
         repeat(2) #CYCLE;
         $finish;
@@ -115,17 +114,13 @@ task reset_task; begin
 end endtask
 
 task input_task;
-	reg [FLOAT_PRECISION-1:0] a_re_pat;
-	reg [FLOAT_PRECISION-1:0] a_im_pat;
-	reg [FLOAT_PRECISION-1:0] b_re_pat;
-	reg [FLOAT_PRECISION-1:0] b_im_pat;
+	reg [Q_WIDTH-1:0] x_i_pat;
+	reg [Q_WIDTH-1:0] y_i_pat;
 	begin
-	fscanf_int = $fscanf(file_in, "%h %h %h %h", a_re_pat, a_im_pat, b_re_pat, b_im_pat);
+	fscanf_int = $fscanf(file_in, "%d %d", x_i_pat, y_i_pat);
 	in_valid = 'b1;
-	a_re = a_re_pat;
-	a_im = a_im_pat;
-	b_re = b_re_pat;
-	b_im = b_im_pat;
+	x_i = x_i_pat;
+	y_i = y_i_pat;
 	for (i_stage = 0; i_stage < PIPLINE_STAGES; i_stage = i_stage + 1)
 		if (out_latency[i_stage] == -1) begin
 			out_latency[i_stage] = 0;
@@ -134,14 +129,12 @@ task input_task;
 
 	@(negedge clk);		
 	in_valid = 'b0;
-	a_re = 'bx;
-	a_im = 'bx;
-	b_re = 'bx;
-	b_im = 'bx;
+    x_i = 'bx;
+	y_i = 'bx;
 end endtask
 
 task check_ans_task; 
-	reg [FLOAT_PRECISION-1:0] d_pat;
+	reg [Q_WIDTH-1:0] z_o_pat;
 	begin
 	for (i_stage = 0; i_stage < PIPLINE_STAGES; i_stage = i_stage + 1)
 		out_latency[i_stage] = out_latency[i_stage] + 1;
@@ -155,14 +148,14 @@ task check_ans_task;
 	end
 
 	if(out_valid === 1) begin
-		fscanf_int = $fscanf(file_out, "%h", d_pat);
-		if(d !== d_pat)begin
+		fscanf_int = $fscanf(file_out, "%d", z_o_pat);
+		if(z_o !== z_o_pat)begin
             $display("***********************************************************");     
             $display("                          FAIL!                          	 ");  
             $display("                      Golden answer                      	 ");
-            $display("              			  %f                    	     ", $bitstoreal(d_pat));
+            $display("              			  %d                    	     ", $bitstoreal(z_o_pat));
             $display("                       Your answer                       	 ");
-            $display("              			  %f                    	     ", $bitstoreal(d));
+            $display("              			  %d                    	     ", $bitstoreal(z_o));
             $display("***********************************************************");    
 			repeat(2) @(negedge clk);
 			$finish;
