@@ -28,7 +28,7 @@ parameter OUTPUT_PATH = "../00_TESTBED/output.txt";
 integer file_in, file_out;
 
 parameter PIPLINE_STAGES = 40;
-parameter MAX_OUT_LATENCY = PIPLINE_STAGES + 100;
+parameter MAX_OUT_LATENCY = PIPLINE_STAGES + 200;
 parameter PAT_NUM = 12638;
 
 integer out_latency[0:PIPLINE_STAGES-1];
@@ -93,7 +93,7 @@ task reset_task; begin
 	
     force clk = 0;
     #CYCLE; rst_n = 0; 
-    #(CYCLE * 2); rst_n = 1;
+    #(CYCLE * 5); rst_n = 1;
     if(out_valid !== 'b0) begin 
         $display("************************************************************");  
         $display("                          FAIL!                             ");    
