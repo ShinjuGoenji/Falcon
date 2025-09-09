@@ -1,9 +1,9 @@
 `ifdef RTL
     `define CYCLE_TIME 2.0
 `elsif GATE
-    `define CYCLE_TIME 2.0
+    `define CYCLE_TIME 4.0
 `else
-    `define CYCLE_TIME 2.0
+    `define CYCLE_TIME 4.0
 `endif
 
 module PATTERN #(
@@ -39,9 +39,9 @@ parameter INPUT_PATH  = "../00_TESTBED/input.txt";
 parameter OUTPUT_PATH = "../00_TESTBED/output.txt";
 integer file_in, file_idx, file_out, file_num;
 
-parameter PIPLINE_STAGES = 4;
-parameter MAX_OUT_LATENCY = PIPLINE_STAGES + 100;
-parameter PAT_NUM = 15092;
+parameter PIPLINE_STAGES = 50;
+parameter MAX_OUT_LATENCY = PIPLINE_STAGES + 1000;
+parameter PAT_NUM = 50;//15092;
 
 integer out_latency[0:PIPLINE_STAGES-1];
 integer pat_cnt;
@@ -74,7 +74,6 @@ initial begin
 		// repeat(0) @(negedge clk);
 		repeat($urandom_range(0, 4)) @(negedge clk);
 	end
-	YOU_PASS_task;
 end
 
 always @(negedge clk) begin
@@ -174,6 +173,10 @@ task check_ans_task;
 		for (i_stage = 0; i_stage < PIPLINE_STAGES - 1; i_stage = i_stage + 1)
 			out_latency[i_stage] = out_latency[i_stage + 1];
 		out_latency[PIPLINE_STAGES - 1] = -1;
+
+		if (pat_cnt == PAT_NUM) begin
+			YOU_PASS_task;
+		end
 	end
 end endtask
 
