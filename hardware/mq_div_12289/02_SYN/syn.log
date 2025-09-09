@@ -1,0 +1,876 @@
+#======================================================
+#
+# Synopsys Synthesis Scripts (Design Vision dctcl mode)
+#
+#======================================================
+#======================================================
+# (A) Global Parameters
+#======================================================
+set DESIGN "MQ_DIV_12289"
+MQ_DIV_12289
+set CYCLE 2.0
+2.0
+set INPUT_DLY [expr 0.5*$CYCLE]
+1.0
+set OUTPUT_DLY [expr 0.5*$CYCLE]
+1.0
+#======================================================
+# (B) Read RTL Code
+#======================================================
+# (B-1) analyze + elaborate
+set hdlin_auto_save_templates TRUE
+TRUE
+analyze -f sverilog $DESIGN\.v 
+Running PRESTO HDLC
+Compiling source file ../01_RTL/MQ_DIV_12289.v
+Opening include file ../01_RTL/MQ.v
+Presto compilation completed successfully.
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/standard.sldb'
+1
+elaborate $DESIGN  
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db'
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb'
+  Loading link library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 133 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     y_i_reg_reg     | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  in_valid_reg_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     x_i_reg_reg     | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 149 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+==================================================================================
+|     Register Name      |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+==================================================================================
+|         y_reg          | Flip-flop |  280  |  Y  | N  | Y  | N  | N  | N  | N  |
+| mult_out_valid_reg_reg | Flip-flop |  20   |  Y  | N  | Y  | N  | N  | N  | N  |
+==================================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 166 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   x_pipe_reg_reg    | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 177 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   x_pipe_reg_reg    | Flip-flop |  518  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 189 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   y0_pipe_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 200 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   y0_pipe_reg_reg   | Flip-flop |  462  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 212 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   y1_pipe_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 223 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   y1_pipe_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 235 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   y2_pipe_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 246 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   y2_pipe_reg_reg   | Flip-flop |  154  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 258 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   y8_pipe_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 269 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   y8_pipe_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 281 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   y9_pipe_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 292 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   y9_pipe_reg_reg   | Flip-flop |  70   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 304 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  y10_pipe_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_DIV_12289 line 315 in file
+                '../01_RTL/MQ_DIV_12289.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  y10_pipe_reg_reg   | Flip-flop |  126  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (MQ_DIV_12289)
+Elaborated 1 design.
+Current design is now 'MQ_DIV_12289'.
+Information: Building the design 'MQ_MONTYMUL'. (HDL-193)
+
+Inferred memory devices in process
+        in routine MQ_MONTYMUL line 86 in file
+                '../01_RTL/MQ.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      w_reg_reg      | Flip-flop |  30   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     x_y_reg_reg     | Flip-flop |  28   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (MQ_MONTYMUL)
+1
+# (B-2) read_sverilog
+# read_sverilog $DESIGN\.v
+# (B-3) set current design
+current_design $DESIGN
+Current design is 'MQ_DIV_12289'.
+{MQ_DIV_12289}
+link
+
+  Linking design 'MQ_DIV_12289'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (2 designs)               /home/daniel_kuo/Falcon/hardware/mq_div_12289/02_SYN/MQ_DIV_12289.db, etc
+  sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db
+  dw_foundation.sldb (library) /usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb
+
+1
+#======================================================
+#  (C) Global Setting
+#======================================================
+set_wire_load_mode top
+1
+# set_operating_conditions -max WCCOM -min BCCOM
+# set_wire_load_model -name umc18_wl10 -library slow
+#======================================================
+#  (D) Set Design Constraints
+#======================================================
+# (D-1) Setting Clock Constraints
+create_clock -name clk -period $CYCLE [get_ports clk] 
+1
+set_dont_touch_network             [get_clocks clk]
+1
+set_fix_hold                       [get_clocks clk]
+1
+set_clock_uncertainty       0.1    [get_clocks clk]
+1
+# set_clock_latency   -source 0      [get_clocks clk]
+# set_clock_latency           1      [get_clocks clk] 
+set_input_transition        0.5    [all_inputs] 
+1
+set_clock_transition        0.1    [all_clocks] 
+1
+# (D-2) Setting in/out Constraints
+set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
+1
+set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
+1
+set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time check 
+1
+set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
+1
+set_input_delay 0 -clock clk clk
+1
+set_input_delay 0 -clock clk rst_n
+1
+#set_max_delay $CYCLE -from [all_inputs] -to [all_outputs]
+# (D-3) Setting Design Environment
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [get_ports clk]
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [remove_from_collection [all_inputs] [get_ports clk]]
+# set_load  [load_of "umc18io3v5v_slow/P8C/A"]       [all_outputs] ; # ~= 0.038
+set_load 0.05 [all_outputs]
+1
+# (D-4) Setting DRC Constraint
+#set_max_delay           0     ; # Optimize delay max effort                 
+#set_max_area            0      ; # Optimize area max effort           
+set_max_transition      3       [all_inputs]   ; # U18 LUT Max Transition Value  
+1
+set_max_capacitance     0.15    [all_inputs]   ; # U18 LUT Max Capacitance Value
+1
+set_max_fanout          10      [all_inputs]
+1
+# set_dont_use slow/JKFF*
+#set_dont_touch [get_cells core_reg_macro]
+#set hdlin_ff_always_sync_set_reset true
+# (D-5) Report Clock skew
+report_clock -skew clk
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Updating design information... (UID-85)
+Warning: Design 'MQ_DIV_12289' contains 3 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : clock_skew
+Design : MQ_DIV_12289
+Version: T-2022.03
+Date   : Tue Sep  9 16:16:24 2025
+****************************************
+
+                 Rise      Fall  Min Rise  Min fall        Uncertainty
+Object          Delay     Delay     Delay     Delay     Plus      Minus
+--------------------------------------------------------------------------------
+clk                 -         -         -         -      0.10      0.10
+
+                 Max Transition      Min Transition
+Object           Rise      Fall      Rise      Fall
+-------------------------------------------------------
+clk              0.10      0.10      0.10      0.10
+1
+check_timing
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Warning: The following end-points are not constrained for maximum delay.
+
+End point
+---------------
+genblk1[0].u_MQ_MONTYMUL/w_reg_reg[0]/next_state
+genblk1[0].u_MQ_MONTYMUL/w_reg_reg[1]/next_state
+genblk1[0].u_MQ_MONTYMUL/w_reg_reg[2]/next_state
+genblk1[0].u_MQ_MONTYMUL/x_y_reg_reg[0]/next_state
+genblk1[0].u_MQ_MONTYMUL/x_y_reg_reg[1]/next_state
+genblk1[0].u_MQ_MONTYMUL/x_y_reg_reg[2]/next_state
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+#======================================================
+#  (E) Optimization
+#======================================================
+check_design > Report/$DESIGN\.check
+set_fix_multiple_port_nets -all -buffer_constants [get_designs *]
+1
+set_fix_hold [all_clocks]
+1
+compile_ultra
+Information: Performing power optimization. (PWR-850)
+Analyzing: "/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db"
+Analyzing: "/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db"
+Analyzing: "/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db"
+Library analysis succeeded.
+Information: Running optimization using a maximum of 4 cores. (OPT-1500)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | S-2021.06-DWBB_202106.0 |     *     |
+| Licensed DW Building Blocks        | S-2021.06-DWBB_202106.0 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT WLM                                                           |
+| Comand line  | compile_ultra                                                                     |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 3290                                   |
+| Number of User Hierarchies                              | 20                                     |
+| Sequential Cell Count                                   | 2965                                   |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 60                                     |
+| Number of Dont Touch nets                               | 21                                     |
+| Number of size only cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 510 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+Information: Uniquified 20 instances of design 'MQ_MONTYMUL'. (OPT-1056)
+  Simplifying Design 'MQ_DIV_12289'
+
+Loaded alib file './alib-52/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+Loaded alib file './alib-52/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+Loaded alib file './alib-52/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+Warning: Only placeholder alibs were found. Proceeding with library analysis. (OPT-1311)
+  Building model 'DW01_NAND2'
+Information: Ungrouping hierarchy genblk1[0].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[19].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[18].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[17].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[16].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[15].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[14].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[13].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[12].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[11].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[10].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[9].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[8].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[7].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[6].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[5].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[4].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[3].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[2].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[1].u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping 20 of 21 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'MQ_DIV_12289'
+Information: The register 'genblk1[0].u_MQ_MONTYMUL/w_reg_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[0].u_MQ_MONTYMUL/w_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[0].u_MQ_MONTYMUL/w_reg_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[0].u_MQ_MONTYMUL/x_y_reg_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[0].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[0].u_MQ_MONTYMUL/x_y_reg_reg[0]' is a constant and will be removed. (OPT-1206)
+ Implement Synthetic for 'MQ_DIV_12289'.
+Information: The register 'genblk1[17].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[15].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[14].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[12].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[11].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[8].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[7].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[6].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[5].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[4].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1[1].u_MQ_MONTYMUL/x_y_reg_reg[1]' is a constant and will be removed. (OPT-1206)
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIELO_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[0].u_MQ_MONTYMUL/x_y_reg_reg[3]' is removed because it is merged to 'genblk1[0].u_MQ_MONTYMUL/w_reg_reg[3]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[1].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[1].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[1].u_MQ_MONTYMUL/x_y_reg_reg[0]' is removed because it is merged to 'genblk1[1].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'y0_pipe_reg_reg[0][0]' is removed because it is merged to 'genblk1[1].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[2].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[2].u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[3].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[3].u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[4].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[4].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[4].u_MQ_MONTYMUL/x_y_reg_reg[0]' is removed because it is merged to 'genblk1[4].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[5].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[5].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[5].u_MQ_MONTYMUL/x_y_reg_reg[0]' is removed because it is merged to 'genblk1[5].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[6].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[6].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[6].u_MQ_MONTYMUL/x_y_reg_reg[0]' is removed because it is merged to 'genblk1[6].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[7].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[7].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[7].u_MQ_MONTYMUL/x_y_reg_reg[0]' is removed because it is merged to 'genblk1[7].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[8].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[8].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[8].u_MQ_MONTYMUL/x_y_reg_reg[0]' is removed because it is merged to 'genblk1[8].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[9].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[9].u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[10].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[10].u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[11].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[11].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[11].u_MQ_MONTYMUL/x_y_reg_reg[0]' is removed because it is merged to 'genblk1[11].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'y10_pipe_reg_reg[0][0]' is removed because it is merged to 'genblk1[11].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[12].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[12].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[12].u_MQ_MONTYMUL/x_y_reg_reg[0]' is removed because it is merged to 'genblk1[12].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[13].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[13].u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[14].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[14].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[14].u_MQ_MONTYMUL/x_y_reg_reg[0]' is removed because it is merged to 'genblk1[14].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[15].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[15].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[15].u_MQ_MONTYMUL/x_y_reg_reg[0]' is removed because it is merged to 'genblk1[15].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[16].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[16].u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[17].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[17].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[17].u_MQ_MONTYMUL/x_y_reg_reg[0]' is removed because it is merged to 'genblk1[17].u_MQ_MONTYMUL/w_reg_reg[1]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[18].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[18].u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_DIV_12289', the register 'genblk1[19].u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[19].u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Information: Added key list 'DesignWare' to design 'MQ_DIV_12289'. (DDB-72)
+Warning: Only placeholder alibs were found. Proceeding with library analysis. (OPT-1311)
+  Mapping Optimization (Phase 1)
+  Mapping Optimization (Phase 2)
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:01:49   77430.0      0.56     191.6       0.0                            513.1931      0.00  
+    0:01:49   76708.3      0.66     208.0       0.0                            507.7392      0.00  
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    0:01:49   76708.3      0.66     208.0       0.0                            507.7392      0.00  
+    0:01:50   76681.1      0.66     208.6       0.0                            507.5660      0.00  
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:01:53   45089.2      0.80     191.2      20.1                            232.5923      0.00  
+  Mapping 'MQ_DIV_12289_DP_OP_249J1_142_5032_3'
+  Mapping 'MQ_DIV_12289_DP_OP_243J1_136_5032_3'
+    0:01:55   46175.8      0.47     159.3      24.7                            242.6852      0.00  
+    0:01:55   46175.8      0.47     159.3      24.7                            242.6852      0.00  
+    0:01:55   46190.5      0.47     159.5      24.7                            242.7729      0.00  
+    0:01:57   45893.4      0.94     276.5      24.7                            240.8901      0.00  
+    0:01:57   45837.9      0.94     277.0      24.7                            240.5298      0.00  
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:02:01   45511.3      0.94     264.9      24.7                            236.7531      0.00  
+Warning: Only placeholder alibs were found. Proceeding with library analysis. (OPT-1311)
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:02:42   44953.1      0.91     254.6      24.7                            231.2247      0.00  
+    0:02:42   44953.1      0.91     254.6      24.7                            231.2247      0.00  
+    0:02:42   44953.1      0.91     254.6      24.7                            231.2247      0.00  
+    0:02:42   45653.0      0.47     156.2      24.7                            250.8574      0.00  
+    0:02:43   45653.0      0.47     156.2      24.7                            250.8574      0.00  
+    0:02:43   45653.0      0.47     156.2      24.7                            250.8574      0.00  
+    0:02:43   45653.0      0.47     156.2      24.7                            250.8574      0.00  
+    0:02:44   45884.1      0.45     151.1      40.0                            266.7576      0.00  
+    0:02:45   45884.1      0.45     151.1      40.0                            266.7576      0.00  
+    0:02:47   46765.3      0.16      50.8      40.0                            552.3217      0.00  
+    0:02:48   47016.5      0.01       0.2      25.6                            666.7147      0.00  
+    0:02:49   46963.2      0.01       0.0      25.6                            666.6212      0.00  
+    0:02:49   46963.2      0.01       0.0      25.6                            666.6212      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:02:50   45757.6      0.00       0.0      21.1                            547.6209      0.00  
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+    0:02:50   45759.4      0.00       0.0       0.0                            547.9054      0.00  
+    0:02:50   45759.4      0.00       0.0       0.0                            547.9054      0.00  
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:02:50   45759.4      0.00       0.0       0.0                            547.9054      0.00  
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+    0:02:55   44551.7      0.05       6.4       0.0                            522.6198      0.00  
+    0:02:55   45519.4      0.04       2.9       0.0                            597.5251      0.00  
+    0:02:55   45519.4      0.04       2.9       0.0                            597.5251      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:02:56   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:02:57   44294.5      0.00       0.0       0.0                            521.5736      0.00  
+    0:03:10   36855.7      0.00       0.0       0.0                            421.0565      0.00  
+    0:03:10   36855.7      0.00       0.0       0.0                            421.0565      0.00  
+    0:03:10   36855.7      0.00       0.0       0.0                            421.0565      0.00  
+    0:03:11   36820.8      0.00       0.0       0.0                            404.6626      0.00  
+Warning: Only placeholder alibs were found. Proceeding with library analysis. (OPT-1311)
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:03:50   36820.8      0.00       0.0       0.0                            404.6626      0.00  
+    0:03:50   36820.8      0.00       0.0       0.0                            404.6626      0.00  
+    0:03:50   36820.8      0.00       0.0       0.0                            404.6626      0.00  
+    0:03:50   36820.8      0.00       0.0       0.0                            404.6626      0.00  
+    0:03:52   36820.8      0.00       0.0       0.0                            404.6626      0.00  
+    0:03:52   36820.8      0.00       0.0       0.0                            404.6626      0.00  
+    0:03:52   36820.8      0.00       0.0       0.0                            404.6626      0.00  
+    0:03:52   36820.8      0.00       0.0       0.0                            404.6626      0.00  
+    0:03:55   36679.2      0.00       0.0       0.0                            400.3460      0.00  
+    0:03:55   36806.7      0.00       0.0       0.0                            392.5056      0.00  
+    0:03:55   36806.7      0.00       0.0       0.0                            392.5056      0.00  
+    0:03:55   36806.7      0.00       0.0       0.0                            392.5056      0.00  
+    0:03:55   36806.7      0.00       0.0       0.0                            392.5056      0.00  
+    0:03:55   36806.7      0.00       0.0       0.0                            392.5056      0.00  
+    0:03:55   36806.7      0.00       0.0       0.0                            392.5056      0.00  
+    0:03:57   36117.7      0.00       0.0       0.0                            370.8999      0.00  
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'MQ_DIV_12289' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 2915 load(s), 1 driver(s)
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+#uniquify
+#compile
+#======================================================
+#  (F) Output Reports 
+#======================================================
+report_design  >  Report/$DESIGN\.design
+report_resource >  Report/$DESIGN\.resource
+report_timing -max_paths 3 >  Report/$DESIGN\.timing
+report_area >  Report/$DESIGN\.area
+report_power > Report/$DESIGN\.power
+report_clock > Report/$DESIGN\.clock
+report_port >  Report/$DESIGN\.port
+report_power >  Report/$DESIGN\.power
+#report_reference > Report/$DESIGN\.reference
+#======================================================
+#  (G) Change Naming Rule
+#======================================================
+set bus_inference_style "%s\[%d\]"
+%s[%d]
+set bus_naming_style "%s\[%d\]"
+%s[%d]
+set hdlout_internal_busses true
+true
+change_names -hierarchy -rule verilog
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
+1
+define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+1
+define_name_rules name_rule -case_insensitive
+1
+change_names -hierarchy -rules name_rule
+1
+#======================================================
+#  (H) Output Results
+#======================================================
+set verilogout_higher_designs_first true
+true
+write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
+Writing verilog file '/home/daniel_kuo/Falcon/hardware/mq_div_12289/02_SYN/Netlist/MQ_DIV_12289_SYN.v'.
+1
+write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
+Writing ddc file 'MQ_DIV_12289_SYN.ddc'.
+1
+write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
+Information: Writing timing information to file '/home/daniel_kuo/Falcon/hardware/mq_div_12289/02_SYN/Netlist/MQ_DIV_12289_SYN.sdf'. (WT-3)
+1
+write_sdc Netlist/$DESIGN\_SYN.sdc
+1
+#======================================================
+#  (I) Finish and Quit
+#======================================================
+report_area
+ 
+****************************************
+Report : area
+Design : MQ_DIV_12289
+Version: T-2022.03
+Date   : Tue Sep  9 16:28:37 2025
+****************************************
+
+Library(s) Used:
+
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+
+Number of ports:                           46
+Number of nets:                         24184
+Number of cells:                        22318
+Number of combinational cells:          19403
+Number of sequential cells:              2915
+Number of macros/black boxes:               0
+Number of buf/inv:                       3541
+Number of references:                     357
+
+Combinational area:              22869.831328
+Buf/Inv area:                     1861.801164
+Noncombinational area:           13247.840959
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                 36117.672287
+Total area:                      36117.672287
+1
+report_timing 
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : MQ_DIV_12289
+Version: T-2022.03
+Date   : Tue Sep  9 16:28:37 2025
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: y_reg_17__5_
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: genblk1_18__u_MQ_MONTYMUL_w_reg_reg_27_
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  MQ_DIV_12289       Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  y_reg_17__5_/CK (DFFRPQ_X4M_A9TH)                       0.00 #     0.00 r
+  y_reg_17__5_/Q (DFFRPQ_X4M_A9TH)                        0.24       0.24 r
+  U1430/Y (BUF_X4M_A9TR)                                  0.09       0.33 r
+  U1352/Y (XNOR2_X0P5M_A9TR)                              0.15       0.47 r
+  U16312/Y (OAI22_X1M_A9TL)                               0.12       0.60 f
+  U12507/CO (ADDF_X1M_A9TL)                               0.12       0.71 f
+  U1062/Y (INV_X1M_A9TR)                                  0.05       0.76 r
+  U14674/S (ADDH_X1M_A9TL)                                0.10       0.86 f
+  U912/Y (NAND2_X1A_A9TR)                                 0.05       0.91 r
+  U846/Y (INV_X1M_A9TR)                                   0.04       0.95 f
+  U11306/Y (AOI21_X3M_A9TL)                               0.04       0.99 r
+  U11233/Y (OAI21_X3M_A9TL)                               0.04       1.03 f
+  U14337/Y (AOI21_X2M_A9TL)                               0.06       1.09 r
+  U14283/Y (OAI21_X2M_A9TL)                               0.06       1.15 f
+  U5960/Y (INV_X2M_A9TR)                                  0.05       1.19 r
+  U508/Y (XOR2_X1P4M_A9TL)                                0.10       1.29 r
+  U3772/Y (INV_X2M_A9TR)                                  0.06       1.35 f
+  U13965/Y (NOR2_X2A_A9TL)                                0.06       1.41 r
+  U5825/Y (NOR2_X2A_A9TL)                                 0.03       1.44 f
+  U4812/Y (INV_X2M_A9TR)                                  0.04       1.48 r
+  U3664/Y (AND2_X1P4M_A9TL)                               0.07       1.55 r
+  U219/Y (INV_X2M_A9TR)                                   0.03       1.58 f
+  U4779/Y (NOR2_X2M_A9TR)                                 0.05       1.62 r
+  U1796/Y (NAND2_X1A_A9TR)                                0.04       1.66 f
+  U16908/Y (NAND2XB_X1M_A9TR)                             0.07       1.74 f
+  U13688/Y (OAI21_X1P4M_A9TL)                             0.05       1.79 r
+  U1740/Y (XOR2_X0P7M_A9TL)                               0.06       1.85 r
+  genblk1_18__u_MQ_MONTYMUL_w_reg_reg_27_/D (DFFRPQ_X1M_A9TH)
+                                                          0.00       1.85 r
+  data arrival time                                                  1.85
+
+  clock clk (rise edge)                                   2.00       2.00
+  clock network delay (ideal)                             0.00       2.00
+  clock uncertainty                                      -0.10       1.90
+  genblk1_18__u_MQ_MONTYMUL_w_reg_reg_27_/CK (DFFRPQ_X1M_A9TH)
+                                                          0.00       1.90 r
+  library setup time                                     -0.05       1.85
+  data required time                                                 1.85
+  --------------------------------------------------------------------------
+  data required time                                                 1.85
+  data arrival time                                                 -1.85
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1
+exit
+
+Memory usage for this session 864 Mbytes.
+Memory usage for this session including child processes 1130 Mbytes.
+CPU usage for this session 353 seconds ( 0.10 hours ).
+Elapsed time for this session 737 seconds ( 0.20 hours ).
+
+Thank you...
+

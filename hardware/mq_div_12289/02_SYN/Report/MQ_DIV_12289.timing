@@ -1,0 +1,187 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 3
+Design : MQ_DIV_12289
+Version: T-2022.03
+Date   : Tue Sep  9 16:28:36 2025
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: y_reg[17][5]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: genblk1[18].u_MQ_MONTYMUL/w_reg_reg[27]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  MQ_DIV_12289       Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  y_reg[17][5]/CK (DFFRPQ_X4M_A9TH)                       0.00 #     0.00 r
+  y_reg[17][5]/Q (DFFRPQ_X4M_A9TH)                        0.24       0.24 r
+  U1430/Y (BUF_X4M_A9TR)                                  0.09       0.33 r
+  U1352/Y (XNOR2_X0P5M_A9TR)                              0.15       0.47 r
+  U16312/Y (OAI22_X1M_A9TL)                               0.12       0.60 f
+  U12507/CO (ADDF_X1M_A9TL)                               0.12       0.71 f
+  U1062/Y (INV_X1M_A9TR)                                  0.05       0.76 r
+  U14674/S (ADDH_X1M_A9TL)                                0.10       0.86 f
+  U912/Y (NAND2_X1A_A9TR)                                 0.05       0.91 r
+  U846/Y (INV_X1M_A9TR)                                   0.04       0.95 f
+  U11306/Y (AOI21_X3M_A9TL)                               0.04       0.99 r
+  U11233/Y (OAI21_X3M_A9TL)                               0.04       1.03 f
+  U14337/Y (AOI21_X2M_A9TL)                               0.06       1.09 r
+  U14283/Y (OAI21_X2M_A9TL)                               0.06       1.15 f
+  U5960/Y (INV_X2M_A9TR)                                  0.05       1.19 r
+  U508/Y (XOR2_X1P4M_A9TL)                                0.10       1.29 r
+  U3772/Y (INV_X2M_A9TR)                                  0.06       1.35 f
+  U13965/Y (NOR2_X2A_A9TL)                                0.06       1.41 r
+  U5825/Y (NOR2_X2A_A9TL)                                 0.03       1.44 f
+  U4812/Y (INV_X2M_A9TR)                                  0.04       1.48 r
+  U3664/Y (AND2_X1P4M_A9TL)                               0.07       1.55 r
+  U219/Y (INV_X2M_A9TR)                                   0.03       1.58 f
+  U4779/Y (NOR2_X2M_A9TR)                                 0.05       1.62 r
+  U1796/Y (NAND2_X1A_A9TR)                                0.04       1.66 f
+  U16908/Y (NAND2XB_X1M_A9TR)                             0.07       1.74 f
+  U13688/Y (OAI21_X1P4M_A9TL)                             0.05       1.79 r
+  U1740/Y (XOR2_X0P7M_A9TL)                               0.06       1.85 r
+  genblk1[18].u_MQ_MONTYMUL/w_reg_reg[27]/D (DFFRPQ_X1M_A9TH)
+                                                          0.00       1.85 r
+  data arrival time                                                  1.85
+
+  clock clk (rise edge)                                   2.00       2.00
+  clock network delay (ideal)                             0.00       2.00
+  clock uncertainty                                      -0.10       1.90
+  genblk1[18].u_MQ_MONTYMUL/w_reg_reg[27]/CK (DFFRPQ_X1M_A9TH)
+                                                          0.00       1.90 r
+  library setup time                                     -0.05       1.85
+  data required time                                                 1.85
+  --------------------------------------------------------------------------
+  data required time                                                 1.85
+  data arrival time                                                 -1.85
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: x_pipe_reg_reg[37][4]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: genblk1[19].u_MQ_MONTYMUL/w_reg_reg[27]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  MQ_DIV_12289       Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  x_pipe_reg_reg[37][4]/CK (DFFRPQ_X2M_A9TH)              0.00 #     0.00 r
+  x_pipe_reg_reg[37][4]/Q (DFFRPQ_X2M_A9TH)               0.27       0.27 r
+  U1529/Y (XNOR2_X1P4M_A9TH)                              0.16       0.43 r
+  U15208/Y (OAI22_X1M_A9TL)                               0.09       0.52 f
+  U12574/S (ADDH_X1M_A9TL)                                0.11       0.63 r
+  U12380/CO (ADDF_X1M_A9TL)                               0.09       0.72 r
+  U1583/Y (INV_X0P6B_A9TH)                                0.08       0.80 f
+  U14728/CO (ADDH_X1P4M_A9TR)                             0.08       0.88 f
+  U14614/S (ADDH_X1P4M_A9TL)                              0.07       0.94 f
+  U14548/Y (NOR2_X1A_A9TL)                                0.08       1.02 r
+  U8872/Y (INV_X1M_A9TR)                                  0.05       1.07 f
+  U8813/Y (NAND2_X1A_A9TL)                                0.04       1.11 r
+  U14345/Y (XOR2_X2M_A9TR)                                0.08       1.19 r
+  U10997/Y (XOR2_X1P4M_A9TL)                              0.07       1.27 r
+  U16239/Y (INV_X1M_A9TR)                                 0.05       1.31 f
+  U379/Y (NOR2_X0P5B_A9TL)                                0.08       1.39 r
+  U1582/Y (AOI21_X1M_A9TL)                                0.06       1.45 f
+  U16238/Y (OAI21_X1P4M_A9TL)                             0.05       1.49 r
+  U6865/Y (NAND2XB_X2M_A9TL)                              0.07       1.57 r
+  U6852/Y (NAND2XB_X3M_A9TL)                              0.07       1.63 r
+  U8277/Y (AND2_X1B_A9TL)                                 0.06       1.70 r
+  U10280/Y (NAND2_X1A_A9TL)                               0.03       1.73 f
+  U16891/Y (OAI21_X1M_A9TL)                               0.06       1.79 r
+  U6828/Y (XOR2_X0P7M_A9TL)                               0.07       1.86 r
+  genblk1[19].u_MQ_MONTYMUL/w_reg_reg[27]/D (DFFRPQ_X2M_A9TH)
+                                                          0.00       1.86 r
+  data arrival time                                                  1.86
+
+  clock clk (rise edge)                                   2.00       2.00
+  clock network delay (ideal)                             0.00       2.00
+  clock uncertainty                                      -0.10       1.90
+  genblk1[19].u_MQ_MONTYMUL/w_reg_reg[27]/CK (DFFRPQ_X2M_A9TH)
+                                                          0.00       1.90 r
+  library setup time                                     -0.04       1.86
+  data required time                                                 1.86
+  --------------------------------------------------------------------------
+  data required time                                                 1.86
+  data arrival time                                                 -1.86
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: y_reg[10][11]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: genblk1[11].u_MQ_MONTYMUL/w_reg_reg[28]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  MQ_DIV_12289       Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  y_reg[10][11]/CK (DFFSQN_X2M_A9TH)                      0.00 #     0.00 r
+  y_reg[10][11]/QN (DFFSQN_X2M_A9TH)                      0.23       0.23 r
+  U799/Y (INV_X1P7M_A9TR)                                 0.09       0.33 f
+  U1478/Y (NOR2_X0P5A_A9TH)                               0.22       0.55 r
+  U16378/CO (ADDF_X1M_A9TL)                               0.13       0.68 r
+  U7755/CO (ADDF_X1M_A9TR)                                0.10       0.78 r
+  U15037/S (ADDF_X1M_A9TL)                                0.09       0.87 r
+  U14956/S (ADDF_X1M_A9TR)                                0.14       1.01 f
+  U5306/Y (INV_X1M_A9TR)                                  0.05       1.07 r
+  U11754/Y (XOR3_X1M_A9TR)                                0.11       1.18 f
+  U14647/Y (OR2_X1M_A9TR)                                 0.09       1.26 f
+  U11492/Y (NAND2_X1A_A9TR)                               0.05       1.31 r
+  U4914/Y (XOR2_X3M_A9TR)                                 0.10       1.41 r
+  U255/Y (NOR2_X2M_A9TL)                                  0.09       1.51 f
+  U13945/Y (INV_X2M_A9TR)                                 0.07       1.57 r
+  U5844/Y (NAND2_X1A_A9TR)                                0.05       1.62 f
+  U1899/Y (OAI21_X2M_A9TL)                                0.05       1.67 r
+  U10405/Y (AOI21_X2M_A9TL)                               0.07       1.74 f
+  U13782/Y (OAI21_X1P4M_A9TL)                             0.06       1.80 r
+  U13745/Y (XNOR2_X1M_A9TL)                               0.06       1.86 r
+  genblk1[11].u_MQ_MONTYMUL/w_reg_reg[28]/D (DFFRPQ_X2M_A9TH)
+                                                          0.00       1.86 r
+  data arrival time                                                  1.86
+
+  clock clk (rise edge)                                   2.00       2.00
+  clock network delay (ideal)                             0.00       2.00
+  clock uncertainty                                      -0.10       1.90
+  genblk1[11].u_MQ_MONTYMUL/w_reg_reg[28]/CK (DFFRPQ_X2M_A9TH)
+                                                          0.00       1.90 r
+  library setup time                                     -0.04       1.86
+  data required time                                                 1.86
+  --------------------------------------------------------------------------
+  data required time                                                 1.86
+  data arrival time                                                 -1.86
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1
