@@ -97,7 +97,7 @@ u_DELAY_BUFFER (
     .d_o(delay_d_o)
     );
 
-MQ_MONTYMUL u_mq_montymul (
+MQ_MONTYMUL u_MQ_MONTYMUL (
     // Input signals
     .clk(clk), .rst_n(rst_n),
     .ena(mult_en), 
