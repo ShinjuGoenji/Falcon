@@ -2,9 +2,9 @@
 `include "PATTERN.v"
 
 `ifdef RTL
-    `include "IFFT.v"
+    `include "MQ_INTT.v"
 `elsif GATE
-    `include "IFFT_SYN.v"
+    `include "MQ_INTT_SYN.v"
 `endif
 	  		  	
 module TESTBED;
@@ -13,62 +13,36 @@ module TESTBED;
 // Parameter
 //================================================================
 `ifdef FALCON512
-    parameter logn = 8;
-`elsif FALCON1024
     parameter logn = 9;
+`elsif FALCON1024
+    parameter logn = 10;
 `else
-    parameter logn = 8;
+    parameter logn = 9;
 `endif
 
-parameter FLOAT_PRECISION = 64;
+localparam Q_WIDTH = 14;
 
 //================================================================
 // Wire Declarations
 //================================================================
-wire                       clk;
-wire                       rst_n;
-wire                       in_valid;
-wire [FLOAT_PRECISION-1:0] fi_re;
-wire [FLOAT_PRECISION-1:0] fi_im;
-wire [FLOAT_PRECISION-1:0] s_re_1;
-wire [FLOAT_PRECISION-1:0] s_im_1;
-wire [FLOAT_PRECISION-1:0] s_re_2;
-wire [FLOAT_PRECISION-1:0] s_im_2;
-wire [FLOAT_PRECISION-1:0] s_re_3;
-wire [FLOAT_PRECISION-1:0] s_im_3;
-wire [FLOAT_PRECISION-1:0] s_re_4;
-wire [FLOAT_PRECISION-1:0] s_im_4;
-wire [FLOAT_PRECISION-1:0] s_re_5;
-wire [FLOAT_PRECISION-1:0] s_im_5;
-wire [FLOAT_PRECISION-1:0] s_re_6;
-wire [FLOAT_PRECISION-1:0] s_im_6;
-wire [FLOAT_PRECISION-1:0] s_re_7;
-wire [FLOAT_PRECISION-1:0] s_im_7;
-wire [FLOAT_PRECISION-1:0] s_re_8;
-wire [FLOAT_PRECISION-1:0] s_im_8;
+wire               clk;
+wire               rst_n;
+wire               in_valid;
+wire [Q_WIDTH-1:0] a_i;
 
-wire                       out_valid;
-wire [logn:0]              tw_idx_1;
-wire [logn:0]              tw_idx_2;
-wire [logn:0]              tw_idx_3;
-wire [logn:0]              tw_idx_4;
-wire [logn:0]              tw_idx_5;
-wire [logn:0]              tw_idx_6;
-wire [logn:0]              tw_idx_7;
-wire [logn:0]              tw_idx_8;
-wire [FLOAT_PRECISION-1:0] fo_re;
-wire [FLOAT_PRECISION-1:0] fo_im;
+wire               out_valid;
+wire [Q_WIDTH-1:0] a_o;
 
 //================================================================
 // Dump Waveform
 //================================================================
 initial begin
   `ifdef RTL
-    $fsdbDumpfile("IFFT.fsdb");
+    $fsdbDumpfile("MQ_INTT.fsdb");
     $fsdbDumpvars(0,"+mda");
   `elsif GATE
-    $sdf_annotate("IFFT_SYN.sdf",u_IFFT);
-    // $fsdbDumpfile("IFFT_SYN.fsdb");
+    $sdf_annotate("MQ_INTT_SYN.sdf",u_MQ_INTT);
+    // $fsdbDumpfile("MQ_INTT_SYN.fsdb");
     // $fsdbDumpvars(0,"+mda");
   `endif
 end
@@ -77,58 +51,22 @@ end
 // Port Connection
 //================================================================
 `ifdef RTL
-    IFFT #(.FLOAT_PRECISION(FLOAT_PRECISION), .logn(logn)) u_IFFT(
+    MQ_INTT #(.logn(logn)) u_MQ_INTT(
     .clk(clk),
     .rst_n(rst_n),
     .in_valid(in_valid),
-    .fi_re(fi_re),
-    .fi_im(fi_im),
-    .s_re_1(s_re_1), .s_im_1(s_im_1),
-    .s_re_2(s_re_2), .s_im_2(s_im_2),
-    .s_re_3(s_re_3), .s_im_3(s_im_3),
-    .s_re_4(s_re_4), .s_im_4(s_im_4),
-    .s_re_5(s_re_5), .s_im_5(s_im_5),
-    .s_re_6(s_re_6), .s_im_6(s_im_6),
-    .s_re_7(s_re_7), .s_im_7(s_im_7),
-    .s_re_8(s_re_8), .s_im_8(s_im_8),
+    .a_i(a_i),
     .out_valid(out_valid),
-    .tw_idx_1(tw_idx_1),
-    .tw_idx_2(tw_idx_2),
-    .tw_idx_3(tw_idx_3),
-    .tw_idx_4(tw_idx_4),
-    .tw_idx_5(tw_idx_5),
-    .tw_idx_6(tw_idx_6),
-    .tw_idx_7(tw_idx_7),
-    .tw_idx_8(tw_idx_8),
-    .fo_re(fo_re),
-    .fo_im(fo_im)
+    .a_o(a_o)
     );
 `elsif GATE
-    IFFT #(.FLOAT_PRECISION(FLOAT_PRECISION), .logn(logn)) u_IFFT(
+    MQ_INTT #(.logn(logn)) u_MQ_INTT(
     .clk(clk),
     .rst_n(rst_n),
     .in_valid(in_valid),
-    .fi_re(fi_re),
-    .fi_im(fi_im),
-    .s_re_1(s_re_1), .s_im_1(s_im_1),
-    .s_re_2(s_re_2), .s_im_2(s_im_2),
-    .s_re_3(s_re_3), .s_im_3(s_im_3),
-    .s_re_4(s_re_4), .s_im_4(s_im_4),
-    .s_re_5(s_re_5), .s_im_5(s_im_5),
-    .s_re_6(s_re_6), .s_im_6(s_im_6),
-    .s_re_7(s_re_7), .s_im_7(s_im_7),
-    .s_re_8(s_re_8), .s_im_8(s_im_8),
+    .a_i(a_i),
     .out_valid(out_valid),
-    .tw_idx_1(tw_idx_1),
-    .tw_idx_2(tw_idx_2),
-    .tw_idx_3(tw_idx_3),
-    .tw_idx_4(tw_idx_4),
-    .tw_idx_5(tw_idx_5),
-    .tw_idx_6(tw_idx_6),
-    .tw_idx_7(tw_idx_7),
-    .tw_idx_8(tw_idx_8),
-    .fo_re(fo_re),
-    .fo_im(fo_im)
+    .a_o(a_o)
     );
 `endif
 	
@@ -136,27 +74,9 @@ PATTERN #(.logn(logn)) u_PATTERN(
     .clk(clk),
     .rst_n(rst_n),
     .in_valid(in_valid),
-    .fi_re(fi_re),
-    .fi_im(fi_im),
-    .s_re_1(s_re_1), .s_im_1(s_im_1),
-    .s_re_2(s_re_2), .s_im_2(s_im_2),
-    .s_re_3(s_re_3), .s_im_3(s_im_3),
-    .s_re_4(s_re_4), .s_im_4(s_im_4),
-    .s_re_5(s_re_5), .s_im_5(s_im_5),
-    .s_re_6(s_re_6), .s_im_6(s_im_6),
-    .s_re_7(s_re_7), .s_im_7(s_im_7),
-    .s_re_8(s_re_8), .s_im_8(s_im_8),
+    .a_i(a_i),
     .out_valid(out_valid),
-    .tw_idx_1(tw_idx_1),
-    .tw_idx_2(tw_idx_2),
-    .tw_idx_3(tw_idx_3),
-    .tw_idx_4(tw_idx_4),
-    .tw_idx_5(tw_idx_5),
-    .tw_idx_6(tw_idx_6),
-    .tw_idx_7(tw_idx_7),
-    .tw_idx_8(tw_idx_8),
-    .fo_re(fo_re),
-    .fo_im(fo_im)
+    .a_o(a_o)
     );
  
 endmodule
