@@ -30,8 +30,8 @@ initial begin
     $fsdbDumpvars(0,"+mda");
   `elsif GATE
     $sdf_annotate("POLY_INVNORM2_FFT_SYN.sdf",u_POLY_INVNORM2_FFT);
-    // $fsdbDumpfile("POLY_INVNORM2_FFT_SYN.fsdb");
-    // $fsdbDumpvars(0,"+mda");
+    $fsdbDumpfile("POLY_INVNORM2_FFT_SYN.fsdb");
+    $fsdbDumpvars(0,"+mda");
   `endif
 end
 
