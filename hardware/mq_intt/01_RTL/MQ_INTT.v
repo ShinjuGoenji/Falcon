@@ -152,6 +152,12 @@ localparam [Q_WIDTH-1:0] iGMb [0:LUT_SIZE-1] = {
     14'd5421,	14'd5231,	14'd6473,	14'd436,	14'd7567,	14'd8603,	14'd6229,	14'd8230
 };
 
+/*
+ * logn = 9: ni = 128
+ * logn = 10: ni = 64
+ */
+localparam [Q_WIDTH-1:0] ni = (logn == 10) ? 64 : 128;
+
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
@@ -166,12 +172,15 @@ output reg [Q_WIDTH-1:0] a_o;
 //---------------------------------------------------------------------
 //   Reg & Wire
 //---------------------------------------------------------------------
-reg                        valid  [0:logn];
-reg [Q_WIDTH-1:0]          a      [0:logn];
+reg                        valid     [0:logn];
+reg [Q_WIDTH-1:0]          a         [0:logn];
 
-reg [Q_WIDTH-1:0]          s      [0:logn-1];
-reg [Q_WIDTH-1:0]          s_reg  [0:logn-1];
-reg [$clog2(LUT_SIZE)-1:0] tw_idx [0:logn-1];
+reg [Q_WIDTH-1:0]          s         [0:logn-1];
+reg [Q_WIDTH-1:0]          s_reg     [0:logn-1];
+reg [$clog2(LUT_SIZE)-1:0] tw_idx    [0:logn-1];
+
+reg                        valid_div;
+reg [Q_WIDTH-1:0]          a_div;
 
 //---------------------------------------------------------------------
 //   Submodule
@@ -208,6 +217,18 @@ generate
     end
 endgenerate
 
+MQ_MONTYMUL u_MQ_MONTYMUL (
+    // Input signals
+    .clk(clk), .rst_n(rst_n),
+    .ena(1'b1), 
+    .in_valid(valid[logn]),
+    .x(a[logn]), 
+    .y(ni),
+    // Output signals
+    .out_valid(valid_div),
+    .z(a_div)
+    );
+
 //---------------------------------------------------------------------
 //   Sequential Logic
 //---------------------------------------------------------------------
@@ -221,8 +242,8 @@ always @(posedge clk or negedge rst_n) begin
     else begin
         valid[0] <= in_valid;
         a[0] <= a_i;
-        out_valid <= valid[logn];
-        a_o <= a[logn];
+        out_valid <= valid_div;
+        a_o <= a_div;
     end
 end
 
