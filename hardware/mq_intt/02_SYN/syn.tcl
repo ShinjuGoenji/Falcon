@@ -7,7 +7,7 @@
 #======================================================
 # (A) Global Parameters
 #======================================================
-set DESIGN "INTT"
+set DESIGN "MQ_INTT"
 set CYCLE 2.0
 set INPUT_DLY [expr 0.5*$CYCLE]
 set OUTPUT_DLY [expr 0.5*$CYCLE]

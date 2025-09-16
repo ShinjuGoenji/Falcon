@@ -3,7 +3,7 @@
 /*
  * Compute the inverse NTT on a ring element, binary case.
  */
-module MQ_IFFT #(
+module MQ_INTT #(
     parameter logn = 9
 )(
     // Input signals
@@ -184,7 +184,7 @@ reg [$clog2(LUT_SIZE)-1:0] tw_idx [0:logn-1];
 genvar stage_idx;
 generate
     for (stage_idx = 0; stage_idx < logn; stage_idx++) begin
-        RADIX2 #(logn, stage_idx)
+        RADIX2 #(logn, logn-stage_idx-1)
         u_RADIX2 (
             // Input signals
             .clk(clk), .rst_n(rst_n),

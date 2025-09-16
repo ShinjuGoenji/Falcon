@@ -1,0 +1,1304 @@
+#======================================================
+#
+# Synopsys Synthesis Scripts (Design Vision dctcl mode)
+#
+#======================================================
+#======================================================
+# (A) Global Parameters
+#======================================================
+set DESIGN "MQ_INTT"
+MQ_INTT
+set CYCLE 2.0
+2.0
+set INPUT_DLY [expr 0.5*$CYCLE]
+1.0
+set OUTPUT_DLY [expr 0.5*$CYCLE]
+1.0
+#======================================================
+# (B) Read RTL Code
+#======================================================
+# (B-1) analyze + elaborate
+set hdlin_auto_save_templates TRUE
+TRUE
+analyze -f sverilog $DESIGN\.v 
+Running PRESTO HDLC
+Compiling source file ../01_RTL/MQ_INTT.v
+Opening include file ../01_RTL/RADIX2.v
+Opening include file ../01_RTL/DELAY_BUFFER.v
+Opening include file ../01_RTL/BUTTERFLY.v
+Warning:  ../01_RTL/BUTTERFLY.v:8: Empty port in module declaration. (VER-986)
+Opening include file ../01_RTL/MQ.v
+Warning:  ../01_RTL/RADIX2.v:33: Parameter keyword used in local parameter declaration. (VER-329)
+Presto compilation completed successfully.
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/standard.sldb'
+1
+elaborate $DESIGN  
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db'
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb'
+  Loading link library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+
+Inferred memory devices in process
+        in routine MQ_INTT line 214 in file
+                '../01_RTL/MQ_INTT.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       a_o_reg       | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      valid_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|        a_reg        | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine MQ_INTT line 232 in file
+                '../01_RTL/MQ_INTT.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      s_reg_reg      | Flip-flop |  126  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (MQ_INTT)
+Elaborated 1 design.
+Current design is now 'MQ_INTT'.
+Information: Building the design 'RADIX2' instantiated from design 'MQ_INTT' with
+        the parameters "9,8". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:139: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:152: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:153: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:182: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 118 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           119            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 135 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           136            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine RADIX2_logn9_U8 line 188 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     mult_en_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     a_i_reg_reg     | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_i_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_in_valid_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_logn9_U8)
+Information: Building the design 'RADIX2' instantiated from design 'MQ_INTT' with
+        the parameters "9,7". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:139: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:152: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:153: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:182: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 118 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           119            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 135 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           136            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine RADIX2_logn9_U7 line 188 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     mult_en_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     a_i_reg_reg     | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_i_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_in_valid_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_logn9_U7)
+Information: Building the design 'RADIX2' instantiated from design 'MQ_INTT' with
+        the parameters "9,6". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:139: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:152: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:153: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:182: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 118 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           119            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 135 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           136            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine RADIX2_logn9_U6 line 188 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     mult_en_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     a_i_reg_reg     | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_i_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_in_valid_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_logn9_U6)
+Information: Building the design 'RADIX2' instantiated from design 'MQ_INTT' with
+        the parameters "9,5". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:139: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:152: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:153: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:182: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 118 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           119            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 135 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           136            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine RADIX2_logn9_U5 line 188 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     mult_en_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     a_i_reg_reg     | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_i_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_in_valid_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_logn9_U5)
+Information: Building the design 'RADIX2' instantiated from design 'MQ_INTT' with
+        the parameters "9,4". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:139: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:152: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:153: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:182: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 118 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           119            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 135 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           136            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine RADIX2_logn9_U4 line 188 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     mult_en_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     a_i_reg_reg     | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_i_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_in_valid_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_logn9_U4)
+Information: Building the design 'RADIX2' instantiated from design 'MQ_INTT' with
+        the parameters "9,3". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:139: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:152: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:153: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:182: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 118 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           119            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 135 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           136            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine RADIX2_logn9_U3 line 188 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     mult_en_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     a_i_reg_reg     | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_i_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_in_valid_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_logn9_U3)
+Information: Building the design 'RADIX2' instantiated from design 'MQ_INTT' with
+        the parameters "9,2". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:139: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:152: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:153: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:182: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 118 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           119            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 135 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           136            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine RADIX2_logn9_U2 line 188 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     mult_en_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     a_i_reg_reg     | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_i_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_in_valid_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_logn9_U2)
+Information: Building the design 'RADIX2' instantiated from design 'MQ_INTT' with
+        the parameters "9,1". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:139: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:152: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:153: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:182: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 118 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           119            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 135 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           136            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine RADIX2_logn9_U1 line 188 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     mult_en_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     a_i_reg_reg     | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_i_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_in_valid_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_logn9_U1)
+Information: Building the design 'RADIX2' instantiated from design 'MQ_INTT' with
+        the parameters "9,0". (HDL-193)
+Warning:  ../01_RTL/RADIX2.v:139: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:152: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:153: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/RADIX2.v:182: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 118 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           119            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 135 in file
+        '../01_RTL/RADIX2.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           136            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine RADIX2_logn9_U0 line 188 in file
+                '../01_RTL/RADIX2.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     mult_en_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     i_valid_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     a_i_reg_reg     | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    state_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     cnt_reg_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_d_i_reg_reg   | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  mult_in_valid_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (RADIX2_logn9_U0)
+Information: Building the design 'BUTTERFLY'. (HDL-193)
+Warning:  ../01_RTL/BUTTERFLY.v:1: Port number 5 of 'BUTTERFLY' was named 'Port5'. (VER-441)
+Presto compilation completed successfully. (BUTTERFLY)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_logn9_U8' with
+        the parameters "DEPTH=1". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH1 line 39 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_DEPTH1)
+Information: Building the design 'MQ_MONTYMUL'. (HDL-193)
+
+Inferred memory devices in process
+        in routine MQ_MONTYMUL line 185 in file
+                '../01_RTL/MQ.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      w_reg_reg      | Flip-flop |  30   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      x_reg_reg      | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     ena_reg_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     x_y_reg_reg     | Flip-flop |  28   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (MQ_MONTYMUL)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_logn9_U7' with
+        the parameters "DEPTH=2". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH2 line 39 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH2 line 59 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_DEPTH2)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_logn9_U6' with
+        the parameters "DEPTH=4". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH4 line 39 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH4 line 59 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  42   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_DEPTH4)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_logn9_U5' with
+        the parameters "DEPTH=8". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH8 line 39 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH8 line 59 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  98   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_DEPTH8)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_logn9_U4' with
+        the parameters "DEPTH=16". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH16 line 39 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH16 line 59 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  210  |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |  15   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_DEPTH16)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_logn9_U3' with
+        the parameters "DEPTH=32". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH32 line 39 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH32 line 59 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  434  |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_DEPTH32)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_logn9_U2' with
+        the parameters "DEPTH=64". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH64 line 39 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH64 line 59 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  882  |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |  63   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_DEPTH64)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_logn9_U1' with
+        the parameters "DEPTH=128". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH128 line 39 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH128 line 59 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop | 1778  |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |  127  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_DEPTH128)
+Information: Building the design 'DELAY_BUFFER' instantiated from design 'RADIX2_logn9_U0' with
+        the parameters "DEPTH=256". (HDL-193)
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH256 line 39 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DELAY_BUFFER_DEPTH256 line 59 in file
+                '../01_RTL/DELAY_BUFFER.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buff_reg       | Flip-flop | 3570  |  Y  | N  | Y  | N  | N  | N  | N  |
+|    buf_valid_reg    | Flip-flop |  255  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DELAY_BUFFER_DEPTH256)
+Information: Building the design 'MQ_ADD'. (HDL-193)
+Presto compilation completed successfully. (MQ_ADD)
+Information: Building the design 'MQ_SUB'. (HDL-193)
+Presto compilation completed successfully. (MQ_SUB)
+1
+# (B-2) read_sverilog
+# read_sverilog $DESIGN\.v
+# (B-3) set current design
+current_design $DESIGN
+Current design is 'MQ_INTT'.
+{MQ_INTT}
+link
+
+  Linking design 'MQ_INTT'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (23 designs)              /home/daniel_kuo/Falcon/hardware/mq_intt/02_SYN/MQ_INTT.db, etc
+  sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db
+  dw_foundation.sldb (library) /usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb
+
+1
+#======================================================
+#  (C) Global Setting
+#======================================================
+set_wire_load_mode top
+1
+# set_operating_conditions -max WCCOM -min BCCOM
+# set_wire_load_model -name umc18_wl10 -library slow
+#======================================================
+#  (D) Set Design Constraints
+#======================================================
+# (D-1) Setting Clock Constraints
+create_clock -name clk -period $CYCLE [get_ports clk] 
+1
+set_dont_touch_network             [get_clocks clk]
+1
+set_fix_hold                       [get_clocks clk]
+1
+set_clock_uncertainty       0.1    [get_clocks clk]
+1
+# set_clock_latency   -source 0      [get_clocks clk]
+# set_clock_latency           1      [get_clocks clk] 
+set_input_transition        0.5    [all_inputs] 
+1
+set_clock_transition        0.1    [all_clocks] 
+1
+# (D-2) Setting in/out Constraints
+set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
+1
+set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
+1
+set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time check 
+1
+set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
+1
+set_input_delay 0 -clock clk clk
+1
+set_input_delay 0 -clock clk rst_n
+1
+#set_max_delay $CYCLE -from [all_inputs] -to [all_outputs]
+# (D-3) Setting Design Environment
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [get_ports clk]
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [remove_from_collection [all_inputs] [get_ports clk]]
+# set_load  [load_of "umc18io3v5v_slow/P8C/A"]       [all_outputs] ; # ~= 0.038
+set_load 0.05 [all_outputs]
+1
+# (D-4) Setting DRC Constraint
+#set_max_delay           0     ; # Optimize delay max effort                 
+#set_max_area            0      ; # Optimize area max effort           
+set_max_transition      3       [all_inputs]   ; # U18 LUT Max Transition Value  
+1
+set_max_capacitance     0.15    [all_inputs]   ; # U18 LUT Max Capacitance Value
+1
+set_max_fanout          10      [all_inputs]
+1
+# set_dont_use slow/JKFF*
+#set_dont_touch [get_cells core_reg_macro]
+#set hdlin_ff_always_sync_set_reset true
+# (D-5) Report Clock skew
+report_clock -skew clk
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Updating design information... (UID-85)
+Warning: Design 'MQ_INTT' contains 19 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : clock_skew
+Design : MQ_INTT
+Version: T-2022.03
+Date   : Tue Sep 16 17:00:12 2025
+****************************************
+
+                 Rise      Fall  Min Rise  Min fall        Uncertainty
+Object          Delay     Delay     Delay     Delay     Plus      Minus
+--------------------------------------------------------------------------------
+clk                 -         -         -         -      0.10      0.10
+
+                 Max Transition      Min Transition
+Object           Rise      Fall      Rise      Fall
+-------------------------------------------------------
+clk              0.10      0.10      0.10      0.10
+1
+check_timing
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+#======================================================
+#  (E) Optimization
+#======================================================
+check_design > Report/$DESIGN\.check
+set_fix_multiple_port_nets -all -buffer_constants [get_designs *]
+1
+set_fix_hold [all_clocks]
+1
+compile_ultra
+Information: Performing power optimization. (PWR-850)
+Analyzing: "/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db"
+Analyzing: "/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db"
+Analyzing: "/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db"
+Library analysis succeeded.
+Information: Running optimization using a maximum of 4 cores. (OPT-1500)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | S-2021.06-DWBB_202106.0 |     *     |
+| Licensed DW Building Blocks        | S-2021.06-DWBB_202106.0 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT WLM                                                           |
+| Comand line  | compile_ultra                                                                     |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 28525                                  |
+| Number of User Hierarchies                              | 54                                     |
+| Sequential Cell Count                                   | 8865                                   |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 18871                                  |
+| Number of Dont Touch nets                               | 28                                     |
+| Number of size only cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 254 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+Information: Uniquified 9 instances of design 'BUTTERFLY'. (OPT-1056)
+Information: Uniquified 9 instances of design 'MQ_MONTYMUL'. (OPT-1056)
+Information: Uniquified 9 instances of design 'MQ_ADD'. (OPT-1056)
+Information: Uniquified 9 instances of design 'MQ_SUB'. (OPT-1056)
+  Simplifying Design 'MQ_INTT'
+
+Loaded alib file './alib-52/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+Loaded alib file './alib-52/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db.alib'
+Loaded alib file './alib-52/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+  Building model 'DW01_NAND2'
+Information: Ungrouping hierarchy genblk1[0].u_RADIX2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[1].u_RADIX2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[2].u_RADIX2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[3].u_RADIX2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[4].u_RADIX2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[5].u_RADIX2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[6].u_RADIX2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[7].u_RADIX2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[8].u_RADIX2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[0].u_RADIX2/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[0].u_RADIX2/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[0].u_RADIX2/u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[1].u_RADIX2/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[2].u_RADIX2/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[3].u_RADIX2/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[4].u_RADIX2/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[5].u_RADIX2/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[6].u_RADIX2/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[7].u_RADIX2/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[8].u_RADIX2/u_DELAY_BUFFER before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[8].u_RADIX2/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[7].u_RADIX2/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[6].u_RADIX2/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[5].u_RADIX2/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[4].u_RADIX2/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[3].u_RADIX2/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[2].u_RADIX2/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[1].u_RADIX2/u_BUTTERFLY before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[8].u_RADIX2/u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[7].u_RADIX2/u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[6].u_RADIX2/u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[5].u_RADIX2/u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[4].u_RADIX2/u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[3].u_RADIX2/u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[2].u_RADIX2/u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[1].u_RADIX2/u_MQ_MONTYMUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[0].u_RADIX2/u_BUTTERFLY/u_mq_add before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[0].u_RADIX2/u_BUTTERFLY/u_mq_sub before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[8].u_RADIX2/u_BUTTERFLY/u_mq_add before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[7].u_RADIX2/u_BUTTERFLY/u_mq_add before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[6].u_RADIX2/u_BUTTERFLY/u_mq_add before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[5].u_RADIX2/u_BUTTERFLY/u_mq_add before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[4].u_RADIX2/u_BUTTERFLY/u_mq_add before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[3].u_RADIX2/u_BUTTERFLY/u_mq_add before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[2].u_RADIX2/u_BUTTERFLY/u_mq_add before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[1].u_RADIX2/u_BUTTERFLY/u_mq_add before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[8].u_RADIX2/u_BUTTERFLY/u_mq_sub before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[7].u_RADIX2/u_BUTTERFLY/u_mq_sub before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[6].u_RADIX2/u_BUTTERFLY/u_mq_sub before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[5].u_RADIX2/u_BUTTERFLY/u_mq_sub before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[4].u_RADIX2/u_BUTTERFLY/u_mq_sub before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[3].u_RADIX2/u_BUTTERFLY/u_mq_sub before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[2].u_RADIX2/u_BUTTERFLY/u_mq_sub before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy genblk1[1].u_RADIX2/u_BUTTERFLY/u_mq_sub before Pass 1 (OPT-776)
+Information: Ungrouping 54 of 55 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'MQ_INTT'
+Information: Added key list 'DesignWare' to design 'MQ_INTT'. (DDB-72)
+Information: The register 's_reg_reg[8][13]' is a constant and will be removed. (OPT-1206)
+Information: The register 's_reg_reg[7][13]' is a constant and will be removed. (OPT-1206)
+Information: The register 's_reg_reg[6][13]' is a constant and will be removed. (OPT-1206)
+Information: In design 'MQ_INTT', the register 's_reg_reg[8][8]' is removed because it is merged to 's_reg_reg[7][0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[8][5]' is removed because it is merged to 's_reg_reg[7][0]'. (OPT-1215)
+ Implement Synthetic for 'MQ_INTT'.
+Information: The register 's_reg_reg[7][12]' is a constant and will be removed. (OPT-1206)
+Information: The register 's_reg_reg[8][2]' is a constant and will be removed. (OPT-1206)
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIELO_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+Information: In design 'MQ_INTT', the register 's_reg_reg[8][4]' is removed because it is merged to 's_reg_reg[8][0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[7][0]' is removed because it is merged to 's_reg_reg[8][0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[7][3]' is removed because it is merged to 's_reg_reg[8][0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[7][10]' is removed because it is merged to 's_reg_reg[8][0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 'genblk1[0].u_RADIX2/u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[0].u_RADIX2/u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 'genblk1[1].u_RADIX2/u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[1].u_RADIX2/u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[6][1]' is removed because it is merged to 's_reg_reg[6][8]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[8][12]' is removed because it is merged to 'genblk1[8].u_RADIX2/mult_en_reg'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[8][11]' is removed because it is merged to 's_reg_reg[8][9]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[8][7]' is removed because it is merged to 's_reg_reg[8][9]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[8][3]' is removed because it is merged to 's_reg_reg[8][9]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[8][1]' is removed because it is merged to 's_reg_reg[8][9]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[8][10]' is removed because it is merged to 's_reg_reg[8][9]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[8][6]' is removed because it is merged to 's_reg_reg[8][9]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[7][11]' is removed because it is merged to 's_reg_reg[7][9]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[7][8]' is removed because it is merged to 's_reg_reg[7][9]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[7][1]' is removed because it is merged to 's_reg_reg[7][9]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[7][6]' is removed because it is merged to 's_reg_reg[7][7]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[7][4]' is removed because it is merged to 's_reg_reg[7][5]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 's_reg_reg[6][3]' is removed because it is merged to 's_reg_reg[6][9]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 'genblk1[2].u_RADIX2/u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[2].u_RADIX2/u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 'genblk1[3].u_RADIX2/u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[3].u_RADIX2/u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 'genblk1[4].u_RADIX2/u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[4].u_RADIX2/u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 'genblk1[5].u_RADIX2/u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[5].u_RADIX2/u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 'genblk1[6].u_RADIX2/u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[6].u_RADIX2/u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 'genblk1[7].u_RADIX2/u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[7].u_RADIX2/u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+Information: In design 'MQ_INTT', the register 'genblk1[8].u_RADIX2/u_MQ_MONTYMUL/w_reg_reg[0]' is removed because it is merged to 'genblk1[8].u_RADIX2/u_MQ_MONTYMUL/x_y_reg_reg[0]'. (OPT-1215)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+  Mapping Optimization (Phase 1)
+Information: The register 'genblk1[8].u_RADIX2/u_MQ_MONTYMUL/x_y_reg_reg[27]' is a constant and will be removed. (OPT-1206)
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:01:55  141456.5      0.53     124.1       0.0                            918.0980      0.00  
+    0:01:55  140993.6      0.62     135.3       0.0                            914.9748      0.00  
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    0:01:56  141016.8      0.62     135.3       0.0                            915.2528      0.00  
+    0:01:57  141011.1      1.01     147.6       0.0                            915.2209      0.00  
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:02:05   82110.9      0.83     227.7      16.5                            373.3073      0.00  
+    0:02:06   83124.5      0.45     159.1      16.5                            382.5880      0.00  
+    0:02:06   83124.5      0.45     159.1      16.5                            382.5880      0.00  
+    0:02:07   83040.3      0.44     155.3      17.3                            384.3877      0.00  
+    0:02:10   82844.8      0.82     246.5      17.3                            383.0851      0.00  
+    0:02:11   82796.7      0.82     247.3      17.3                            382.8215      0.00  
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:02:19   82574.5      0.84     238.0      15.5                            376.1442      0.00  
+    0:02:30   82206.8      0.84     238.3       3.8                            373.2767      0.00  
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:02:32   82117.2      0.76     229.7       3.8                            372.5112      0.00  
+    0:02:32   82117.2      0.76     229.7       3.8                            372.5112      0.00  
+    0:02:32   82117.2      0.76     229.7       3.8                            372.5112      0.00  
+    0:02:33   83351.7      0.41     145.9       3.8                            412.9949      0.00  
+    0:02:35   83351.7      0.41     145.9       3.8                            412.9949      0.00  
+    0:02:35   83351.7      0.41     145.9       3.8                            412.9949      0.00  
+    0:02:35   83351.7      0.41     145.9       3.8                            412.9949      0.00  
+    0:02:36   83816.9      0.38     139.9       0.0                            445.6787      0.00  
+    0:02:39   83816.9      0.38     139.9       0.0                            445.6787      0.00  
+    0:02:42   84834.5      0.14      42.5       0.0                            667.8613      0.00  
+    0:02:44   84961.8      0.07       4.1       0.0                            725.5856      0.00  
+    0:02:44   84961.8      0.07       4.1       0.0                            725.5856      0.00  
+    0:02:48   79861.5      0.01       0.6       0.0                            532.4186      0.00  
+    0:02:48   79861.5      0.01       0.6       0.0                            532.4186      0.00  
+    0:02:49   81418.7      0.00       0.0      12.3                            631.1125      0.00  
+    0:02:49   81418.7      0.00       0.0      12.3                            631.1125      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:02:49   81411.4      0.00       0.0      12.3                            631.3499      0.00  
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+    0:02:50   81407.1      0.00       0.0       0.0                            631.1850      0.00  
+    0:02:50   81407.1      0.00       0.0       0.0                            631.1850      0.00  
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:02:50   81407.1      0.00       0.0       0.0                            631.1850      0.00  
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+    0:03:18   80147.0      0.04       8.0       0.0                            534.7441      0.00  
+    0:03:20   82610.1      0.00       0.0      27.8                            704.7767      0.00  
+    0:03:21   82610.1      0.00       0.0      27.8                            704.7767      0.00  
+    0:03:24   79134.4      0.00       0.0       0.0                            496.5465      0.00  
+    0:03:25   79134.4      0.00       0.0       0.0                            496.5465      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+    0:03:25   79164.5      0.00       0.0       0.0                            499.2872      0.00  
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:03:27   79164.5      0.00       0.0       0.0                            499.2873      0.00  
+    0:03:55   74360.7      0.00       0.0       0.0                            449.0598      0.00  
+    0:03:55   74360.9      0.00       0.0       0.0                            449.0609      0.00  
+    0:03:55   74360.9      0.00       0.0       0.0                            449.0609      0.00  
+    0:03:58   74347.8      0.00       0.0       0.0                            431.7711      0.00  
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:03:59   74347.8      0.00       0.0       0.0                            431.7711      0.00  
+    0:03:59   74347.8      0.00       0.0       0.0                            431.7711      0.00  
+    0:03:59   74347.8      0.00       0.0       0.0                            431.7711      0.00  
+    0:03:59   74347.8      0.00       0.0       0.0                            431.7711      0.00  
+    0:04:02   74347.8      0.00       0.0       0.0                            431.7711      0.00  
+    0:04:02   74347.8      0.00       0.0       0.0                            431.7711      0.00  
+    0:04:02   74347.8      0.00       0.0       0.0                            431.7711      0.00  
+    0:04:02   74347.8      0.00       0.0       0.0                            431.7711      0.00  
+    0:04:16   74286.1      0.00       0.0       0.0                            429.8582      0.00  
+    0:04:18   74487.5      0.00       0.0       0.0                            424.4248      0.00  
+    0:04:18   74495.4      0.00       0.0       0.0                            424.1452      0.00  
+    0:04:18   74495.4      0.00       0.0       0.0                            424.1452      0.00  
+    0:04:18   74495.4      0.00       0.0       0.0                            424.1452      0.00  
+    0:04:18   74495.4      0.00       0.0       0.0                            424.1452      0.00  
+    0:04:18   74495.4      0.00       0.0       0.0                            424.1453      0.00  
+    0:04:18   74495.4      0.00       0.0       0.0                            424.1453      0.00  
+    0:04:22   73910.3      0.00       0.0       0.0                            413.4197      0.00  
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'MQ_INTT' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 8830 load(s), 1 driver(s)
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+#uniquify
+#compile
+#======================================================
+#  (F) Output Reports 
+#======================================================
+report_design  >  Report/$DESIGN\.design
+report_resource >  Report/$DESIGN\.resource
+report_timing -max_paths 3 >  Report/$DESIGN\.timing
+report_area >  Report/$DESIGN\.area
+report_power > Report/$DESIGN\.power
+report_clock > Report/$DESIGN\.clock
+report_port >  Report/$DESIGN\.port
+report_power >  Report/$DESIGN\.power
+#report_reference > Report/$DESIGN\.reference
+#======================================================
+#  (G) Change Naming Rule
+#======================================================
+set bus_inference_style "%s\[%d\]"
+%s[%d]
+set bus_naming_style "%s\[%d\]"
+%s[%d]
+set hdlout_internal_busses true
+true
+change_names -hierarchy -rule verilog
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
+1
+define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+1
+define_name_rules name_rule -case_insensitive
+1
+change_names -hierarchy -rules name_rule
+1
+#======================================================
+#  (H) Output Results
+#======================================================
+set verilogout_higher_designs_first true
+true
+write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
+Writing verilog file '/home/daniel_kuo/Falcon/hardware/mq_intt/02_SYN/Netlist/MQ_INTT_SYN.v'.
+1
+write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
+Writing ddc file 'MQ_INTT_SYN.ddc'.
+1
+write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
+Information: Writing timing information to file '/home/daniel_kuo/Falcon/hardware/mq_intt/02_SYN/Netlist/MQ_INTT_SYN.sdf'. (WT-3)
+1
+write_sdc Netlist/$DESIGN\_SYN.sdc
+1
+#======================================================
+#  (I) Finish and Quit
+#======================================================
+report_area
+ 
+****************************************
+Report : area
+Design : MQ_INTT
+Version: T-2022.03
+Date   : Tue Sep 16 17:06:56 2025
+****************************************
+
+Library(s) Used:
+
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+
+Number of ports:                           32
+Number of nets:                         35796
+Number of cells:                        34648
+Number of combinational cells:          25818
+Number of sequential cells:              8830
+Number of macros/black boxes:               0
+Number of buf/inv:                       4022
+Number of references:                     612
+
+Combinational area:              33835.611014
+Buf/Inv area:                     2280.927561
+Noncombinational area:           40074.650853
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                 73910.261867
+Total area:                      73910.261867
+1
+report_timing 
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : MQ_INTT
+Version: T-2022.03
+Date   : Tue Sep 16 17:06:56 2025
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: s_reg_reg_2__5_
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: genblk1_2__u_RADIX2_u_MQ_MONTYMUL_w_reg_reg_28_
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  MQ_INTT            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  s_reg_reg_2__5_/CK (DFFRPQN_X1M_A9TL)                   0.00 #     0.00 r
+  s_reg_reg_2__5_/QN (DFFRPQN_X1M_A9TL)                   0.14       0.14 f
+  U20234/Y (INV_X2M_A9TR)                                 0.05       0.19 r
+  U20225/Y (INV_X2P5M_A9TH)                               0.04       0.23 f
+  U20175/Y (INV_X3M_A9TH)                                 0.07       0.30 r
+  U19982/Y (XNOR2_X0P7M_A9TR)                             0.13       0.42 r
+  U37619/Y (OAI22_X1M_A9TR)                               0.14       0.56 f
+  U37626/CO (ADDF_X2M_A9TH)                               0.17       0.74 f
+  U24256/S (ADDF_X1M_A9TL)                                0.11       0.85 r
+  U37791/S (ADDF_X2M_A9TH)                                0.22       1.07 f
+  U23703/Y (XOR2_X1P4M_A9TL)                              0.06       1.13 r
+  U26949/Y (NOR2_X2A_A9TL)                                0.04       1.18 f
+  U23560/Y (INV_X1M_A9TH)                                 0.05       1.23 r
+  U19584/Y (AND2_X1M_A9TH)                                0.10       1.33 r
+  U23344/Y (XOR2_X1P4M_A9TL)                              0.09       1.42 r
+  U26048/S (ADDH_X1P4M_A9TL)                              0.10       1.53 f
+  U25962/Y (NAND2_X1A_A9TL)                               0.04       1.57 r
+  U25895/Y (INV_X1M_A9TR)                                 0.03       1.60 f
+  U25846/Y (AOI21_X1M_A9TL)                               0.07       1.67 r
+  U23253/Y (OAI21_X1P4M_A9TL)                             0.06       1.73 f
+  U25754/Y (AOI21_X4M_A9TL)                               0.06       1.79 r
+  U19239/Y (OAI21_X2M_A9TL)                               0.04       1.83 f
+  U36988/Y (XOR2_X1P4M_A9TL)                              0.04       1.87 r
+  genblk1_2__u_RADIX2_u_MQ_MONTYMUL_w_reg_reg_28_/D (DFFRPQ_X2M_A9TH)
+                                                          0.00       1.87 r
+  data arrival time                                                  1.87
+
+  clock clk (rise edge)                                   2.00       2.00
+  clock network delay (ideal)                             0.00       2.00
+  clock uncertainty                                      -0.10       1.90
+  genblk1_2__u_RADIX2_u_MQ_MONTYMUL_w_reg_reg_28_/CK (DFFRPQ_X2M_A9TH)
+                                                          0.00       1.90 r
+  library setup time                                     -0.03       1.87
+  data required time                                                 1.87
+  --------------------------------------------------------------------------
+  data required time                                                 1.87
+  data arrival time                                                 -1.87
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1
+exit
+
+Memory usage for this session 1064 Mbytes.
+Memory usage for this session including child processes 1611 Mbytes.
+CPU usage for this session 481 seconds ( 0.13 hours ).
+Elapsed time for this session 416 seconds ( 0.12 hours ).
+
+Thank you...
+

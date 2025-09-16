@@ -54,7 +54,7 @@ output reg [Q_WIDTH-1:0]          a_o;
 //   Reg & Wire
 //---------------------------------------------------------------------
 reg mult_valid;
-reg [Q_WIDTH-1:0] d_i_reg;
+reg [Q_WIDTH-1:0] a_i_reg;
 
 reg [Q_WIDTH-1:0] butterfly_X, butterfly_Y;
 
@@ -70,7 +70,7 @@ reg [logn:0] cnt, cnt_reg;
 reg in_valid_reg;
 reg stall;
 
-reg tw_mask;
+reg tw_mask, mult_en;
 reg [i1_bit-1:0] i1;
 
 //---------------------------------------------------------------------
@@ -79,7 +79,7 @@ reg [i1_bit-1:0] i1;
 BUTTERFLY u_BUTTERFLY (
     // Input signals
     .x(delay_d_o), 
-    .y(d_i_reg),
+    .y(a_i_reg),
     // Output signals
     .X(butterfly_X), 
     .Y(butterfly_Y)
@@ -100,6 +100,7 @@ u_DELAY_BUFFER (
 MQ_MONTYMUL u_MQ_MONTYMUL (
     // Input signals
     .clk(clk), .rst_n(rst_n),
+    .ena(mult_en), 
     .in_valid(mult_in_valid),
     .x(mult_d_i_reg), 
     .y(s),
@@ -173,7 +174,7 @@ end
  * Multiplexer that choose the input source to delay buffer.
  */
 assign delay_mux = (cnt_reg == 0) ? 0 : ((cnt_reg) / HT) % 2;
-assign delay_d_i = delay_mux ? butterfly_Y : d_i_reg;
+assign delay_d_i = delay_mux ? butterfly_Y : a_i_reg;
 
 /*
  * Multiplexer that choose the output source.
@@ -187,12 +188,13 @@ assign mult_d_i = output_mux ? delay_d_o : butterfly_X;
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         i_valid <= 0;
-        d_i_reg <= 0;
+        a_i_reg <= 0;
         state_reg <= 0;
         cnt_reg <= 0;
         mult_d_i_reg <= 0;
         in_valid_reg <= 0;
         mult_in_valid <= 0;
+        mult_en <= 0;
     end
     else begin
         state_reg <= state;
@@ -201,13 +203,14 @@ always @(posedge clk or negedge rst_n) begin
         in_valid_reg <= in_valid;
         if (stall) begin
             i_valid <= i_valid;
-            d_i_reg <= d_i_reg;
+            a_i_reg <= a_i_reg;
         end
         else begin
             i_valid <= in_valid;
-            d_i_reg <= d_i_reg;
+            a_i_reg <= a_i;
         end
         mult_in_valid <= o_valid;
+        mult_en <= tw_mask;
     end
 end
 
