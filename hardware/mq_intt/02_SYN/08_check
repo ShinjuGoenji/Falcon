@@ -1,6 +1,6 @@
 #!/bin/bash
 #dcnxt_shell -f syn.tcl | tee syn.log
-Design="INTT"
+Design="MQ_INTT"
 
 NO_COLOR='\033[0m'
 RED='\033[0;31m'
