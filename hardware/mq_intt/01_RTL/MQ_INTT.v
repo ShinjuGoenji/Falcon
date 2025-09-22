@@ -217,6 +217,15 @@ generate
     end
 endgenerate
 
+/*
+ * To complete the inverse NTT, we must now divide all values by
+ * n (the vector size). We thus need the inverse of n, i.e. we
+ * need to divide 1 by 2 logn times. But we also want it in
+ * Montgomery representation, i.e. we also want to multiply it
+ * by R = 2^16. In the common case, this should be a simple right
+ * shift. The loop below is generic and works also in corner cases;
+ * its computation time is negligible.
+ */
 MQ_MONTYMUL u_MQ_MONTYMUL (
     // Input signals
     .clk(clk), .rst_n(rst_n),
