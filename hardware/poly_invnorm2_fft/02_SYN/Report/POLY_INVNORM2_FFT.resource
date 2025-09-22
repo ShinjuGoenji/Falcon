@@ -3,7 +3,7 @@
 Report : resources
 Design : POLY_INVNORM2_FFT
 Version: T-2022.03
-Date   : Mon Sep  8 02:29:08 2025
+Date   : Sun Sep 21 22:08:02 2025
 ****************************************
 
 
@@ -39,7 +39,7 @@ Resource Report for this hierarchy
 |                |                | op_iso_mode=1 |                         |
 |                |                | id_width=1 |                            |
 |                |                | in_reg=0   |                            |
-|                |                | stages=1000 |                           |
+|                |                | stages=10  |                            |
 |                |                | out_reg=0  |                            |
 |                |                | no_pm=1    |                            |
 |                |                | rst_mode=0 |                            |
@@ -264,7 +264,7 @@ Datapath Report for DP_OP_50J1_132_5914
 ==============================================================================
 
 
-Resource Report for Ungrouped Hierarchy *cell*J2*32011/U1 in file
+Resource Report for Ungrouped Hierarchy *cell*J2*69811/U1 in file
         ./DW_norm_rtl.vhd.e
 =============================================================================
 | Cell           | Module         | Parameters | Contained Operations       |
@@ -293,19 +293,19 @@ Resource Report for Ungrouped Hierarchy u_FPR_ADD_2/U1 in file
 |                |                | srch_wind=3 |                           |
 |                |                | exp_width=7 |                           |
 |                |                | exp_ctr=0  |                            |
-| DP_OP_65J2_138_9389             |            |                            |
-|                | DP_OP_65J2_138_9389 |       |                            |
-| DP_OP_66J2_139_2805             |            |                            |
-|                | DP_OP_66J2_139_2805 |       |                            |
-| DP_OP_67J2_140_5914             |            |                            |
-|                | DP_OP_67J2_140_5914 |       |                            |
+| DP_OP_65J2_141_9389             |            |                            |
+|                | DP_OP_65J2_141_9389 |       |                            |
+| DP_OP_66J2_142_2805             |            |                            |
+|                | DP_OP_66J2_142_2805 |       |                            |
+| DP_OP_67J2_143_5914             |            |                            |
+|                | DP_OP_67J2_143_5914 |       |                            |
 =============================================================================
 
-Datapath Report for DP_OP_65J2_138_9389
+Datapath Report for DP_OP_65J2_141_9389
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_65J2_138_9389  | sub_277 sub_add_279 add_279_ni                      |
+| DP_OP_65J2_141_9389  | sub_277 sub_add_279 add_279_ni                      |
 ==============================================================================
 
 ==============================================================================
@@ -319,11 +319,11 @@ Datapath Report for DP_OP_65J2_138_9389
 | O2    | PO   | Signed   | 11    | -T64 + $unsigned(11'b00000000000)        |
 ==============================================================================
 
-Datapath Report for DP_OP_66J2_139_2805
+Datapath Report for DP_OP_66J2_142_2805
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_66J2_139_2805  | add_294 add_294_2                                   |
+| DP_OP_66J2_142_2805  | add_294 add_294_2                                   |
 ==============================================================================
 
 ==============================================================================
@@ -336,11 +336,11 @@ Datapath Report for DP_OP_66J2_139_2805
 | O1    | PO   | Unsigned | 57    | I1 + I2 + I3                             |
 ==============================================================================
 
-Datapath Report for DP_OP_67J2_140_5914
+Datapath Report for DP_OP_67J2_143_5914
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_67J2_140_5914  | add_402 sub_403                                     |
+| DP_OP_67J2_143_5914  | add_402 sub_403                                     |
 ==============================================================================
 
 ==============================================================================
@@ -361,14 +361,14 @@ Resource Report for Ungrouped Hierarchy u_FPR_ADD_1/U1/U1
 =============================================================================
 
 
-Resource Report for Ungrouped Hierarchy u_FPR_ADD_0/U1/U1
+Resource Report for Ungrouped Hierarchy u_FPR_ADD_2/U1/U2
 =============================================================================
 | Cell           | Module         | Parameters | Contained Operations       |
 =============================================================================
 =============================================================================
 
 
-Resource Report for Ungrouped Hierarchy u_FPR_ADD_2/U1/U2
+Resource Report for Ungrouped Hierarchy u_FPR_ADD_0/U1/U1
 =============================================================================
 | Cell           | Module         | Parameters | Contained Operations       |
 =============================================================================
@@ -427,7 +427,7 @@ Implementation Report
 | lt_x_15            | DW_cmp           | apparch (area)     |                |
 | lt_x_16            | DW_cmp           | apparch (area)     |                |
 | add_x_17           | DW01_add         | pparch (area,speed)                 |
-| U3                 | DW_lzd           | cla                |                |
+| U3                 | DW_lzd           | rtl                |                |
 | U2                 | DW_square        | pparch (area,speed)                 |
 |                    |                  | mult_arch: and     |                |
 | sub_x_1            | DW01_sub         | apparch (area)     |                |
@@ -438,7 +438,7 @@ Implementation Report
 | lt_x_15            | DW_cmp           | apparch (area)     |                |
 | lt_x_16            | DW_cmp           | apparch (area)     |                |
 | add_x_17           | DW01_add         | pparch (area,speed)                 |
-| U3                 | DW_lzd           | cla                |                |
+| U3                 | DW_lzd           | rtl                |                |
 | U2                 | DW_square        | pparch (area,speed)                 |
 |                    |                  | mult_arch: and     |                |
 | sub_x_1            | DW01_sub         | apparch (area)     |                |
@@ -449,7 +449,7 @@ Implementation Report
 | lt_x_15            | DW_cmp           | apparch (area)     |                |
 | lt_x_16            | DW_cmp           | apparch (area)     |                |
 | add_x_17           | DW01_add         | pparch (area,speed)                 |
-| U3                 | DW_lzd           | cla                |                |
+| U3                 | DW_lzd           | rtl                |                |
 | U2                 | DW_square        | pparch (area,speed)                 |
 |                    |                  | mult_arch: and     |                |
 | sub_x_1            | DW01_sub         | apparch (area)     |                |
@@ -460,7 +460,7 @@ Implementation Report
 | lt_x_15            | DW_cmp           | apparch (area)     |                |
 | lt_x_16            | DW_cmp           | apparch (area)     |                |
 | add_x_17           | DW01_add         | pparch (area,speed)                 |
-| U3                 | DW_lzd           | cla                |                |
+| U3                 | DW_lzd           | rtl                |                |
 | U2                 | DW_square        | pparch (area,speed)                 |
 |                    |                  | mult_arch: and     |                |
 | lt_x_1             | DW_cmp           | pparch (area,speed)                 |
@@ -494,12 +494,12 @@ Implementation Report
 |                    | DP_OP_49J1_131_2805 | str (area,speed)                 |
 | DP_OP_50J1_132_5914                   |                    |                |
 |                    | DP_OP_50J1_132_5914 | str (area,speed)                 |
-| DP_OP_65J2_138_9389                   |                    |                |
-|                    | DP_OP_65J2_138_9389 | str (area,speed)                 |
-| DP_OP_66J2_139_2805                   |                    |                |
-|                    | DP_OP_66J2_139_2805 | str (area,speed)                 |
-| DP_OP_67J2_140_5914                   |                    |                |
-|                    | DP_OP_67J2_140_5914 | str (area,speed)                 |
+| DP_OP_65J2_141_9389                   |                    |                |
+|                    | DP_OP_65J2_141_9389 | str (area,speed)                 |
+| DP_OP_66J2_142_2805                   |                    |                |
+|                    | DP_OP_66J2_142_2805 | str (area,speed)                 |
+| DP_OP_67J2_143_5914                   |                    |                |
+|                    | DP_OP_67J2_143_5914 | str (area,speed)                 |
 ===============================================================================
 
 1

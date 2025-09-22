@@ -8,7 +8,7 @@
 # (A) Global Parameters
 #======================================================
 set DESIGN "POLY_INVNORM2_FFT"
-set CYCLE 2.5
+set CYCLE 4.0 
 set INPUT_DLY [expr 0.5*$CYCLE]
 set OUTPUT_DLY [expr 0.5*$CYCLE]
 

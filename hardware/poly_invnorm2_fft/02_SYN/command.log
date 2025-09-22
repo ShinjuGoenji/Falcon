@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version T-2022.03 for linux64 -- Feb 22, 2022
-#@ # Date:   Sun Sep  7 22:05:11 2025
+#@ # Date:   Sun Sep 21 18:02:32 2025
 #@ # Run by: daniel_kuo@eda_root
 #@ 
 
@@ -8628,7 +8628,7 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/poly_invnorm2_fft/02_SYN/
 #@ # (A) Global Parameters
 #@ #======================================================
 #@ set DESIGN "POLY_INVNORM2_FFT"
-#@ set CYCLE 2.5
+#@ set CYCLE 4.0 
 #@ set INPUT_DLY [expr 0.5*$CYCLE]
 #@ set OUTPUT_DLY [expr 0.5*$CYCLE]
 #@ 
