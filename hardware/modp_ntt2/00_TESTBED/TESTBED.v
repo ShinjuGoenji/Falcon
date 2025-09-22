@@ -21,7 +21,7 @@ module TESTBED;
 `endif
 
 localparam P_WIDTH = 31;
-localparam OGN_WIDTH = 4;
+localparam LOGN_WIDTH = 4;
 localparam LUT_SIZE = 1024;
 
 //================================================================
