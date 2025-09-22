@@ -30,7 +30,10 @@ module RADIX2 #(
 //---------------------------------------------------------------------
 localparam    P_WIDTH = 31;
 localparam LOGN_WIDTH = 4;
-localparam PRIME_LUT_SIZE = 512;
+localparam   LUT_SIZE = 512;
+
+localparam T = 1 << (STAGE + 1);
+localparam HT = 1 << STAGE;
 
 localparam S_IDLE = 0;
 localparam  S_EXE = 1;
@@ -60,8 +63,6 @@ output reg [P_WIDTH-1:0]                p0i_o;
 reg [MAX_LOGN:0]     N;
 reg [LOGN_WIDTH-1:0] U;
 reg [MAX_LOGN-1:0]   M;
-reg [MAX_LOGN:0]     T;
-reg [MAX_LOGN-1:0]   HT;
 reg [LOGN_WIDTH-1:0] i_bit;
 reg [MAX_LOGN:0]     CNT_MAX;
 
@@ -79,7 +80,7 @@ reg [P_WIDTH-1:0] _a_o;
 
 reg state, state_reg;
 reg [MAX_LOGN:0] cnt, cnt_reg;
-reg [$clog2(PRIME_LUT_SIZE)-1:0] u, u_reg;
+reg [$clog2(LUT_SIZE)-1:0] u, u_reg;
 reg [LOGN_WIDTH-1:0] logn, logn_reg;
 reg [P_WIDTH-1:0]  p, p_reg;
 reg [P_WIDTH-1:0]  p0i, p0i_reg;
@@ -87,7 +88,7 @@ reg in_valid_reg;
 reg stall;
 
 reg tw_mask, mult_en;
-reg [i_bit-1:0] i;
+reg [MAX_LOGN-2:0] i;
 
 //---------------------------------------------------------------------
 //   Submodule
@@ -96,7 +97,7 @@ BUTTERFLY u_BUTTERFLY (
     // Input signals
     .x(delay_d_o), 
     .y(mult_d_reg),
-    .p(),
+    .p(p),
     // Output signals
     .X(butterfly_X), 
     .Y(butterfly_Y)
@@ -126,7 +127,7 @@ MODP_MONTYMUL u_MODP_MONTYMUL (
     .isMQ(1'b1),
     // Output signals
     .out_valid(mult_valid),
-    .z(mult_d)
+    .d(mult_d)
     );
 
 //---------------------------------------------------------------------
@@ -138,8 +139,6 @@ MODP_MONTYMUL u_MODP_MONTYMUL (
 assign N = 1 << logn;
 assign U = (logn - 1) - STAGE;
 assign M = 1 << U;
-assign T = 1 << (STAGE + 1);
-assign HT = 1 << STAGE;
 assign i_bit = (U == 0) ? 1 : U;
 assign CNT_MAX = N + N / 2;
 
@@ -178,7 +177,7 @@ always @(*) begin
 end
 
 always @(*) begin
-    if (state_reg == S_IDLE && state == S_EXE) begin
+    if (in_valid && state == S_IDLE) begin
         logn = logn_i;
         p = p_i;
         p0i = p0i_i;

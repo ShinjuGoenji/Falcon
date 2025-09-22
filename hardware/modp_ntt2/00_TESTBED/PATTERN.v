@@ -201,7 +201,7 @@ localparam [P_WIDTH-1:0] GMb [0:LUT_SIZE-1] = {
 reg [P_WIDTH-1:0]          a        [0:MAX_N-1];
 reg [P_WIDTH-1:0]          golden_a [0:MAX_N-1];
 reg [LOGN_WIDTH-1:0]       logn_gold;
-reg [MAX_LOGN-1:0]         n;
+reg [MAX_LOGN:0]           n;
 reg [P_WIDTH-1:0]          p_gold;
 reg [P_WIDTH-1:0]          p0i_gold;
 
@@ -209,11 +209,13 @@ reg [P_WIDTH-1:0]          s        [0:MAX_LOGN-1];
 reg [$clog2(LUT_SIZE)-1:0] tw_idx   [0:MAX_LOGN-1];
 // reg [P_WIDTH-1:0]          gm       [0:LUT_SIZE-1];
 
+assign n = 1 << logn_gold;
+
 genvar tw_idx_idx;
 generate
     for (tw_idx_idx = 0; tw_idx_idx < MAX_LOGN; tw_idx_idx=tw_idx_idx+1) begin
         always @(*) begin
-            tw_idx[tw_idx_idx] = tw_idx_bus[P_WIDTH*(tw_idx_idx+1)-1:P_WIDTH*tw_idx_idx];
+            tw_idx[tw_idx_idx] = tw_idx_bus[$clog2(LUT_SIZE)*(tw_idx_idx+1)-1:$clog2(LUT_SIZE)*tw_idx_idx];
         end
     end
 endgenerate
@@ -325,7 +327,6 @@ end endtask
 
 task read_pattern; begin
 	logn_gold = 9;
-	n = 1 << logn_gold;
 	p_gold = 'd12289;
 	p0i_gold = 'd12287;
 	for (i_in_deg = 0; i_in_deg < n; i_in_deg = i_in_deg + 1) 

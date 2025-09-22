@@ -148,7 +148,7 @@ genvar tw_idx_idx;
 generate
     for (tw_idx_idx = 0; tw_idx_idx < MAX_LOGN; tw_idx_idx++) begin
         always @(*) begin
-            tw_idx_bus[P_WIDTH*(tw_idx_idx+1)-1:P_WIDTH*tw_idx_idx] = tw_idx[tw_idx_idx];
+            tw_idx_bus[$clog2(LUT_SIZE)*(tw_idx_idx+1)-1:$clog2(LUT_SIZE)*tw_idx_idx] = tw_idx[tw_idx_idx];
         end
     end
 endgenerate
