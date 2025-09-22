@@ -3,30 +3,30 @@
 Report : area
 Design : MQ_INTT
 Version: T-2022.03
-Date   : Tue Sep 16 17:06:54 2025
+Date   : Tue Sep 16 18:20:18 2025
 ****************************************
 
 Library(s) Used:
 
     sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
-    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
 
 Number of ports:                           32
-Number of nets:                         35796
-Number of cells:                        34648
-Number of combinational cells:          25818
-Number of sequential cells:              8830
+Number of nets:                         36188
+Number of cells:                        35041
+Number of combinational cells:          26178
+Number of sequential cells:              8863
 Number of macros/black boxes:               0
-Number of buf/inv:                       4022
-Number of references:                     612
+Number of buf/inv:                       4082
+Number of references:                     600
 
-Combinational area:              33835.611014
-Buf/Inv area:                     2280.927561
-Noncombinational area:           40074.650853
+Combinational area:              34067.854220
+Buf/Inv area:                     2290.226361
+Noncombinational area:           40227.740847
 Macro/Black Box area:                0.000000
 Net Interconnect area:               0.000000
 
-Total cell area:                 73910.261867
-Total area:                      73910.261867
+Total cell area:                 74295.595067
+Total area:                      74295.595067
 1
