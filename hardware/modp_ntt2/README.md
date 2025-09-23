@@ -1,7 +1,7 @@
-# MQ_NTT
+# MODP_NTT2
 
 > [!NOTE]  
-> See source code [vrfy.c](/software/vrfy.c#L504) at line 504-532.
+> See source code [keygen.c](/software/keygen.c#L983) at line 983-1021.
 
 ```verilog
 module MODP_NTT2 #(
