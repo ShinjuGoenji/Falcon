@@ -19,11 +19,15 @@ localparam P_WIDTH = 31;
 //================================================================
 wire               clk;
 wire               rst_n;
-wire               in_valid;
-wire [P_WIDTH-1:0] p;
+reg               in_valid;
+reg [P_WIDTH-1:0] p;
 
 wire               out_valid;
 wire [P_WIDTH-1:0] p0i;
+
+
+wire               _in_valid;
+wire [P_WIDTH-1:0] _p;
 
 //================================================================
 // Dump Waveform
@@ -65,11 +69,17 @@ end
 PATTERN u_PATTERN (
     .clk(clk),
     .rst_n(rst_n),
-    .in_valid(in_valid),
-    .p(p),
+    .in_valid(_in_valid),
+    .p(_p),
     .out_valid(out_valid),
     .p0i(p0i)
     );
+
+
+always @(posedge clk) begin
+  in_valid <= _in_valid;
+  p <= _p;
+end
  
  
 endmodule
