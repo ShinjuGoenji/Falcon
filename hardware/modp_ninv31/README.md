@@ -24,15 +24,16 @@ This module implement 4-stage pipelined MODP_NINV31.
 
 |           |     |
 | :-------: | :-: |
-| **CYCLE** |     |
+| **CYCLE** |  4  |
 
 ## Performance
 
 |            |     40nm     |
 | :--------: | :----------: |
 | **Period** |    2.0ns     |
-| **#GATE**  |     3619     |
-|  **AREA**  | 36117.672287 |
+| **#GATE**  |     1897     |
+|  **AREA**  | 18930.315273 |
 
 ## Future Optimization
 
+1. less pipeline stages.
