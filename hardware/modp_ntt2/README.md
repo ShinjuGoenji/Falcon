@@ -4,36 +4,44 @@
 > See source code [vrfy.c](/software/vrfy.c#L504) at line 504-532.
 
 ```verilog
-module MQ_NTT #(
-    parameter logn = 9
+module MODP_NTT2 #(
+    parameter MAX_9
 )(
     // Input signals
     clk,
     rst_n,
     in_valid,
     a_i,
+    logn,
+    p,
+    p0i,
+    isMQ,
+    s_bus,
     // Output signals
     out_valid,
-    a_o
+    a_o,
+    tw_idx_bus
 );
 ```
 
 ## Description
 
-Current NTT implement radix-2 unit in a stage. Twiddle value is implemented with LUT.
+Current NTT implement radix-2 unit in a stage, with logn as argument. Twiddle value is fetched from outside of the module.
 
 ## Latency
 
-|           |     |
-| :-------: | :-: |
-| **CYCLE** | 539 |
+|  `logn`   | `9` | `8` | `6` | `5` | `4` | `3` | `2` | `1` |
+| :-------: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| **CYCLE** | 539 | 280 | 82  | 47  | 28  | 17  | 10  |  5  |
 
 ## Performance
 
-|            |     40nm     | 90nm |     |
-| :--------: | :----------: | :--: | :-: |
-| **Period** |    2.1ns     |      |     |
-| **#GATE**  |     7362     |      |     |
-|  **AREA**  | 73471.630647 |      |     |
+|            |     40nm      |
+| :--------: | :-----------: |
+| **Period** |     2.0ns     |
+| **#GATE**  |     26473     |
+|  **AREA**  | 264183.890590 |
 
 ## Future Optimization
+
+1. stall is not working
