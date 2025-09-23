@@ -15,6 +15,7 @@ module RADIX2 #(
     logn_i,
     p_i,
     p0i_i,
+    isMQ_i,
     s,
     // Output signals
     out_valid,
@@ -22,6 +23,7 @@ module RADIX2 #(
     logn_o,
     p_o,
     p0i_o,
+    isMQ_o,
     tw_idx
 );
 
@@ -30,7 +32,7 @@ module RADIX2 #(
 //---------------------------------------------------------------------
 localparam    P_WIDTH = 31;
 localparam LOGN_WIDTH = 4;
-localparam   LUT_SIZE = 512;
+localparam   LUT_SIZE = 1024;
 
 localparam T = 1 << (STAGE + 1);
 localparam HT = 1 << STAGE;
@@ -48,6 +50,7 @@ input [P_WIDTH-1:0]                     a_i;
 input [LOGN_WIDTH-1:0]                  logn_i;
 input [P_WIDTH-1:0]                     p_i;
 input [P_WIDTH-1:0]                     p0i_i;
+input                                   isMQ_i;
 input [P_WIDTH-1:0]                     s;
 
 output reg [$clog2(LUT_SIZE)-1:0]       tw_idx;
@@ -56,6 +59,7 @@ output reg [P_WIDTH-1:0]                a_o;
 output reg [LOGN_WIDTH-1:0]             logn_o;
 output reg [P_WIDTH-1:0]                p_o;
 output reg [P_WIDTH-1:0]                p0i_o;
+output reg                              isMQ_o;
 
 //---------------------------------------------------------------------
 //   Reg & Wire
@@ -84,6 +88,7 @@ reg [$clog2(LUT_SIZE)-1:0] u, u_reg;
 reg [LOGN_WIDTH-1:0] logn, logn_reg;
 reg [P_WIDTH-1:0]  p, p_reg;
 reg [P_WIDTH-1:0]  p0i, p0i_reg;
+reg isMQ, isMQ_reg;
 reg in_valid_reg;
 reg stall;
 
@@ -124,7 +129,7 @@ MODP_MONTYMUL u_MODP_MONTYMUL (
     .b(s), 
     .p(p), 
     .p0i(p0i),
-    .isMQ(1'b1),
+    .isMQ(isMQ),
     // Output signals
     .out_valid(mult_valid),
     .d(mult_d)
@@ -134,13 +139,13 @@ MODP_MONTYMUL u_MODP_MONTYMUL (
 //   FSM & Datapath Logic
 //---------------------------------------------------------------------
 /*
- * Parameters setting
+ * Parameters settings
  */
 assign N = 1 << logn;
 assign U = (logn - 1) - STAGE;
 assign M = 1 << U;
 assign i_bit = (U == 0) ? 1 : U;
-assign CNT_MAX = N + N / 2;
+assign CNT_MAX = N + (1 << STAGE);
 
 /*
  * FSM
@@ -154,7 +159,7 @@ always @(*) begin
                 state = state_reg;
         end
         S_EXE: begin
-            if (cnt_reg == CNT_MAX - 1)
+            if (cnt_reg == CNT_MAX)
                 state = S_IDLE;
             else
                 state = state_reg;
@@ -164,7 +169,12 @@ end
 
 always @(*) begin
     case (state_reg)
-        S_IDLE: cnt = 0;
+        S_IDLE: begin
+            if (mult_valid)
+                cnt = cnt_reg + 1;
+            else
+                cnt = 0;
+        end
         S_EXE: begin
             if (cnt_reg >= N-1)
                 cnt = cnt_reg + 1;
@@ -177,48 +187,51 @@ always @(*) begin
 end
 
 always @(*) begin
-    if (in_valid && state == S_IDLE) begin
+    if (in_valid && !mult_valid) begin
         logn = logn_i;
         p = p_i;
         p0i = p0i_i;
+        isMQ = isMQ_i;
     end
     else begin 
         logn = logn_reg;
         p = p_reg;
         p0i = p0i_reg;
+        isMQ = isMQ_reg;
     end
 end
 
 assign logn_o = logn_reg;
 assign p_o = p_reg;
 assign p0i_o = p0i_reg;
+assign isMQ_o = isMQ_reg;
 
 /*
  * Stall control if non continuous input.
  */
-assign stall = (cnt_reg < N-1) && !mult_valid;
+assign stall = (cnt_reg < N-2) && !mult_valid;
 assign delay_ena = stall ? 0 : 1;
 
 /*
  * Control twiddle factor index.
  */
-assign i = (cnt + 1) / T;
+assign i = (cnt_reg + 1) / T;
 assign tw_idx = tw_mask ? M + i : 0;
 always @(*) begin
-    if (in_valid && cnt == 0 && T == 2)
-        if (state == S_EXE)
+    if (in_valid && cnt_reg == 0 && T == 2)
+        if (mult_valid)
             tw_mask = 0;   
         else 
             tw_mask = 1;   
-    else if (state == S_EXE) begin
-        if (((cnt + 2) % T) == 0)
+    else if (mult_valid) begin
+        if (((cnt_reg + 2) % T) == 0)
             if (!in_valid)
                 tw_mask = 1;
             else 
                 tw_mask = 0;
-        else if (((cnt + 2) % T) < HT)
+        else if (((cnt_reg + 2) % T) < HT)
             tw_mask = 0;
-        else if (((cnt + 2) % T) == HT)
+        else if (((cnt_reg + 2) % T) == HT)
             if (in_valid)
                 tw_mask = 1;
             else 
@@ -233,13 +246,13 @@ end
 /*
  * Multiplexer that choose the input source to delay buffer.
  */
-assign delay_mux = (cnt_reg == 0) ? 0 : ((cnt_reg) / HT) % 2;
+assign delay_mux = (cnt_reg == 1) ? 0 : ((cnt_reg - 1) / HT) % 2;
 assign delay_d_i = delay_mux ? butterfly_Y : mult_d_reg;
 
 /*
  * Multiplexer that choose the output source.
  */
-assign output_mux = (cnt_reg < HT) ? 0 : (cnt_reg / HT) % 2 == 0;
+assign output_mux = ((cnt_reg - 1) < HT) ? 0 : ((cnt_reg - 1) / HT) % 2 == 0;
 assign _a_o = output_mux ? delay_d_o : butterfly_X;
 
 //---------------------------------------------------------------------
@@ -258,6 +271,7 @@ always @(posedge clk or negedge rst_n) begin
         logn_reg <= 0;
         p_reg <= 0;
         p0i_reg <= 0;
+        isMQ_reg <= 0;
     end
     else begin
         state_reg <= state;
@@ -282,6 +296,7 @@ always @(posedge clk or negedge rst_n) begin
         logn_reg <= logn;
         p_reg <= p;
         p0i_reg <= p0i;
+        isMQ_reg <= isMQ;
     end
 end
 
