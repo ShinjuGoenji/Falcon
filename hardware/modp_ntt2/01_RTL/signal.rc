@@ -1,0 +1,242 @@
+Magic 271485
+Revision Verdi_T-2022.06
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 25 1920 673 259 65
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/home/daniel_kuo/Falcon/hardware/modp_ntt2/01_RTL/MODP_NTT2.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 0.000000 3284217.000000
+cursor 557400.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 5
+; marker line index
+markerPos 31
+
+; Run Time Signal and Member
+; userBusMem member ...
+; saveRunSig name
+activeDirFile "" "/home/daniel_kuo/Falcon/hardware/modp_ntt2/01_RTL/MODP_NTT2.fsdb"
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[8]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[7]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[6]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[5]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[4]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[3]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[2]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[1]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[0]
+saveRunSig "/TESTBED/u_MODP_NTT2/radix_in_valid[8:0]"
+
+; Run Time Signal and Member
+; userBusMem member ...
+; saveRunSig name
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[8]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[7]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[6]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[5]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[4]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[3]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[2]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[1]
+userBusMem /TESTBED/u_MODP_NTT2/radix_in_valid[0]
+saveRunSig "/TESTBED/u_MODP_NTT2/radix_in_valid[8:0]"
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+aliasmapname RADIX2(@9).U
+nalias STAGE		4'b1000		NULL
+
+aliasmapname RADIX2(@9).cnt_reg
+nalias HT		10'b0100000000		NULL
+
+aliasmapname RADIX2(@8).U
+nalias STAGE		4'b0111		NULL
+
+aliasmapname RADIX2(@8).cnt_reg
+nalias HT		10'b0010000000		NULL
+
+aliasmapname RADIX2(@7).U
+nalias STAGE		4'b0110		NULL
+
+aliasmapname RADIX2(@7).cnt_reg
+nalias HT		10'b0001000000		NULL
+
+aliasmapname RADIX2(@7).i
+nalias T		8'b10000000		NULL
+
+aliasmapname RADIX2(@6).U
+nalias STAGE		4'b0101		NULL
+
+aliasmapname RADIX2(@6).cnt_reg
+nalias HT		10'b0000100000		NULL
+
+aliasmapname RADIX2(@6).i
+nalias T		8'b01000000		NULL
+
+aliasmapname RADIX2(@5).U
+nalias STAGE		4'b0100		NULL
+
+aliasmapname RADIX2(@5).cnt_reg
+nalias HT		10'b0000010000		NULL
+
+aliasmapname RADIX2(@5).i
+nalias T		8'b00100000		NULL
+
+aliasmapname RADIX2(@4).U
+nalias STAGE		4'b0011		NULL
+
+aliasmapname RADIX2(@4).cnt_reg
+nalias HT		10'b0000001000		NULL
+
+aliasmapname RADIX2(@4).i
+nalias T		8'b00010000		NULL
+
+aliasmapname RADIX2(@3).U
+nalias STAGE		4'b0010		NULL
+
+aliasmapname RADIX2(@3).cnt_reg
+nalias HT		10'b0000000100		NULL
+
+aliasmapname RADIX2(@3).i
+nalias T		8'b00001000		NULL
+
+aliasmapname RADIX2(@2).U
+nalias STAGE		4'b0001		NULL
+
+aliasmapname RADIX2(@2).cnt_reg
+nalias HT		10'b0000000010		NULL
+
+aliasmapname RADIX2(@2).i
+nalias T		8'b00000100		NULL
+
+aliasmapname RADIX2(@1).U
+nalias STAGE		4'b0000		NULL
+
+aliasmapname RADIX2(@1).delay_mux
+nalias HT		1'b1		NULL
+
+aliasmapname TESTBED.u_MODP_NTT2.genblk1[0].u_RADIX2.state
+nalias S_IDLE		1'b0		NULL
+nalias S_EXE		1'b1		NULL
+
+aliasmapname RADIX2(@1).cnt_reg
+nalias HT		10'b0000000001		NULL
+
+aliasmapname RADIX2(@1).i
+nalias T		8'b00000010		NULL
+
+aliasmapname TESTBED.u_MODP_NTT2.genblk1[0].u_RADIX2.u_DELAY_BUFFER.buff
+nalias DEPTH		1'b1		NULL
+
+aliasmapname MODP_NTT2(@1).logn
+nalias MAX_LOGN		4'b1001		NULL
+
+aliasmapname RADIX2.state_reg
+nalias S_IDLE		1'b0		NULL
+nalias S_EXE		1'b1		NULL
+
+addGroup "G1"
+activeDirFile "" "/home/daniel_kuo/Falcon/hardware/modp_ntt2/01_RTL/MODP_NTT2.fsdb"
+addSignal -h 15 /TESTBED/u_MODP_NTT2/in_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope a_i[30:0]
+aliasname MODP_NTT2(@1).logn
+addSignal -h 15 -UNSIGNED -HEX -holdScope logn[3:0]
+addSignal -h 15 -UNSIGNED -UDEC /TESTBED/u_PATTERN/out_latency[31:0]
+addGroup "G2"
+addSignal -h 15 /TESTBED/u_MODP_NTT2/genblk1[8]/u_RADIX2/clk
+addSignal -h 15 -holdScope in_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope a_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope logn_i[3:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p0i_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope s[30:0]
+addGroup "G3"
+addSignal -h 15 /TESTBED/u_MODP_NTT2/genblk1[7]/u_RADIX2/clk
+addSignal -h 15 -holdScope in_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope a_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope logn_i[3:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p0i_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope s[30:0]
+addGroup "G4"
+addScopeUserBus /TESTBED/u_MODP_NTT2 -expanded -h 15 -UNSIGNED -HEX radix_in_valid[8:0]
+addSignal -h 15 /TESTBED/u_MODP_NTT2/radix_in_valid[8]
+addSignal -h 15 -holdScope radix_in_valid[7]
+addSignal -h 15 -holdScope radix_in_valid[6]
+addSignal -h 15 -holdScope radix_in_valid[5]
+addSignal -h 15 -holdScope radix_in_valid[4]
+addSignal -h 15 -holdScope radix_in_valid[3]
+addSignal -h 15 -holdScope radix_in_valid[2]
+addSignal -h 15 -holdScope radix_in_valid[1]
+addSignal -h 15 -holdScope radix_in_valid[0]
+addGroup "G7"
+addSignal -h 15 /TESTBED/u_MODP_NTT2/genblk1[6]/u_RADIX2/clk
+addSignal -h 15 -holdScope rst_n
+addSignal -h 15 -holdScope in_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope a_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope logn_i[3:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p0i_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope s[30:0]
+addSignal -h 15 -holdScope out_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope a_o[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope logn_o[3:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p_o[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p0i_o[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope tw_idx[8:0]
+addGroup "G5"
+addSignal -h 15 /TESTBED/u_MODP_NTT2/genblk1[5]/u_RADIX2/clk
+addSignal -h 15 -holdScope rst_n
+addSignal -h 15 -holdScope in_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope a_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope logn_i[3:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p0i_i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope s[30:0]
+addSignal -h 15 -holdScope out_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope a_o[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope logn_o[3:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p_o[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p0i_o[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope tw_idx[8:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope logn[3:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope logn_reg[3:0]
+aliasname TESTBED.u_MODP_NTT2.genblk1[0].u_RADIX2.state
+addSignal -h 15 -UNSIGNED -HEX -holdScope state
+addSignal -h 15 -UNSIGNED -UDEC -holdScope cnt[9:0]
+addGroup "G8"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+
