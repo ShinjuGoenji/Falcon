@@ -9,8 +9,8 @@
 #======================================================
 set DESIGN "MODP_NTT2"
 set CYCLE 2.0
-set INPUT_DLY [expr 0.5*$CYCLE]
-set OUTPUT_DLY [expr 0.5*$CYCLE]
+set INPUT_DLY [expr 0*$CYCLE]
+set OUTPUT_DLY [expr 0*$CYCLE]
 
 #======================================================
 # (B) Read RTL Code

@@ -34,6 +34,7 @@ wire [P_WIDTH-1:0]                    a_i;
 wire [LOGN_WIDTH-1:0]                 logn;
 wire [P_WIDTH-1:0]                    p;
 wire [P_WIDTH-1:0]                    p0i;
+wire                                  isMQ;
 wire [MAX_LOGN*P_WIDTH-1:0]           s_bus;
 
 wire                                  out_valid;
@@ -66,6 +67,7 @@ end
     .logn(logn),
     .p(p),
     .p0i(p0i),
+    .isMQ(isMQ),
     .s_bus(s_bus),
     .out_valid(out_valid),
     .a_o(a_o),
@@ -80,6 +82,7 @@ end
     .logn(logn),
     .p(p),
     .p0i(p0i),
+    .isMQ(isMQ),
     .s_bus(s_bus),
     .out_valid(out_valid),
     .a_o(a_o),
@@ -95,6 +98,7 @@ PATTERN #(.MAX_LOGN(MAX_LOGN)) u_PATTERN(
     .logn(logn),
     .p(p),
     .p0i(p0i),
+    .isMQ(isMQ),
     .s_bus(s_bus),
     .out_valid(out_valid),
     .a_o(a_o),

@@ -15,6 +15,7 @@ module MODP_NTT2 #(
     logn,
     p,
     p0i,
+    isMQ,
     s_bus,
     // Output signals
     out_valid,
@@ -39,6 +40,7 @@ input [P_WIDTH-1:0]                         a_i;
 input [LOGN_WIDTH-1:0]                      logn;
 input [P_WIDTH-1:0]                         p;
 input [P_WIDTH-1:0]                         p0i;
+input                                       isMQ;
 input [MAX_LOGN*P_WIDTH-1:0]                s_bus;
 
 output reg                                  out_valid;
@@ -54,18 +56,21 @@ reg [P_WIDTH-1:0]                a_i_reg;
 reg [LOGN_WIDTH-1:0]             logn_reg;
 reg [P_WIDTH-1:0]                p_reg;
 reg [P_WIDTH-1:0]                p0i_reg;
+reg                              isMQ_reg;
 
 reg                              radix_in_valid  [0:MAX_LOGN-1];
 reg [P_WIDTH-1:0]                radix_a_i       [0:MAX_LOGN-1];
 reg [LOGN_WIDTH-1:0]             logn_i          [0:MAX_LOGN-1];
 reg [P_WIDTH-1:0]                p_i             [0:MAX_LOGN-1];
 reg [P_WIDTH-1:0]                p0i_i           [0:MAX_LOGN-1];
+reg                              isMQ_i          [0:MAX_LOGN-1];
 
 reg                              radix_out_valid [0:MAX_LOGN-1];
 reg [P_WIDTH-1:0]                radix_a_o       [0:MAX_LOGN-1];
 reg [LOGN_WIDTH-1:0]             logn_o          [0:MAX_LOGN-1];
 reg [P_WIDTH-1:0]                p_o             [0:MAX_LOGN-1];
 reg [P_WIDTH-1:0]                p0i_o           [0:MAX_LOGN-1];
+reg                              isMQ_o          [0:MAX_LOGN-1];
 
 reg [P_WIDTH-1:0]                s               [0:MAX_LOGN-1];
 reg [$clog2(LUT_SIZE)-1:0]       tw_idx          [0:MAX_LOGN-1];
@@ -90,6 +95,7 @@ generate
             .logn_i(logn_i[stage_idx]),
             .p_i(p_i[stage_idx]), 
             .p0i_i(p0i_i[stage_idx]),
+            .isMQ_i(isMQ_i[stage_idx]),
             .s(s[stage_idx]), 
             // Output signals
             .out_valid(radix_out_valid[stage_idx]),
@@ -97,29 +103,42 @@ generate
             .logn_o(logn_o[stage_idx]),
             .p_o(p_o[stage_idx]), 
             .p0i_o(p0i_o[stage_idx]),
+            .isMQ_o(isMQ_o[stage_idx]),
             .tw_idx(tw_idx[stage_idx])
         );
     end
 endgenerate
 
 always @(*) begin
-    radix_in_valid[MAX_LOGN-1] = in_valid_reg;
-    radix_a_i[MAX_LOGN-1] = a_i_reg;
-    logn_i[MAX_LOGN-1] = logn_reg;
-    p_i[MAX_LOGN-1] = p_reg;
-    p0i_i[MAX_LOGN-1] = p0i_reg;
+    if (logn_reg == MAX_LOGN) begin
+        radix_in_valid[MAX_LOGN-1] = in_valid_reg;
+        radix_a_i[MAX_LOGN-1] = a_i_reg;
+        logn_i[MAX_LOGN-1] = logn_reg;
+        p_i[MAX_LOGN-1] = p_reg;
+        p0i_i[MAX_LOGN-1] = p0i_reg;
+        isMQ_i[MAX_LOGN-1] = isMQ_reg;
+    end
+    else begin
+        radix_in_valid[MAX_LOGN-1] = 0;
+        radix_a_i[MAX_LOGN-1] = 0;
+        logn_i[MAX_LOGN-1] = 0;
+        p_i[MAX_LOGN-1] = 0;
+        p0i_i[MAX_LOGN-1] = 0;
+        isMQ_i[MAX_LOGN-1] = 0;
+    end
 end
 
 genvar radix_i_idx;
 generate
     for (radix_i_idx = 0; radix_i_idx < MAX_LOGN-1; radix_i_idx++) begin
         always @(*) begin
-            if (logn == radix_i_idx) begin
+            if (logn_reg == radix_i_idx+1) begin
                 radix_in_valid[radix_i_idx] = in_valid_reg;
                 radix_a_i[radix_i_idx] = a_i_reg;
                 logn_i[radix_i_idx] = logn_reg;
                 p_i[radix_i_idx] = p_reg;
                 p0i_i[radix_i_idx] = p0i_reg;
+                isMQ_i[radix_i_idx] = isMQ_reg;
             end
             else begin
                 radix_in_valid[radix_i_idx] = radix_out_valid[radix_i_idx+1];
@@ -127,6 +146,7 @@ generate
                 logn_i[radix_i_idx] = logn_o[radix_i_idx+1];
                 p_i[radix_i_idx] = p_o[radix_i_idx+1];
                 p0i_i[radix_i_idx] = p0i_o[radix_i_idx+1];
+                isMQ_i[radix_i_idx] = isMQ_o[radix_i_idx+1];
             end
         end
     end
@@ -164,6 +184,7 @@ always @(posedge clk or negedge rst_n) begin
         logn_reg <= 0;
         p_reg <= 0;
         p0i_reg <= 0;
+        isMQ_reg <= 0;
     end
     else begin
         in_valid_reg <= in_valid;
@@ -171,21 +192,8 @@ always @(posedge clk or negedge rst_n) begin
         logn_reg <= logn;
         p_reg <= p;
         p0i_reg <= p0i;
+        isMQ_reg <= isMQ;
     end
 end
-
-// genvar s_reg_idx;
-// generate
-//     for (s_reg_idx = 0; s_reg_idx < MAX_LOGN; s_reg_idx++) begin
-//         always @(posedge clk or negedge rst_n) begin
-//             if (!rst_n) begin
-//                 s_reg[s_reg_idx] <= 0;
-//             end
-//             else begin
-//                 s_reg[s_reg_idx] <= s[s_reg_idx];
-//             end
-//         end
-//     end
-// endgenerate
 
 endmodule

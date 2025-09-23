@@ -137,10 +137,9 @@ reg                  isMQ_reg;
 wire [P_WIDTH*2-1:0] a_b;
 reg  [P_WIDTH*2-1:0] a_b_reg;
 wire [P_WIDTH*3-1:0] a_b_p0i;
+reg  [P_WIDTH*3-1:0] a_b_p0i_reg;
 wire [P_WIDTH+15:0]  w_q;
-reg  [P_WIDTH+15:0]  w_q_reg;
 wire [P_WIDTH*2-1:0] w_p;
-reg  [P_WIDTH*2-1:0] w_p_reg;
 wire [P_WIDTH*2:0]   z_w_q;
 wire [P_WIDTH*2:0]   z_w_p;
 wire [P_WIDTH:0]     z_w_q_shift;
@@ -151,11 +150,11 @@ wire [P_WIDTH:0]     z_w_p_shift;
 //---------------------------------------------------------------------
 assign a_b = a * b;
 assign a_b_p0i = a_b * p0i;
-assign w_q = a_b_p0i[15:0] * p;
-assign w_p = a_b_p0i[30:0] * p;
+assign w_q = a_b_p0i_reg[15:0] * p;
+assign w_p = a_b_p0i_reg[30:0] * p;
 
-assign z_w_q = a_b_reg + w_q_reg;
-assign z_w_p = a_b_reg + w_p_reg;
+assign z_w_q = a_b_reg + w_q;
+assign z_w_p = a_b_reg + w_p;
 assign z_w_q_shift = z_w_q[P_WIDTH*2:16];
 assign z_w_p_shift = z_w_p[P_WIDTH*2:31];
 
@@ -189,8 +188,7 @@ always @(posedge clk or negedge rst_n) begin
         isMQ_reg <= 0;
         out_valid <= 0;
         a_b_reg <= 0;
-        w_q_reg <= 0;
-        w_p_reg <= 0;
+        a_b_p0i_reg <= 0;
     end
     else begin
         a_reg <= a;
@@ -198,8 +196,7 @@ always @(posedge clk or negedge rst_n) begin
         isMQ_reg <= isMQ;
         out_valid <= in_valid;
         a_b_reg <= a_b;
-        w_q_reg <= w_q;
-        w_p_reg <= w_p;
+        a_b_p0i_reg <= a_b_p0i;
     end
 end
 
