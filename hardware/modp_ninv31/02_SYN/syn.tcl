@@ -7,9 +7,9 @@
 #======================================================
 # (A) Global Parameters
 #======================================================
-set DESIGN "MQ_DIV_12289"
+set DESIGN "MODP_NINV31"
 set CYCLE 2.0
-set INPUT_DLY [expr 0.5*$CYCLE]
+set INPUT_DLY [expr 0*$CYCLE]
 set OUTPUT_DLY [expr 0.5*$CYCLE]
 
 #======================================================
