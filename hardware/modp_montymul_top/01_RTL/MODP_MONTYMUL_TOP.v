@@ -4,8 +4,8 @@
  * 
  */
 module MODP_MONTYMUL_TOP #(
-    parameter BUS_WIDTH = 1,
-    parameter MUL_NUM = 1
+    parameter BUS_WIDTH = 10,
+    parameter MUL_NUM = 2
 )(
     // Input signals
     clk,
@@ -18,7 +18,8 @@ module MODP_MONTYMUL_TOP #(
     isMQ_bus,
     // Output signals
     out_valid_bus,
-    d_bus
+    d_bus,
+    ready_bus
 );
 
 //---------------------------------------------------------------------
@@ -42,6 +43,7 @@ input      [BUS_WIDTH-1:0]         isMQ_bus;
     
 output reg [BUS_WIDTH-1:0]         out_valid_bus;
 output reg [P_WIDTH*BUS_WIDTH-1:0] d_bus;
+output reg [BUS_WIDTH-1:0]         ready_bus;
 
 //---------------------------------------------------------------------
 //   Reg & Wire
@@ -63,7 +65,8 @@ reg               o_valid [0:MUL_NUM-1];
 reg [P_WIDTH-1:0] d       [0:MUL_NUM-1];
 
 reg grant [0:BUS_WIDTH-1];
-reg [$clog2(BUS_WIDTH)-1:0] kernel_to_bus_map [0:MUL_NUM-1];
+reg [$clog2(MUL_NUM):0] mul_cnt;
+reg [$clog2(BUS_WIDTH):0] i_bus [0:MUL_NUM-1], o_bus [0:MUL_NUM-1];
 
 reg               out_valid_bus_comb [0:BUS_WIDTH-1];
 reg [P_WIDTH-1:0] d_bus_comb [0:BUS_WIDTH-1];
@@ -74,7 +77,7 @@ reg [P_WIDTH-1:0] d_bus_comb [0:BUS_WIDTH-1];
 genvar modp_montymul_idx;
 generate
     for (modp_montymul_idx = 0; modp_montymul_idx < MUL_NUM; modp_montymul_idx = modp_montymul_idx + 1) begin
-        MODP_MONTYMUL u_MODP_MONTYMUL (
+        MODP_MONTYMUL #(.BUS_WIDTH(BUS_WIDTH)) u_MODP_MONTYMUL (
             // Input signals
             .clk(clk),
             .rst_n(rst_n),
@@ -84,11 +87,11 @@ generate
             .p(p[modp_montymul_idx]),
             .p0i(p0i[modp_montymul_idx]),
             .isMQ(isMQ[modp_montymul_idx]),
-            .i_bus(kernel_to_bus_map[modp_montymul_idx]),
+            .i_bus(i_bus[modp_montymul_idx]),
             // Output signals
             .out_valid(o_valid[modp_montymul_idx]),
             .d(d[modp_montymul_idx]),
-            .o_bus(tmp[modp_montymul_idx])
+            .o_bus(o_bus[modp_montymul_idx])
             );
     end
 endgenerate
@@ -114,7 +117,7 @@ endgenerate
 /*
  * Arbiter
  */
-always @(*) begin
+always @(*) begin : ARBITER
     for (j = 0; j < MUL_NUM; j = j + 1) begin
         i_valid[j] = 1'b0;
         a[j] = {P_WIDTH{1'b0}};
@@ -122,10 +125,11 @@ always @(*) begin
         p[j] = {P_WIDTH{1'b0}};
         p0i[j] = {P_WIDTH{1'b0}};
         isMQ[j] = 1'b0;
-        kernel_to_bus_map[j] = 0;
+        i_bus[j] = 0;
     end
     for (i = 0; i < BUS_WIDTH; i = i + 1) begin
         grant[i] = 1'b0;
+        ready_bus[i] = 1'b1;
     end
     for (j = 0; j < MUL_NUM; j = j + 1) begin
         for (i = 0; i < BUS_WIDTH; i = i + 1) begin
@@ -137,9 +141,18 @@ always @(*) begin
                 p0i[j]     = p0i_bus_w[i];
                 isMQ[j]    = isMQ_bus_w[i];
                 grant[i]   = 1'b1;
-                kernel_to_bus_map[j] = i;
+                i_bus[j] = i;
                 break;
             end
+        end
+    end
+    mul_cnt = MUL_NUM;
+    for (i = 0; i < BUS_WIDTH; i = i + 1) begin
+        if (i >= MUL_NUM && mul_cnt == 0) begin
+            ready_bus[i] = 1'b0;
+        end
+        if (in_valid_bus_w[i] && grant[i]) begin
+            mul_cnt = mul_cnt - 1;
         end
     end
 end
@@ -153,8 +166,10 @@ always @(*) begin
         d_bus_comb[i] = 0;
     end
     for (j = 0; j < MUL_NUM; j = j + 1) begin
-        out_valid_bus_comb[kernel_to_bus_map[j]] = o_valid[j];
-        d_bus_comb[kernel_to_bus_map[j]] = d[j];
+        if (o_valid[j]) begin
+            out_valid_bus_comb[o_bus[j]] = o_valid[j];
+            d_bus_comb[o_bus[j]] = d[j];
+        end
     end
 end
 
