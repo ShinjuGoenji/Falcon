@@ -16,7 +16,8 @@ module MODP_MONTYMUL_TOP #(
     isMQ_bus,
     // Output signals
     out_valid_bus,
-    d_bus
+    d_bus,
+    ready_bus
 );
 ```
 
