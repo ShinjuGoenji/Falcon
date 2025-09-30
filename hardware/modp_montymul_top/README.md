@@ -2,8 +2,8 @@
 
 ```verilog
 module MODP_MONTYMUL_TOP #(
-    parameter BUS_WIDTH = 1,
-    parameter MUL_NUM = 1
+    parameter BUS_WIDTH = 10,
+    parameter MUL_NUM = 2
 )(
     // Input signals
     clk,
@@ -22,21 +22,16 @@ module MODP_MONTYMUL_TOP #(
 
 ## Description
 
-Top module of MODP_MONTYMUL, which number of instances is parameterized by `MUL_NUM`. The number of master modules is also parameterized by `BUS_WIDTH`.
-
-## Latency
-
-| `MUL_NUM` |     |
-| :-------: | :-: |
-| **CYCLE** |     |
+Top module of MODP_MONTYMUL, which number of instances is parameterized by `MUL_NUM`. The number of master modules is also parameterized by `BUS_WIDTH`. 
+Each MODP_MONTYMUL is a implemented with 2-stage pipeline.
 
 ## Performance
 
-|            | 40nm  |
-| :--------: | :---: |
-| `MUL_NUM`  |   2   |
-| **Period** | 0.0ns |
-| **#GATE**  |   0   |
-|  **AREA**  |  0.0  |
+|            |     40nm     |
+| :--------: | :----------: |
+| `MUL_NUM`  |      2       |
+| **Period** |    2.0ns     |
+| **#GATE**  |     4345     |
+|  **AREA**  | 43364.386135 |
 
 ## Future Optimization
