@@ -7,8 +7,8 @@
 `endif
 
 module PATTERN #(
-    parameter BUS_WIDTH = 1,
-    parameter MUL_NUM = 1
+    parameter BUS_WIDTH = 10,
+    parameter MUL_NUM = 2
 )(
     // Output signals
     clk,
@@ -21,7 +21,8 @@ module PATTERN #(
     isMQ_bus,
     // Input signals
     out_valid_bus,
-    d_bus
+    d_bus,
+    ready_bus
 );
 
 //---------------------------------------------------------------------
@@ -43,6 +44,7 @@ output reg [BUS_WIDTH-1:0]         isMQ_bus;
     
 input      [BUS_WIDTH-1:0]         out_valid_bus;
 input      [P_WIDTH*BUS_WIDTH-1:0] d_bus;
+input      [BUS_WIDTH-1:0]         ready_bus;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
@@ -60,8 +62,9 @@ integer PAT_NUM;
 
 integer fscanf_int;
 
-integer module_en [0:BUS_WIDTH-1], block_cnt [0:BUS_WIDTH-1], last_block_cnt [0:BUS_WIDTH-1], keep_block;
+integer module_en [0:BUS_WIDTH-1], block_i_cnt [0:BUS_WIDTH-1], block_o_cnt [0:BUS_WIDTH-1], keep_block;
 parameter BLOCK = 100;
+integer rnd;
 
 //---------------------------------------------------------------------
 //   REG & WIRE DECLARATION
@@ -76,7 +79,7 @@ reg               isMQ_bus_w      [0:BUS_WIDTH-1];
 reg               out_valid_bus_w [0:BUS_WIDTH-1];
 reg [P_WIDTH-1:0] d_bus_w [0:BUS_WIDTH-1];
 
-reg [P_WIDTH-1:0] d_gold         [0:BUS_WIDTH-1];
+reg [P_WIDTH-1:0] d_gold         [0:BUS_WIDTH-1][0:BLOCK-1];
 
 //---------------------------------------------------------------------
 //   Clock
@@ -123,23 +126,24 @@ initial begin
 	reset_task;
 	total_latency = 0;
     i_pat = 0;
-	repeat(4) @(negedge clk);
+	repeat(4) @(posedge clk);
 	while (i_pat < PAT_NUM) begin 
+        rnd = $urandom_range(1, 2**BUS_WIDTH-1);
         for (i_module = 0; i_module < BUS_WIDTH; i_module = i_module + 1)begin
-            module_en[i_module] = $urandom(i_module) % 2;
-            block_cnt[i_module] = 0;
-            last_block_cnt[i_module] = -1;
+            module_en[i_module] = rnd & (1 << i_module);
+            block_i_cnt[i_module] = 0;
+            block_o_cnt[i_module] = 0;
         end
         keep_block = 1;
         block_latency = 0;
         while (keep_block && block_latency != MAX_OUT_LATENCY + 1) begin
             input_task;
-	        @(negedge clk);		
+	        @(posedge clk);		
             check_ans_task;
 
             keep_block = 0;
             for (i_module = 0; i_module < BUS_WIDTH; i_module = i_module + 1) begin
-                if (block_cnt[i_module] < BLOCK)
+                if (block_o_cnt[i_module] < BLOCK && module_en[i_module])
                     keep_block = 1;
             end
             block_latency = block_latency + 1;
@@ -149,19 +153,15 @@ initial begin
             $display("                          FAIL!                          	 ");
 			$display("         The execution latency are over %d cycles        	 ", MAX_OUT_LATENCY);
 		    $display("***********************************************************"); 
-			repeat(2) @(negedge clk);
+			repeat(2) @(posedge clk);
 			$finish;
 		end
         total_latency = total_latency + block_latency;
 		$display("PASS BLOCK NO.%4d ~ NO.%4d, %4d CYCLES", i_pat + 1 - BLOCK, i_pat + 1, block_latency);
-	    @(negedge clk);		
-		// repeat($urandom_range(2, 4)) @(negedge clk);
+	    @(posedge clk);		
+		// repeat($urandom_range(2, 4)) @(posedge clk);
 	end
 	YOU_PASS_task;
-end
-
-always @(negedge clk) begin
-	check_ans_task;
 end
 
 //---------------------------------------------------------------------
@@ -180,7 +180,7 @@ task reset_task; begin
 	
     force clk = 0;
     #CYCLE; rst_n = 0; 
-    #(CYCLE * 100); rst_n = 1;
+    #(CYCLE * 5); rst_n = 1;
     if(out_valid_bus !== 'b0) begin 
         $display("************************************************************");  
         $display("                          FAIL!                             ");    
@@ -202,12 +202,13 @@ end endtask
 
 task input_task; begin
     for (i_module = 0; i_module < BUS_WIDTH; i_module = i_module + 1) begin
-        if (module_en[i_module] && block_cnt[i_module] < BLOCK && block_cnt[i_module] != last_block_cnt[i_module]) begin
+        if (module_en[i_module] && block_i_cnt[i_module] < BLOCK && ready_bus[i_module]) begin
             in_valid_bus_w[i_module] = 'b1;
             isMQ_bus_w[i_module] = 'b0;
             fscanf_int = $fscanf(file_in, "%d %d %d %d", a_bus_w[i_module], b_bus_w[i_module], p_bus_w[i_module], p0i_bus_w[i_module]);
-            fscanf_int = $fscanf(file_out, "%d", d_gold[i_module]);
-            last_block_cnt[i_module] = block_cnt[i_module];
+            fscanf_int = $fscanf(file_out, "%d", d_gold[i_module][block_i_cnt[i_module]]);
+
+            block_i_cnt[i_module] = block_i_cnt[i_module] + 1;
             i_pat = i_pat + 1;
         end
     end
@@ -215,19 +216,19 @@ end endtask
 
 task check_ans_task; begin
     for (i_module = 0; i_module < BUS_WIDTH; i_module = i_module + 1) begin
-        if (module_en[i_module] && block_cnt[i_module] < BLOCK && block_cnt[i_module] == last_block_cnt[i_module]) begin
+        if (module_en[i_module] && block_o_cnt[i_module] < BLOCK) begin
             if(out_valid_bus_w[i_module] === 1) begin
-                if(d_bus_w[i_module] !== d_gold[i_module])begin
+                if(d_bus_w[i_module] !== d_gold[i_module][block_o_cnt[i_module]])begin
                     $display("***********************************************************");     
                     $display("                          FAIL!                          	 ");  
                     $display("                  Module #%2d (%8t)                   	 ", i_module, $time);
-                    $display("                       Gold = %5d                    	     ", d_gold[i_module]);
+                    $display("                       Gold = %5d                    	     ", d_gold[i_module][block_o_cnt[i_module]]);
                     $display("                       Your = %5d                    	     ", d_bus_w[i_module]);
                     $display("***********************************************************");    
-                    repeat(2) @(negedge clk);
+                    repeat(2) @(posedge clk);
                     $finish;
                 end
-                block_cnt[i_module] = block_cnt[i_module] + 1;
+                block_o_cnt[i_module] = block_o_cnt[i_module] + 1;
                 in_valid_bus_w[i_module] = 'b0;
                 a_bus_w[i_module] = 'bx;
                 b_bus_w[i_module] = 'bx;
@@ -247,7 +248,7 @@ task YOU_PASS_task; begin
 	$display ("                  Your clock period = %.1f ns                       ", CYCLE);
     $display ("                  Total Latency = %.1f ns                           ", total_latency*CYCLE);
     $display ("--------------------------------------------------------------------");     
-    repeat(2)@(negedge clk);
+    repeat(2)@(posedge clk);
     $finish;
 end endtask
 
