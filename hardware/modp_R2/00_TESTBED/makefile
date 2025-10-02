@@ -3,7 +3,7 @@
 ######################################
 # Set your desired file names
 ######################################
-top_design=MODP_R2
+top_design=KEYGEN
 define=FALCON512
 source_file="filelist.f"	# Name of your source file
 output_file="simv"      	# Desired output simulation file name
