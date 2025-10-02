@@ -14,17 +14,20 @@ module TESTBED;
 //================================================================
 localparam P_WIDTH = 31;
 
+localparam MODP_R2_NUM = 3;
+localparam MODP_MONTYMUL_NUM = 2;
+
 //================================================================
 // Wire Declarations
 //================================================================
-wire               clk;
-wire               rst_n;
-wire               in_valid;
-wire [P_WIDTH-1:0] p;
-wire [P_WIDTH-1:0] p0i;
+wire                           clk;
+wire                           rst_n;
+wire [MODP_R2_NUM-1:0]         in_valid_bus;
+wire [P_WIDTH*MODP_R2_NUM-1:0] p_bus;
+wire [P_WIDTH*MODP_R2_NUM-1:0] p0i_bus;
 
-wire               out_valid;
-wire [P_WIDTH-1:0] R2;
+wire [MODP_R2_NUM-1:0]         out_valid_bus;
+wire [P_WIDTH*MODP_R2_NUM-1:0] R2_bus;
 
 //================================================================
 // Dump Waveform
@@ -44,35 +47,37 @@ end
 // Port Connection
 //================================================================
 `ifdef RTL
-    KEYGEN u_KEYGEN(
+    KEYGEN #(.MODP_R2_NUM(MODP_R2_NUM), .MODP_MONTYMUL_NUM(MODP_MONTYMUL_NUM)) 
+    u_KEYGEN(
       .clk(clk),
       .rst_n(rst_n),
-      .in_valid(in_valid),
-      .p(p),
-      .p0i(p0i),
-      .out_valid(out_valid),
-      .R2(R2)
+      .in_valid_bus(in_valid_bus),
+      .p_bus(p_bus),
+      .p0i_bus(p0i_bus),
+      .out_valid_bus(out_valid_bus),
+      .R2_bus(R2_bus)
     );
 `elsif GATE
     KEYGEN u_KEYGEN(
       .clk(clk),
       .rst_n(rst_n),
-      .in_valid(in_valid),
-      .p(p),
-      .p0i(p0i),
-      .out_valid(out_valid),
-      .R2(R2)
+      .in_valid_bus(in_valid_bus),
+      .p_bus(p_bus),
+      .p0i_bus(p0i_bus),
+      .out_valid_bus(out_valid_bus),
+      .R2_bus(R2_bus)
     );
 `endif
 	
-PATTERN u_PATTERN(
+PATTERN #(.MODP_R2_NUM(MODP_R2_NUM)) 
+u_PATTERN(
   .clk(clk),
   .rst_n(rst_n),
-  .in_valid(in_valid),
-  .p(p),
-  .p0i(p0i),
-  .out_valid(out_valid),
-  .R2(R2)
+  .in_valid_bus(in_valid_bus),
+  .p_bus(p_bus),
+  .p0i_bus(p0i_bus),
+  .out_valid_bus(out_valid_bus),
+  .R2_bus(R2_bus)
 );
  
 endmodule

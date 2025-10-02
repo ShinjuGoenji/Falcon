@@ -1,0 +1,133 @@
+Magic 271485
+Revision Verdi_T-2022.06
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 25 1920 653 221 247
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/home/daniel_kuo/Falcon/hardware/modp_R2/01_RTL/KEYGEN.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 181454.220196 744588.007013
+cursor 70600.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 0
+; marker line index
+markerPos 12
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+aliasmapname PATTERN(@1).i_module
+nalias MODP_R2_NUM		32'b00000000000000000000000000000100		NULL
+
+aliasmapname TESTBED.u_KEYGEN.genblk3[0].u_MODP_R2.next_state
+nalias S_IDLE		1'b0		NULL
+nalias S_EXE		1'b1		NULL
+
+aliasmapname MODP_R2.cnt
+nalias S_OUTPUT		3'b110		NULL
+
+aliasmapname MODP_MONTYMUL_TOP(@1).j
+nalias MUL_NUM		32'b00000000000000000000000000000010		NULL
+
+aliasmapname MODP_MONTYMUL_TOP(@1).i
+nalias BUS_WIDTH		32'b00000000000000000000000000000100		NULL
+nalias MUL_NUM		32'b00000000000000000000000000000010		NULL
+
+aliasmapname MODP_MONTYMUL_TOP(@1).mul_cnt
+nalias MUL_NUM		2'b10		NULL
+
+addGroup "G1"
+activeDirFile "" "/home/daniel_kuo/Falcon/hardware/modp_R2/01_RTL/KEYGEN.fsdb"
+addSignal -h 15 /TESTBED/u_KEYGEN/genblk3[0]/u_MODP_R2/clk
+addSignal -h 15 -holdScope rst_n
+addGroup "G2"
+addSignal -h 15 /TESTBED/u_KEYGEN/genblk3[0]/u_MODP_R2/in_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope p[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p0i[30:0]
+addSignal -h 15 -holdScope out_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope R2[30:0]
+aliasname TESTBED.u_KEYGEN.genblk3[0].u_MODP_R2.next_state
+addSignal -h 15 -UNSIGNED -HEX -holdScope state
+aliasname MODP_R2.cnt
+addSignal -h 15 -UNSIGNED -HEX -holdScope cnt[2:0]
+addSignal -h 15 -holdScope in_valid_modp_montymul
+addSignal -h 15 /TESTBED/u_KEYGEN/genblk3[1]/u_MODP_R2/out_valid_modp_montymul
+addGroup "G3" -e FALSE
+addSignal -h 15 /TESTBED/u_KEYGEN/genblk3[1]/u_MODP_R2/in_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope p[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p0i[30:0]
+addSignal -h 15 -holdScope out_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope R2[30:0]
+addGroup "G4" -e FALSE
+addSignal -h 15 /TESTBED/u_KEYGEN/genblk3[2]/u_MODP_R2/in_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope p[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope p0i[30:0]
+addSignal -h 15 -holdScope out_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope R2[30:0]
+addGroup "G5"
+addSignal -h 15 /TESTBED/u_KEYGEN/genblk3[3]/u_MODP_R2/in_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p0i[30:0]
+addSignal -h 15 -holdScope out_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope R2[30:0]
+aliasname TESTBED.u_KEYGEN.genblk3[0].u_MODP_R2.next_state
+addSignal -h 15 -UNSIGNED -HEX -holdScope state
+aliasname MODP_R2.cnt
+addSignal -h 15 -UNSIGNED -HEX -holdScope cnt[2:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope next_z[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope z[30:0]
+addSignal -h 15 -holdScope in_valid_modp_montymul
+addSignal -h 15 -UNSIGNED -UDEC -holdScope a_modp_montymul[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope b_modp_montymul[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p_modp_montymul[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p0i_modp_montymul[30:0]
+addSignal -h 15 -holdScope isMQ_modp_montymul
+addSignal -h 15 -holdScope out_valid_modp_montymul
+addSignal -h 15 -UNSIGNED -UDEC -holdScope d_modp_montymul[30:0]
+addSignal -h 15 -holdScope ready_modp_montymul
+addGroup "G6"
+addSignal -h 15 /TESTBED/u_KEYGEN/u_MODP_MONTYMUL_TOP/genblk1[0]/u_MODP_MONTYMUL/in_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope i_bus[2:0]
+addSignal -h 15 -holdScope out_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope d[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope o_bus[2:0]
+addGroup "G7" -e FALSE
+addSignal -h 15 /TESTBED/u_KEYGEN/u_MODP_MONTYMUL_TOP/genblk1[1]/u_MODP_MONTYMUL/in_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope i_bus[2:0]
+addSignal -h 15 -holdScope out_valid
+addSignal -h 15 -UNSIGNED -HEX -holdScope d[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope o_bus[2:0]
+addGroup "G8"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+
