@@ -135,7 +135,7 @@ generate
   end
 endgenerate
 
-MODP_MONTYMUL_TOP #(.BUS_WIDTH(MODP_R2_NUM), .MUL_NUM(MODP_MONTYMUL_NUM)) u_MODP_MONTYMUL_TOP(
+MODP_MONTYMUL_TOP #(.MASTER_NUM(MODP_R2_NUM), .MUL_NUM(MODP_MONTYMUL_NUM)) u_MODP_MONTYMUL_TOP(
   .clk(clk),
   .rst_n(rst_n),
   .in_valid_bus(in_valid_modp_montymul_bus),

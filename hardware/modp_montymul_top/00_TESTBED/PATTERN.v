@@ -7,7 +7,7 @@
 `endif
 
 module PATTERN #(
-    parameter BUS_WIDTH = 10,
+    parameter MASTER_NUM = 10,
     parameter MUL_NUM = 2
 )(
     // Output signals
@@ -35,16 +35,16 @@ localparam    P_WIDTH = 31;
 //---------------------------------------------------------------------
 output reg                         clk;
 output reg                         rst_n;
-output reg [BUS_WIDTH-1:0]         in_valid_bus;
-output reg [P_WIDTH*BUS_WIDTH-1:0] a_bus;
-output reg [P_WIDTH*BUS_WIDTH-1:0] b_bus;
-output reg [P_WIDTH*BUS_WIDTH-1:0] p_bus;
-output reg [P_WIDTH*BUS_WIDTH-1:0] p0i_bus;
-output reg [BUS_WIDTH-1:0]         isMQ_bus;
+output reg [MASTER_NUM-1:0]         in_valid_bus;
+output reg [P_WIDTH*MASTER_NUM-1:0] a_bus;
+output reg [P_WIDTH*MASTER_NUM-1:0] b_bus;
+output reg [P_WIDTH*MASTER_NUM-1:0] p_bus;
+output reg [P_WIDTH*MASTER_NUM-1:0] p0i_bus;
+output reg [MASTER_NUM-1:0]         isMQ_bus;
     
-input      [BUS_WIDTH-1:0]         out_valid_bus;
-input      [P_WIDTH*BUS_WIDTH-1:0] d_bus;
-input      [BUS_WIDTH-1:0]         ready_bus;
+input      [MASTER_NUM-1:0]         out_valid_bus;
+input      [P_WIDTH*MASTER_NUM-1:0] d_bus;
+input      [MASTER_NUM-1:0]         ready_bus;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
@@ -62,24 +62,24 @@ integer PAT_NUM;
 
 integer fscanf_int;
 
-integer module_en [0:BUS_WIDTH-1], block_i_cnt [0:BUS_WIDTH-1], block_o_cnt [0:BUS_WIDTH-1], keep_block;
+integer module_en [0:MASTER_NUM-1], block_i_cnt [0:MASTER_NUM-1], block_o_cnt [0:MASTER_NUM-1], keep_block;
 parameter BLOCK = 100;
 integer rnd;
 
 //---------------------------------------------------------------------
 //   REG & WIRE DECLARATION
 //---------------------------------------------------------------------
-reg               in_valid_bus_w  [0:BUS_WIDTH-1];
-reg [P_WIDTH-1:0] a_bus_w         [0:BUS_WIDTH-1];
-reg [P_WIDTH-1:0] b_bus_w         [0:BUS_WIDTH-1];
-reg [P_WIDTH-1:0] p_bus_w         [0:BUS_WIDTH-1];
-reg [P_WIDTH-1:0] p0i_bus_w       [0:BUS_WIDTH-1];
-reg               isMQ_bus_w      [0:BUS_WIDTH-1];
+reg               in_valid_bus_w  [0:MASTER_NUM-1];
+reg [P_WIDTH-1:0] a_bus_w         [0:MASTER_NUM-1];
+reg [P_WIDTH-1:0] b_bus_w         [0:MASTER_NUM-1];
+reg [P_WIDTH-1:0] p_bus_w         [0:MASTER_NUM-1];
+reg [P_WIDTH-1:0] p0i_bus_w       [0:MASTER_NUM-1];
+reg               isMQ_bus_w      [0:MASTER_NUM-1];
 
-reg               out_valid_bus_w [0:BUS_WIDTH-1];
-reg [P_WIDTH-1:0] d_bus_w [0:BUS_WIDTH-1];
+reg               out_valid_bus_w [0:MASTER_NUM-1];
+reg [P_WIDTH-1:0] d_bus_w [0:MASTER_NUM-1];
 
-reg [P_WIDTH-1:0] d_gold         [0:BUS_WIDTH-1][0:BLOCK-1];
+reg [P_WIDTH-1:0] d_gold         [0:MASTER_NUM-1][0:BLOCK-1];
 
 //---------------------------------------------------------------------
 //   Clock
@@ -95,7 +95,7 @@ always	#(CYCLE/2.0) clk = ~clk;
  */
 genvar i_bus_idx;
 generate
-    for (i_bus_idx = 0; i_bus_idx < BUS_WIDTH; i_bus_idx = i_bus_idx + 1) begin
+    for (i_bus_idx = 0; i_bus_idx < MASTER_NUM; i_bus_idx = i_bus_idx + 1) begin
         always @(*) begin
             out_valid_bus_w[i_bus_idx] = out_valid_bus[i_bus_idx];
             d_bus_w[i_bus_idx]         = d_bus[P_WIDTH*(i_bus_idx+1)-1 -: P_WIDTH];
@@ -107,7 +107,7 @@ endgenerate
  * Assign module to MODP_MONTYMUL_TOP bus
  */
 always @(*) begin
-    for (i_module = 0; i_module < BUS_WIDTH; i_module = i_module + 1) begin
+    for (i_module = 0; i_module < MASTER_NUM; i_module = i_module + 1) begin
         in_valid_bus[i_module] = in_valid_bus_w[i_module];
         a_bus[P_WIDTH*(i_module+1)-1 -: P_WIDTH] = a_bus_w[i_module];
         b_bus[P_WIDTH*(i_module+1)-1 -: P_WIDTH] = b_bus_w[i_module];
@@ -128,8 +128,8 @@ initial begin
     i_pat = 0;
 	repeat(4) @(posedge clk);
 	while (i_pat < PAT_NUM) begin 
-        rnd = $urandom_range(1, 2**BUS_WIDTH-1);
-        for (i_module = 0; i_module < BUS_WIDTH; i_module = i_module + 1)begin
+        rnd = $urandom_range(1, 2**MASTER_NUM-1);
+        for (i_module = 0; i_module < MASTER_NUM; i_module = i_module + 1)begin
             module_en[i_module] = rnd & (1 << i_module);
             block_i_cnt[i_module] = 0;
             block_o_cnt[i_module] = 0;
@@ -142,7 +142,7 @@ initial begin
             check_ans_task;
 
             keep_block = 0;
-            for (i_module = 0; i_module < BUS_WIDTH; i_module = i_module + 1) begin
+            for (i_module = 0; i_module < MASTER_NUM; i_module = i_module + 1) begin
                 if (block_o_cnt[i_module] < BLOCK && module_en[i_module])
                     keep_block = 1;
             end
@@ -169,7 +169,7 @@ end
 //---------------------------------------------------------------------
 task reset_task; begin 
     rst_n = 'b1;
-    for (i_module = 0; i_module < BUS_WIDTH; i_module = i_module + 1) begin
+    for (i_module = 0; i_module < MASTER_NUM; i_module = i_module + 1) begin
         in_valid_bus_w[i_module] = 'b0;
         a_bus_w[i_module] = 'bx;
         b_bus_w[i_module] = 'bx;
@@ -201,7 +201,7 @@ task reset_task; begin
 end endtask
 
 task input_task; begin
-    for (i_module = 0; i_module < BUS_WIDTH; i_module = i_module + 1) begin
+    for (i_module = 0; i_module < MASTER_NUM; i_module = i_module + 1) begin
         if (module_en[i_module] && block_i_cnt[i_module] < BLOCK && ready_bus[i_module]) begin
             in_valid_bus_w[i_module] = 'b1;
             isMQ_bus_w[i_module] = 'b0;
@@ -215,7 +215,7 @@ task input_task; begin
 end endtask
 
 task check_ans_task; begin
-    for (i_module = 0; i_module < BUS_WIDTH; i_module = i_module + 1) begin
+    for (i_module = 0; i_module < MASTER_NUM; i_module = i_module + 1) begin
         if (module_en[i_module] && block_o_cnt[i_module] < BLOCK) begin
             if(out_valid_bus_w[i_module] === 1) begin
                 if(d_bus_w[i_module] !== d_gold[i_module][block_o_cnt[i_module]])begin

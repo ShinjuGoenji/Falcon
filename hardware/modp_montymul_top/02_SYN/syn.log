@@ -43,10 +43,10 @@ Presto compilation completed successfully. (MODP_MONTYMUL_TOP)
 Elaborated 1 design.
 Current design is now 'MODP_MONTYMUL_TOP'.
 Information: Building the design 'MODP_MONTYMUL' instantiated from design 'MODP_MONTYMUL_TOP' with
-        the parameters "BUS_WIDTH=10". (HDL-193)
+        the parameters "MASTER_NUM=10". (HDL-193)
 
 Inferred memory devices in process
-        in routine MODP_MONTYMUL_BUS_WIDTH10 line 284 in file
+        in routine MODP_MONTYMUL_MASTER_NUM10 line 284 in file
                 '../01_RTL/MODP_MONTYMUL_TOP.v'.
 ===============================================================================
 |    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
@@ -58,7 +58,7 @@ Inferred memory devices in process
 |     a_b_reg_reg     | Flip-flop |  62   |  Y  | N  | Y  | N  | N  | N  | N  |
 |   a_b_p0i_reg_reg   | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
 ===============================================================================
-Presto compilation completed successfully. (MODP_MONTYMUL_BUS_WIDTH10)
+Presto compilation completed successfully. (MODP_MONTYMUL_MASTER_NUM10)
 1
 # (B-2) read_sverilog
 # read_sverilog $DESIGN\.v
@@ -229,7 +229,7 @@ Information: Sequential output inversion is enabled.  SVF file must be used for 
 
 Information: There are 111 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
 
-Information: Uniquified 2 instances of design 'MODP_MONTYMUL_BUS_WIDTH10'. (OPT-1056)
+Information: Uniquified 2 instances of design 'MODP_MONTYMUL_MASTER_NUM10'. (OPT-1056)
   Simplifying Design 'MODP_MONTYMUL_TOP'
 
 Loaded alib file './alib-52/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
@@ -243,9 +243,9 @@ Information: State dependent leakage is now switched from on to off.
   ------------------------
   Processing 'MODP_MONTYMUL_TOP'
 Information: Added key list 'DesignWare' to design 'MODP_MONTYMUL_TOP'. (DDB-72)
-  Processing 'MODP_MONTYMUL_BUS_WIDTH10_0'
+  Processing 'MODP_MONTYMUL_MASTER_NUM10_0'
 Information: The register 'o_bus_reg[4]' is a constant and will be removed. (OPT-1206)
- Implement Synthetic for 'MODP_MONTYMUL_BUS_WIDTH10_0'.
+ Implement Synthetic for 'MODP_MONTYMUL_MASTER_NUM10_0'.
 
   Updating timing information
 Information: Updating design information... (UID-85)
@@ -259,8 +259,8 @@ Information: The target library(s) contains cell(s), other than black boxes, tha
 
   Beginning Mapping Optimizations  (Ultra High effort)
   -------------------------------
-Information: Ungrouping hierarchy genblk1[1].u_MODP_MONTYMUL 'MODP_MONTYMUL_BUS_WIDTH10_0' #insts = 216. (OPT-777)
-Information: Ungrouping hierarchy genblk1[0].u_MODP_MONTYMUL 'MODP_MONTYMUL_BUS_WIDTH10_1' #insts = 216. (OPT-777)
+Information: Ungrouping hierarchy genblk1[1].u_MODP_MONTYMUL 'MODP_MONTYMUL_MASTER_NUM10_0' #insts = 216. (OPT-777)
+Information: Ungrouping hierarchy genblk1[0].u_MODP_MONTYMUL 'MODP_MONTYMUL_MASTER_NUM10_1' #insts = 216. (OPT-777)
   Mapping Optimization (Phase 1)
   Mapping Optimization (Phase 2)
   Mapping Optimization (Phase 3)
