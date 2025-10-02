@@ -71,19 +71,19 @@ Inferred memory devices in process
 ======================================================================================
 Presto compilation completed successfully. (MODP_R2)
 Information: Building the design 'MODP_MONTYMUL_TOP' instantiated from design 'KEYGEN' with
-        the parameters "BUS_WIDTH=3,MUL_NUM=2". (HDL-193)
+        the parameters "MASTER_NUM=3,MUL_NUM=2". (HDL-193)
 Warning:  ../01_RTL/MODP_MONTYMUL_TOP.v:144: signed to unsigned assignment occurs. (VER-318)
-Presto compilation completed successfully. (MODP_MONTYMUL_TOP_BUS_WIDTH3_MUL_NUM2)
+Presto compilation completed successfully. (MODP_MONTYMUL_TOP_MASTER_NUM3_MUL_NUM2)
 Information: Building the design 'MODP_R'. (HDL-193)
 Warning:  ../01_RTL/MODP_R.v:25: signed to unsigned conversion occurs. (VER-318)
 Presto compilation completed successfully. (MODP_R)
 Information: Building the design 'MODP_ADD'. (HDL-193)
 Presto compilation completed successfully. (MODP_ADD)
-Information: Building the design 'MODP_MONTYMUL' instantiated from design 'MODP_MONTYMUL_TOP_BUS_WIDTH3_MUL_NUM2' with
-        the parameters "BUS_WIDTH=3". (HDL-193)
+Information: Building the design 'MODP_MONTYMUL' instantiated from design 'MODP_MONTYMUL_TOP_MASTER_NUM3_MUL_NUM2' with
+        the parameters "MASTER_NUM=3". (HDL-193)
 
 Inferred memory devices in process
-        in routine MODP_MONTYMUL_BUS_WIDTH3 line 284 in file
+        in routine MODP_MONTYMUL_MASTER_NUM3 line 284 in file
                 '../01_RTL/MODP_MONTYMUL_TOP.v'.
 ===============================================================================
 |    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
@@ -95,7 +95,7 @@ Inferred memory devices in process
 |     a_b_reg_reg     | Flip-flop |  62   |  Y  | N  | Y  | N  | N  | N  | N  |
 |   a_b_p0i_reg_reg   | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
 ===============================================================================
-Presto compilation completed successfully. (MODP_MONTYMUL_BUS_WIDTH3)
+Presto compilation completed successfully. (MODP_MONTYMUL_MASTER_NUM3)
 1
 # (B-2) read_sverilog
 # read_sverilog $DESIGN\.v
@@ -268,7 +268,7 @@ Information: There are 244 potential problems in your design. Please run 'check_
 Information: Uniquified 3 instances of design 'MODP_R2'. (OPT-1056)
 Information: Uniquified 3 instances of design 'MODP_R'. (OPT-1056)
 Information: Uniquified 3 instances of design 'MODP_ADD'. (OPT-1056)
-Information: Uniquified 2 instances of design 'MODP_MONTYMUL_BUS_WIDTH3'. (OPT-1056)
+Information: Uniquified 2 instances of design 'MODP_MONTYMUL_MASTER_NUM3'. (OPT-1056)
   Simplifying Design 'KEYGEN'
 
 Loaded alib file './alib-52/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
@@ -292,11 +292,11 @@ Information: State dependent leakage is now switched from on to off.
   Processing 'KEYGEN'
 Information: Added key list 'DesignWare' to design 'KEYGEN'. (DDB-72)
  Implement Synthetic for 'KEYGEN'.
-  Processing 'MODP_MONTYMUL_BUS_WIDTH3_0'
+  Processing 'MODP_MONTYMUL_MASTER_NUM3_0'
 Information: The register 'o_bus_reg[2]' is a constant and will be removed. (OPT-1206)
- Implement Synthetic for 'MODP_MONTYMUL_BUS_WIDTH3_0'.
-  Processing 'MODP_MONTYMUL_TOP_BUS_WIDTH3_MUL_NUM2'
-Information: Added key list 'DesignWare' to design 'MODP_MONTYMUL_TOP_BUS_WIDTH3_MUL_NUM2'. (DDB-72)
+ Implement Synthetic for 'MODP_MONTYMUL_MASTER_NUM3_0'.
+  Processing 'MODP_MONTYMUL_TOP_MASTER_NUM3_MUL_NUM2'
+Information: Added key list 'DesignWare' to design 'MODP_MONTYMUL_TOP_MASTER_NUM3_MUL_NUM2'. (DDB-72)
 
   Updating timing information
 Information: Updating design information... (UID-85)
@@ -313,9 +313,9 @@ Information: The register 'u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/isMQ_r
   Beginning Mapping Optimizations  (Ultra High effort)
   -------------------------------
 Information: Updating design information... (UID-85)
-Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP 'MODP_MONTYMUL_TOP_BUS_WIDTH3_MUL_NUM2' #insts = 457. (OPT-777)
-Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL 'MODP_MONTYMUL_BUS_WIDTH3_1' #insts = 161. (OPT-777)
-Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL 'MODP_MONTYMUL_BUS_WIDTH3_0' #insts = 161. (OPT-777)
+Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP 'MODP_MONTYMUL_TOP_MASTER_NUM3_MUL_NUM2' #insts = 457. (OPT-777)
+Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL 'MODP_MONTYMUL_MASTER_NUM3_1' #insts = 161. (OPT-777)
+Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL 'MODP_MONTYMUL_MASTER_NUM3_0' #insts = 161. (OPT-777)
   Mapping Optimization (Phase 1)
   Mapping Optimization (Phase 2)
 Information: The register 'u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_reg_reg[1]' is a constant and will be removed. (OPT-1206)

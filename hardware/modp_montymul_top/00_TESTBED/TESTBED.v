@@ -14,7 +14,7 @@ module TESTBED;
 //================================================================
 localparam P_WIDTH = 31;
 
-localparam BUS_WIDTH = 10;
+localparam MASTER_NUM = 10;
 localparam MUL_NUM = 2;
 
 //================================================================
@@ -22,16 +22,16 @@ localparam MUL_NUM = 2;
 //================================================================
 reg                         clk;
 reg                         rst_n;
-reg [BUS_WIDTH-1:0]         in_valid_bus;
-reg [P_WIDTH*BUS_WIDTH-1:0] a_bus;
-reg [P_WIDTH*BUS_WIDTH-1:0] b_bus;
-reg [P_WIDTH*BUS_WIDTH-1:0] p_bus;
-reg [P_WIDTH*BUS_WIDTH-1:0] p0i_bus;
-reg [BUS_WIDTH-1:0]         isMQ_bus;
+reg [MASTER_NUM-1:0]         in_valid_bus;
+reg [P_WIDTH*MASTER_NUM-1:0] a_bus;
+reg [P_WIDTH*MASTER_NUM-1:0] b_bus;
+reg [P_WIDTH*MASTER_NUM-1:0] p_bus;
+reg [P_WIDTH*MASTER_NUM-1:0] p0i_bus;
+reg [MASTER_NUM-1:0]         isMQ_bus;
 
-reg [BUS_WIDTH-1:0]         out_valid_bus;
-reg [P_WIDTH*BUS_WIDTH-1:0] d_bus;
-reg [BUS_WIDTH-1:0]         ready_bus;
+reg [MASTER_NUM-1:0]         out_valid_bus;
+reg [P_WIDTH*MASTER_NUM-1:0] d_bus;
+reg [MASTER_NUM-1:0]         ready_bus;
 
 //================================================================
 // Dump Waveform
@@ -51,7 +51,7 @@ end
 // Port Connection
 //================================================================
 `ifdef RTL
-    MODP_MONTYMUL_TOP #(.BUS_WIDTH(BUS_WIDTH), .MUL_NUM(MUL_NUM)) u_MODP_MONTYMUL_TOP(
+    MODP_MONTYMUL_TOP #(.MASTER_NUM(MASTER_NUM), .MUL_NUM(MUL_NUM)) u_MODP_MONTYMUL_TOP(
     .clk(clk),
     .rst_n(rst_n),
     .in_valid_bus(in_valid_bus),
@@ -80,7 +80,7 @@ end
     );
 `endif
 	
-PATTERN #(.BUS_WIDTH(BUS_WIDTH), .MUL_NUM(MUL_NUM)) u_PATTERN(
+PATTERN #(.MASTER_NUM(MASTER_NUM), .MUL_NUM(MUL_NUM)) u_PATTERN(
     .clk(clk),
     .rst_n(rst_n),
     .in_valid_bus(in_valid_bus),

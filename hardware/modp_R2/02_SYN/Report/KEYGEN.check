@@ -227,10 +227,10 @@ Warning: In design 'MODP_R2', output port 'a_modp_montymul[3]' is connected dire
 Warning: In design 'MODP_R2', output port 'a_modp_montymul[2]' is connected directly to output port 'b_modp_montymul[2]'. (LINT-31)
 Warning: In design 'MODP_R2', output port 'a_modp_montymul[1]' is connected directly to output port 'b_modp_montymul[1]'. (LINT-31)
 Warning: In design 'MODP_R2', output port 'a_modp_montymul[0]' is connected directly to output port 'b_modp_montymul[0]'. (LINT-31)
-Warning: In design 'MODP_MONTYMUL_TOP_BUS_WIDTH3_MUL_NUM2', output port 'ready_bus[1]' is connected directly to output port 'ready_bus[0]'. (LINT-31)
-Warning: In design 'MODP_MONTYMUL_TOP_BUS_WIDTH3_MUL_NUM2', a pin on submodule 'genblk1[0].u_MODP_MONTYMUL' is connected to logic 1 or logic 0. (LINT-32)
+Warning: In design 'MODP_MONTYMUL_TOP_MASTER_NUM3_MUL_NUM2', output port 'ready_bus[1]' is connected directly to output port 'ready_bus[0]'. (LINT-31)
+Warning: In design 'MODP_MONTYMUL_TOP_MASTER_NUM3_MUL_NUM2', a pin on submodule 'genblk1[0].u_MODP_MONTYMUL' is connected to logic 1 or logic 0. (LINT-32)
    Pin 'i_bus[2]' is connected to logic 0. 
-Warning: In design 'MODP_MONTYMUL_TOP_BUS_WIDTH3_MUL_NUM2', a pin on submodule 'genblk1[1].u_MODP_MONTYMUL' is connected to logic 1 or logic 0. (LINT-32)
+Warning: In design 'MODP_MONTYMUL_TOP_MASTER_NUM3_MUL_NUM2', a pin on submodule 'genblk1[1].u_MODP_MONTYMUL' is connected to logic 1 or logic 0. (LINT-32)
    Pin 'i_bus[2]' is connected to logic 0. 
 Warning: In design 'MODP_R2', the same net is connected to more than one pin on submodule 'u_MODP_ADD'. (LINT-33)
    Net 'z0[30]' is connected to pins 'a[30]', 'b[30]''.
@@ -295,6 +295,6 @@ Warning: In design 'MODP_R2', the same net is connected to more than one pin on 
 Warning: In design 'MODP_R2', the same net is connected to more than one pin on submodule 'u_MODP_ADD'. (LINT-33)
    Net 'z0[0]' is connected to pins 'a[0]', 'b[0]''.
 Warning: In design 'MODP_R2', output port 'isMQ_modp_montymul' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'MODP_MONTYMUL_TOP_BUS_WIDTH3_MUL_NUM2', output port 'ready_bus[1]' is connected directly to 'logic 1'. (LINT-52)
-Warning: In design 'MODP_MONTYMUL_TOP_BUS_WIDTH3_MUL_NUM2', output port 'ready_bus[0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'MODP_MONTYMUL_TOP_MASTER_NUM3_MUL_NUM2', output port 'ready_bus[1]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'MODP_MONTYMUL_TOP_MASTER_NUM3_MUL_NUM2', output port 'ready_bus[0]' is connected directly to 'logic 1'. (LINT-52)
 1
