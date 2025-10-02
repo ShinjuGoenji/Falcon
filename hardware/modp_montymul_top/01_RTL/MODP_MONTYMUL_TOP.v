@@ -179,15 +179,9 @@ end
 genvar o_bus_idx;
 generate
     for (o_bus_idx = 0; o_bus_idx < BUS_WIDTH; o_bus_idx = o_bus_idx + 1) begin
-        always @(posedge clk or negedge rst_n) begin
-            if (!rst_n) begin
-                out_valid_bus[o_bus_idx] <= 0;
-                d_bus[P_WIDTH*(o_bus_idx+1)-1 -: P_WIDTH] <= 0;
-            end
-            else begin
-                out_valid_bus[o_bus_idx] <= out_valid_bus_comb[o_bus_idx];
-                d_bus[P_WIDTH*(o_bus_idx+1)-1 -: P_WIDTH] <= d_bus_comb[o_bus_idx];
-            end
+        always @(*) begin
+            out_valid_bus[o_bus_idx] = out_valid_bus_comb[o_bus_idx];
+            d_bus[P_WIDTH*(o_bus_idx+1)-1 -: P_WIDTH] = d_bus_comb[o_bus_idx];
         end
     end
 endgenerate
