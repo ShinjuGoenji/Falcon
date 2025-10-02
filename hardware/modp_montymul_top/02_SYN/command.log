@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version T-2022.03 for linux64 -- Feb 22, 2022
-#@ # Date:   Wed Oct  1 11:33:11 2025
+#@ # Date:   Fri Oct  3 02:37:29 2025
 #@ # Run by: daniel_kuo@eda_root
 #@ 
 
@@ -8630,7 +8630,7 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/modp_montymul_top/02_SYN/
 #@ set DESIGN "MODP_MONTYMUL_TOP"
 #@ set CYCLE 2.0
 #@ set INPUT_DLY [expr 0*$CYCLE]
-#@ set OUTPUT_DLY [expr 0.5*$CYCLE]
+#@ set OUTPUT_DLY [expr 0*$CYCLE]
 #@ 
 #@ #======================================================
 #@ # (B) Read RTL Code

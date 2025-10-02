@@ -3,30 +3,30 @@
 Report : area
 Design : MODP_MONTYMUL_TOP
 Version: T-2022.03
-Date   : Wed Oct  1 11:36:22 2025
+Date   : Fri Oct  3 02:40:59 2025
 ****************************************
 
 Library(s) Used:
 
-    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
 
 Number of ports:                         1592
-Number of nets:                         25496
-Number of cells:                        21668
-Number of combinational cells:          21088
-Number of sequential cells:               580
+Number of nets:                         25464
+Number of cells:                        21614
+Number of combinational cells:          21354
+Number of sequential cells:               260
 Number of macros/black boxes:               0
-Number of buf/inv:                       3003
-Number of references:                     611
+Number of buf/inv:                       3371
+Number of references:                     644
 
-Combinational area:              40675.445439
-Buf/Inv area:                     3386.123996
-Noncombinational area:            2688.940696
+Combinational area:              42711.429072
+Buf/Inv area:                     4174.934401
+Noncombinational area:            1248.307170
 Macro/Black Box area:                0.000000
 Net Interconnect area:               0.000000
 
-Total cell area:                 43364.386135
-Total area:                      43364.386135
+Total cell area:                 43959.736243
+Total area:                      43959.736243
 1

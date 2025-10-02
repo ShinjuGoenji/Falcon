@@ -4,7 +4,7 @@ vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/
 +define+RTL +define+ +notimingchecks
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Wed Oct  1 11:32:10 2025
+         Version T-2022.06_Full64 -- Fri Oct  3 02:19:51 2025
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -48,7 +48,7 @@ rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
--Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _17329_archive_1.so _17352_archive_1.so \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _7332_archive_1.so _7350_archive_1.so \
 _prev_archive_1.so _cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o \
 rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs \
 /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile \
@@ -62,7 +62,7 @@ make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/modp_montymul_top/0
 Command: /home/daniel_kuo/Falcon/hardware/modp_montymul_top/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
 Chronologic VCS simulator copyright 1991-2022
 Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Oct  1 11:32 2025
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Oct  3 02:19 2025
 *Verdi* Loading libsscore_vcs202206.so
 FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 (C) 1996 - 2022 by Synopsys, Inc.
@@ -71,37 +71,37 @@ FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 *Verdi* : Begin traversing the scopes, layer (0).
 *Verdi* : Enable +mda dumping.
 *Verdi* : End of traversing.
-PASS BLOCK NO. 101 ~ NO. 201,  102 CYCLES
-PASS BLOCK NO. 501 ~ NO. 601,  202 CYCLES
-PASS BLOCK NO.1001 ~ NO.1101,  302 CYCLES
-PASS BLOCK NO.1501 ~ NO.1601,  302 CYCLES
-PASS BLOCK NO.2101 ~ NO.2201,  302 CYCLES
-PASS BLOCK NO.2801 ~ NO.2901,  402 CYCLES
-PASS BLOCK NO.3301 ~ NO.3401,  302 CYCLES
-PASS BLOCK NO.3901 ~ NO.4001,  302 CYCLES
-PASS BLOCK NO.4201 ~ NO.4301,  202 CYCLES
-PASS BLOCK NO.4701 ~ NO.4801,  302 CYCLES
-PASS BLOCK NO.5201 ~ NO.5301,  302 CYCLES
-PASS BLOCK NO.5601 ~ NO.5701,  202 CYCLES
-PASS BLOCK NO.6101 ~ NO.6201,  302 CYCLES
-PASS BLOCK NO.6801 ~ NO.6901,  402 CYCLES
-PASS BLOCK NO.7601 ~ NO.7701,  402 CYCLES
-PASS BLOCK NO.8101 ~ NO.8201,  302 CYCLES
-PASS BLOCK NO.8401 ~ NO.8501,  202 CYCLES
-PASS BLOCK NO.8901 ~ NO.9001,  302 CYCLES
-PASS BLOCK NO.9201 ~ NO.9301,  202 CYCLES
-PASS BLOCK NO.9901 ~ NO.10001,  402 CYCLES
+PASS BLOCK NO. 101 ~ NO. 201,  101 CYCLES
+PASS BLOCK NO. 501 ~ NO. 601,  201 CYCLES
+PASS BLOCK NO.1001 ~ NO.1101,  301 CYCLES
+PASS BLOCK NO.1501 ~ NO.1601,  301 CYCLES
+PASS BLOCK NO.2101 ~ NO.2201,  301 CYCLES
+PASS BLOCK NO.2801 ~ NO.2901,  401 CYCLES
+PASS BLOCK NO.3301 ~ NO.3401,  301 CYCLES
+PASS BLOCK NO.3901 ~ NO.4001,  301 CYCLES
+PASS BLOCK NO.4201 ~ NO.4301,  201 CYCLES
+PASS BLOCK NO.4701 ~ NO.4801,  301 CYCLES
+PASS BLOCK NO.5201 ~ NO.5301,  301 CYCLES
+PASS BLOCK NO.5601 ~ NO.5701,  201 CYCLES
+PASS BLOCK NO.6101 ~ NO.6201,  301 CYCLES
+PASS BLOCK NO.6801 ~ NO.6901,  401 CYCLES
+PASS BLOCK NO.7601 ~ NO.7701,  401 CYCLES
+PASS BLOCK NO.8101 ~ NO.8201,  301 CYCLES
+PASS BLOCK NO.8401 ~ NO.8501,  201 CYCLES
+PASS BLOCK NO.8901 ~ NO.9001,  301 CYCLES
+PASS BLOCK NO.9201 ~ NO.9301,  201 CYCLES
+PASS BLOCK NO.9901 ~ NO.10001,  401 CYCLES
 --------------------------------------------------------------------
                          Congratulations!                           
                   You have passed all patterns!                     
-                  Your execution cycles =  5740 cycles                
+                  Your execution cycles =  5720 cycles                
                   Your clock period = 2.0 ns                       
-                  Total Latency = 11480.0 ns                           
+                  Total Latency = 11440.0 ns                           
 --------------------------------------------------------------------
 $finish called from file "PATTERN.v", line 252.
-$finish at simulation time              1154400
+$finish at simulation time              1150400
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 11544000 ps
-CPU Time:      0.320 seconds;       Data structure size:   0.0Mb
-Wed Oct  1 11:32:11 2025
-CPU time: .323 seconds to compile + .242 seconds to elab + .239 seconds to link + .352 seconds in simulation
+Time: 11504000 ps
+CPU Time:      0.310 seconds;       Data structure size:   0.0Mb
+Fri Oct  3 02:19:53 2025
+CPU time: .304 seconds to compile + .240 seconds to elab + .239 seconds to link + .358 seconds in simulation
