@@ -73,14 +73,14 @@ initial begin
 
 	reset_task;
 	total_latency = 0;
-	repeat(4) @(negedge clk);
+	repeat(4) @(posedge clk);
 	for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1)begin
 		input_task;
 		wait_out_task;
         check_ans_task;
         total_latency = total_latency + out_latency;
 		$display("PASS PATTERN NO.%4d, %4d CYCLES", i_pat + 1, total_latency);
-		repeat($urandom_range(0, 4)) @(negedge clk);
+		repeat($urandom_range(0, 4)) @(posedge clk);
 	end
 	YOU_PASS_task;
 end
@@ -120,10 +120,8 @@ task input_task; begin
 	in_valid = 'b1;
     fscanf_int = $fscanf(file_in, "%d %d", p, p0i);
     fscanf_int = $fscanf(file_out, "%d", R2_gold);
-	@(negedge clk);		
+	@(posedge clk);		
     in_valid = 'b0;
-    p = 'bx;
-    p0i = 'bx;
 end endtask
 
 task wait_out_task; begin
@@ -134,11 +132,11 @@ task wait_out_task; begin
             $display("                          FAIL!                          	 ");
 			$display("         The execution latency are over %d cycles        	 ", MAX_OUT_LATENCY);
 		    $display("***********************************************************"); 
-			repeat(2) @(negedge clk);
+			repeat(2) @(posedge clk);
 			$finish;
 		end
 		out_latency = out_latency + 1;
-		@(negedge clk);
+		@(posedge clk);
 	end
 end endtask
 
@@ -150,9 +148,11 @@ task check_ans_task; begin
             $display("                  Pattern #%5d (%8t)                   	 ", i_pat, $time);
             $display("                       Gold = %5d                    	     ", R2_gold);
             $display("                       Your = %5d                    	     ", R2);
-            $display("***********************************************************");    
-                repeat(2) @(negedge clk);
-                $finish;
+            $display("***********************************************************");  
+            p = 'bx;
+            p0i = 'bx;  
+            repeat(2) @(posedge clk);
+            $finish;
 		end
 	end
 end endtask
@@ -165,7 +165,7 @@ task YOU_PASS_task; begin
 	$display ("                  Your clock period = %.1f ns                       ", CYCLE);
     $display ("                  Total Latency = %.1f ns                           ", total_latency*CYCLE);
     $display ("--------------------------------------------------------------------");     
-    repeat(2)@(negedge clk);
+    repeat(2)@(posedge clk);
     $finish;
 end endtask
 

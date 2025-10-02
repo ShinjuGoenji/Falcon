@@ -36,6 +36,7 @@ localparam P_WIDTH = 31;
 
 localparam S_IDLE = 0;
 localparam S_EXE = 1;
+localparam S_OUTPUT = 6;
 
 //---------------------------------------------------------------------
 //   Input & Output
@@ -59,7 +60,7 @@ input                    out_valid_modp_montymul;
 input      [P_WIDTH-1:0] d_modp_montymul;
 input                    ready_modp_montymul;
 
-output               in_valid_modp_montymul;
+output reg           in_valid_modp_montymul;
 output [P_WIDTH-1:0] a_modp_montymul;
 output [P_WIDTH-1:0] b_modp_montymul;
 output [P_WIDTH-1:0] p_modp_montymul;
@@ -75,11 +76,7 @@ reg [P_WIDTH-1:0] z1;
 reg [P_WIDTH-1:0] z, next_z;
 
 reg state, next_state;
-reg [1:0] cnt, next_cnt;
-
-reg  i_valid;
-wire [P_WIDTH-1:0] d;
-wire o_valid;
+reg [2:0] cnt, next_cnt;
 
 reg next_out_valid;
 reg [P_WIDTH-1:0] next_R2;
@@ -98,14 +95,25 @@ MODP_ADD u_MODP_ADD (.a(z0), .b(z0), .p(p), .d(z1));
  * Square it five times to obtain 2^32 in Montgomery representation
  * (i.e. 2^63 mod p).
  */
-assign in_valid_modp_montymul = i_valid;
-assign a_modp_montymul = z;
-assign b_modp_montymul = z;
+assign a_modp_montymul = (out_valid_modp_montymul) ? d_modp_montymul : z;
+assign b_modp_montymul = (out_valid_modp_montymul) ? d_modp_montymul : z;
 assign p_modp_montymul = p;
 assign p0i_modp_montymul = p0i;
 assign isMQ_modp_montymul = 1'b0;
-assign o_valid = out_valid_modp_montymul;
-assign d = d_modp_montymul;
+
+/*
+ * MODP_MONTYMUL in_valid
+ */
+always @(*) begin
+    if (next_state == S_EXE) begin
+        if (cnt == 1)
+            in_valid_modp_montymul = 1;
+        else
+            in_valid_modp_montymul = out_valid_modp_montymul;
+    end
+    else
+        in_valid_modp_montymul = 0;
+end
 
 // MODP_MONTYMUL_TOP u_MODP_MONTYMUL_TOP (
 //     // Input signals
@@ -138,7 +146,7 @@ always @(*) begin
                 next_state = state;
         end
         S_EXE: 
-            if (cnt == 5)
+            if (cnt == S_OUTPUT)
                 next_state = S_IDLE;
             else
                 next_state = state;
@@ -149,10 +157,12 @@ always @(*) begin
     if (next_state == S_EXE) begin
         if (cnt == 0)
             next_cnt = cnt + 1;
-        else if (o_valid)
+        else if (cnt == 1 && ready_modp_montymul)
+            next_cnt = cnt + 1;
+        else if (out_valid_modp_montymul)
             next_cnt = cnt + 1;
         else
-        next_cnt = cnt;
+            next_cnt = cnt;
     end
     else
         next_cnt = 0;
@@ -164,24 +174,10 @@ end
 always @(*) begin
     if (in_valid)
         next_z = z1;
-    else if (o_valid)
-        next_z = d;
+    else if (state == S_EXE)
+        next_z = d_modp_montymul;
     else
         next_z = z;
-end
-
-/*
- * MODP_MONTYMUL in_valid
- */
-always @(*) begin
-    if (state == S_EXE) begin
-        if (cnt == 1)
-            i_valid = 1;
-        else
-            i_valid = o_valid;
-    end
-    else
-        i_valid = 0;
 end
 
 /*
@@ -189,17 +185,17 @@ end
  */
 always @(*) begin
     if (state == S_EXE) begin
-        if (cnt == 5) begin
+        if (cnt == S_OUTPUT) begin
             next_out_valid = 1;
-            next_R2 = (z + (p & -(z & 1))) >> 1;
+            next_R2 = (next_z + (p & -(next_z & 1))) >> 1;
         end
         else begin
             next_out_valid = 0;
-            next_R2 = 0;
+            next_R2 = R2;
         end
     end
     else begin
-        next_out_valid = out_valid;
+        next_out_valid = 0;
         next_R2 = R2;
     end
 end
@@ -207,7 +203,7 @@ end
 //---------------------------------------------------------------------
 //   Sequential Logic
 //---------------------------------------------------------------------
-always @(posedge clk or posedge rst_n) begin
+always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         state = 0;
         cnt = 0;
