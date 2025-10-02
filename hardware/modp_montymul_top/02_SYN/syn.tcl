@@ -10,7 +10,7 @@
 set DESIGN "MODP_MONTYMUL_TOP"
 set CYCLE 2.0
 set INPUT_DLY [expr 0*$CYCLE]
-set OUTPUT_DLY [expr 0.5*$CYCLE]
+set OUTPUT_DLY [expr 0*$CYCLE]
 
 #======================================================
 # (B) Read RTL Code
