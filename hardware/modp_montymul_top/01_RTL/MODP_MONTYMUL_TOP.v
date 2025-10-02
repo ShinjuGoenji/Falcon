@@ -66,7 +66,7 @@ wire [P_WIDTH-1:0]         d       [0:MUL_NUM-1];
 wire [$clog2(MASTER_NUM):0] o_bus   [0:MUL_NUM-1];
 
 reg grant [0:MASTER_NUM-1];
-reg [$clog2(MUL_NUM):0] mul_cnt;
+reg [$clog2(MUL_NUM):0] instance_cnt;
 
 reg               out_valid_bus_comb [0:MASTER_NUM-1];
 reg [P_WIDTH-1:0] d_bus_comb [0:MASTER_NUM-1];
@@ -146,13 +146,13 @@ always @(*) begin : ARBITER
             end
         end
     end
-    mul_cnt = MUL_NUM;
+    instance_cnt = MUL_NUM;
     for (i = 0; i < MASTER_NUM; i = i + 1) begin
-        if (i >= MUL_NUM && mul_cnt == 0) begin
+        if (i >= MUL_NUM && instance_cnt == 0) begin
             ready_bus[i] = 1'b0;
         end
         if (in_valid_bus_w[i] && grant[i]) begin
-            mul_cnt = mul_cnt - 1;
+            instance_cnt = instance_cnt - 1;
         end
     end
 end
