@@ -24,7 +24,13 @@ module MODP_MONTYMUL_TOP #(
 ## Description
 
 Top module of MODP_MONTYMUL, which number of instances is parameterized by `MUL_NUM`. The number of master modules is also parameterized by `BUS_WIDTH`. 
-Each MODP_MONTYMUL is a implemented with 2-stage pipeline.
+Each MODP_MONTYMUL is a implemented with 2-stage pipeline, where the 2nd stage is not registered.
+
+## Latency
+
+|           |     |
+| :-------: | :-: |
+| **CYCLE** |  2  |
 
 ## Performance
 

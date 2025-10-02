@@ -34,19 +34,28 @@ module MODP_R2 (
 
 This module requires MODP_MONTYMUL_TOP.
 
+1st cycle computes `z = modp_R(p)` and `z = modp_add(z, z, p)`.
+
+The later $2\times5$ cycles computes `z = modp_montymul(z, z, p, p0i)`, where each `modp_montymul` requires 2 cycles latency.
+
+The last cycle computes `z = (z + (p & -(z & 1))) >> 1`, and then outputs result.
+
 ## Latency
 
 |           |     |
 | :-------: | :-: |
-| **CYCLE** | 539 |
+| **CYCLE** | 13  |
 
 ## Performance
 
-|            |     40nm      |
-| :--------: | :-----------: |
-| **Period** |     2.0ns     |
-| **#GATE**  |     26473     |
-|  **AREA**  | 264183.890590 |
+|            |     40nm     |
+| :--------: | :----------: |
+| **Period** |    2.0ns     |
+| **#GATE**  |     2705     |
+|  **AREA**  | 26996.230340 |
+
+> [!WARNING]  
+> This synthesis result use KEYGEN.v as top module where there consist 3 instances of `MODP_R2` and 2 instances of `MODP_MONTYMUL_TOP` to simulate the existence of other modules.
 
 ## Future Optimization
 
