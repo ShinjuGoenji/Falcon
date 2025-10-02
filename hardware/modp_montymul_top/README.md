@@ -38,8 +38,8 @@ Each MODP_MONTYMUL is a implemented with 2-stage pipeline, where the 2nd stage i
 | :--------: | :----------: |
 | `MUL_NUM`  |      2       |
 | **Period** |    2.0ns     |
-| **#GATE**  |     4345     |
-|  **AREA**  | 43364.386135 |
+| **#GATE**  |     4405     |
+|  **AREA**  | 43959.736243 |
 
 ## Future Optimization
 1. arbiter behavior.
