@@ -168,7 +168,7 @@ always @(*) begin : ARBITER
     end
     for (j = 0; j < R2_NUM; j = j + 1) begin
         for (i = 0; i < MASTER_NUM; i = i + 1) begin
-            if (in_valid_bus_w[i] && ~grant[i]) begin
+            if (in_valid_bus_w[i] && !grant[i]) begin
                 i_valid[j] = in_valid_bus_w[i];
                 p[j]       = p_bus_w[i];
                 p0i[j]     = p0i_bus_w[i];
