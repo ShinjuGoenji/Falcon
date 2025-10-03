@@ -1,4 +1,5 @@
-`include "MODP_MONTYMUL.v"
+`include "MODP_MONTYMUL_TOP.v"
+`include "MODP_R2_TOP.v"
 
 /*
  * Compute the roots for NTT and inverse NTT (binary case). Input
