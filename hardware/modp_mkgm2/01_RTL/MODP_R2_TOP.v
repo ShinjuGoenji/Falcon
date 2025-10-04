@@ -92,7 +92,16 @@ reg busy [0:R2_NUM-1], busy_comb [0:R2_NUM-1];
 reg               out_valid_bus_comb [0:MASTER_NUM-1];
 reg [P_WIDTH-1:0] R2_bus_comb [0:MASTER_NUM-1];
 
-reg 
+reg               out_valid_modp_montymul [0:R2_NUM-1];
+reg [P_WIDTH-1:0] d_modp_montymul         [0:R2_NUM-1];
+reg               ready_modp_montymul     [0:R2_NUM-1];
+
+reg               in_valid_modp_montymul  [0:R2_NUM-1];
+reg [P_WIDTH-1:0] a_modp_montymul         [0:R2_NUM-1];
+reg [P_WIDTH-1:0] b_modp_montymul         [0:R2_NUM-1];
+reg [P_WIDTH-1:0] p_modp_montymul         [0:R2_NUM-1];
+reg [P_WIDTH-1:0] p0i_modp_montymul       [0:R2_NUM-1];
+reg               isMQ_modp_montymul      [0:R2_NUM-1];
 //---------------------------------------------------------------------
 //   Submodule
 //---------------------------------------------------------------------
@@ -143,12 +152,18 @@ generate
     end
 endgenerate
 
-genvar i_bus_idx;
+genvar i_modp_R2_idx;
 generate
-    for (i_bus_idx = 0; i_bus_idx < MASTER_NUM; i_bus_idx = i_bus_idx + 1) begin
-        assign in_valid_bus_w[i_bus_idx] = in_valid_bus[i_bus_idx];
-        assign p_bus_w[i_bus_idx]        = p_bus[P_WIDTH*(i_bus_idx+1)-1 -: P_WIDTH];
-        assign p0i_bus_w[i_bus_idx]      = p0i_bus[P_WIDTH*(i_bus_idx+1)-1 -: P_WIDTH];
+    for (i_modp_R2_idx = 0; i_modp_R2_idx < R2_NUM; i_modp_R2_idx = i_modp_R2_idx + 1) begin
+        assign out_valid_modp_montymul[i_modp_R2_idx] = out_valid_modp_montymul_bus[i_modp_R2_idx];
+        assign d_modp_montymul[i_modp_R2_idx] = d_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH];
+        assign ready_modp_montymul[i_modp_R2_idx] = ready_modp_montymul_bus[i_modp_R2_idx];
+        assign in_valid_modp_montymul_bus[i_modp_R2_idx] = in_valid_modp_montymul[i_modp_R2_idx];
+        assign a_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = a_modp_montymul[i_modp_R2_idx];
+        assign b_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = b_modp_montymul[i_modp_R2_idx];
+        assign p_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = p_modp_montymul[i_modp_R2_idx];
+        assign p0i_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = p0i_modp_montymul[i_modp_R2_idx];
+        assign isMQ_modp_montymul_bus[i_modp_R2_idx] = isMQ_modp_montymul[i_modp_R2_idx];
     end
 endgenerate
 

@@ -1,6 +1,3 @@
-`include "MODP_MONTYMUL_TOP.v"
-`include "MODP_R2_TOP.v"
-
 /*
  * Compute the roots for NTT and inverse NTT (binary case). Input
  * parameter g is a primitive 2048-th root of 1 modulo p (i.e. g^1024 =
@@ -15,6 +12,7 @@
  * p must be a prime such that p = 1 mod 2048.
  */
 module MODP_MKGM2 (
+    // Main channel
     // Input signals
     clk,
     rst_n,
@@ -27,7 +25,28 @@ module MODP_MKGM2 (
     out_valid,
     v,
     gm,
-    igm
+    igm,
+    // MODP_MONTYMUL_TOP
+    // Input signals
+    out_valid_modp_montymul,
+    d_modp_montymul,
+    ready_modp_montymul,
+    // Output signals
+    in_valid_modp_montymul,
+    a_modp_montymul,
+    b_modp_montymul,
+    p_modp_montymul,
+    p0i_modp_montymul,
+    isMQ_modp_montymul,
+    // MODP_R2_TOP
+    // Input signals
+    out_valid_modp_R2,
+    R2_modp_R2,
+    ready_modp_R2,
+    // Output signals
+    in_valid_modp_R2,
+    p_modp_R2,
+    p0i_modp_R2
 );
 
 //---------------------------------------------------------------------
@@ -114,6 +133,7 @@ localparam LOGN_WIDTH = 4;
         10'd31,     10'd543,	10'd287,	10'd799,	10'd159,	10'd671,	10'd415,	10'd927,	10'd95,	    10'd607,	10'd351,	10'd863,	10'd223,	10'd735,	10'd479,	10'd991,
         10'd63,     10'd575,	10'd319,	10'd831,	10'd191,	10'd703,	10'd447,	10'd959,	10'd127,	10'd639,	10'd383,	10'd895,	10'd255,	10'd767,	10'd511,	10'd1023
         };    
+    localparam S_GENERATOR = 3;
 `else
     localparam LUT_SIZE = 512;
     localparam LUT_WIDTH = $clog2(LUT_SIZE);
@@ -151,14 +171,21 @@ localparam LOGN_WIDTH = 4;
         9'd15,	9'd271,	9'd143,	9'd399,	9'd79,	9'd335,	9'd207,	9'd463,	9'd47,	9'd303,	9'd175,	9'd431,	9'd111,	9'd367,	9'd239,	9'd495,
         9'd31,	9'd287,	9'd159,	9'd415,	9'd95,	9'd351,	9'd223,	9'd479,	9'd63,	9'd319,	9'd191,	9'd447,	9'd127,	9'd383,	9'd255,	9'd511
     };
+    localparam S_GENERATOR = 4;
 `endif
 
 localparam S_IDLE = 0;
 localparam S_EXE = 1;
 
+localparam S_R2 = 1;
+localparam S_OUTPUT = 6;
+
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
+/*
+ * Main channel
+ */
 input                       clk;
 input                       rst_n;
 input                       in_valid;
@@ -172,13 +199,38 @@ output reg [LUT_WIDTH-1:0]  v;
 output reg [P_WIDTH-1:0]    gm;
 output reg [P_WIDTH-1:0]    igm;
 
+/*
+ * MODP_MONTYMUL_TOP
+ */
+input                    out_valid_modp_montymul;
+input      [P_WIDTH-1:0] d_modp_montymul;
+input                    ready_modp_montymul;
+
+output reg           in_valid_modp_montymul;
+output [P_WIDTH-1:0] a_modp_montymul;
+output [P_WIDTH-1:0] b_modp_montymul;
+output [P_WIDTH-1:0] p_modp_montymul;
+output [P_WIDTH-1:0] p0i_modp_montymul;
+output               isMQ_modp_montymul;
+
+/*
+ * MODP_R2_TOP
+ */
+input                    out_valid_modp_R2;
+input      [P_WIDTH-1:0] R2_modp_R2;
+input                    ready_modp_R2;
+
+output reg           in_valid_modp_R2;
+output [P_WIDTH-1:0] p_modp_R2;
+output [P_WIDTH-1:0] p0i_modp_R2;
+
 //---------------------------------------------------------------------
 //   Reg & Wire
 //---------------------------------------------------------------------
-reg [LOGN_WIDTH-1:0] logn_reg, next_logn_reg;
-reg [P_WIDTH-1:0]    g_reg, next_g_reg;
-reg [P_WIDTH-1:0]    p_reg, next_p_reg;
-reg [P_WIDTH-1:0]    p0i_reg, next_p0i_reg;
+reg [LOGN_WIDTH-1:0] logn_reg, logn_comb;
+reg [P_WIDTH-1:0]    g_reg, g_comb;
+reg [P_WIDTH-1:0]    p_reg, p_comb;
+reg [P_WIDTH-1:0]    p0i_reg, p0i_comb;
 
 wire [N_WIDTH-1:0]    n;
 wire [LOGN_WIDTH-1:0] k;
@@ -189,27 +241,18 @@ reg [1:0] cnt, next_cnt;
 /*
  * R2
  */
-reg R2_i_valid;
-reg R2_valid;
-reg [P_WIDTH-1:0] R2;
+reg in_valid_modp_R2_reg, in_valid_modp_R2_comb;
+reg [P_WIDTH-1:0] R2, R2_comb;
+
+/*
+ * MONTY_MUL
+ */
+reg in_valid_modp_montymul_reg, in_valid_modp_montymul_comb;
 
 
 //---------------------------------------------------------------------
 //   Submodule
 //---------------------------------------------------------------------
-MODP_R2 u_MODP_R2 (    
-    // Input signals
-    .clk(clk),
-    .rst_n(rst_n),
-    .in_valid(R2_i_valid),
-    .p(p),
-    .p0i(p0i),
-    // Output signals
-    .out_valid(R2_valid),
-    .R2(R2)
-    );
-    
-MODP_R u_MODP_R (.p(p), .R(z0));
 
 //---------------------------------------------------------------------
 //   Combinational Logic
@@ -228,17 +271,23 @@ always @(*) begin
             else
                 next_state = state;
         end
-        // S_EXE: 
-        //     if (cnt == 5)
-        //         next_state = S_IDLE;
-        //     else
-        //         next_state = state;
+        S_EXE: 
+            if (cnt == S_OUTPUT)
+                next_state = S_IDLE;
+            else
+                next_state = state;
     endcase
 end
 
 always @(*) begin
-    if (next_state == S_EXE) 
-        next_cnt = cnt + 1;
+    if (next_state == S_EXE) begin
+        if (cnt == 0)
+            next_cnt = cnt + 1;
+        else if (out_valid_modp_R2)
+            next_cnt = cnt + 1;
+        else
+            next_cnt = cnt;
+    end
     else
         next_cnt = 0;
 end
@@ -248,27 +297,71 @@ end
  */
 always @(*) begin
     if (in_valid) begin
-        next_logn_reg = logn;
-        next_g_reg = g;
-        next_p_reg = p;
-        next_p0i_reg = p0i;
+        logn_comb = logn;
+        g_comb = g;
+        p_comb = p;
+        p0i_comb = p0i;
     end
     else begin
-        next_logn_reg = logn_reg;
-        next_g_reg = g_reg;
-        next_p_reg = p_reg;
-        next_p0i_reg = p0i_reg;
+        logn_comb = logn_reg;
+        g_comb = g_reg;
+        p_comb = p_reg;
+        p0i_comb = p0i_reg;
     end
 end
 
 /*
- *  R2 in_valid
+ *  MODP_R2 
+ */
+// p, p0i
+assign in_valid_modp_R2 = in_valid_modp_R2_comb;
+assign p_modp_R2 = (in_valid) ? p : p_reg;
+assign p0i_modp_R2 = (in_valid) ? p0i : p0i_reg;
+
+// in_valid
+always @(*) begin
+    if (in_valid) 
+        in_valid_modp_R2_comb = 1;
+    else if (state == S_EXE && ready_modp_R2)
+        in_valid_modp_R2_comb = 0;
+    else 
+        in_valid_modp_R2_comb = in_valid_modp_R2_reg;
+end
+
+// R2
+always @(*) begin
+    if (out_valid_modp_R2) 
+        R2_comb = R2_modp_R2;
+    else
+        R2_comb = R2;
+end
+
+/*
+ *  MODP_MONTYMUL
+ */
+// p, p0i
+assign in_valid_modp_montymul = in_valid_modp_montymul_reg;
+assign p_modp_montymul = p_reg;
+assign p0i_modp_montymul = p0i_reg;
+
+// in_valid
+always @(*) begin
+    if (out_valid_modp_R2) 
+        in_valid_modp_montymul_comb = 1;
+    else if (state == S_EXE && next_cnt < S_GENERATOR)
+        in_valid_modp_montymul_comb = 0;
+    else
+        in_valid_modp_montymul_comb = in_valid_modp_montymul_reg;
+end
+
+/*
+ *  MODP_MONTYMUL d
  */
 always @(*) begin
-    if (state == S_IDLE && next_state == S_EXE) 
-        R2_i_valid = 1;
+    if (out_valid_modp_R2) 
+        R2_comb = R2_modp_R2;
     else
-        R2_i_valid = 0;
+        R2_comb = R2;
 end
 
 
@@ -280,15 +373,21 @@ always @(posedge clk or negedge rst_n) begin
         g_reg <= 0;
         p_reg <= 0;
         p0i_reg <= 0;
-        state = 0;
-        cnt = 0;
+        state <= 0;
+        cnt <= 0;
+        R2 <= 0;
+        in_valid_modp_R2_reg <= 0;
+        in_valid_modp_montymul_reg <= 0;
     end
     else begin
-        g_reg <= next_g_reg;
-        p_reg <= next_p_reg;
-        p0i_reg <= next_p0i_reg;
-        state = next_state;
-        cnt = next_cnt;
+        g_reg <= g_comb;
+        p_reg <= p_comb;
+        p0i_reg <= p0i_comb;
+        state <= next_state;
+        cnt <= next_cnt;
+        R2 <= R2_comb;
+        in_valid_modp_R2_reg <= in_valid_modp_R2_comb;
+        in_valid_modp_montymul_reg <= in_valid_modp_montymul_comb;
     end
 end
 
