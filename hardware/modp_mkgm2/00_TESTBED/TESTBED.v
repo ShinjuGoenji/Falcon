@@ -2,9 +2,9 @@
 `include "PATTERN.v"
 
 `ifdef RTL
-    `include "MODP_NTT2.v"
+    `include "KEYGEN.v"
 `elsif GATE
-    `include "MODP_NTT2_SYN.v"
+    `include "KEYGEN_SYN.v"
 `endif
 	  		  	
 module TESTBED;
@@ -12,45 +12,45 @@ module TESTBED;
 //================================================================
 // Parameter
 //================================================================
-`ifdef FALCON512
-    parameter MAX_LOGN = 9;
-`elsif FALCON1024
-    parameter MAX_LOGN = 10;
-`else
-    parameter MAX_LOGN = 9;
-`endif
-
 localparam P_WIDTH = 31;
 localparam LOGN_WIDTH = 4;
-localparam LUT_SIZE = 1024;
+`ifdef FALCON1024
+    localparam LUT_SIZE = 1024;
+    localparam LUT_WIDTH = $clog2(LUT_SIZE);
+`else
+    localparam LUT_SIZE = 512;
+    localparam LUT_WIDTH = $clog2(LUT_SIZE);
+`endif
 
 //================================================================
 // Wire Declarations
 //================================================================
-wire                                  clk;
-wire                                  rst_n;
-wire                                  in_valid;
-wire [P_WIDTH-1:0]                    a_i;
-wire [LOGN_WIDTH-1:0]                 logn;
-wire [P_WIDTH-1:0]                    p;
-wire [P_WIDTH-1:0]                    p0i;
-wire                                  isMQ;
-wire [MAX_LOGN*P_WIDTH-1:0]           s_bus;
+wire                  clk;
+wire                  rst_n;
+wire                  in_valid;
+wire [LOGN_WIDTH-1:0] logn;
+wire [P_WIDTH-1:0]    g;
+wire [P_WIDTH-1:0]    p;
+wire [P_WIDTH-1:0]    p0i;
+wire [1:0]            mode;
 
-wire                                  out_valid;
-wire [P_WIDTH-1:0]                    a_o;
-wire [$clog2(LUT_SIZE)*MAX_LOGN-1:0]  tw_idx_bus;
+wire                  out_valid_gm;
+wire [LUT_WIDTH-1:0]  v_gm;
+wire [P_WIDTH-1:0]    gm;
+wire                  out_valid_igm;
+wire [LUT_WIDTH-1:0]  v_igm;
+wire [P_WIDTH-1:0]    igm;
 
 //================================================================
 // Dump Waveform
 //================================================================
 initial begin
   `ifdef RTL
-    $fsdbDumpfile("MODP_NTT2.fsdb");
+    $fsdbDumpfile("KEYGEN.fsdb");
     $fsdbDumpvars(0,"+mda");
   `elsif GATE
-    $sdf_annotate("MODP_NTT2_SYN.sdf",u_MODP_NTT2);
-    // $fsdbDumpfile("MODP_NTT2_SYN.fsdb");
+    $sdf_annotate("KEYGEN_SYN.sdf",u_KEYGEN);
+    // $fsdbDumpfile("KEYGEN_SYN.fsdb");
     // $fsdbDumpvars(0,"+mda");
   `endif
 end
@@ -59,50 +59,56 @@ end
 // Port Connection
 //================================================================
 `ifdef RTL
-    MODP_NTT2 #(.MAX_LOGN(MAX_LOGN)) u_MODP_NTT2(
-    .clk(clk),
-    .rst_n(rst_n),
-    .in_valid(in_valid),
-    .a_i(a_i),
-    .logn(logn),
-    .p(p),
-    .p0i(p0i),
-    .isMQ(isMQ),
-    .s_bus(s_bus),
-    .out_valid(out_valid),
-    .a_o(a_o),
-    .tw_idx_bus(tw_idx_bus)
+    KEYGEN u_KEYGEN(
+        .clk(clk),
+        .rst_n(rst_n),
+        .in_valid(in_valid),
+        .logn(logn),
+        .g(g),
+        .p(p),
+        .p0i(p0i),
+        .mode(mode),
+        .out_valid_gm(out_valid_gm),
+        .v_gm(v_gm),
+        .gm(gm),
+        .out_valid_igm(out_valid_igm),
+        .v_igm(v_igm),
+        .igm(igm)
     );
 `elsif GATE
-    MODP_NTT2 u_MODP_NTT2(
-    .clk(clk),
-    .rst_n(rst_n),
-    .in_valid(in_valid),
-    .a_i(a_i),
-    .logn(logn),
-    .p(p),
-    .p0i(p0i),
-    .isMQ(isMQ),
-    .s_bus(s_bus),
-    .out_valid(out_valid),
-    .a_o(a_o),
-    .tw_idx_bus(tw_idx_bus)
+    KEYGEN u_KEYGEN(
+        .clk(clk),
+        .rst_n(rst_n),
+        .in_valid(in_valid),
+        .logn(logn),
+        .g(g),
+        .p(p),
+        .p0i(p0i),
+        .mode(mode),
+        .out_valid_gm(out_valid_gm),
+        .v_gm(v_gm),
+        .gm(gm),
+        .out_valid_igm(out_valid_igm),
+        .v_igm(v_igm),
+        .igm(igm)
     );
 `endif
 	
-PATTERN #(.MAX_LOGN(MAX_LOGN)) u_PATTERN(
+PATTERN u_PATTERN(
     .clk(clk),
     .rst_n(rst_n),
     .in_valid(in_valid),
-    .a_i(a_i),
     .logn(logn),
+    .g(g),
     .p(p),
     .p0i(p0i),
-    .isMQ(isMQ),
-    .s_bus(s_bus),
-    .out_valid(out_valid),
-    .a_o(a_o),
-    .tw_idx_bus(tw_idx_bus)
-    );
+    .mode(mode),
+    .out_valid_gm(out_valid_gm),
+    .v_gm(v_gm),
+    .gm(gm),
+    .out_valid_igm(out_valid_igm),
+    .v_igm(v_igm),
+    .igm(igm)
+);
  
 endmodule

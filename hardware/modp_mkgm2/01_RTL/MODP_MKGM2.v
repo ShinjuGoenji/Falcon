@@ -276,9 +276,9 @@ reg [P_WIDTH-1:0] b_modp_montymul_0;
 reg [P_WIDTH-1:0] p_modp_montymul_0;
 reg [P_WIDTH-1:0] p0i_modp_montymul_0;
 reg               isMQ_modp_montymul_0;
-reg               out_valid_modp_montymul_0;
 
 // slave 2
+reg               out_valid_modp_montymul_1;
 reg [P_WIDTH-1:0] d_modp_montymul_1;
 reg               ready_modp_montymul_1;
 
@@ -327,15 +327,15 @@ MODP_DIV u_MODP_DIV (
     .p(p),
     .p0i(p0i),
     .R(R_modp_div),
-    .// Output signals
+    // Output signals
     .out_valid(out_valid_modp_div),
     .z(z_modp_div),
-    .// MODP_MONTYMUL_TOP
-    .// Input signals
+    // MODP_MONTYMUL_TOP
+    // Input signals
     .out_valid_modp_montymul(out_valid_modp_montymul_1),
     .d_modp_montymul(d_modp_montymu_1),
     .ready_modp_montymul(ready_modp_montymul_1),
-    .// Output signals
+    // Output signals
     .in_valid_modp_montymul(in_valid_modp_montymul_modp_div),
     .a_modp_montymul(a_modp_montymul_modp_div),
     .b_modp_montymul(b_modp_montymul_modp_div),
@@ -572,7 +572,7 @@ assign p0i_modp_montymul_1 = p0i;
 assign isMQ_modp_montymul_1 = 1'b0;
 
 // in_valid
-assign in_valid_modp_montymul_1 = (state == S_iG || state == S_iG_GM) ? in_valid_modp_montymul_modp_div : in_valid_modp_montymul_1_reg: 
+assign in_valid_modp_montymul_1 = (state == S_iG || state == S_iG_GM) ? in_valid_modp_montymul_modp_div : in_valid_modp_montymul_1_reg;
 always @(*) begin
     // state 'S_ONLY_iGM' or 'S_GM_iGM'
     if ((state == S_iG && next_state == S_ONLY_iGM) || (state == S_iG_GM && next_state == S_GM_iGM))

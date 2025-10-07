@@ -13,108 +13,78 @@ module PATTERN #(
     clk,
     rst_n,
     in_valid,
-    a_i,
     logn,
+    g,
     p,
     p0i,
-    isMQ,
-    s_bus,
+    mode,
     // Input signals
-    out_valid,
-    a_o,
-    tw_idx_bus
+    out_valid_gm,
+    v_gm,
+    gm,
+    out_valid_igm,
+    v_igm,
+    igm
 );
 
 //---------------------------------------------------------------------
 //   Parameter
 //---------------------------------------------------------------------
-localparam    P_WIDTH = 31;
+localparam P_WIDTH = 31;
 localparam LOGN_WIDTH = 4;
-localparam   LUT_SIZE = 1024;
-localparam      MAX_N = 1 << MAX_LOGN;
+`ifdef FALCON1024
+    localparam LUT_SIZE = 1024;
+    localparam LUT_WIDTH = $clog2(LUT_SIZE);
+`else
+    localparam LUT_SIZE = 512;
+    localparam LUT_WIDTH = $clog2(LUT_SIZE);
+`endif
 
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
-output reg                        clk;
-output reg                        rst_n;
-output reg                        in_valid;
-output reg [P_WIDTH-1:0]          a_i;
-output reg [LOGN_WIDTH-1:0]       logn;
-output reg [P_WIDTH-1:0]          p;
-output reg [P_WIDTH-1:0]          p0i;
-output reg                        isMQ;
-output reg [MAX_LOGN*P_WIDTH-1:0] s_bus;
+output reg                  clk;
+output reg                  rst_n;
+output reg                  in_valid;
+output reg [LOGN_WIDTH-1:0] logn;
+output reg [P_WIDTH-1:0]    g;
+output reg [P_WIDTH-1:0]    p;
+output reg [P_WIDTH-1:0]    p0i;
+output reg [1:0]            mode;
 
-input                                 out_valid;
-input [P_WIDTH-1:0]                   a_o;
-input [$clog2(LUT_SIZE)*MAX_LOGN-1:0] tw_idx_bus;
+input                       out_valid_gm;
+input      [LUT_WIDTH-1:0]  v_gm;
+input      [P_WIDTH-1:0]    gm;
+input                       out_valid_igm;
+input      [LUT_WIDTH-1:0]  v_igm;
+input      [P_WIDTH-1:0]    igm;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
 //---------------------------------------------------------------------
 parameter INPUT_PATH  = "../00_TESTBED/input.txt";
-parameter OUTPUT_PATH = "../00_TESTBED/output.txt";
-parameter GM_PATH = "../00_TESTBED/gm.txt";
+parameter OUTPUT_GM_PATH = "../00_TESTBED/output_gm.txt";
+parameter OUTPUT_IGM_PATH = "../00_TESTBED/output_igm.txt";
 parameter PATNUM_PATH = "../00_TESTBED/PATNUM.txt";
-integer file_in, file_out, file_num, file_gm;
+integer file_in, file_out_gm, file_out_igm, file_num;
 
 parameter MAX_OUT_LATENCY = 2000;
 integer total_latency, out_latency, pattern_latency;
 
-integer i_pat, i_in_deg, i_delay, i_out_deg;
+integer i_pat, i_gm, i_igm;
 integer PAT_NUM;
 
 integer fscanf_int;
 
+integer mode_gold;
 //---------------------------------------------------------------------
 //   REG & WIRE DECLARATION
 //---------------------------------------------------------------------
-reg [P_WIDTH-1:0]          a        [0:MAX_N-1];
-reg [P_WIDTH-1:0]          golden_a [0:MAX_N-1];
-reg [LOGN_WIDTH-1:0]       logn_gold;
-wire [MAX_LOGN:0]           n;
-reg [P_WIDTH-1:0]          p_gold;
-reg [P_WIDTH-1:0]          p0i_gold;
-reg                        isMQ_gold;
-
-reg [P_WIDTH-1:0]          s        [0:MAX_LOGN-1];
-reg [$clog2(LUT_SIZE)-1:0] tw_idx   [0:MAX_LOGN-1];
-reg [P_WIDTH-1:0]          GM       [0:LUT_SIZE-1];
-
-assign n = 1 << logn_gold;
-
-genvar tw_idx_idx;
-generate
-    for (tw_idx_idx = 0; tw_idx_idx < MAX_LOGN; tw_idx_idx=tw_idx_idx+1) begin
-        always @(*) begin
-            tw_idx[tw_idx_idx] = tw_idx_bus[$clog2(LUT_SIZE)*(tw_idx_idx+1)-1:$clog2(LUT_SIZE)*tw_idx_idx];
-        end
-    end
-endgenerate
-
-genvar s_idx;
-generate
-    for (s_idx = 0; s_idx < MAX_LOGN; s_idx=s_idx+1) begin
-        always @(*) begin
-            s_bus[P_WIDTH*(s_idx+1)-1:P_WIDTH*s_idx] = s[s_idx];
-        end
-    end
-endgenerate
-
-genvar s_reg_idx;
-generate
-    for (s_reg_idx = 0; s_reg_idx < MAX_LOGN; s_reg_idx=s_reg_idx+1) begin
-        always @(posedge clk or negedge rst_n) begin
-            if (!rst_n) begin
-                s[s_reg_idx] <= 0;
-            end
-            else begin
-                s[s_reg_idx] <= GM[tw_idx[s_reg_idx]];
-            end
-        end
-    end
-endgenerate
+reg [LOGN_WIDTH-1:0] logn_gold;
+reg [LUT_WIDTH-1:0]  v_gm_gold;
+reg [P_WIDTH-1:0]    gm_gold;
+reg [LUT_WIDTH-1:0]  v_igm_gold;
+reg [P_WIDTH-1:0]    igm_gold;
 
 //---------------------------------------------------------------------
 //   Clock
@@ -127,41 +97,40 @@ always	#(CYCLE/2.0) clk = ~clk;
 //---------------------------------------------------------------------
 initial begin
 	file_in = $fopen(INPUT_PATH, "r");
-	file_out = $fopen(OUTPUT_PATH, "r");
+	file_out_gm = $fopen(OUTPUT_GM_PATH, "r");
+	file_out_igm = $fopen(OUTPUT_IGM_PATH, "r");
 	file_num = $fopen(PATNUM_PATH, "r");
-	file_gm = $fopen(GM_PATH, "r");
 	fscanf_int = $fscanf(file_num, "%d", PAT_NUM);	
 
 	reset_task;
 	total_latency = 0;
-	repeat(4) @(negedge clk);
+	repeat(4) @(posedge clk);
 	for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1)begin
-		read_pattern;
-		i_in_deg = 0;
-		i_out_deg = 0;
-		pattern_latency = 0;
-		while (i_in_deg < n) begin
-			input_task;
-			if (i_in_deg != n)
-				input_delay;
-		end		
-		in_valid = 'b0;
-		a_i = 'bx;
-		while (i_out_deg < n) begin
-			@(negedge clk);		
-			in_valid = 'b0;
-			wait_out_task;
-			pattern_latency = pattern_latency + out_latency;			
-			total_latency = total_latency + out_latency;
-		end
-		$display("PASS PATTERN NO.%4d, %4d CYCLES", i_pat+1, pattern_latency);
-		repeat($urandom_range(2, 4)) @(negedge clk);
+        mode_gold = $urandom_range(0, 2);
+
+        input_task;
+        i_gm = 0;
+        i_igm = 0;
+        while (1) begin
+            wait_out_task;
+            check_ans_task;
+            if (mode_gold == 0 && i_gm == 1 << logn_gold && i_igm == 1 << logn_gold)
+                break;
+            if (mode_gold == 1 && i_gm == 1 << logn_gold)
+                break;
+            if (mode_gold == 2 && i_igm == 1 << logn_gold)
+                break;
+        end
+		$display("PASS PATTERN NO.%4d", i_pat+1);
+        in_valid = 'b0;
+        logn = 'bx;
+        g = 'bx;
+        p = 'bx;
+        p0i = 'bx;
+        mode = 'bx;
+		repeat($urandom_range(1, 4)) @(posedge clk);
 	end
 	YOU_PASS_task;
-end
-
-always @(negedge clk) begin
-	check_ans_task;
 end
 
 //---------------------------------------------------------------------
@@ -170,28 +139,59 @@ end
 task reset_task; begin 
     rst_n = 'b1;
     in_valid = 'b0;
-    a_i = 'bx;
     logn = 'bx;
+    g = 'bx;
     p = 'bx;
     p0i = 'bx;
-    isMQ = 'bx;
-	s_bus = 'bx;
+    mode = 'bx;
 	
     force clk = 0;
     #CYCLE; rst_n = 0; 
     #(CYCLE * 5); rst_n = 1;
-    if(out_valid !== 'b0) begin 
+    if(out_valid_gm !== 'b0) begin 
         $display("************************************************************");  
         $display("                          FAIL!                             ");    
-        $display("  'out_valid' should be 0 after initial RESET  at %8t   	  ",$time);
+        $display("  'out_valid_gm' should be 0 after initial RESET  at %8t   	  ",$time);
         $display("************************************************************");
         repeat(2) #CYCLE;
         $finish;
     end
-    if(a_o !== 'b0) begin 
+    if(out_valid_igm !== 'b0) begin 
         $display("************************************************************");  
         $display("                          FAIL!                             ");    
-        $display("    'a_o' should be 0 after initial RESET  at %8t           ",$time);
+        $display("  'out_valid_igm' should be 0 after initial RESET  at %8t   ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(v_gm !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("    'v_gm' should be 0 after initial RESET  at %8t          ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(v_igm !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("    'v_igm' should be 0 after initial RESET  at %8t          ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(gm !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("    'gm' should be 0 after initial RESET  at %8t          ",$time);
+        $display("************************************************************");
+        repeat(2) #CYCLE;
+        $finish;
+    end
+    if(igm !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("    'igm' should be 0 after initial RESET  at %8t          ",$time);
         $display("************************************************************");
         repeat(2) #CYCLE;
         $finish;
@@ -199,86 +199,64 @@ task reset_task; begin
 	#CYCLE; release clk;
 end endtask
 
-
-task read_pattern; 
-reg [MAX_LOGN:0] tmp;
-begin
-    isMQ_gold = 1'b0;
-    fscanf_int = $fscanf(file_in, "%d %d %d", logn_gold, p_gold, p0i_gold);
-	for (i_in_deg = 0; i_in_deg < n; i_in_deg = i_in_deg + 1) 
-		fscanf_int = $fscanf(file_in, "%d", a[i_in_deg]);
-	for (i_in_deg = 0; i_in_deg < n; i_in_deg = i_in_deg + 1) 
-		fscanf_int = $fscanf(file_out, "%d", golden_a[i_in_deg]);
-    fscanf_int = $fscanf(file_gm, "%d", tmp);
-	for (i_in_deg = 0; i_in_deg < tmp; i_in_deg = i_in_deg + 1) 
-		fscanf_int = $fscanf(file_gm, "%d", GM[i_in_deg]);
-	// $display("PAT NO. %3d\tlogn = %d, p = %d, p0i = %d", i_pat, logn_gold, p_gold, p0i_gold);
-end endtask
-
 task input_task; begin
 	in_valid = 'b1;
-	a_i = a[i_in_deg];
+    fscanf_int = $fscanf(file_in, "%d %d %d %d", logn_gold, g, p, p0i);
     logn = logn_gold;
-	if (i_in_deg == 0) begin
-		p = p_gold;
-		p0i = p0i_gold;
-        isMQ = isMQ_gold;
-	end
-	else begin
-		p = 'bx;
-		p0i = 'bx;
-        isMQ = 'bx;
-	end
-	i_in_deg = i_in_deg + 1;
-	@(negedge clk);		
-end endtask
-
-task input_delay; 
-	integer DELAY_NUM;
-	begin
-	// DELAY_NUM = $urandom_range(2, 4);
-	DELAY_NUM = 0;
-	for (i_delay = 0; i_delay < DELAY_NUM; i_delay=i_delay+1) begin
-		in_valid = 'b0;
-		a_i = 'bx;
-        logn = 'bx;
-		p = 'bx;
-		p0i = 'bx;
-        isMQ = 'bx;
-		@(negedge clk);
-    end
+    mode = mode_gold;
+	@(posedge clk);		
+    in_valid = 'b0;
 end endtask
 
 task wait_out_task; begin
 	out_latency = 1;
-	while(out_valid !== 1 && i_out_deg < n) begin
+	while(1) begin
+        if (mode_gold == 0 && (out_valid_gm === 1 || out_valid_igm === 1))
+            break;
+        if (mode_gold == 1 && out_valid_gm === 1)
+            break;
+        if (mode_gold == 2 && out_valid_igm === 1)
+            break;
 		if(out_latency === MAX_OUT_LATENCY + 1) begin
             $display("***********************************************************");    
             $display("                          FAIL!                          	 ");
 			$display("         The execution latency are over %d cycles        	 ", MAX_OUT_LATENCY);
 		    $display("***********************************************************"); 
-			repeat(2) @(negedge clk);
+			repeat(2) @(posedge clk);
 			$finish;
 		end
 		out_latency = out_latency + 1;
-		@(negedge clk);
+		@(posedge clk);
 	end
 end endtask
 
 task check_ans_task; begin
-	if(out_valid == 1) begin
-		// $display("\tOUT DEGREE %3d\tRe = %f, Im = %f", i_out_deg, $bitstoreal(golden_fo_re[i_out_deg]), $bitstoreal(golden_fo_im[i_out_deg]));
-		if(a_o !== golden_a[i_out_deg])begin
+    if ((mode_gold == 0 || mode_gold == 1) && out_valid_gm === 1) begin
+        fscanf_int = $fscanf(file_out_gm, "%d %d", v_gm_gold, gm_gold);
+		if(v_gm !== v_gm_gold || gm !== gm_gold)begin
             $display("***********************************************************");     
             $display("                          FAIL!                          	 ");  
-            $display("                  Degree #%3d (%8t)                   	 ", i_out_deg, $time);
-            $display("                       Gold = %5d                    	     ", golden_a[i_out_deg]);
-            $display("                       Your = %5d                    	     ", a_o);
+            $display("                 Gold v = %4d, gm = %d                     ", v_gm_gold, gm_gold);
+            $display("                 Your v = %4d, gm = %d                     ", v_gm, gm);
             $display("***********************************************************");    
-                repeat(2) @(negedge clk);
+                repeat(2) @(posedge clk);
                 $finish;
 		end
-		i_out_deg = i_out_deg + 1;
+		i_gm = i_gm + 1;
+	end
+
+    if ((mode_gold == 0 || mode_gold == 2) && out_valid_igm === 1) begin
+        fscanf_int = $fscanf(file_out_igm, "%d %d", v_igm_gold, igm_gold);
+		if(v_igm !== v_igm_gold || igm !== igm_gold)begin
+            $display("***********************************************************");     
+            $display("                          FAIL!                          	 ");  
+            $display("                 Gold v = %4d, igm = %d                    ", v_igm_gold, igm_gold);
+            $display("                 Your v = %4d, igm = %d                    ", v_igm, igm);
+            $display("***********************************************************");    
+                repeat(2) @(posedge clk);
+                $finish;
+		end
+		i_igm = i_igm + 1;
 	end
 end endtask
 
@@ -290,7 +268,7 @@ task YOU_PASS_task; begin
 	$display ("                  Your clock period = %.1f ns                       ", CYCLE);
     $display ("                  Total Latency = %.1f ns                           ", total_latency*CYCLE);
     $display ("--------------------------------------------------------------------");     
-    repeat(2)@(negedge clk);
+    repeat(2)@(posedge clk);
     $finish;
 end endtask
 
