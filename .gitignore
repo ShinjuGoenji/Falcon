@@ -21,6 +21,7 @@ simv
 novas*
 *.key
 *.exp
+*.json
 
 # 02_SYN
 alib-52/
