@@ -1,0 +1,32 @@
+ 
+****************************************
+Report : area
+Design : KEYGEN
+Version: T-2022.03
+Date   : Wed Oct  8 04:25:28 2025
+****************************************
+
+Library(s) Used:
+
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+
+Number of ports:                          184
+Number of nets:                         20383
+Number of cells:                        18271
+Number of combinational cells:          17665
+Number of sequential cells:               606
+Number of macros/black boxes:               0
+Number of buf/inv:                       2683
+Number of references:                     602
+
+Combinational area:              33523.534369
+Buf/Inv area:                     2760.155988
+Noncombinational area:            2810.732291
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                 36334.266660
+Total area:                      36334.266660
+1

@@ -1,0 +1,374 @@
+ 
+****************************************
+Report : resources
+Design : KEYGEN
+Version: T-2022.03
+Date   : Wed Oct  8 04:25:28 2025
+****************************************
+
+
+Resource Report for this hierarchy in file ../01_RTL/MODP_MKGM2.v
+=============================================================================
+| Cell           | Module         | Parameters | Contained Operations       |
+=============================================================================
+| ash_1          | DW_leftsh      | A_width=10 | u_MODP_MKGM2/sll_349 (MODP_MKGM2.v:349) |
+    |                | SH_width=4 |                            |
+| sub_x_2        | DW01_sub       | width=4    | u_MODP_MKGM2/sub_350 (MODP_MKGM2.v:350) |
+| lt_x_27        | DW_cmp         | width=32   | u_MODP_MKGM2/lt_536 (MODP_MKGM2.v:536) |
+| eq_x_32        | DW_cmp         | width=10   | u_MODP_MKGM2/eq_558 (MODP_MKGM2.v:558) |
+| lt_x_36        | DW_cmp         | width=32   | u_MODP_MKGM2/lt_583 (MODP_MKGM2.v:583) |
+| ash_43         | DW_leftsh      | A_width=9  | u_MODP_MKGM2/sll_684 (MODP_MKGM2.v:684) |
+    |                | SH_width=4 |                            |
+| ash_46         | DW_leftsh      | A_width=9  | u_MODP_MKGM2/sll_703 (MODP_MKGM2.v:703) |
+    |                | SH_width=4 |                            |
+| sub_x_58       | DW01_sub       | width=31   | u_MODP_MKGM2/u_MODP_R/sub_25 (MODP_R.v:25) |
+| add_x_59       | DW01_inc       | width=3    | u_MODP_MKGM2/u_MODP_DIV/add_127 (MODP_DIV.v:127) |
+| sub_x_61       | DW01_sub       | width=31   | u_MODP_MKGM2/u_MODP_DIV/sub_137 (MODP_DIV.v:137) |
+| sub_x_62       | DW01_dec       | width=5    | u_MODP_MKGM2/u_MODP_DIV/sub_151 (MODP_DIV.v:151) |
+| lt_x_82        | DW_cmp         | width=3    | u_MODP_R2_TOP/genblk1[0].u_MODP_R2/lt_455 (MODP_R2_TOP.v:455) |
+| lt_x_83        | DW_cmp         | width=3    | u_MODP_R2_TOP/genblk1[0].u_MODP_R2/lt_456 (MODP_R2_TOP.v:456) |
+| sub_x_86       | DW01_sub       | width=2    | u_MODP_R2_TOP/genblk1[0].u_MODP_R2/sub_474 (MODP_R2_TOP.v:474) |
+| add_x_87       | DW01_add       | width=32   | u_MODP_R2_TOP/genblk1[0].u_MODP_R2/add_474 (MODP_R2_TOP.v:474) |
+| sub_x_90       | DW01_sub       | width=31   | u_MODP_R2_TOP/genblk1[0].u_MODP_R2/u_MODP_R/sub_25 (MODP_R.v:25) |
+| add_x_13       | DW01_inc       | width=10   | u_MODP_MKGM2/add_420 (MODP_MKGM2.v:420) |
+    |                |            | u_MODP_MKGM2/add_425 (MODP_MKGM2.v:425) |
+    |                |            | u_MODP_MKGM2/add_430 (MODP_MKGM2.v:430) |
+    |                |            | u_MODP_MKGM2/add_435 (MODP_MKGM2.v:435) |
+| sub_x_26       | DW01_sub       | width=11   | u_MODP_MKGM2/sub_536 (MODP_MKGM2.v:536) |
+    |                |            | u_MODP_MKGM2/sub_583 (MODP_MKGM2.v:583) |
+| add_x_21       | DW01_inc       | width=10   | u_MODP_MKGM2/add_449 (MODP_MKGM2.v:449) |
+    |                |            | u_MODP_MKGM2/add_454 (MODP_MKGM2.v:454) |
+| add_x_78       | DW01_inc       | width=3    | u_MODP_R2_TOP/genblk1[0].u_MODP_R2/add_403 (MODP_R2_TOP.v:403) |
+|          | u_MODP_R2_TOP/genblk1[0].u_MODP_R2/add_405 (MODP_R2_TOP.v:405) |
+| lt_x_91        | DW_cmp         | width=32   | u_MODP_MKGM2/lt_424 (MODP_MKGM2.v:424) |
+     |                |            | u_MODP_MKGM2/lt_429 (MODP_MKGM2.v:429) |
+     |                |            | u_MODP_MKGM2/lt_434 (MODP_MKGM2.v:434) |
+| lt_x_92        | DW_cmp         | width=32   | u_MODP_MKGM2/lt_448 (MODP_MKGM2.v:448) |
+     |                |            | u_MODP_MKGM2/lt_453 (MODP_MKGM2.v:453) |
+| DP_OP_181J1_122_3176            |            |                            |
+|                | DP_OP_181J1_122_3176 |      |                            |
+| DP_OP_182J1_123_1144            |            |                            |
+|                | DP_OP_182J1_123_1144 |      |                            |
+| DP_OP_183J1_124_5295            |            |                            |
+|                | DP_OP_183J1_124_5295 |      |                            |
+| DP_OP_25_131_5341               |            |                            |
+|                | DP_OP_25_131_5341 |         |                            |
+| DP_OP_26_132_4301               |            |                            |
+|                | DP_OP_26_132_4301 |         |                            |
+| DP_OP_25_133_9574               |            |                            |
+|                | DP_OP_25_133_9574 |         |                            |
+| DP_OP_26_134_2599               |            |                            |
+|                | DP_OP_26_134_2599 |         |                            |
+=============================================================================
+
+Datapath Report for DP_OP_181J1_122_3176
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_181J1_122_3176 | u_MODP_MKGM2/sub_379 (MODP_MKGM2.v:379)             |
+|                      | u_MODP_MKGM2/sub_389 (MODP_MKGM2.v:389)             |
+|                      | u_MODP_MKGM2/sub_399 (MODP_MKGM2.v:399)             |
+|                      | u_MODP_MKGM2/sub_399_2 (MODP_MKGM2.v:399)           |
+|                      | u_MODP_MKGM2/sub_424 (MODP_MKGM2.v:424)             |
+|                      | u_MODP_MKGM2/sub_429 (MODP_MKGM2.v:429)             |
+|                      | u_MODP_MKGM2/sub_434 (MODP_MKGM2.v:434)             |
+|                      | u_MODP_MKGM2/sub_448 (MODP_MKGM2.v:448)             |
+|                      | u_MODP_MKGM2/sub_453 (MODP_MKGM2.v:453)             |
+|                      | u_MODP_MKGM2/eq_379 (MODP_MKGM2.v:379)              |
+|                      | u_MODP_MKGM2/eq_399 (MODP_MKGM2.v:399)              |
+|                      | u_MODP_MKGM2/eq_389 (MODP_MKGM2.v:389)              |
+|                      | u_MODP_MKGM2/eq_399_2 (MODP_MKGM2.v:399)            |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 10    |                                          |
+| I2    | PI   | Unsigned | 10    |                                          |
+| I3    | PI   | Unsigned | 10    |                                          |
+| T119  | IFO  | Signed   | 32    | O1                                       |
+| T178  | IFO  | Signed   | 32    | O1                                       |
+| O1    | PO   | Signed   | 11    | I1 - $unsigned(1'b1) ( MODP_MKGM2.v:379 MODP_MKGM2.v:389 MODP_MKGM2.v:399 MODP_MKGM2.v:424 MODP_MKGM2.v:429 MODP_MKGM2.v:434 MODP_MKGM2.v:448 MODP_MKGM2.v:453 ) |
+| O2    | PO   | Unsigned | 1     | I2 == $unsigned(T119) ( MODP_MKGM2.v:379 MODP_MKGM2.v:399 ) |
+| O3    | PO   | Unsigned | 1     | I3 == $unsigned(T178) ( MODP_MKGM2.v:389 MODP_MKGM2.v:399 ) |
+==============================================================================
+
+Datapath Report for DP_OP_182J1_123_1144
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_182J1_123_1144 | u_MODP_MKGM2/u_MODP_DIV/mult_add_121_aco (MODP_DIV.v:121) |
+                 | u_MODP_MKGM2/u_MODP_DIV/add_121_aco (MODP_DIV.v:121) |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 3     |                                          |
+| I2    | PI   | Unsigned | 1     |                                          |
+| T93   | IFO  | Unsigned | 3     | I1 * I2 (MODP_DIV.v:121)                 |
+| O1    | PO   | Unsigned | 3     | T93 + $unsigned(1'b1) (MODP_DIV.v:121)   |
+==============================================================================
+
+Datapath Report for DP_OP_183J1_124_5295
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_183J1_124_5295 | u_MODP_R2_TOP/genblk1[0].u_MODP_R2/u_MODP_ADD/add_43 (MODP_ADD.v:43) |
+      | u_MODP_R2_TOP/genblk1[0].u_MODP_R2/u_MODP_ADD/sub_44 (MODP_ADD.v:44) |
+      | u_MODP_R2_TOP/genblk1[0].u_MODP_R2/u_MODP_ADD/gte_45 (MODP_ADD.v:45) |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 31    |                                          |
+| I2    | PI   | Unsigned | 31    |                                          |
+| T152  | IFO  | Signed   | 31    | O1[30:0]                                 |
+| O1    | PO   | Unsigned | 32    | I1 + I1 (MODP_ADD.v:43)                  |
+| O2    | PO   | Signed   | 31    | T152 - I2 (MODP_ADD.v:44)                |
+| O3    | PO   | Unsigned | 1     | O1 >= I2 (MODP_ADD.v:45)                 |
+==============================================================================
+
+Datapath Report for DP_OP_25_131_5341
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_25_131_5341    | mult_258 (MODP_MONTYMUL_TOP.v:258)                  |
+|                      | add_261 (MODP_MONTYMUL_TOP.v:261)                   |
+|                      | sub_269 (MODP_MONTYMUL_TOP.v:269)                   |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 16    |                                          |
+| I2    | PI   | Unsigned | 31    |                                          |
+| I3    | PI   | Unsigned | 48    |                                          |
+| T2    | IFO  | Unsigned | 47    | I1 * I2 (MODP_MONTYMUL_TOP.v:258)        |
+| T17   | IFO  | Signed   | 31    | O1[46:16]                                |
+| O1    | PO   | Unsigned | 48    | I3 + T2 (MODP_MONTYMUL_TOP.v:261)        |
+| O2    | PO   | Signed   | 31    | T17 - I2 (MODP_MONTYMUL_TOP.v:269)       |
+==============================================================================
+
+Datapath Report for DP_OP_26_132_4301
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_26_132_4301    | mult_259 (MODP_MONTYMUL_TOP.v:259)                  |
+|                      | add_262 (MODP_MONTYMUL_TOP.v:262)                   |
+|                      | gte_274 (MODP_MONTYMUL_TOP.v:274)                   |
+|                      | sub_275 (MODP_MONTYMUL_TOP.v:275)                   |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 31    |                                          |
+| I2    | PI   | Unsigned | 31    |                                          |
+| I3    | PI   | Unsigned | 62    |                                          |
+| T3    | IFO  | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.v:259)        |
+| T15   | IFO  | Unsigned | 32    | O1[62:31]                                |
+| T18   | IFO  | Signed   | 31    | O1[61:31]                                |
+| O1    | PO   | Unsigned | 63    | I3 + T3 (MODP_MONTYMUL_TOP.v:262)        |
+| O2    | PO   | Unsigned | 1     | T15 >= I2 (MODP_MONTYMUL_TOP.v:274)      |
+| O3    | PO   | Signed   | 31    | T18 - I2 (MODP_MONTYMUL_TOP.v:275)       |
+==============================================================================
+
+Datapath Report for DP_OP_25_133_9574
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_25_133_9574    | mult_258 (MODP_MONTYMUL_TOP.v:258)                  |
+|                      | add_261 (MODP_MONTYMUL_TOP.v:261)                   |
+|                      | sub_269 (MODP_MONTYMUL_TOP.v:269)                   |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 16    |                                          |
+| I2    | PI   | Unsigned | 31    |                                          |
+| I3    | PI   | Unsigned | 48    |                                          |
+| T2    | IFO  | Unsigned | 47    | I1 * I2 (MODP_MONTYMUL_TOP.v:258)        |
+| T17   | IFO  | Signed   | 31    | O1[46:16]                                |
+| O1    | PO   | Unsigned | 48    | I3 + T2 (MODP_MONTYMUL_TOP.v:261)        |
+| O2    | PO   | Signed   | 31    | T17 - I2 (MODP_MONTYMUL_TOP.v:269)       |
+==============================================================================
+
+Datapath Report for DP_OP_26_134_2599
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_26_134_2599    | mult_259 (MODP_MONTYMUL_TOP.v:259)                  |
+|                      | add_262 (MODP_MONTYMUL_TOP.v:262)                   |
+|                      | gte_274 (MODP_MONTYMUL_TOP.v:274)                   |
+|                      | sub_275 (MODP_MONTYMUL_TOP.v:275)                   |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 31    |                                          |
+| I2    | PI   | Unsigned | 31    |                                          |
+| I3    | PI   | Unsigned | 62    |                                          |
+| T3    | IFO  | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.v:259)        |
+| T15   | IFO  | Unsigned | 32    | O1[62:31]                                |
+| T18   | IFO  | Signed   | 31    | O1[61:31]                                |
+| O1    | PO   | Unsigned | 63    | I3 + T3 (MODP_MONTYMUL_TOP.v:262)        |
+| O2    | PO   | Unsigned | 1     | T15 >= I2 (MODP_MONTYMUL_TOP.v:274)      |
+| O3    | PO   | Signed   | 31    | T18 - I2 (MODP_MONTYMUL_TOP.v:275)       |
+==============================================================================
+
+
+Resource Report for Ungrouped Hierarchy u_MODP_MONTYMUL_TOP in file
+        ../01_RTL/MODP_MONTYMUL_TOP.v
+=============================================================================
+| Cell           | Module         | Parameters | Contained Operations       |
+=============================================================================
+| sub_x_1        | DW01_sub       | width=2    | sub_155_I2_aco (MODP_MONTYMUL_TOP.v:155) |
+=============================================================================
+
+
+Resource Report for Ungrouped Hierarchy
+        u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL in file
+        ../01_RTL/MODP_MONTYMUL_TOP.v
+=============================================================================
+| Cell           | Module         | Parameters | Contained Operations       |
+=============================================================================
+| gte_x_1        | DW_cmp         | width=32   | gte_268 (MODP_MONTYMUL_TOP.v:268) |
+| DP_OP_29J2_122_1280             |            |                            |
+|                | DP_OP_29J2_122_1280 |       |                            |
+=============================================================================
+
+Datapath Report for DP_OP_29J2_122_1280
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_29J2_122_1280  | mult_256 (MODP_MONTYMUL_TOP.v:256)                  |
+|                      | mult_257 (MODP_MONTYMUL_TOP.v:257)                  |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 31    |                                          |
+| I2    | PI   | Unsigned | 31    |                                          |
+| I3    | PI   | Unsigned | 31    |                                          |
+| T12   | IFO  | Signed   | 31    | O1[30:0]                                 |
+| O1    | PO   | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.v:256)        |
+| O2    | PO   | Unsigned | 31    | T12 * I3 (MODP_MONTYMUL_TOP.v:257)       |
+==============================================================================
+
+
+Resource Report for Ungrouped Hierarchy
+        u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL in file
+        ../01_RTL/MODP_MONTYMUL_TOP.v
+=============================================================================
+| Cell           | Module         | Parameters | Contained Operations       |
+=============================================================================
+| gte_x_1        | DW_cmp         | width=32   | gte_268 (MODP_MONTYMUL_TOP.v:268) |
+| DP_OP_29J2_122_1280             |            |                            |
+|                | DP_OP_29J2_122_1280 |       |                            |
+=============================================================================
+
+Datapath Report for DP_OP_29J2_122_1280
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_29J2_122_1280  | mult_256 (MODP_MONTYMUL_TOP.v:256)                  |
+|                      | mult_257 (MODP_MONTYMUL_TOP.v:257)                  |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 31    |                                          |
+| I2    | PI   | Unsigned | 31    |                                          |
+| I3    | PI   | Unsigned | 31    |                                          |
+| T12   | IFO  | Signed   | 31    | O1[30:0]                                 |
+| O1    | PO   | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.v:256)        |
+| O2    | PO   | Unsigned | 31    | T12 * I3 (MODP_MONTYMUL_TOP.v:257)       |
+==============================================================================
+
+
+Datapath Extraction Report
+
+Information: Operator associated with resources 'u_MODP_MKGM2/sub_379 (MODP_MKGM2.v:379) u_MODP_MKGM2/sub_389 (MODP_MKGM2.v:389) u_MODP_MKGM2/sub_399 (MODP_MKGM2.v:399) u_MODP_MKGM2/sub_399_2 (MODP_MKGM2.v:399) u_MODP_MKGM2/sub_424 (MODP_MKGM2.v:424) u_MODP_MKGM2/sub_429 (MODP_MKGM2.v:429) u_MODP_MKGM2/sub_434 (MODP_MKGM2.v:434) u_MODP_MKGM2/sub_448 (MODP_MKGM2.v:448) u_MODP_MKGM2/sub_453 (MODP_MKGM2.v:453)' in design 'KEYGEN' breaks the datapath extraction because there is leakage due to truncation on the fanout of its driver 'u_MODP_MKGM2/sll_349 (MODP_MKGM2.v:349)'.  (HDL-120)
+
+Information: Operator associated with resources 'u_MODP_MKGM2/lt_424 (MODP_MKGM2.v:424) u_MODP_MKGM2/lt_429 (MODP_MKGM2.v:429) u_MODP_MKGM2/lt_434 (MODP_MKGM2.v:434)' in design 'KEYGEN' breaks the datapath extraction because there is leakage due to driver(signed)/load(unsigned) sign mismatch on fanin from operator of resources 'u_MODP_MKGM2/sub_379 (MODP_MKGM2.v:379) u_MODP_MKGM2/sub_389 (MODP_MKGM2.v:389) u_MODP_MKGM2/sub_399 (MODP_MKGM2.v:399) u_MODP_MKGM2/sub_399_2 (MODP_MKGM2.v:399) u_MODP_MKGM2/sub_424 (MODP_MKGM2.v:424) u_MODP_MKGM2/sub_429 (MODP_MKGM2.v:429) u_MODP_MKGM2/sub_434 (MODP_MKGM2.v:434) u_MODP_MKGM2/sub_448 (MODP_MKGM2.v:448) u_MODP_MKGM2/sub_453 (MODP_MKGM2.v:453)'.  (HDL-120)
+
+Information: The output of subtractor associated with resources 'u_MODP_MKGM2/sub_379 (MODP_MKGM2.v:379) u_MODP_MKGM2/sub_389 (MODP_MKGM2.v:389) u_MODP_MKGM2/sub_399 (MODP_MKGM2.v:399) u_MODP_MKGM2/sub_399_2 (MODP_MKGM2.v:399) u_MODP_MKGM2/sub_424 (MODP_MKGM2.v:424) u_MODP_MKGM2/sub_429 (MODP_MKGM2.v:429) u_MODP_MKGM2/sub_434 (MODP_MKGM2.v:434) u_MODP_MKGM2/sub_448 (MODP_MKGM2.v:448) u_MODP_MKGM2/sub_453 (MODP_MKGM2.v:453)' is treated as signed signal. (HDL-132)
+
+Information: Operator associated with resources 'u_MODP_MKGM2/lt_536 (MODP_MKGM2.v:536)' in design 'KEYGEN' breaks the datapath extraction because there is leakage due to driver(signed)/load(unsigned) sign mismatch on fanin from operator of resources 'u_MODP_MKGM2/sub_536 (MODP_MKGM2.v:536) u_MODP_MKGM2/sub_583 (MODP_MKGM2.v:583)'.  (HDL-120)
+
+Information: The output of subtractor associated with resources 'u_MODP_MKGM2/sub_536 (MODP_MKGM2.v:536) u_MODP_MKGM2/sub_583 (MODP_MKGM2.v:583)' is treated as signed signal. (HDL-132)
+
+Information: Operator associated with resources 'u_MODP_R2_TOP/genblk1[0].u_MODP_R2/u_MODP_R/sub_25 (MODP_R.v:25)' in design 'KEYGEN' breaks the datapath extraction because there is leakage due to truncation on its fanout to operator of resources 'u_MODP_R2_TOP/genblk1[0].u_MODP_R2/u_MODP_ADD/add_43 (MODP_ADD.v:43)'.  (HDL-120)
+
+Information: Operator associated with resources 'u_MODP_R2_TOP/genblk1[0].u_MODP_R2/u_MODP_ADD/sub_44 (MODP_ADD.v:44)' in design 'KEYGEN' breaks the datapath extraction because there is leakage due to truncation on its fanout to operator of resources 'u_MODP_R2_TOP/genblk1[0].u_MODP_R2/u_MODP_ADD/C41 (MODP_ADD.v:45)'.  (HDL-120)
+
+
+Implementation Report
+===============================================================================
+|                    |                  | Current            | Set            |
+| Cell               | Module           | Implementation     | Implementation |
+===============================================================================
+| ash_1              | DW_leftsh        | astr (area)        |                |
+| sub_x_2            | DW01_sub         | apparch (area)     |                |
+| lt_x_27            | DW_cmp           | apparch (area)     |                |
+| eq_x_32            | DW_cmp           | apparch (area)     |                |
+| lt_x_36            | DW_cmp           | apparch (area)     |                |
+| ash_43             | DW_leftsh        | astr (area)        |                |
+| ash_46             | DW_leftsh        | astr (area)        |                |
+| sub_x_58           | DW01_sub         | pparch (area,speed)                 |
+| add_x_59           | DW01_inc         | apparch (area)     |                |
+| sub_x_61           | DW01_sub         | pparch (area,speed)                 |
+| sub_x_62           | DW01_dec         | apparch (area)     |                |
+| lt_x_82            | DW_cmp           | apparch (area)     |                |
+| lt_x_83            | DW_cmp           | apparch (area)     |                |
+| sub_x_86           | DW01_sub         | apparch (area)     |                |
+| add_x_87           | DW01_add         | pparch (area,speed)                 |
+| sub_x_90           | DW01_sub         | pparch (area,speed)                 |
+| add_x_13           | DW01_inc         | apparch (area)     |                |
+| sub_x_26           | DW01_sub         | apparch (area)     |                |
+| add_x_21           | DW01_inc         | apparch (area)     |                |
+| add_x_78           | DW01_inc         | apparch (area)     |                |
+| lt_x_91            | DW_cmp           | apparch (area)     |                |
+| lt_x_92            | DW_cmp           | apparch (area)     |                |
+| sub_x_1            | DW01_sub         | apparch (area)     |                |
+| DP_OP_181J1_122_3176                  |                    |                |
+|                    | DP_OP_181J1_122_3176 | str (area)     |                |
+| DP_OP_182J1_123_1144                  |                    |                |
+|                    | DP_OP_182J1_123_1144 | str (area)     |                |
+|                    |                  | mult_arch: and     |                |
+| DP_OP_183J1_124_5295                  |                    |                |
+|                    | DP_OP_183J1_124_5295 | str (area,speed)                |
+| DP_OP_25_131_5341  | DP_OP_25_131_5341 | str (area)        |                |
+|                    |                  | mult_arch: benc_radix8              |
+| DP_OP_26_132_4301  | DP_OP_26_132_4301 | str (area,speed)  |                |
+|                    |                  | mult_arch: benc_radix4              |
+| DP_OP_25_133_9574  | DP_OP_25_133_9574 | str (area)        |                |
+|                    |                  | mult_arch: benc_radix8              |
+| DP_OP_26_134_2599  | DP_OP_26_134_2599 | str (area,speed)  |                |
+|                    |                  | mult_arch: benc_radix4              |
+| DP_OP_29J2_122_1280                   |                    |                |
+|                    | DP_OP_29J2_122_1280 | str (area,speed)                 |
+|                    |                  | mult_arch: benc_radix4              |
+|                    |                  | mult_arch: benc_radix4              |
+| DP_OP_29J2_122_1280                   |                    |                |
+|                    | DP_OP_29J2_122_1280 | str (area,speed)                 |
+|                    |                  | mult_arch: benc_radix4              |
+|                    |                  | mult_arch: benc_radix4              |
+===============================================================================
+
+1

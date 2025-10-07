@@ -1,4 +1,3 @@
-`include "MODP_R.v"
 `include "MODP_ADD.v"
 
 /*
@@ -63,11 +62,11 @@ input      [P_WIDTH*R2_NUM-1:0] d_modp_montymul_bus;
 input      [R2_NUM-1:0]         ready_modp_montymul_bus;
 
 output reg [R2_NUM-1:0]         in_valid_modp_montymul_bus;
-output     [P_WIDTH*R2_NUM-1:0] a_modp_montymul_bus;
-output     [P_WIDTH*R2_NUM-1:0] b_modp_montymul_bus;
-output     [P_WIDTH*R2_NUM-1:0] p_modp_montymul_bus;
-output     [P_WIDTH*R2_NUM-1:0] p0i_modp_montymul_bus;
-output     [R2_NUM-1:0]         isMQ_modp_montymul_bus;
+output reg [P_WIDTH*R2_NUM-1:0] a_modp_montymul_bus;
+output reg [P_WIDTH*R2_NUM-1:0] b_modp_montymul_bus;
+output reg [P_WIDTH*R2_NUM-1:0] p_modp_montymul_bus;
+output reg [P_WIDTH*R2_NUM-1:0] p0i_modp_montymul_bus;
+output reg [R2_NUM-1:0]         isMQ_modp_montymul_bus;
 
 //---------------------------------------------------------------------
 //   Reg & Wire
@@ -155,15 +154,17 @@ endgenerate
 genvar i_modp_R2_idx;
 generate
     for (i_modp_R2_idx = 0; i_modp_R2_idx < R2_NUM; i_modp_R2_idx = i_modp_R2_idx + 1) begin
-        assign out_valid_modp_montymul[i_modp_R2_idx] = out_valid_modp_montymul_bus[i_modp_R2_idx];
-        assign d_modp_montymul[i_modp_R2_idx] = d_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH];
-        assign ready_modp_montymul[i_modp_R2_idx] = ready_modp_montymul_bus[i_modp_R2_idx];
-        assign in_valid_modp_montymul_bus[i_modp_R2_idx] = in_valid_modp_montymul[i_modp_R2_idx];
-        assign a_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = a_modp_montymul[i_modp_R2_idx];
-        assign b_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = b_modp_montymul[i_modp_R2_idx];
-        assign p_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = p_modp_montymul[i_modp_R2_idx];
-        assign p0i_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = p0i_modp_montymul[i_modp_R2_idx];
-        assign isMQ_modp_montymul_bus[i_modp_R2_idx] = isMQ_modp_montymul[i_modp_R2_idx];
+        always @(*) begin
+            out_valid_modp_montymul[i_modp_R2_idx] = out_valid_modp_montymul_bus[i_modp_R2_idx];
+            d_modp_montymul[i_modp_R2_idx] = d_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH];
+            ready_modp_montymul[i_modp_R2_idx] = ready_modp_montymul_bus[i_modp_R2_idx];
+            in_valid_modp_montymul_bus[i_modp_R2_idx] = in_valid_modp_montymul[i_modp_R2_idx];
+            a_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = a_modp_montymul[i_modp_R2_idx];
+            b_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = b_modp_montymul[i_modp_R2_idx];
+            p_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = p_modp_montymul[i_modp_R2_idx];
+            p0i_modp_montymul_bus[P_WIDTH*(i_modp_R2_idx+1)-1 -: P_WIDTH] = p0i_modp_montymul[i_modp_R2_idx];
+            isMQ_modp_montymul_bus[i_modp_R2_idx] = isMQ_modp_montymul[i_modp_R2_idx];
+        end
     end
 endgenerate
 
@@ -220,7 +221,7 @@ always @(*) begin
     for (j = 0; j < R2_NUM; j = j + 1) begin
         if (o_valid[j]) begin
             out_valid_bus_comb[o_bus[j]] = o_valid[j];
-            R2_bus_comb[o_bus[j]] = d[j];
+            R2_bus_comb[o_bus[j]] = R2[j];
         end
     end
 end
@@ -228,15 +229,17 @@ end
 /*
  * Busy signal
  */
-genvar busy_idx;
+genvar busy_comb_idx;
 generate
-    for (busy_idx = 0; busy_idx < R2_NUM; busy_idx = busy_idx + 1) begin
-        if (i_valid[busy_idx])
-            busy_comb[busy_idx] = 1;
-        else if (o_valid[busy_idx])
-            busy_comb[busy_idx] = 0;
-        else
-            busy_comb[busy_idx] = busy[busy_idx];
+    for (busy_comb_idx = 0; busy_comb_idx < R2_NUM; busy_comb_idx = busy_comb_idx + 1) begin
+        always @(*) begin
+            if (i_valid[busy_comb_idx])
+                busy_comb[busy_comb_idx] = 1;
+            else if (o_valid[busy_comb_idx])
+                busy_comb[busy_comb_idx] = 0;
+            else
+                busy_comb[busy_comb_idx] = busy[busy_comb_idx];
+        end
     end
 endgenerate
 
@@ -256,22 +259,26 @@ endgenerate
 //---------------------------------------------------------------------
 //   Sequential Logic
 //---------------------------------------------------------------------
-
-always @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-        busy <= 0;
+genvar busy_idx;
+generate
+    for (busy_idx = 0; busy_idx < R2_NUM; busy_idx = busy_idx + 1) begin
+        always @(posedge clk or negedge rst_n) begin
+            if (!rst_n) begin
+                busy[busy_idx] <= 0;
+            end
+            else begin
+                busy[busy_idx] <= busy_comb[busy_idx];
+            end
+        end
     end
-    else begin
-        busy <= busy_comb;
-    end
-end
+endgenerate
 
 endmodule
 
 /*
  * Compute R2 = 2^62 mod p.
  */
-module MODP_R2 (
+module MODP_R2 #(parameter MASTER_NUM = 10) (
     // Main channel
     // Input signals
     clk,
@@ -342,6 +349,9 @@ output               isMQ_modp_montymul;
 //---------------------------------------------------------------------
 //   Reg & Wire
 //---------------------------------------------------------------------
+reg [P_WIDTH-1:0] p_reg, p_comb;
+reg [P_WIDTH-1:0] p0i_reg, p0i_comb;
+
 reg [P_WIDTH-1:0] z0;
 reg [P_WIDTH-1:0] z1;
 reg [P_WIDTH-1:0] z, next_z;
@@ -353,6 +363,7 @@ reg next_out_valid;
 reg [P_WIDTH-1:0] next_R2;
 
 reg in_valid_modp_montymul_comb;
+reg [$clog2(MASTER_NUM):0] o_bus_comb;
 
 //---------------------------------------------------------------------
 //   Submodule
@@ -400,6 +411,20 @@ always @(*) begin
 end
 
 /*
+ * Register inputs
+ */
+always @(*) begin
+    if (in_valid) begin
+        p_comb = p;
+        p0i_comb = p0i;
+    end
+    else begin
+        p_comb = p_reg;
+        p0i_comb = p0i_reg;
+    end
+end
+
+/*
  * z
  */
 always @(*) begin
@@ -417,8 +442,8 @@ end
  */
 assign a_modp_montymul = z;
 assign b_modp_montymul = z;
-assign p_modp_montymul = p;
-assign p0i_modp_montymul = p0i;
+assign p_modp_montymul = p_reg;
+assign p0i_modp_montymul = p0i_reg;
 assign isMQ_modp_montymul = 1'b0;
 
 /*
@@ -446,7 +471,7 @@ always @(*) begin
     if (state == S_EXE) begin
         if (cnt == S_OUTPUT) begin
             next_out_valid = 1;
-            next_R2 = (next_z + (p & -(next_z & 1))) >> 1;
+            next_R2 = (next_z + (p_reg & -(next_z & 1))) >> 1;
         end
         else begin
             next_out_valid = 0;
@@ -473,17 +498,21 @@ end
 //---------------------------------------------------------------------
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        state = 0;
-        cnt = 0;
+        state <= 0;
+        cnt <= 0;
+        p_reg <= 0;
+        p0i_reg <= 0;
         in_valid_modp_montymul <= 0;
         z <= 0;
         out_valid <= 0;
         R2 <= 0;
         o_bus <= 0;
     end else begin
-        state = next_state;
-        cnt = next_cnt;
+        state <= next_state;
+        cnt <= next_cnt;
         z <= next_z;
+        p_reg <= p_comb;
+        p0i_reg <= p0i_comb;
         in_valid_modp_montymul <= in_valid_modp_montymul_comb;
         out_valid <= next_out_valid;
         R2 <= next_R2;

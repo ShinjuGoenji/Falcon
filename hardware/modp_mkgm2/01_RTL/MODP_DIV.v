@@ -114,10 +114,13 @@ end
 
 always @(*) begin
     if (in_valid)
-        next_cnt = cnt + 1;
-    else if (next_state == S_EXE && out_valid_modp_montymul)
+        next_cnt = 1;
+    else if (state == S_EXE && out_valid_modp_montymul)
         if (cnt == 2)
-            next_cnt = 1;
+            if (i == 0)
+                next_cnt = cnt + 1;
+            else 
+                next_cnt = 1;
         else if (cnt == S_OUTPUT && out_valid_modp_montymul)
             next_cnt = 0;
         else
@@ -161,12 +164,15 @@ assign isMQ_modp_montymul = 1'b0;
 // in_valid
 always @(*) begin
     if (in_valid)
-        in_valid_modp_montymul_comb = 1;
-    else if (state == S_EXE) 
         if (ready_modp_montymul)
             in_valid_modp_montymul_comb = 0;
-        else if (out_valid_modp_montymul && cnt < S_OUTPUT)
+        else 
             in_valid_modp_montymul_comb = 1;
+    else if (state == S_EXE) 
+        if (out_valid_modp_montymul && cnt < S_OUTPUT)
+            in_valid_modp_montymul_comb = 1;
+        else if (ready_modp_montymul)
+            in_valid_modp_montymul_comb = 0;
         else 
             in_valid_modp_montymul_comb = in_valid_modp_montymul_reg;
     else
