@@ -7,7 +7,7 @@
 #======================================================
 # (A) Global Parameters
 #======================================================
-set DESIGN "MODP_MKGM2"
+set DESIGN "KEYGEN"
 set CYCLE 2.0
 set INPUT_DLY [expr 0*$CYCLE]
 set OUTPUT_DLY [expr 0*$CYCLE]
