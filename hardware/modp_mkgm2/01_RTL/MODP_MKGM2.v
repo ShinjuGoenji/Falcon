@@ -1,4 +1,3 @@
-`include "MODP_R.v"
 `include "MODP_DIV.v"
 
 /*
@@ -292,7 +291,7 @@ reg               isMQ_modp_montymul_1;
 /*
  * DIV
  */
-reg               in_valid_modp_div;
+reg               in_valid_modp_div, in_valid_modp_div_comb;
 reg [P_WIDTH-1:0] a_modp_div;
 reg [P_WIDTH-1:0] b_modp_div;
 reg [P_WIDTH-1:0] R_modp_div;
@@ -333,7 +332,7 @@ MODP_DIV u_MODP_DIV (
     // MODP_MONTYMUL_TOP
     // Input signals
     .out_valid_modp_montymul(out_valid_modp_montymul_1),
-    .d_modp_montymul(d_modp_montymu_1),
+    .d_modp_montymul(d_modp_montymul_1),
     .ready_modp_montymul(ready_modp_montymul_1),
     // Output signals
     .in_valid_modp_montymul(in_valid_modp_montymul_modp_div),
@@ -483,7 +482,10 @@ assign p0i_modp_R2 = p0i;
 // in_valid
 always @(*) begin
     if (in_valid) 
-        in_valid_modp_R2_comb = 1;
+        if (ready_modp_R2)
+            in_valid_modp_R2_comb = 0;
+        else 
+            in_valid_modp_R2_comb = 1;
     else if (state == S_R2 && ready_modp_R2)
         in_valid_modp_R2_comb = 0;
     else 
@@ -523,13 +525,13 @@ always @(*) begin
     else if (state == S_G)
         if (out_valid_modp_montymul_0 && cnt != 10)
             in_valid_modp_montymul_0_comb = 1;
+        else if (next_state == S_ONLY_GM || next_state == S_iG_GM || next_state == S_GM_iGM)
+            in_valid_modp_montymul_0_comb = 1;
         else if (ready_modp_montymul_0)
             in_valid_modp_montymul_0_comb = 0;
         else
             in_valid_modp_montymul_0_comb = in_valid_modp_montymul_0;
     // state 'S_ONLY_GM' or 'S_GM_iGM'
-    else if (state == S_G && (next_state == S_ONLY_GM || next_state == S_iG_GM || next_state == S_GM_iGM)) 
-        in_valid_modp_montymul_0_comb = 1;
     else if (state == S_ONLY_GM || state == S_iG_GM || state == S_GM_iGM)
         if (out_valid_modp_montymul_0 && cnt < n-2)
             in_valid_modp_montymul_0_comb = 1;
@@ -554,7 +556,7 @@ end
 always @(*) begin
     if (state == S_G) 
         if (cnt == logn)
-            b_modp_montymul_0 = R2;
+            b_modp_montymul_0 = ig_reg;
         else 
             b_modp_montymul_0 = g_reg;
     else if (state == S_ONLY_GM || state == S_iG_GM || state == S_GM_iGM) 
@@ -617,7 +619,7 @@ assign R_modp_div = x2;
 
 // in_valid
 always @(*) begin
-    if (state == S_G && cnt == 10 && (next_state == S_iG || next_state == S_iG_GM) && out_valid_modp_montymul) 
+    if (state == S_G && cnt == 10 && (next_state == S_iG || next_state == S_iG_GM) && out_valid_modp_montymul_0) 
         in_valid_modp_div_comb = 1;
     else 
         in_valid_modp_div_comb = 0;
@@ -701,7 +703,8 @@ end
 assign v_igm = REV10[next_cnt2 << k];
 
 always @(*) begin
-    if (state == S_ONLY_iGM || state == S_GM_iGM)
+    // if (state == S_ONLY_iGM || state == S_GM_iGM)
+    if (state == S_iG || state == S_iG_GM)
         igm = x2;
     else 
         igm = d_modp_montymul_1;
