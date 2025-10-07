@@ -1,0 +1,168 @@
+Magic 271485
+Revision Verdi_T-2022.06
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 25 1920 713 233 65
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/home/daniel_kuo/Falcon/hardware/modp_mkgm2/01_RTL/KEYGEN.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 0.000000 649026.000000
+cursor 31000.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 0
+; marker line index
+markerPos 55
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+aliasmapname MODP_R2_TOP(@1).j
+nalias R2_NUM		32'b00000000000000000000000000000001		NULL
+
+aliasmapname MODP_R2_TOP(@1).i
+nalias R2_NUM		32'b00000000000000000000000000000001		NULL
+
+aliasmapname MODP_R2_TOP(@1).instance_cnt
+nalias R2_NUM		1'b1		NULL
+
+aliasmapname MODP_R2(@1).cnt
+nalias S_OUTPUT		3'b110		NULL
+
+aliasmapname MODP_MONTYMUL_TOP(@1).j
+nalias MUL_NUM		32'b00000000000000000000000000000010		NULL
+
+aliasmapname MODP_MONTYMUL_TOP(@1).i
+nalias MUL_NUM		32'b00000000000000000000000000000010		NULL
+nalias MASTER_NUM		32'b00000000000000000000000000000011		NULL
+
+aliasmapname MODP_MONTYMUL_TOP(@1).instance_cnt
+nalias MUL_NUM		2'b10		NULL
+
+aliasmapname MODP_MKGM2.mode
+nalias M_ONLY_GM		2'b01		NULL
+nalias M_ONLY_IGM		2'b10		NULL
+
+aliasmapname TESTBED.u_KEYGEN.u_MODP_MKGM2.next_state
+nalias S_G		3'b010		NULL
+nalias S_ONLY_iGM		3'b110		NULL
+nalias S_iG		3'b011		NULL
+nalias S_GM_iGM		3'b111		NULL
+nalias S_IDLE		3'b000		NULL
+nalias S_iG_GM		3'b100		NULL
+nalias S_R2		3'b001		NULL
+nalias S_ONLY_GM		3'b101		NULL
+
+aliasmapname TESTBED.u_KEYGEN.u_MODP_MKGM2.u_MODP_DIV.next_state
+nalias S_IDLE		1'b0		NULL
+nalias S_EXE		1'b1		NULL
+
+aliasmapname MODP_DIV.cnt
+nalias S_OUTPUT		3'b100		NULL
+
+addGroup "G1"
+activeDirFile "" "/home/daniel_kuo/Falcon/hardware/modp_mkgm2/01_RTL/KEYGEN.fsdb"
+addSignal -h 15 /TESTBED/u_KEYGEN/clk
+addSignal -h 15 -holdScope rst_n
+addSignal -h 15 -holdScope in_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope logn[3:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope g[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p0i[30:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope mode[1:0]
+addGroup "G2"
+addSignal -h 15 /TESTBED/u_KEYGEN/out_valid_gm
+addSignal -h 15 -UNSIGNED -UDEC -holdScope v_gm[8:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope gm[30:0]
+addSignal -h 15 -holdScope out_valid_igm
+addSignal -h 15 -UNSIGNED -UDEC -holdScope v_igm[8:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope igm[30:0]
+addGroup "G3"
+aliasname TESTBED.u_KEYGEN.u_MODP_MKGM2.next_state
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_KEYGEN/u_MODP_MKGM2/state[2:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope cnt[9:0]
+addGroup "G4"
+addSignal -h 15 -UNSIGNED -UDEC /TESTBED/u_KEYGEN/u_MODP_MKGM2/g_reg[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope ig_reg[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope x1[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope x2[30:0]
+addGroup "G5" -e FALSE
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_KEYGEN/u_MODP_MONTYMUL_TOP/genblk1[0]/u_MODP_MONTYMUL/i_bus[2:0]
+addSignal -h 15 -holdScope in_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope a[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope b[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p0i[30:0]
+addSignal -h 15 -holdScope isMQ
+addSignal -h 15 -holdScope out_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope d[30:0]
+addGroup "G9" -e FALSE
+addSignal -h 15 /TESTBED/u_KEYGEN/u_MODP_R2_TOP/genblk1[0]/u_MODP_R2/in_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p0i[30:0]
+addSignal -h 15 -holdScope i_bus[0:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope z[30:0]
+addSignal -h 15 -holdScope out_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope R2[30:0]
+addGroup "G7"
+addSignal -h 15 /TESTBED/u_KEYGEN/u_MODP_MKGM2/in_valid_modp_R2
+addSignal -h 15 -holdScope out_valid_modp_R2
+addSignal -h 15 -UNSIGNED -UDEC -holdScope R2_modp_R2[30:0]
+addSignal -h 15 -holdScope ready_modp_R2
+addGroup "G8"
+addSignal -h 15 /TESTBED/u_KEYGEN/u_MODP_MKGM2/u_MODP_DIV/in_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope a[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope b[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope p0i[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope R[30:0]
+addSignal -h 15 -holdScope out_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope z[30:0]
+addGroup "G10" -e FALSE
+aliasname TESTBED.u_KEYGEN.u_MODP_MKGM2.u_MODP_DIV.next_state
+addSignal -h 15 -UNSIGNED -HEX /TESTBED/u_KEYGEN/u_MODP_MKGM2/u_MODP_DIV/state
+aliasname MODP_DIV.cnt
+addSignal -h 15 -UNSIGNED -HEX -holdScope cnt[2:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope i[4:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope z0[30:0]
+addSignal -h 15 -holdScope in_valid_modp_montymul
+addSignal -h 15 -UNSIGNED -UDEC -holdScope a_modp_montymul[30:0]
+addSignal -h 15 -UNSIGNED -UDEC -holdScope b_modp_montymul[30:0]
+addSignal -h 15 -holdScope out_valid_modp_montymul
+addSignal -h 15 -UNSIGNED -UDEC -holdScope d_modp_montymul[30:0]
+addGroup "G11"
+addSignal -h 15 /TESTBED/u_KEYGEN/u_MODP_MKGM2/u_MODP_DIV/out_valid
+addSignal -h 15 -UNSIGNED -UDEC -holdScope z[30:0]
+addGroup "G12"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+

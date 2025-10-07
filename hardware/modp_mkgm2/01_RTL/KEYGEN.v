@@ -1,5 +1,8 @@
+`include "MODP_R.v"
 `include "MODP_MONTYMUL_TOP.v"
 `include "MODP_R2_TOP.v"
+`include "MODP_MKGM2.v"
+
             
 module KEYGEN (
     // Input signals
@@ -180,10 +183,10 @@ MODP_MKGM2 u_MODP_MKGM2(
     // Output signals
     .in_valid_modp_R2(in_valid_modp_R2),
     .p_modp_R2(p_modp_R2),
-    .p0i_modp_R(p0i_modp_R)
+    .p0i_modp_R2(p0i_modp_R)
 );
 
-MODP_MONTYMUL_TOP #(.MASTER_NUM(MODP_MONTYMUL_MASTER_NUM), .MUL_NUM(2)) u_MODP_MONTYMUL_TOP(
+MODP_MONTYMUL_TOP #(.MASTER_NUM(MODP_MONTYMUL_MASTER_NUM), .MUL_NUM(1)) u_MODP_MONTYMUL_TOP(
     .clk(clk),
     .rst_n(rst_n),
     .in_valid_bus(in_valid_modp_montymul_bus),
