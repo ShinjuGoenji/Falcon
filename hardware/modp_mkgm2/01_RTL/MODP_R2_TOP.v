@@ -471,17 +471,22 @@ always @(*) begin
     if (state == S_EXE) begin
         if (cnt == S_OUTPUT) begin
             next_out_valid = 1;
-            next_R2 = (next_z + (p_reg & -(next_z & 1))) >> 1;
+            // next_R2 = next_z;
+            // next_R2 = (next_z + (p_reg & -(next_z & 1))) >> 1;
         end
         else begin
             next_out_valid = 0;
-            next_R2 = R2;
+            // next_R2 = R2;
         end
     end
     else begin
         next_out_valid = 0;
-        next_R2 = R2;
+        // next_R2 = R2;
     end
+end
+
+always @(*) begin
+    R2 = (z + (p_reg & -(z & 1))) >> 1;
 end
 
 always @(*) begin
@@ -505,7 +510,7 @@ always @(posedge clk or negedge rst_n) begin
         in_valid_modp_montymul <= 0;
         z <= 0;
         out_valid <= 0;
-        R2 <= 0;
+        // R2 <= 0;
         o_bus <= 0;
     end else begin
         state <= next_state;
@@ -515,7 +520,7 @@ always @(posedge clk or negedge rst_n) begin
         p0i_reg <= p0i_comb;
         in_valid_modp_montymul <= in_valid_modp_montymul_comb;
         out_valid <= next_out_valid;
-        R2 <= next_R2;
+        // R2 <= next_R2;
         o_bus <= o_bus_comb;
     end
 end
