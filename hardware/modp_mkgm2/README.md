@@ -54,7 +54,7 @@ The `MODP_MKGM2` generate roots for NTT and inverse NTT, `gm` and `igm`, respect
 | :----: | :----------: | :-------: | :--------: |
 |        | `gm` & `igm` | only `gm` | only `igm` |
 
-Because `MODP_MKGM2` is piplined in 2 stages, the calculation of `gm` and `igm` can be done one by one, as shown in the figure below.
+Because `MODP_MONTYMUL` is piplined in 5 stages, the calculation of `gm` and `igm` can be done one by one, as shown in the figure below.
 
 ![](./01_RTL/modp_mkgm2.png)
 
@@ -73,11 +73,10 @@ With sufficient hardware, 2 `MODP_MONTYMUL` and 1 `MODP_R2`, the latency of `gm`
 
 |            |     40nm     |
 | :--------: | :----------: |
-| **Period** |    2.0ns     |
-| **#GATE**  |     3641     |
-|  **AREA**  | 36334.266660 |
+| **Period** |    1.2ns     |
+| **#GATE**  |     2522     |
+|  **AREA**  | 25171.397654 |
 
 ## Future Optimization
 
-1. Output of `MODP_R2` is registered. Maybe output directly.
-2. Some register in MODP_DIV can merge to `MODP_MKGM2`.
+1. Some register in MODP_DIV can merge to `MODP_MKGM2`.
