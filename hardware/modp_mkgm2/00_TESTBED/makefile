@@ -77,7 +77,7 @@ VCS_GATE_SIM = vcs ${TIMESCALE} \
 	   ${TSMC40_UDP_HVT} \
 	   ${TSMC40_UDP_RVT} \
 	   ${TSMC40_UDP_LVT} \
-    +define+GATE \
+    +define+GATE+ARM_WIDTH=0.0 \
 	+neg_tchk 
 
 VCS_POST_SIM = vcs ${TIMESCALE} \
