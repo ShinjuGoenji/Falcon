@@ -8,7 +8,7 @@
 # (A) Global Parameters
 #======================================================
 set DESIGN "KEYGEN"
-set CYCLE 2.0
+set CYCLE 1.2
 set INPUT_DLY [expr 0*$CYCLE]
 set OUTPUT_DLY [expr 0*$CYCLE]
 
