@@ -4,7 +4,7 @@ vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab /usr/
 +define+RTL +define+ +notimingchecks
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Wed Oct  8 05:12:55 2025
+         Version T-2022.06_Full64 -- Thu Oct  9 16:43:21 2025
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -49,31 +49,30 @@ Note-[VCS_PARAL] Parallel code-gen enabled
   VCS is running with parallel code generation(-j)...
 
 3 modules and 0 UDP read.
-recompiling module TESTBED
 recompiling module MODP_MONTYMUL_TOP
-Both modules done.
-	However, due to incremental compilation, only 2 modules need to be compiled. 
+	However, due to incremental compilation, only 1 module needs to be compiled. 
 make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/modp_mkgm2/01_RTL/csrc' \
 
 rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
+rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
--Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/amcQw_d.o   _28160_archive_1.so \
-_28178_archive_1.so _prev_archive_1.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o \
-rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc \
--lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile \
--luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o   -Wl,-whole-archive \
--lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o \
-/usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a -ldl -lm  -lc -lpthread \
--ldl 
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _12589_archive_1.so _prev_archive_1.so \
+_cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o \
+rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a \
+-lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o \
+-Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   \
+/usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a \
+-ldl -lm  -lc -lpthread -ldl 
 ../simv up to date
 make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/modp_mkgm2/01_RTL/csrc' \
 
 Command: /home/daniel_kuo/Falcon/hardware/modp_mkgm2/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+ +notimingchecks
 Chronologic VCS simulator copyright 1991-2022
 Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Oct  8 05:12 2025
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Oct  9 16:43 2025
 *Verdi* Loading libsscore_vcs202206.so
 FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 (C) 1996 - 2022 by Synopsys, Inc.
@@ -1090,9 +1089,9 @@ PASS PATTERN NO.1000
                   Total Latency = 0.0 ns                           
 --------------------------------------------------------------------
 $finish called from file "PATTERN.v", line 301.
-$finish at simulation time             45710600
+$finish at simulation time            112173800
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 457106000 ps
-CPU Time:      2.480 seconds;       Data structure size:   0.0Mb
-Wed Oct  8 05:12:58 2025
-CPU time: .316 seconds to compile + .215 seconds to elab + .262 seconds to link + 2.529 seconds in simulation
+Time: 1121738000 ps
+CPU Time:      3.300 seconds;       Data structure size:   0.0Mb
+Thu Oct  9 16:43:25 2025
+CPU time: .308 seconds to compile + .240 seconds to elab + .229 seconds to link + 3.335 seconds in simulation

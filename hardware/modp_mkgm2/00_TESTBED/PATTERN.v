@@ -1,9 +1,9 @@
 `ifdef RTL
-    `define CYCLE_TIME 2.0
+    `define CYCLE_TIME 1.2 
 `elsif GATE
-    `define CYCLE_TIME 2.0
+    `define CYCLE_TIME 1.2 
 `else
-    `define CYCLE_TIME 2.0
+    `define CYCLE_TIME 1.2
 `endif
 
 module PATTERN #(
@@ -149,7 +149,7 @@ task reset_task; begin
 	
     force clk = 0;
     #CYCLE; rst_n = 0; 
-    #(CYCLE * 5); rst_n = 1;
+    #(CYCLE * 20); rst_n = 1;
     // if(out_valid_gm !== 'b0) begin 
     //     $display("************************************************************");  
     //     $display("                          FAIL!                             ");    

@@ -1,6 +1,6 @@
 ###################################################################
 
-# Created by write_sdc on Wed Oct  8 04:25:29 2025
+# Created by write_sdc on Thu Oct  9 16:42:41 2025
 
 ###################################################################
 set sdc_version 2.1
@@ -397,7 +397,7 @@ set_max_transition 3 [get_ports {p0i[1]}]
 set_max_transition 3 [get_ports {p0i[0]}]
 set_max_transition 3 [get_ports {mode[1]}]
 set_max_transition 3 [get_ports {mode[0]}]
-create_clock [get_ports clk]  -period 2  -waveform {0 1}
+create_clock [get_ports clk]  -period 1.2  -waveform {0 0.6}
 set_clock_uncertainty 0.1  [get_clocks clk]
 set_clock_transition -max -rise 0.1 [get_clocks clk]
 set_clock_transition -max -fall 0.1 [get_clocks clk]
