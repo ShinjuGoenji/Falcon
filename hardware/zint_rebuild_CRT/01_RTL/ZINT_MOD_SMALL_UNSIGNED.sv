@@ -51,7 +51,7 @@ localparam S_IDLE = 0;
 localparam S_EXE = 1;
 
 //---------------------------------------------------------------------
-//   Input & Output
+//   Logic
 //---------------------------------------------------------------------
 /*
  * Main channel
@@ -77,25 +77,25 @@ input      [P_WIDTH-1:0] d_modp_montymul;
 input                    ready_modp_montymul;
 
 output reg               in_valid_modp_montymul;
-output     [P_WIDTH-1:0] a_modp_montymul;
-output     [P_WIDTH-1:0] b_modp_montymul;
-output     [P_WIDTH-1:0] p_modp_montymul;
-output     [P_WIDTH-1:0] p0i_modp_montymul;
-output                   isMQ_modp_montymul;
+output reg [P_WIDTH-1:0] a_modp_montymul;
+output reg [P_WIDTH-1:0] b_modp_montymul;
+output reg [P_WIDTH-1:0] p_modp_montymul;
+output reg [P_WIDTH-1:0] p0i_modp_montymul;
+output reg               isMQ_modp_montymul;
 
 
 //---------------------------------------------------------------------
-//   Reg & Wire
+//   Logic
 //---------------------------------------------------------------------
-reg                 state, next_state;
-reg [LEN_WIDTH-1:0] cnt, next_cnt;
+logic                 state, next_state;
+logic [LEN_WIDTH-1:0] cnt, next_cnt;
 
-reg [P_WIDTH-1:0]   d_p;
-reg [P_WIDTH-1:0]   x0, x0_comb;
-reg [P_WIDTH-1:0]   x1;
-reg [P_WIDTH-1:0]   w, w_comb;
-reg                 out_valid_modp_add, out_valid_modp_add_comb;
-reg                 in_valid_modp_montymul_comb;
+logic [P_WIDTH-1:0]   d_p;
+logic [P_WIDTH-1:0]   x0, x0_comb;
+logic [P_WIDTH-1:0]   x1;
+logic [P_WIDTH-1:0]   w, w_comb;
+logic                 out_valid_modp_add, out_valid_modp_add_comb;
+logic                 in_valid_modp_montymul_comb;
 
 //---------------------------------------------------------------------
 //  Submodule
@@ -108,7 +108,7 @@ MODP_ADD u_MODP_ADD (.a(x0), .b(w), .p(p), .d(x1));
 /*
  * FSM
  */
-always @(*) begin
+always_comb begin
     case (state)
         S_IDLE: begin
             if (in_valid)
@@ -125,7 +125,7 @@ always @(*) begin
     endcase
 end
 
-always @(*) begin
+always_comb begin
     if (in_valid)
         next_cnt = dlen - 1;
     else if (state == S_EXE && out_valid_modp_montymul)
@@ -144,7 +144,7 @@ assign p0i_modp_montymul = p0i;
 assign isMQ_modp_montymul = 1'b0;
 
 // in_valid
-always @(*) begin
+always_comb begin
     if (state == S_EXE) 
         if (out_valid_modp_add)
             in_valid_modp_montymul_comb = 1;
@@ -159,28 +159,28 @@ end
 /*
  * variable
  */
-always @(*) begin
+always_comb begin
     if (d < p)
         d_p = d;
     else
         d_p = d - p;
 end
 
-always @(*) begin
+always_comb begin
     if (in_valid || out_valid_modp_montymul)
         w_comb = d_p;
     else
         w_comb = w;
 end
 
-always @(*) begin
+always_comb begin
     if (in_valid || out_valid_modp_montymul)
         out_valid_modp_add_comb = 1;
     else
         out_valid_modp_add_comb = 0;
 end
 
-always @(*) begin
+always_comb begin
     if (state == S_IDLE)
         x0_comb = 0;
     else if (out_valid_modp_add)
@@ -201,7 +201,7 @@ assign x = x1;
 //---------------------------------------------------------------------
 //   Sequential Logic
 //---------------------------------------------------------------------
-always @(posedge clk or negedge rst_n) begin
+always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         state <= 0;
         cnt <= 0;
