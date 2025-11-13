@@ -30,8 +30,8 @@ integer i, j;
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
-input                              clk;
-input                              rst_n;
+input                               clk;
+input                               rst_n;
 input      [MASTER_NUM-1:0]         in_valid_bus;
 input      [P_WIDTH*MASTER_NUM-1:0] a_bus;
 input      [P_WIDTH*MASTER_NUM-1:0] b_bus;
@@ -44,32 +44,32 @@ output reg [P_WIDTH*MASTER_NUM-1:0] d_bus;
 output reg [MASTER_NUM-1:0]         ready_bus;
 
 //---------------------------------------------------------------------
-//   Reg & Wire
+//   Logic
 //---------------------------------------------------------------------
-wire               in_valid_bus_w  [0:MASTER_NUM-1];
-wire [P_WIDTH-1:0] a_bus_w         [0:MASTER_NUM-1];
-wire [P_WIDTH-1:0] b_bus_w         [0:MASTER_NUM-1];
-wire [P_WIDTH-1:0] p_bus_w         [0:MASTER_NUM-1];
-wire [P_WIDTH-1:0] p0i_bus_w       [0:MASTER_NUM-1];
-wire               isMQ_bus_w      [0:MASTER_NUM-1];
+logic               in_valid_bus_w  [0:MASTER_NUM-1];
+logic [P_WIDTH-1:0] a_bus_w         [0:MASTER_NUM-1];
+logic [P_WIDTH-1:0] b_bus_w         [0:MASTER_NUM-1];
+logic [P_WIDTH-1:0] p_bus_w         [0:MASTER_NUM-1];
+logic [P_WIDTH-1:0] p0i_bus_w       [0:MASTER_NUM-1];
+logic               isMQ_bus_w      [0:MASTER_NUM-1];
+ 
+logic                        i_valid [0:MUL_NUM-1];
+logic [P_WIDTH-1:0]          a       [0:MUL_NUM-1];
+logic [P_WIDTH-1:0]          b       [0:MUL_NUM-1];
+logic [P_WIDTH-1:0]          p       [0:MUL_NUM-1];
+logic [P_WIDTH-1:0]          p0i     [0:MUL_NUM-1];
+logic                        isMQ    [0:MUL_NUM-1];
+logic [$clog2(MASTER_NUM):0] i_bus   [0:MUL_NUM-1];
 
-reg                       i_valid [0:MUL_NUM-1];
-reg [P_WIDTH-1:0]         a       [0:MUL_NUM-1];
-reg [P_WIDTH-1:0]         b       [0:MUL_NUM-1];
-reg [P_WIDTH-1:0]         p       [0:MUL_NUM-1];
-reg [P_WIDTH-1:0]         p0i     [0:MUL_NUM-1];
-reg                       isMQ    [0:MUL_NUM-1];
-reg [$clog2(MASTER_NUM):0] i_bus   [0:MUL_NUM-1];
+logic                        o_valid [0:MUL_NUM-1];
+logic [P_WIDTH-1:0]          d       [0:MUL_NUM-1];
+logic [$clog2(MASTER_NUM):0] o_bus   [0:MUL_NUM-1];
 
-wire                       o_valid [0:MUL_NUM-1];
-wire [P_WIDTH-1:0]         d       [0:MUL_NUM-1];
-wire [$clog2(MASTER_NUM):0] o_bus   [0:MUL_NUM-1];
+logic                     grant [0:MASTER_NUM-1];
+logic [$clog2(MUL_NUM):0] instance_cnt;
 
-reg grant [0:MASTER_NUM-1];
-reg [$clog2(MUL_NUM):0] instance_cnt;
-
-reg               out_valid_bus_comb [0:MASTER_NUM-1];
-reg [P_WIDTH-1:0] d_bus_comb [0:MASTER_NUM-1];
+logic               out_valid_bus_comb [0:MASTER_NUM-1];
+logic [P_WIDTH-1:0] d_bus_comb [0:MASTER_NUM-1];
 
 //---------------------------------------------------------------------
 //   Submodule
@@ -92,7 +92,7 @@ generate
             .out_valid(o_valid[modp_montymul_idx]),
             .d(d[modp_montymul_idx]),
             .o_bus(o_bus[modp_montymul_idx])
-            );
+        );
     end
 endgenerate
 
@@ -117,7 +117,7 @@ endgenerate
 /*
  * Arbiter
  */
-always @(*) begin : ARBITER
+always_comb begin : ARBITER
     for (j = 0; j < MUL_NUM; j = j + 1) begin
         i_valid[j] = 1'b0;
         a[j] = {P_WIDTH{1'b0}};
@@ -160,7 +160,7 @@ end
 /*
  * Map kernel to bus
  */
-always @(*) begin
+always_comb begin
     for (i = 0; i < MASTER_NUM; i = i + 1) begin
         out_valid_bus_comb[i] = 0;
         d_bus_comb[i] = 0;
@@ -179,7 +179,7 @@ end
 genvar o_bus_idx;
 generate
     for (o_bus_idx = 0; o_bus_idx < MASTER_NUM; o_bus_idx = o_bus_idx + 1) begin
-        always @(*) begin
+        always_comb begin
             out_valid_bus[o_bus_idx] = out_valid_bus_comb[o_bus_idx];
             d_bus[P_WIDTH*(o_bus_idx+1)-1 -: P_WIDTH] = d_bus_comb[o_bus_idx];
         end
@@ -235,20 +235,20 @@ output reg [P_WIDTH-1:0] d;
 output reg [$clog2(MASTER_NUM):0] o_bus;
 
 //---------------------------------------------------------------------
-//   Reg & Wire
+//   Logic
 //---------------------------------------------------------------------
-reg  [P_WIDTH-1:0]          p_reg;
-reg                         isMQ_reg;
-wire [P_WIDTH*2-1:0]        a_b;
-reg  [P_WIDTH*2-1:0]        a_b_reg;
-wire [P_WIDTH-1:0]          a_b_p0i;
-reg  [P_WIDTH-1:0]          a_b_p0i_reg;
-wire [P_WIDTH+Q_WIDTH-1:0]  w_q;
-wire [P_WIDTH*2-1:0]        w_p;
-wire [P_WIDTH*2:0]          z_w_q;
-wire [P_WIDTH*2:0]          z_w_p;
-wire [P_WIDTH:0]            z_w_q_shift;
-wire [P_WIDTH:0]            z_w_p_shift;
+logic [P_WIDTH-1:0]          p_reg;
+logic                        isMQ_reg;
+logic [P_WIDTH*2-1:0]        a_b;
+logic [P_WIDTH*2-1:0]        a_b_reg;
+logic [P_WIDTH-1:0]          a_b_p0i;
+logic [P_WIDTH-1:0]          a_b_p0i_reg;
+logic [P_WIDTH+Q_WIDTH-1:0]  w_q;
+logic [P_WIDTH*2-1:0]        w_p;
+logic [P_WIDTH*2:0]          z_w_q;
+logic [P_WIDTH*2:0]          z_w_p;
+logic [P_WIDTH:0]            z_w_q_shift;
+logic [P_WIDTH:0]            z_w_p_shift;
 
 //---------------------------------------------------------------------
 //   Combinational Logic
@@ -263,7 +263,7 @@ assign z_w_p = a_b_reg + w_p;
 assign z_w_q_shift = z_w_q[P_WIDTH*2:Q_WIDTH];
 assign z_w_p_shift = z_w_p[P_WIDTH*2:P_WIDTH];
 
-always @(*) begin
+always_comb begin
     if (isMQ_reg) begin
         if (z_w_q_shift >= p_reg)
             d = z_w_q_shift - p_reg;
@@ -281,7 +281,7 @@ end
 //---------------------------------------------------------------------
 //   Sequential Logic
 //---------------------------------------------------------------------
-always @(posedge clk or negedge rst_n) begin
+always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         p_reg <= 0;
         isMQ_reg <= 0;
