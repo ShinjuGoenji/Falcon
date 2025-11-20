@@ -3,7 +3,7 @@
 Report : resources
 Design : KEYGEN
 Version: T-2022.03
-Date   : Thu Oct  9 16:42:40 2025
+Date   : Thu Oct  9 22:40:30 2025
 ****************************************
 
 
@@ -51,10 +51,10 @@ Resource Report for this hierarchy in file ../01_RTL/MODP_MKGM2.v
 |                | DP_OP_250J1_123_1144 |      |                            |
 | DP_OP_251J1_124_5295            |            |                            |
 |                | DP_OP_251J1_124_5295 |      |                            |
-| DP_OP_25_129_5090               |            |                            |
-|                | DP_OP_25_129_5090 |         |                            |
-| DP_OP_26_130_8311               |            |                            |
-|                | DP_OP_26_130_8311 |         |                            |
+| DP_OP_25_130_5341               |            |                            |
+|                | DP_OP_25_130_5341 |         |                            |
+| DP_OP_26_131_4301               |            |                            |
+|                | DP_OP_26_131_4301 |         |                            |
 =============================================================================
 
 Datapath Report for DP_OP_249J1_122_3176
@@ -129,47 +129,51 @@ Datapath Report for DP_OP_251J1_124_5295
 | O3    | PO   | Unsigned | 1     | O1 >= I2 (MODP_ADD.v:45)                 |
 ==============================================================================
 
-Datapath Report for DP_OP_25_129_5090
+Datapath Report for DP_OP_25_130_5341
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_25_129_5090    | add_285 (MODP_MONTYMUL_TOP.v:285)                   |
-|                      | sub_293 (MODP_MONTYMUL_TOP.v:293)                   |
+| DP_OP_25_130_5341    | mult_464 (MODP_MONTYMUL_TOP.v:464)                  |
+|                      | add_467 (MODP_MONTYMUL_TOP.v:467)                   |
+|                      | sub_475 (MODP_MONTYMUL_TOP.v:475)                   |
 ==============================================================================
 
 ==============================================================================
 |       |      | Data     |       |                                          |
 | Var   | Type | Class    | Width | Expression                               |
 ==============================================================================
-| I1    | PI   | Unsigned | 48    |                                          |
-| I2    | PI   | Unsigned | 47    |                                          |
-| I3    | PI   | Unsigned | 31    |                                          |
+| I1    | PI   | Unsigned | 16    |                                          |
+| I2    | PI   | Unsigned | 31    |                                          |
+| I3    | PI   | Unsigned | 48    |                                          |
+| T2    | IFO  | Unsigned | 47    | I1 * I2 (MODP_MONTYMUL_TOP.v:464)        |
 | T17   | IFO  | Signed   | 31    | O1[46:16]                                |
-| O1    | PO   | Unsigned | 48    | I1 + I2 (MODP_MONTYMUL_TOP.v:285)        |
-| O2    | PO   | Signed   | 31    | T17 - I3 (MODP_MONTYMUL_TOP.v:293)       |
+| O1    | PO   | Unsigned | 48    | I3 + T2 (MODP_MONTYMUL_TOP.v:467)        |
+| O2    | PO   | Signed   | 31    | T17 - I2 (MODP_MONTYMUL_TOP.v:475)       |
 ==============================================================================
 
-Datapath Report for DP_OP_26_130_8311
+Datapath Report for DP_OP_26_131_4301
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_26_130_8311    | add_286 (MODP_MONTYMUL_TOP.v:286)                   |
-|                      | gte_298 (MODP_MONTYMUL_TOP.v:298)                   |
-|                      | sub_299 (MODP_MONTYMUL_TOP.v:299)                   |
+| DP_OP_26_131_4301    | mult_465 (MODP_MONTYMUL_TOP.v:465)                  |
+|                      | add_468 (MODP_MONTYMUL_TOP.v:468)                   |
+|                      | gte_480 (MODP_MONTYMUL_TOP.v:480)                   |
+|                      | sub_481 (MODP_MONTYMUL_TOP.v:481)                   |
 ==============================================================================
 
 ==============================================================================
 |       |      | Data     |       |                                          |
 | Var   | Type | Class    | Width | Expression                               |
 ==============================================================================
-| I1    | PI   | Unsigned | 62    |                                          |
-| I2    | PI   | Unsigned | 62    |                                          |
-| I3    | PI   | Unsigned | 31    |                                          |
+| I1    | PI   | Unsigned | 31    |                                          |
+| I2    | PI   | Unsigned | 31    |                                          |
+| I3    | PI   | Unsigned | 62    |                                          |
+| T3    | IFO  | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.v:465)        |
 | T15   | IFO  | Unsigned | 32    | O1[62:31]                                |
 | T18   | IFO  | Signed   | 31    | O1[61:31]                                |
-| O1    | PO   | Unsigned | 63    | I1 + I2 (MODP_MONTYMUL_TOP.v:286)        |
-| O2    | PO   | Unsigned | 1     | T15 >= I3 (MODP_MONTYMUL_TOP.v:298)      |
-| O3    | PO   | Signed   | 31    | T18 - I3 (MODP_MONTYMUL_TOP.v:299)       |
+| O1    | PO   | Unsigned | 63    | I3 + T3 (MODP_MONTYMUL_TOP.v:468)        |
+| O2    | PO   | Unsigned | 1     | T15 >= I2 (MODP_MONTYMUL_TOP.v:480)      |
+| O3    | PO   | Signed   | 31    | T18 - I2 (MODP_MONTYMUL_TOP.v:481)       |
 ==============================================================================
 
 
@@ -179,16 +183,30 @@ Resource Report for Ungrouped Hierarchy
 =============================================================================
 | Cell           | Module         | Parameters | Contained Operations       |
 =============================================================================
-| mult_x_1       | DW_mult_uns    | a_width=31 | mult_269 (MODP_MONTYMUL_TOP.v:269) |
-         |                | b_width=31 |                            |
-| mult_x_2       | DW_mult_uns    | a_width=31 | mult_274 (MODP_MONTYMUL_TOP.v:274) |
-         |                | b_width=31 |                            |
-| mult_x_3       | DW_mult_uns    | a_width=16 | mult_279 (MODP_MONTYMUL_TOP.v:279) |
-         |                | b_width=31 |                            |
-| mult_x_4       | DW_mult_uns    | a_width=31 | mult_280 (MODP_MONTYMUL_TOP.v:280) |
-         |                | b_width=31 |                            |
-| gte_x_5        | DW_cmp         | width=32   | gte_292 (MODP_MONTYMUL_TOP.v:292) |
+| gte_x_1        | DW_cmp         | width=32   | gte_474 (MODP_MONTYMUL_TOP.v:474) |
+| DP_OP_29J1_125_6134             |            |                            |
+|                | DP_OP_29J1_125_6134 |       |                            |
 =============================================================================
+
+Datapath Report for DP_OP_29J1_125_6134
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_29J1_125_6134  | mult_462 (MODP_MONTYMUL_TOP.v:462)                  |
+|                      | mult_463 (MODP_MONTYMUL_TOP.v:463)                  |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 31    |                                          |
+| I2    | PI   | Unsigned | 31    |                                          |
+| I3    | PI   | Unsigned | 31    |                                          |
+| T12   | IFO  | Signed   | 31    | O1[30:0]                                 |
+| O1    | PO   | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.v:462)        |
+| O2    | PO   | Unsigned | 31    | T12 * I3 (MODP_MONTYMUL_TOP.v:463)       |
+==============================================================================
 
 
 Datapath Extraction Report
@@ -233,21 +251,21 @@ Implementation Report
 | add_x_134          | DW01_inc         | apparch (area)     |                |
 | lt_x_147           | DW_cmp           | apparch (area)     |                |
 | lt_x_148           | DW_cmp           | apparch (area)     |                |
-| mult_x_1           | DW_mult_uns      | pparch (area,speed)                 |
-|                    |                  | mult_arch: benc_radix4              |
-| mult_x_2           | DW_mult_uns      | pparch (area,speed)                 |
-|                    |                  | mult_arch: benc_radix4              |
-| mult_x_4           | DW_mult_uns      | pparch (area,speed)                 |
-|                    |                  | mult_arch: benc_radix4              |
 | DP_OP_249J1_122_3176                  |                    |                |
-|                    | DP_OP_249J1_122_3176 | str (area,speed)                |
+|                    | DP_OP_249J1_122_3176 | str (area)     |                |
 | DP_OP_250J1_123_1144                  |                    |                |
 |                    | DP_OP_250J1_123_1144 | str (area)     |                |
 |                    |                  | mult_arch: and     |                |
 | DP_OP_251J1_124_5295                  |                    |                |
 |                    | DP_OP_251J1_124_5295 | str (area,speed)                |
-| DP_OP_25_129_5090  | DP_OP_25_129_5090 | str (area)        |                |
-| DP_OP_26_130_8311  | DP_OP_26_130_8311 | str (area,speed)  |                |
+| DP_OP_25_130_5341  | DP_OP_25_130_5341 | str (area)        |                |
+|                    |                  | mult_arch: benc_radix8              |
+| DP_OP_26_131_4301  | DP_OP_26_131_4301 | str (area,speed)  |                |
+|                    |                  | mult_arch: benc_radix4              |
+| DP_OP_29J1_125_6134                   |                    |                |
+|                    | DP_OP_29J1_125_6134 | str (area,speed)                 |
+|                    |                  | mult_arch: benc_radix4              |
+|                    |                  | mult_arch: benc_radix4              |
 ===============================================================================
 
 1

@@ -3,30 +3,30 @@
 Report : area
 Design : KEYGEN
 Version: T-2022.03
-Date   : Thu Oct  9 16:42:40 2025
+Date   : Thu Oct  9 22:40:30 2025
 ****************************************
 
 Library(s) Used:
 
-    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
 
 Number of ports:                          184
-Number of nets:                         12358
-Number of cells:                        11477
-Number of combinational cells:          10617
-Number of sequential cells:               860
+Number of nets:                         12191
+Number of cells:                        11240
+Number of combinational cells:          10792
+Number of sequential cells:               448
 Number of macros/black boxes:               0
-Number of buf/inv:                       1807
-Number of references:                     488
+Number of buf/inv:                       1919
+Number of references:                     536
 
-Combinational area:              21189.697011
-Buf/Inv area:                     1919.635198
-Noncombinational area:            3981.700643
+Combinational area:              22548.455850
+Buf/Inv area:                     2180.681998
+Noncombinational area:            2045.735905
 Macro/Black Box area:                0.000000
 Net Interconnect area:               0.000000
 
-Total cell area:                 25171.397654
-Total area:                      25171.397654
+Total cell area:                 24594.191755
+Total area:                      24594.191755
 1

@@ -8,8 +8,8 @@
 #======================================================
 set DESIGN "KEYGEN"
 KEYGEN
-set CYCLE 1.2
-1.2
+set CYCLE 1.8
+1.8
 set INPUT_DLY [expr 0*$CYCLE]
 0.0
 set OUTPUT_DLY [expr 0*$CYCLE]
@@ -133,61 +133,17 @@ Information: Building the design 'MODP_MONTYMUL' instantiated from design 'MODP_
         the parameters "MASTER_NUM=3". (HDL-193)
 
 Inferred memory devices in process
-        in routine MODP_MONTYMUL_MASTER_NUM3 line 311 in file
-                '../01_RTL/MODP_MONTYMUL_TOP.v'.
-===============================================================================
-|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
-===============================================================================
-|   i_bus_reg0_reg    | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
-|      a_reg_reg      | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
-|      b_reg_reg      | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
-|     p_reg0_reg      | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
-|    p0i_reg0_reg     | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
-|    isMQ_reg0_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-|  in_valid_reg0_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-===============================================================================
-
-Inferred memory devices in process
-        in routine MODP_MONTYMUL_MASTER_NUM3 line 335 in file
-                '../01_RTL/MODP_MONTYMUL_TOP.v'.
-===============================================================================
-|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
-===============================================================================
-|   i_bus_reg1_reg    | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
-|     p_reg1_reg      | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
-|    p0i_reg1_reg     | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
-|    isMQ_reg1_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-|  in_valid_reg1_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-|      a_b_0_reg      | Flip-flop |  62   |  Y  | N  | Y  | N  | N  | N  | N  |
-===============================================================================
-
-Inferred memory devices in process
-        in routine MODP_MONTYMUL_MASTER_NUM3 line 357 in file
-                '../01_RTL/MODP_MONTYMUL_TOP.v'.
-===============================================================================
-|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
-===============================================================================
-|   i_bus_reg2_reg    | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
-|     p_reg2_reg      | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
-|    isMQ_reg2_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-|  in_valid_reg2_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-|      a_b_1_reg      | Flip-flop |  62   |  Y  | N  | Y  | N  | N  | N  | N  |
-|     a_b_p0i_reg     | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
-===============================================================================
-
-Inferred memory devices in process
-        in routine MODP_MONTYMUL_MASTER_NUM3 line 379 in file
+        in routine MODP_MONTYMUL_MASTER_NUM3 line 490 in file
                 '../01_RTL/MODP_MONTYMUL_TOP.v'.
 ===============================================================================
 |    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
 ===============================================================================
 |      o_bus_reg      | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
-|     p_reg3_reg      | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
-|    isMQ_reg3_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|      p_reg_reg      | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    isMQ_reg_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
 |    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-|      a_b_2_reg      | Flip-flop |  62   |  Y  | N  | Y  | N  | N  | N  | N  |
-|       w_q_reg       | Flip-flop |  47   |  Y  | N  | Y  | N  | N  | N  | N  |
-|       w_p_reg       | Flip-flop |  62   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     a_b_reg_reg     | Flip-flop |  62   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   a_b_p0i_reg_reg   | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
 ===============================================================================
 Presto compilation completed successfully. (MODP_MONTYMUL_MASTER_NUM3)
 Information: Building the design 'MODP_R2' instantiated from design 'MODP_R2_TOP_MASTER_NUM1_R2_NUM1' with
@@ -310,13 +266,13 @@ Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OP
 Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
 Information: Updating design information... (UID-85)
-Warning: Design 'KEYGEN' contains 2 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Warning: Design 'KEYGEN' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
  
 ****************************************
 Report : clock_skew
 Design : KEYGEN
 Version: T-2022.03
-Date   : Thu Oct  9 16:41:01 2025
+Date   : Thu Oct  9 22:38:13 2025
 ****************************************
 
                  Rise      Fall  Min Rise  Min fall        Uncertainty
@@ -375,9 +331,9 @@ Information: Evaluating DesignWare library utilization. (UISN-27)
 | Design Information                                      | Value                                  |
 ====================================================================================================
 | Number of Scenarios                                     | 0                                      |
-| Leaf Cell Count                                         | 1871                                   |
+| Leaf Cell Count                                         | 1406                                   |
 | Number of User Hierarchies                              | 9                                      |
-| Sequential Cell Count                                   | 917                                    |
+| Sequential Cell Count                                   | 452                                    |
 | Macro Count                                             | 0                                      |
 | Number of Power Domains                                 | 0                                      |
 | Number of Path Groups                                   | 2                                      |
@@ -422,9 +378,6 @@ Information: The register 'u_MODP_MKGM2/in_valid_modp_R2_reg_reg' is a constant 
 Information: The register 'u_MODP_R2_TOP/genblk1[0].u_MODP_R2/o_bus_reg[0]' is a constant and will be removed. (OPT-1206)
  Implement Synthetic for 'KEYGEN'.
   Processing 'MODP_MONTYMUL_MASTER_NUM3'
-Information: The register 'i_bus_reg0_reg[2]' is a constant and will be removed. (OPT-1206)
-Information: The register 'i_bus_reg1_reg[2]' is a constant and will be removed. (OPT-1206)
-Information: The register 'i_bus_reg2_reg[2]' is a constant and will be removed. (OPT-1206)
 Information: The register 'o_bus_reg[2]' is a constant and will be removed. (OPT-1206)
  Implement Synthetic for 'MODP_MONTYMUL_MASTER_NUM3'.
 
@@ -437,32 +390,30 @@ Information: The library cell 'TIEHI_X1M_A9TH' in the library 'sc9_cln40g_base_h
 Information: The library cell 'TIELO_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
 Information: The library cell 'TIEHI_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
 Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
-Information: Complementing port 'd[30]' in design 'MODP_MONTYMUL_MASTER_NUM3'.
-         The new name of the port is 'd[30]_BAR'. (OPT-319)
-Information: The register 'u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/isMQ_reg0_reg' is a constant and will be removed. (OPT-1206)
-Information: The register 'u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/isMQ_reg1_reg' is a constant and will be removed. (OPT-1206)
-Information: The register 'u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/isMQ_reg2_reg' is a constant and will be removed. (OPT-1206)
-Information: The register 'u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/isMQ_reg3_reg' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/isMQ_reg_reg' is a constant and will be removed. (OPT-1206)
 
   Beginning Mapping Optimizations  (Ultra High effort)
   -------------------------------
 Information: Updating design information... (UID-85)
-Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL 'MODP_MONTYMUL_MASTER_NUM3' #insts = 620. (OPT-777)
+Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL 'MODP_MONTYMUL_MASTER_NUM3' #insts = 161. (OPT-777)
   Mapping Optimization (Phase 1)
   Mapping Optimization (Phase 2)
   Mapping Optimization (Phase 3)
+  Mapping Optimization (Phase 4)
+  Mapping Optimization (Phase 5)
+  Mapping Optimization (Phase 6)
 
                                   TOTAL                                                            
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
   --------- --------- --------- --------- --------- ------------------------- --------- -----------
-    0:00:24   44568.0      0.17      13.7       2.0                           1923.1980      0.00  
-    0:00:24   44097.6      0.31      16.5       1.0                           1898.1195      0.00  
+    0:00:32   40444.3      1.94     511.2       0.0                            280.4236      0.00  
+    0:00:32   40012.3      2.30     536.6      17.1                            277.3734      0.00  
 
   Beginning Constant Register Removal
   -----------------------------------
-    0:00:24   44289.5      0.31      16.5       1.0                           1906.1704      0.00  
-    0:00:24   44251.6      0.31      17.4       1.0                           1904.8600      0.00  
+    0:00:32   40168.1      2.30     536.3      17.1                            279.2437      0.00  
+    0:00:32   40133.8      2.30     536.0      17.1                            278.9557      0.00  
 
   Beginning Global Optimizations
   ------------------------------
@@ -505,54 +456,70 @@ Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL
 
   Beginning Delay Optimization
   ----------------------------
-    0:00:26   19750.7      0.52      88.3      71.4                            546.7615      0.00  
-  Mapping 'KEYGEN_DW_mult_uns_6'
-    0:00:28   20193.1      0.25      65.4      71.4                            594.8719      0.00  
-    0:00:28   20193.1      0.25      65.4      71.4                            594.8719      0.00  
-    0:00:29   20212.2      0.25      65.8      71.4                            596.2393      0.00  
-    0:00:30   20153.2      0.80      85.8      71.4                            593.3327      0.00  
-    0:00:30   20148.0      0.80      85.9      71.4                            593.1879      0.00  
+    0:00:35   21861.0      2.23     426.9     313.7                            127.7944      0.00  
+  Mapping 'KEYGEN_DP_OP_29J1_125_6134_6'
+    0:00:38   23230.4      1.77     413.2     313.7                            139.8365      0.00  
+    0:00:38   23230.4      1.77     413.2     313.7                            139.8365      0.00  
+    0:00:38   23237.2      1.77     415.3     313.7                            139.9768      0.00  
+    0:00:40   23153.1      1.92     436.7     313.7                            139.3965      0.00  
+    0:00:40   23113.6      1.95     432.2     313.7                            139.1185      0.00  
 
   Beginning WLM Backend Optimization
   --------------------------------------
-    0:00:32   19864.1      0.49      77.2      71.4                            569.2889      0.00  
-    0:00:32   20136.2      0.25      50.9      72.1                            597.6512      0.00  
-    0:00:32   20136.2      0.25      50.9      72.1                            597.6512      0.00  
-    0:00:33   20589.6      0.25      43.5      53.2                            570.4488      0.00  
-    0:00:33   20589.6      0.25      43.5      53.2                            570.4488      0.00  
-    0:00:36   21644.2      0.22      42.6      53.2                            630.4194      0.00  
-    0:00:36   21644.2      0.22      42.6      53.2                            630.4194      0.00  
-    0:00:36   21903.4      0.15      20.8      53.2                            655.0551      0.00  
-    0:00:36   21903.4      0.15      20.8      53.2                            655.0551      0.00  
-    0:00:39   22974.2      0.15      20.4      53.2                            716.6522      0.00  
-    0:00:39   22974.2      0.15      20.4      53.2                            716.6522      0.00  
-    0:00:46   25197.7      0.04       6.0      53.2                            870.4731      0.00  
-    0:00:46   25197.7      0.04       6.0      53.2                            870.4731      0.00  
-    0:00:49   26473.7      0.05       6.1      53.2                            956.2040      0.00  
-    0:00:49   26473.7      0.05       6.1      53.2                            956.2040      0.00  
-    0:00:53   27294.5      0.02       1.1      53.2                           1016.2725      0.00  
-    0:00:53   27294.5      0.02       1.1      53.2                           1016.2725      0.00  
-    0:00:53   27294.5      0.02       1.1      53.2                           1016.2725      0.00  
-    0:00:53   27294.5      0.02       1.1      53.2                           1016.2725      0.00  
-    0:00:53   27294.5      0.02       1.1      53.2                           1016.2725      0.00  
-    0:00:53   27294.5      0.02       1.1      53.2                           1016.2725      0.00  
-    0:00:53   27294.5      0.02       1.1      53.2                           1016.2725      0.00  
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:00:46   22691.6      1.91     431.3     240.1                            135.9211      0.00  
+    0:00:46   22691.6      1.91     431.3     240.1                            135.9211      0.00  
+    0:00:46   22691.6      1.91     431.3     240.1                            135.9211      0.00  
+    0:00:46   23053.8      1.78     423.5     240.1                            155.2122      0.00  
+    0:00:47   23053.8      1.78     423.5     240.1                            155.2122      0.00  
+    0:00:47   23053.8      1.78     423.5     240.1                            155.2122      0.00  
+    0:00:47   23053.8      1.78     423.5     240.1                            155.2122      0.00  
+    0:00:48   23180.1      1.67     418.5     240.1                            174.5539      0.00  
+    0:00:50   23180.1      1.67     418.5     240.1                            174.5539      0.00  
+    0:00:52   23415.1      0.97     290.5     294.3                            429.2899      0.00  
+    0:00:54   23809.7      0.64     185.8     157.5                            596.4275      0.00  
+    0:00:56   24232.4      0.45     113.8     122.6                            718.5312      0.00  
+    0:00:57   24461.7      0.45      75.4     122.6                            759.6711      0.00  
+    0:00:57   24461.7      0.45      75.4     122.6                            759.6711      0.00  
+    0:00:58   23589.2      0.45      43.1     115.0                            794.8441      0.00  
+    0:00:58   23589.2      0.45      43.1     115.0                            794.8441      0.00  
+    0:01:01   24795.4      0.38      43.8     117.3                            880.6943      0.00  
+    0:01:01   24795.4      0.38      43.8     117.3                            880.6943      0.00  
+    0:01:02   24968.4      0.28      40.3     118.3                            907.2559      0.00  
+    0:01:02   24968.4      0.28      40.3     118.3                            907.2559      0.00  
+    0:01:06   26226.2      0.26      39.8     118.3                            991.0441      0.00  
+    0:01:06   26226.2      0.26      39.8     118.3                            991.0441      0.00  
+    0:01:16   29004.3      0.03       1.9     193.9                           1193.5062      0.00  
+    0:01:16   29004.3      0.03       1.9     193.9                           1193.5062      0.00  
+    0:01:27   30309.8      0.02       0.6     187.5                           1262.7670      0.00  
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:01:27   30309.8      0.02       0.6     187.5                           1262.7670      0.00  
+    0:01:28   30425.2      0.00       0.0     188.5                           1273.8442      0.00  
+    0:01:28   30425.2      0.00       0.0     188.5                           1273.8442      0.00  
+    0:01:28   30425.2      0.00       0.0     188.5                           1273.8442      0.00  
+    0:01:28   30425.2      0.00       0.0     188.5                           1273.8442      0.00  
+    0:01:28   30425.2      0.00       0.0     188.5                           1273.8442      0.00  
+    0:01:28   30425.2      0.00       0.0     188.5                           1273.8442      0.00  
+    0:01:28   30425.2      0.00       0.0     188.5                           1273.8442      0.00  
 
 
-  Beginning Design Rule Fixing  (max_transition)  (max_fanout)  (max_capacitance)
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
   ----------------------------
 
                                   TOTAL                                                            
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
   --------- --------- --------- --------- --------- ------------------------- --------- -----------
-    0:00:53   27294.5      0.02       1.1      53.2                           1016.2725      0.00  
+    0:01:28   30425.2      0.00       0.0     188.5                           1273.8442      0.00  
   Global Optimization (Phase 32)
   Global Optimization (Phase 33)
   Global Optimization (Phase 34)
-    0:00:54   27409.5      0.02       1.0       0.0 u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_0_reg[48]/D 1024.0112      0.00  
-    0:00:54   27431.5      0.02       1.0       0.0                           1025.6970      0.00  
-    0:00:55   27986.4      0.01       0.9       0.0                           1059.3774      0.00  
+    0:01:29   30425.4      0.00       0.0       0.0                           1273.9359      0.00  
+    0:01:29   30425.4      0.00       0.0       0.0                           1273.9359      0.00  
 
 
   Beginning Leakage Power Optimization  (max_leakage_power 0)
@@ -562,7 +529,7 @@ Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
   --------- --------- --------- --------- --------- ------------------------- --------- -----------
-    0:00:55   27986.4      0.01       0.9       0.0                           1059.3774      0.00  
+    0:01:29   30425.4      0.00       0.0       0.0                           1273.9359      0.00  
   Global Optimization (Phase 35)
   Global Optimization (Phase 36)
   Global Optimization (Phase 37)
@@ -578,56 +545,56 @@ Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL
   Global Optimization (Phase 47)
   Global Optimization (Phase 48)
   Global Optimization (Phase 49)
-    0:00:58   26840.9      0.18      55.3       0.0                            912.3283      0.00  
-    0:01:02   28211.7      0.14      33.5      20.1                            996.3971      0.00  
-    0:01:02   28211.7      0.14      33.5      20.1                            996.3971      0.00  
-    0:01:03   27372.5      0.14      24.8       0.0                            959.9405      0.00  
-    0:01:03   27372.5      0.14      24.8       0.0                            959.9405      0.00  
-    0:01:07   28747.4      0.12      19.5       0.0                           1042.9998      0.00  
-    0:01:07   28747.4      0.12      19.5       0.0                           1042.9998      0.00  
-    0:01:08   29308.7      0.04       3.2       0.0                           1089.1940      0.00  
-    0:01:08   29308.7      0.04       3.2       0.0                           1089.1940      0.00  
-    0:01:12   30800.8      0.04       2.0       0.0                           1175.3401      0.00  
-    0:01:12   30800.8      0.04       2.0       0.0                           1175.3401      0.00  
-    0:01:13   31257.1      0.00       0.0       0.0                           1212.1729      0.00  
-    0:01:13   31257.1      0.00       0.0       0.0                           1212.1729      0.00  
-    0:01:13   31257.1      0.00       0.0       0.0                           1212.1729      0.00  
-    0:01:13   31257.1      0.00       0.0       0.0                           1212.1729      0.00  
-    0:01:13   31257.1      0.00       0.0       0.0                           1212.1729      0.00  
-    0:01:13   31257.1      0.00       0.0       0.0                           1212.1729      0.00  
-    0:01:13   31257.1      0.00       0.0       0.0                           1212.1729      0.00  
-    0:01:13   31257.1      0.00       0.0       0.0                           1212.1729      0.00  
-    0:01:13   31257.1      0.00       0.0       0.0                           1212.1729      0.00  
-    0:01:13   31257.1      0.00       0.0       0.0                           1212.1729      0.00  
-    0:01:13   31257.1      0.00       0.0       0.0                           1212.1729      0.00  
+    0:01:32   28780.9      0.06       8.8       0.0                           1140.3877      0.00  
+    0:01:39   30223.1      0.03       1.7       0.0                           1220.1613      0.00  
+    0:01:39   30223.1      0.03       1.7       0.0                           1220.1613      0.00  
+    0:01:40   28518.3      0.03       0.6       0.0                           1100.4089      0.00  
+    0:01:40   28518.3      0.03       0.6       0.0                           1100.4089      0.00  
+    0:01:50   29826.0      0.02       0.7       0.0                           1175.1572      0.00  
+    0:01:50   29826.0      0.02       0.7       0.0                           1175.1572      0.00  
+    0:01:50   29946.0      0.02       0.3       0.0                           1182.8499      0.00  
+    0:01:50   29946.0      0.02       0.3       0.0                           1182.8499      0.00  
+    0:01:54   30228.6      0.01       0.1       0.0                           1197.0140      0.00  
+    0:01:54   30228.6      0.01       0.1       0.0                           1197.0140      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
 
                                   TOTAL                                                            
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
   --------- --------- --------- --------- --------- ------------------------- --------- -----------
-    0:01:13   31256.4      0.00       0.0       0.0                           1212.1718      0.00  
-    0:01:25   27008.9      0.00       0.0       0.0                            980.9418      0.00  
-    0:01:26   27013.2      0.00       0.0       0.0                            981.1877      0.00  
-    0:01:26   27013.2      0.00       0.0       0.0                            981.1877      0.00  
-    0:01:27   26439.4      0.00       0.0       0.0                            900.5685      0.00  
+    0:01:55   30298.4      0.00       0.0       0.0                           1203.2749      0.00  
+    0:02:01   26336.2      0.01       0.0       0.0                           1044.7220      0.00  
+    0:02:01   26346.9      0.00       0.0       0.0                           1045.4080      0.00  
+    0:02:01   26346.9      0.00       0.0       0.0                           1045.4080      0.00  
+    0:02:02   25781.9      0.00       0.0       0.0                            980.7552      0.00  
 
   Beginning Delay Optimization HSVT Pass
   --------------------------------------
-    0:01:27   26439.4      0.00       0.0       0.0                            900.5685      0.00  
-    0:01:27   26439.4      0.00       0.0       0.0                            900.5685      0.00  
-    0:01:27   26439.4      0.00       0.0       0.0                            900.5685      0.00  
-    0:01:27   26439.4      0.00       0.0       0.0                            900.5685      0.00  
-    0:01:29   26439.4      0.00       0.0       0.0                            900.5685      0.00  
-    0:01:29   26439.4      0.00       0.0       0.0                            900.5685      0.00  
-    0:01:29   26439.4      0.00       0.0       0.0                            900.5685      0.00  
-    0:01:29   26439.4      0.00       0.0       0.0                            900.5685      0.00  
-    0:01:32   26486.2      0.00       0.0       0.0                            895.3888      0.00  
-    0:01:32   26486.2      0.00       0.0       0.0                            895.3888      0.00  
-    0:01:32   26486.2      0.00       0.0       0.0                            895.3888      0.00  
-    0:01:32   26486.2      0.00       0.0       0.0                            895.3888      0.00  
-    0:01:32   26486.2      0.00       0.0       0.0                            895.3889      0.00  
-    0:01:32   26486.2      0.00       0.0       0.0                            895.3889      0.00  
-    0:01:33   25171.4      0.00       0.0       0.0                            835.9232      0.00  
+    0:02:03   25781.9      0.00       0.0       0.0                            980.7552      0.00  
+    0:02:03   25781.9      0.00       0.0       0.0                            980.7552      0.00  
+    0:02:03   25781.9      0.00       0.0       0.0                            980.7552      0.00  
+    0:02:04   25781.9      0.00       0.0       0.0                            980.7552      0.00  
+    0:02:05   25781.9      0.00       0.0       0.0                            980.7552      0.00  
+    0:02:06   25781.9      0.00       0.0       0.0                            980.7552      0.00  
+    0:02:06   25781.9      0.00       0.0       0.0                            980.7552      0.00  
+    0:02:06   25782.2      0.00       0.0       0.0                            980.5945      0.00  
+    0:02:08   25791.2      0.00       0.0       0.0                            972.4743      0.00  
+    0:02:08   25791.2      0.00       0.0       0.0                            972.4743      0.00  
+    0:02:08   25791.2      0.00       0.0       0.0                            972.4743      0.00  
+    0:02:08   25791.2      0.00       0.0       0.0                            972.4743      0.00  
+    0:02:09   25791.2      0.00       0.0       0.0                            972.4743      0.00  
+    0:02:09   25791.2      0.00       0.0       0.0                            972.4743      0.00  
+    0:02:11   24594.2      0.00       0.0       0.0                            907.5275      0.00  
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
@@ -701,32 +668,32 @@ report_area
 Report : area
 Design : KEYGEN
 Version: T-2022.03
-Date   : Thu Oct  9 16:42:41 2025
+Date   : Thu Oct  9 22:40:30 2025
 ****************************************
 
 Library(s) Used:
 
-    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
 
 Number of ports:                          184
-Number of nets:                         12358
-Number of cells:                        11477
-Number of combinational cells:          10617
-Number of sequential cells:               860
+Number of nets:                         12191
+Number of cells:                        11240
+Number of combinational cells:          10792
+Number of sequential cells:               448
 Number of macros/black boxes:               0
-Number of buf/inv:                       1807
-Number of references:                     488
+Number of buf/inv:                       1919
+Number of references:                     536
 
-Combinational area:              21189.697011
-Buf/Inv area:                     1919.635198
-Noncombinational area:            3981.700643
+Combinational area:              22548.455850
+Buf/Inv area:                     2180.681998
+Noncombinational area:            2045.735905
 Macro/Black Box area:                0.000000
 Net Interconnect area:               0.000000
 
-Total cell area:                 25171.397654
-Total area:                      25171.397654
+Total cell area:                 24594.191755
+Total area:                      24594.191755
 1
 report_timing 
  
@@ -737,15 +704,15 @@ Report : timing
         -max_paths 1
 Design : KEYGEN
 Version: T-2022.03
-Date   : Thu Oct  9 16:42:41 2025
+Date   : Thu Oct  9 22:40:30 2025
 ****************************************
 
 Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
 Wire Load Model Mode: top
 
-  Startpoint: u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_a_b_p0i_reg_23_
+  Startpoint: u_MODP_MKGM2_state_reg_1_
               (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_49_
+  Endpoint: u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_a_b_p0i_reg_reg_29_
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
@@ -758,44 +725,64 @@ Wire Load Model Mode: top
   --------------------------------------------------------------------------
   clock clk (rise edge)                                   0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_a_b_p0i_reg_23_/CK (DFFRPQ_X4M_A9TL)
-                                                          0.00       0.00 r
-  u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_a_b_p0i_reg_23_/Q (DFFRPQ_X4M_A9TL)
-                                                          0.15       0.15 r
-  U8469/Y (BUFH_X7P5M_A9TL)                               0.03       0.18 r
-  U10555/Y (XOR2_X4M_A9TL)                                0.03       0.21 r
-  U10710/Y (AND2_X11B_A9TL)                               0.05       0.25 r
-  U10180/Y (INV_X16M_A9TL)                                0.02       0.27 f
-  U9649/Y (OAI22_X3M_A9TL)                                0.04       0.31 r
-  U6181/Y (XOR2_X2M_A9TL)                                 0.07       0.38 r
-  U5339/Y (XNOR2_X3M_A9TL)                                0.06       0.44 r
-  U2432/CO (ADDF_X1M_A9TL)                                0.09       0.53 r
-  U10991/CO (ADDF_X2M_A9TL)                               0.09       0.62 r
-  U9317/CO (CGEN_X2M_A9TL)                                0.06       0.69 r
-  U10786/S (ADDF_X2M_A9TL)                                0.12       0.81 f
-  U8623/Y (NOR2_X6A_A9TL)                                 0.04       0.85 r
-  U8468/Y (OR4_X8M_A9TL)                                  0.04       0.89 r
-  U9326/Y (OAI21_X6M_A9TL)                                0.03       0.92 f
-  U9235/Y (NAND2B_X8M_A9TL)                               0.05       0.97 f
-  U8467/Y (NAND2_X3M_A9TL)                                0.03       0.99 r
-  U8466/Y (NAND2_X4M_A9TL)                                0.02       1.02 f
-  U1774/Y (INV_X2M_A9TR)                                  0.03       1.04 r
-  U9054/Y (OAI21_X6M_A9TL)                                0.03       1.07 f
-  U7881/Y (XOR2_X3M_A9TL)                                 0.02       1.09 r
-  u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_49_/D (DFFRPQ_X2M_A9TL)
-                                                          0.00       1.09 r
-  data arrival time                                                  1.09
+  u_MODP_MKGM2_state_reg_1_/CK (DFFRPQ_X4M_A9TL)          0.00       0.00 r
+  u_MODP_MKGM2_state_reg_1_/Q (DFFRPQ_X4M_A9TL)           0.15       0.15 r
+  U11164/Y (NAND2_X8M_A9TL)                               0.02       0.18 f
+  U10868/Y (NOR2_X8A_A9TL)                                0.03       0.21 r
+  U11044/Y (NOR2_X8A_A9TL)                                0.02       0.23 f
+  U10898/Y (NOR2_X8A_A9TL)                                0.02       0.25 r
+  U11088/Y (NAND3BB_X8M_A9TL)                             0.06       0.32 r
+  U11031/Y (NAND2B_X6M_A9TL)                              0.05       0.36 r
+  U8356/Y (NAND2_X4M_A9TL)                                0.02       0.38 f
+  U3418/Y (INV_X4M_A9TL)                                  0.02       0.40 r
+  U8530/Y (NAND3_X6M_A9TL)                                0.03       0.43 f
+  U8529/Y (AND2_X6B_A9TL)                                 0.04       0.47 f
+  U8390/Y (NAND2_X6M_A9TL)                                0.02       0.49 r
+  U10466/Y (NAND2_X8M_A9TL)                               0.02       0.51 f
+  U8617/Y (INV_X16M_A9TL)                                 0.02       0.54 r
+  U8833/Y (OAI22_X8M_A9TL)                                0.03       0.57 f
+  U8985/Y (XOR2_X4M_A9TL)                                 0.04       0.61 f
+  U11059/Y (XOR2_X4M_A9TL)                                0.04       0.65 f
+  U9118/Y (XNOR2_X4M_A9TL)                                0.04       0.69 f
+  U6437/Y (INV_X7P5M_A9TL)                                0.03       0.73 r
+  U3074/Y (BUFH_X6M_A9TL)                                 0.04       0.76 r
+  U7616/Y (XOR2_X3M_A9TL)                                 0.04       0.80 r
+  U11169/Y (OAI22_X3M_A9TL)                               0.05       0.85 f
+  U3769/Y (INV_X2P5M_A9TL)                                0.03       0.88 r
+  U9692/Y (NAND2_X1A_A9TL)                                0.03       0.92 f
+  U6284/Y (NAND2_X2M_A9TL)                                0.03       0.95 r
+  U2421/Y (NAND2_X3M_A9TL)                                0.03       0.98 f
+  U7475/Y (XNOR2_X3M_A9TL)                                0.04       1.01 f
+  U8445/Y (XNOR2_X3M_A9TL)                                0.04       1.05 f
+  U11028/S (ADDF_X2M_A9TL)                                0.12       1.17 r
+  U2138/Y (INV_X3P5B_A9TL)                                0.03       1.19 f
+  U9410/Y (AO21A1AI2_X6M_A9TL)                            0.04       1.23 r
+  U8576/Y (XOR2_X4M_A9TL)                                 0.04       1.27 r
+  U8575/Y (XOR2_X4M_A9TL)                                 0.04       1.31 r
+  U8574/Y (XOR2_X4M_A9TL)                                 0.04       1.35 r
+  U8749/Y (XNOR2_X4M_A9TL)                                0.05       1.40 r
+  U8905/Y (INV_X1P7B_A9TL)                                0.04       1.44 f
+  U6078/Y (NAND2_X2M_A9TL)                                0.03       1.47 r
+  U8904/Y (NAND2_X4M_A9TL)                                0.03       1.49 f
+  U8903/Y (XOR2_X4M_A9TL)                                 0.05       1.54 f
+  U9228/Y (XOR2_X4M_A9TL)                                 0.04       1.58 f
+  U8410/Y (OR2_X6M_A9TL)                                  0.04       1.62 f
+  U8424/Y (NAND2_X4M_A9TL)                                0.02       1.64 r
+  U8423/Y (XOR2_X2M_A9TL)                                 0.05       1.69 r
+  u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_a_b_p0i_reg_reg_29_/D (DFFRPQ_X2M_A9TL)
+                                                          0.00       1.69 r
+  data arrival time                                                  1.69
 
-  clock clk (rise edge)                                   1.20       1.20
-  clock network delay (ideal)                             0.00       1.20
-  clock uncertainty                                      -0.10       1.10
-  u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_49_/CK (DFFRPQ_X2M_A9TL)
-                                                          0.00       1.10 r
-  library setup time                                     -0.01       1.09
-  data required time                                                 1.09
+  clock clk (rise edge)                                   1.80       1.80
+  clock network delay (ideal)                             0.00       1.80
+  clock uncertainty                                      -0.10       1.70
+  u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_a_b_p0i_reg_reg_29_/CK (DFFRPQ_X2M_A9TL)
+                                                          0.00       1.70 r
+  library setup time                                     -0.01       1.69
+  data required time                                                 1.69
   --------------------------------------------------------------------------
-  data required time                                                 1.09
-  data arrival time                                                 -1.09
+  data required time                                                 1.69
+  data arrival time                                                 -1.69
   --------------------------------------------------------------------------
   slack (MET)                                                        0.00
 
@@ -803,10 +790,10 @@ Wire Load Model Mode: top
 1
 exit
 
-Memory usage for this session 849 Mbytes.
-Memory usage for this session including child processes 1073 Mbytes.
-CPU usage for this session 220 seconds ( 0.06 hours ).
-Elapsed time for this session 104 seconds ( 0.03 hours ).
+Memory usage for this session 852 Mbytes.
+Memory usage for this session including child processes 1064 Mbytes.
+CPU usage for this session 333 seconds ( 0.09 hours ).
+Elapsed time for this session 141 seconds ( 0.04 hours ).
 
 Thank you...
 

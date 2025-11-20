@@ -1,0 +1,63 @@
+ 
+****************************************
+check_design summary:
+Version:     T-2022.03
+Date:        Thu Oct 23 10:58:37 2025
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Nets                                                               49
+    Unloaded nets (LINT-2)                                         49
+--------------------------------------------------------------------------------
+
+Warning: In design 'MODP_MONTYMUL', net 'net60' driven by pin 'add_68/Z_0' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net59' driven by pin 'add_68/Z_1' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net58' driven by pin 'add_68/Z_2' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net57' driven by pin 'add_68/Z_3' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net56' driven by pin 'add_68/Z_4' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net55' driven by pin 'add_68/Z_5' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net54' driven by pin 'add_68/Z_6' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net53' driven by pin 'add_68/Z_7' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net52' driven by pin 'add_68/Z_8' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net51' driven by pin 'add_68/Z_9' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net50' driven by pin 'add_68/Z_10' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net49' driven by pin 'add_68/Z_11' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net48' driven by pin 'add_68/Z_12' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net47' driven by pin 'add_68/Z_13' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net46' driven by pin 'add_68/Z_14' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net45' driven by pin 'add_68/Z_15' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net44' driven by pin 'add_69/Z_0' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net43' driven by pin 'add_69/Z_1' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net42' driven by pin 'add_69/Z_2' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net41' driven by pin 'add_69/Z_3' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net40' driven by pin 'add_69/Z_4' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net39' driven by pin 'add_69/Z_5' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net38' driven by pin 'add_69/Z_6' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net37' driven by pin 'add_69/Z_7' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net36' driven by pin 'add_69/Z_8' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net35' driven by pin 'add_69/Z_9' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net34' driven by pin 'add_69/Z_10' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net33' driven by pin 'add_69/Z_11' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net32' driven by pin 'add_69/Z_12' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net31' driven by pin 'add_69/Z_13' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net30' driven by pin 'add_69/Z_14' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net29' driven by pin 'add_69/Z_15' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net28' driven by pin 'add_69/Z_16' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net27' driven by pin 'add_69/Z_17' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net26' driven by pin 'add_69/Z_18' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net25' driven by pin 'add_69/Z_19' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net24' driven by pin 'add_69/Z_20' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net23' driven by pin 'add_69/Z_21' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net22' driven by pin 'add_69/Z_22' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net21' driven by pin 'add_69/Z_23' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net20' driven by pin 'add_69/Z_24' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net19' driven by pin 'add_69/Z_25' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net18' driven by pin 'add_69/Z_26' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net17' driven by pin 'add_69/Z_27' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net16' driven by pin 'add_69/Z_28' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net15' driven by pin 'add_69/Z_29' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net14' driven by pin 'add_69/Z_30' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net13' driven by pin 'C171/Z' has no loads. (LINT-2)
+Warning: In design 'MODP_MONTYMUL', net 'net12' driven by pin 'C167/Z' has no loads. (LINT-2)
+1
