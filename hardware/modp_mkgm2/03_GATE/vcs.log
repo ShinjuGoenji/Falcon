@@ -5630,3 +5630,95 @@ Time: 673060800 ps
 CPU Time:    184.390 seconds;       Data structure size:   4.1Mb
 Thu Oct  9 17:28:47 2025
 CPU time: 13.532 seconds to compile + .412 seconds to elab + .647 seconds to link + 184.422 seconds in simulation
+8: Timing violation in TESTBED.u_KEYGEN.u_MODP_MKGM2_ig_reg_reg_0_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59870: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_0_
+    $width( negedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59868: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_0_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59870: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_2_
+    $width( negedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59868: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_2_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59870: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_4_
+    $width( negedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59868: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_4_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59870: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_5_
+    $width( negedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59868: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_5_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59870: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_6_
+    $width( negedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59868: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_6_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59870: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_7_
+    $width( negedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59868: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_7_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):93000,  : 93600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59870: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_w_p_reg_9_
+    $width( negedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):93000,  : 93600, Received SIGHUP (signal 1), exiting.
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 93600 ps
+CPU Time:      1.170 seconds;       Data structure size:   4.4Mb
+Thu Oct  9 17:50:43 2025
+_x2_reg_13_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R_AND_SN == 1'b1):158400,  : 159000, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_rvt_neg.v", 60668: Timing violation in TESTBED.u_KEYGEN.u_MODP_MKGM2_x2_reg_13_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R_AND_SN == 1'b1):158400,  : 159000, limit: 1000 );
+
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 60670: Timing violation in TESTBED.u_KEYGEN.u_MODP_MKGM2_ig_reg_reg_10_
+    $width( posedge CK &&& (ENABLE_D_AND_NOT_R_AND_SN == 1'b1):158400,  : 159000, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 60668: Timing violation in TESTBED.u_KEYGEN.u_MODP_MKGM2_ig_reg_reg_10_
+    $width( posedge CK &&& (ENABLE_NOT_D_AND_NOT_R_AND_SN == 1'b1):158400,  : 159000, limit: 1000 );
+
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_lvt_neg.v", 60233: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_a_b_0_reg_0_
+    $width( negedge CK &&& (ENABLE_D_AND_SN == 1'b1):159000,  : 159600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_lvt_neg.v", 60231: Timing violation in TESTBED.u_KEYGEN.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_a_b_0_reg_0_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_SN == 1'b1):159000,  : 159600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59931: Timing violation in TESTBED.u_KEYGEN.u_MODP_R2_TOP_genblk1_0__u_MODP_R2_p_reg_reg_2_
+    $width( negedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):159000,  : 159600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59929: Timing violation in TESTBED.u_KEYGEN.u_MODP_R2_TOP_genblk1_0__u_MODP_R2_p_reg_reg_2_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):159000,  : 159600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59931: Timing violation in TESTBED.u_KEYGEN.u_MODP_R2_TOP_genblk1_0__u_MODP_R2_p_reg_reg_6_
+    $width( negedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):159000,  : 159600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59929: Timing violation in TESTBED.u_KEYGEN.u_MODP_R2_TOP_genblk1_0__u_MODP_R2_p_reg_reg_6_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):159000,  : 159600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59931: Timing violation in TESTBED.u_KEYGEN.u_MODP_R2_TOP_genblk1_0__u_MODP_R2_p_reg_reg_7_
+    $width( negedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):159000,  : 159600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59929: Timing violation in TESTBED.u_KEYGEN.u_MODP_R2_TOP_genblk1_0__u_MODP_R2_p_reg_reg_7_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):159000,  : 159600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59931: Timing violation in TESTBED.u_KEYGEN.u_MODP_R2_TOP_genblk1_0__u_MODP_R2_p_reg_reg_8_
+    $width( negedge CK &&& (ENABLE_D_AND_NOT_R == 1'b1):159000,  : 159600, limit: 1000 );
+
+"/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v", 59929: Timing violation in TESTBED.u_KEYGEN.u_MODP_R2_TOP_genblk1_0__u_MODP_R2_p_reg_reg_8_
+    $width( negedge CK &&& (ENABLE_NOT_D_AND_NOT_R == 1'b1):159000,  : 159600, Received SIGHUP (signal 1), exiting.
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 159600 ps
+CPU Time:      2.940 seconds;       Data structure size:   4.4Mb
+Thu Oct  9 17:50:44 2025

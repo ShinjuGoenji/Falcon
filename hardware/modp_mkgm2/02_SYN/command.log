@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version T-2022.03 for linux64 -- Feb 22, 2022
-#@ # Date:   Thu Oct  9 16:40:58 2025
+#@ # Date:   Thu Oct  9 22:38:11 2025
 #@ # Run by: daniel_kuo@eda_root
 #@ 
 
@@ -8628,7 +8628,7 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/modp_mkgm2/02_SYN/syn.tcl
 #@ # (A) Global Parameters
 #@ #======================================================
 #@ set DESIGN "KEYGEN"
-#@ set CYCLE 1.2
+#@ set CYCLE 1.8
 #@ set INPUT_DLY [expr 0*$CYCLE]
 #@ set OUTPUT_DLY [expr 0*$CYCLE]
 #@ 
