@@ -3,7 +3,7 @@
 ######################################
 # Set your desired file names
 ######################################
-top_design=MODP_MKGM2
+top_design=MAKE_FG
 define=FALCON512
 source_file="filelist.f"	# Name of your source file
 output_file="simv"      	# Desired output simulation file name
