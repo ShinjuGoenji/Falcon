@@ -41,8 +41,8 @@ input                     in_valid;
 input       [Q_WIDTH-1:0] x_i;
 input       [Q_WIDTH-1:0] y_i;
 
-output reg                out_valid;
-output reg  [Q_WIDTH-1:0] z_o;
+output                out_valid;
+output  [Q_WIDTH-1:0] z_o;
 
 //---------------------------------------------------------------------
 //   Reg & Wire
@@ -91,28 +91,53 @@ endgenerate
 //---------------------------------------------------------------------
 //   Combinational Logic
 //--------------------------------------------------------------------
-assign mult_in_valid[0] = in_valid_reg;
-assign mult_x[0] = y_i_reg;
-assign mult_y[0] = R2;
-assign mult_y[1] = y[0];
-assign mult_y[2] = y0_pipe_reg[1];
-assign mult_y[3] = y1_pipe_reg[Y1_PIPE_NUM-1];
-assign mult_y[4] = y[3];
-assign mult_y[5] = y[4];
-assign mult_y[6] = y[5];
-assign mult_y[7] = y[6];
-assign mult_y[8] = y[7];
-assign mult_y[9] = y2_pipe_reg[Y2_PIPE_NUM-1];
-assign mult_y[10] = y8_pipe_reg[Y8_PIPE_NUM-1];
-assign mult_y[11] = y[10];
-assign mult_y[12] = y[11];
-assign mult_y[13] = y9_pipe_reg[Y9_PIPE_NUM-1];
-assign mult_y[14] = y[13];
-assign mult_y[15] = y[14];
-assign mult_y[16] = y10_pipe_reg[Y10_PIPE_NUM-1];
-assign mult_y[17] = y[16];
-assign mult_y[18] = y0_pipe_reg[Y0_PIPE_NUM-1];
-assign mult_y[19] = x_pipe_reg[X_PIPE_NUM-1];
+// assign mult_in_valid[0] = in_valid_reg;
+// assign mult_x[0] = y_i_reg;
+// assign mult_y[0] = R2;
+// assign mult_y[1] = y[0];
+// assign mult_y[2] = y0_pipe_reg[1];
+// assign mult_y[3] = y1_pipe_reg[Y1_PIPE_NUM-1];
+// assign mult_y[4] = y[3];
+// assign mult_y[5] = y[4];
+// assign mult_y[6] = y[5];
+// assign mult_y[7] = y[6];
+// assign mult_y[8] = y[7];
+// assign mult_y[9] = y2_pipe_reg[Y2_PIPE_NUM-1];
+// assign mult_y[10] = y8_pipe_reg[Y8_PIPE_NUM-1];
+// assign mult_y[11] = y[10];
+// assign mult_y[12] = y[11];
+// assign mult_y[13] = y9_pipe_reg[Y9_PIPE_NUM-1];
+// assign mult_y[14] = y[13];
+// assign mult_y[15] = y[14];
+// assign mult_y[16] = y10_pipe_reg[Y10_PIPE_NUM-1];
+// assign mult_y[17] = y[16];
+// assign mult_y[18] = y0_pipe_reg[Y0_PIPE_NUM-1];
+// assign mult_y[19] = x_pipe_reg[X_PIPE_NUM-1];
+
+always @(*) begin
+    mult_in_valid[0] = in_valid_reg;
+    mult_x[0] = y_i_reg;
+    mult_y[0] = R2;
+    mult_y[1] = y[0];
+    mult_y[2] = y0_pipe_reg[1];
+    mult_y[3] = y1_pipe_reg[Y1_PIPE_NUM-1];
+    mult_y[4] = y[3];
+    mult_y[5] = y[4];
+    mult_y[6] = y[5];
+    mult_y[7] = y[6];
+    mult_y[8] = y[7];
+    mult_y[9] = y2_pipe_reg[Y2_PIPE_NUM-1];
+    mult_y[10] = y8_pipe_reg[Y8_PIPE_NUM-1];
+    mult_y[11] = y[10];
+    mult_y[12] = y[11];
+    mult_y[13] = y9_pipe_reg[Y9_PIPE_NUM-1];
+    mult_y[14] = y[13];
+    mult_y[15] = y[14];
+    mult_y[16] = y10_pipe_reg[Y10_PIPE_NUM-1];
+    mult_y[17] = y[16];
+    mult_y[18] = y0_pipe_reg[Y0_PIPE_NUM-1];
+    mult_y[19] = x_pipe_reg[X_PIPE_NUM-1];
+end
 
 genvar mq_montymul_idx;
 generate

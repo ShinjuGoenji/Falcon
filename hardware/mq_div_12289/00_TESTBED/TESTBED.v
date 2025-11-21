@@ -1,5 +1,5 @@
 `timescale 1ns/10ps
-`include "PATTERN.v"
+`include "../00_TESTBED/PATTERN.v"
 
 `ifdef RTL
     `include "MQ_DIV_12289.v"
@@ -27,8 +27,10 @@ wire [Q_WIDTH-1:0] z_o;
 //================================================================
 initial begin
   `ifdef RTL
-    $fsdbDumpfile("MQ_DIV_12289.fsdb");
-    $fsdbDumpvars(0,"+mda");
+    // $fsdbDumpfile("MQ_DIV_12289.fsdb");
+    // $fsdbDumpvars(0,"+mda");
+    $dumpfile("MQ_DIV_12289.vcd");
+    $dumpvars(0, TESTBED);
   `elsif GATE
     $sdf_annotate("MQ_DIV_12289_SYN.sdf",u_MQ_DIV_12289);
     // $fsdbDumpfile("MQ_DIV_12289_SYN.fsdb");

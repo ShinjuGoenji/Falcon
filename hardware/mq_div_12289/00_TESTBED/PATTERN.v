@@ -116,15 +116,17 @@ end endtask
 task input_task;
 	reg [Q_WIDTH-1:0] x_i_pat;
 	reg [Q_WIDTH-1:0] y_i_pat;
+	reg done;
 	begin
 	fscanf_int = $fscanf(file_in, "%d %d", x_i_pat, y_i_pat);
 	in_valid = 'b1;
 	x_i = x_i_pat;
 	y_i = y_i_pat;
-	for (i_stage = 0; i_stage < PIPLINE_STAGES; i_stage = i_stage + 1)
+	done = 0;
+	for (i_stage = 0; i_stage < PIPLINE_STAGES && !done; i_stage = i_stage + 1)
 		if (out_latency[i_stage] == -1) begin
 			out_latency[i_stage] = 0;
-			break;
+			done = 1;
 		end
 
 	@(negedge clk);		
@@ -153,9 +155,9 @@ task check_ans_task;
             $display("***********************************************************");     
             $display("                          FAIL!                          	 ");  
             $display("                      Golden answer                      	 ");
-            $display("              			  %d                    	     ", $bitstoreal(z_o_pat));
+            // $display("              			  %d                    	     ", $bitstoreal(z_o_pat));
             $display("                       Your answer                       	 ");
-            $display("              			  %d                    	     ", $bitstoreal(z_o));
+            // $display("              			  %d                    	     ", $bitstoreal(z_o));
             $display("***********************************************************");    
 			repeat(2) @(negedge clk);
 			$finish;
