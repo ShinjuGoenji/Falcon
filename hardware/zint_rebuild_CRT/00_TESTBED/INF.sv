@@ -1,23 +1,26 @@
-interface INF();
-parameter P_WIDTH = 31;
+interface TOP_INF();
 
-/*
-* MODP_MONTYMUL_TOP
-*/
-logic [1:0]           out_valid_modp_montymul;
-logic [P_WIDTH*2-1:0] d_modp_montymul;
-logic [1:0]           ready_modp_montymul;
+import  usertype::*;
 
-logic [1:0]           in_valid_modp_montymul;
-logic [P_WIDTH*2-1:0] a_modp_montymul;
-logic [P_WIDTH*2-1:0] b_modp_montymul;
-logic [P_WIDTH*2-1:0] p_modp_montymul;
-logic [P_WIDTH*2-1:0] p0i_modp_montymul;
-logic [1:0]           isMQ_modp_montymul;
+logic in_valid;
+logic len_valid;
+uint31_t f;
+uint31_t p;
+uint31_t p0i;
+uint31_t R2;
+logic [LOGN_WIDTH-1:0] logn;
+logic [LOGN_WIDTH-1:0] depth;
+logic out_valid;
+uint31_t out_data;
 
-modport MODP_MONTYMUL_MASTER_BUS(
-    input in_valid_modp_montymul, a_modp_montymul, b_modp_montymul, p_modp_montymul, p0i_modp_montymul, isMQ_modp_montymul,
-    output out_valid, d_modp_montymul, ready_modp_montymul
+modport PATTERN (
+    output in_valid, f, p, p0i, R2, len_valid, logn, depth,
+    input out_valid, out_data
+);
+
+modport MAKE_FG (
+    input in_valid, f, p, p0i, R2, len_valid, logn, depth,
+    output out_valid, out_data
 );
     
 endinterface
