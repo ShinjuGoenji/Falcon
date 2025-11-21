@@ -7,7 +7,7 @@
  *
  * We call 'q' the product of all previous primes.
  */
-module ZINT_REBUILD_CRT_INNER (
+module ZINT_REBUILD_CRT (
     // Main channel
     // Input signals
     clk,

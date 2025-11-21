@@ -16,7 +16,7 @@ Dynamic=`cat Report/${Design}.power | grep "Total Dynamic Power"`
 Leakage=`cat Report/${Design}.power | grep "Cell Leakage Power"`
 memory_area=`cat Report/${Design}.area | grep 'Macro/Black Box area'`
 memory_area=$(echo $memory_area | tr -dc '0-9')
-gate_count=$(echo "$Area/9.9792" | bc -l)
+gate_count=$(echo "$Area/0.6804" | bc -l)
 flag=0
 echo -e "${YELLOW}============================${NO_COLOR}"	
 if grep -i -q 'Latch' 'syn.log'; then
