@@ -2,49 +2,32 @@
 
 program automatic PATTERN (
     input clk,
-    input rst_n,
+    output rst_n,
     TOP_INF.PATTERN inf
 );
-
-// //---------------------------------------------------------------------
-// //   Parameter
-// //---------------------------------------------------------------------
-// localparam P_WIDTH = 31;
-// localparam LOGN_WIDTH = 4;
-// `ifdef FALCON1024
-//     localparam LUT_SIZE = 1024;
-//     localparam LUT_WIDTH = $clog2(LUT_SIZE);
-// `else
-//     localparam LUT_SIZE = 512;
-//     localparam LUT_WIDTH = $clog2(LUT_SIZE);
-// `endif
-
+import usertype::*;
 // //---------------------------------------------------------------------
 // //   Parameter & Integer
 // //---------------------------------------------------------------------
-// parameter INPUT_PATH  = "../00_TESTBED/input.txt";
-// parameter OUTPUT_GM_PATH = "../00_TESTBED/output_gm.txt";
-// parameter OUTPUT_IGM_PATH = "../00_TESTBED/output_igm.txt";
-// parameter PATNUM_PATH = "../00_TESTBED/PATNUM.txt";
-// integer file_in, file_out_gm, file_out_igm, file_num;
+parameter INPUT_PATH  = "../00_TESTBED/input.txt";
+parameter OUTPUT_PATH = "../00_TESTBED/output.txt";
+parameter PATNUM_PATH = "../00_TESTBED/PATNUM.txt";
+integer file_in, file_out, file_num;
 
-// parameter MAX_OUT_LATENCY = 2000;
-// integer total_latency, out_latency, pattern_latency;
+parameter MAX_OUT_LATENCY = 2000;
+integer total_latency, out_latency;
 
-// integer i_pat, i_gm, i_igm;
-// integer PAT_NUM;
+integer i_pat, i_in, i_out;
+integer PAT_NUM;
 
-// integer fscanf_int;
+integer fscanf_int;
 
-// integer mode_gold;
 // //---------------------------------------------------------------------
 // //   REG & WIRE DECLARATION
 // //---------------------------------------------------------------------
-// reg [LOGN_WIDTH-1:0] logn_gold;
-// reg [LUT_WIDTH-1:0]  v_gm_gold;
-// reg [P_WIDTH-1:0]    gm_gold;
-// reg [LUT_WIDTH-1:0]  v_igm_gold;
-// reg [P_WIDTH-1:0]    igm_gold;
+logic [LOGN_WIDTH-1:0] logn_gold;
+logic [XLEN_WIDTH-1:0] xlen_gold;
+uint31_t out_data_gold;
 
 //---------------------------------------------------------------------
 //  Simulation
@@ -59,30 +42,12 @@ initial begin
 	total_latency = 0;
 	repeat(4) @(posedge clk);
 	for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1)begin
-        // mode_gold = $urandom_range(0, 2);
-        mode_gold = 0;
-
         input_task;
-        i_gm = 0;
-        i_igm = 0;
-        while (1) begin
+        for (i_out=0; i_out<(logn_gold*xlen_gold); i_out=i_out + 1) begin
             wait_out_task;
             check_ans_task;
-	        @(posedge clk);		
-            if (mode_gold == 0 && i_gm == 1 << logn_gold && i_igm == 1 << logn_gold)
-                break;
-            if (mode_gold == 1 && i_gm == 1 << logn_gold)
-                break;
-            if (mode_gold == 2 && i_igm == 1 << logn_gold)
-                break;
         end
 		$display("PASS PATTERN NO.%4d", i_pat+1);
-        in_valid = 'b0;
-        logn = 'bx;
-        g = 'bx;
-        p = 'bx;
-        p0i = 'bx;
-        mode = 'bx;
 		repeat($urandom_range(0, 4)) @(posedge clk);
 	end
 	YOU_PASS_task;
@@ -93,166 +58,99 @@ end
 // //---------------------------------------------------------------------
 task reset_task; begin 
     rst_n = 'b1;
-    in_valid = 'b0;
-    logn = 'bx;
-    g = 'bx;
-    p = 'bx;
-    p0i = 'bx;
-    mode = 'bx;
+    inf.in_valid = 'b0;
+    inf.f = 'bx;
+    // inf.p = 'bx;
+    // inf.p0i = 'bx;
+    // inf.R2 = 'bx;
+    inf.len_valid = 'b0;
+    inf.logn = 'bx;
+    inf.xlen = 'bx;
 	
     force clk = 0;
-    #CYCLE; rst_n = 0; 
-    #(CYCLE * 5); rst_n = 1;
-    // if(out_valid_gm !== 'b0) begin 
-    //     $display("************************************************************");  
-    //     $display("                          FAIL!                             ");    
-    //     $display("  'out_valid_gm' should be 0 after initial RESET  at %8t   	  ",$time);
-    //     $display("************************************************************");
-    //     repeat(2) #CYCLE;
-    //     $finish;
-    // end
-    // if(out_valid_igm !== 'b0) begin 
-    //     $display("************************************************************");  
-    //     $display("                          FAIL!                             ");    
-    //     $display("  'out_valid_igm' should be 0 after initial RESET  at %8t   ",$time);
-    //     $display("************************************************************");
-    //     repeat(2) #CYCLE;
-    //     $finish;
-    // end
-    // if(v_gm !== 'b0) begin 
-    //     $display("************************************************************");  
-    //     $display("                          FAIL!                             ");    
-    //     $display("    'v_gm' should be 0 after initial RESET  at %8t          ",$time);
-    //     $display("************************************************************");
-    //     repeat(2) #CYCLE;
-    //     $finish;
-    // end
-    // if(v_igm !== 'b0) begin 
-    //     $display("************************************************************");  
-    //     $display("                          FAIL!                             ");    
-    //     $display("    'v_igm' should be 0 after initial RESET  at %8t          ",$time);
-    //     $display("************************************************************");
-    //     repeat(2) #CYCLE;
-    //     $finish;
-    // end
-    // if(gm !== 'b0) begin 
-    //     $display("************************************************************");  
-    //     $display("                          FAIL!                             ");    
-    //     $display("    'gm' should be 0 after initial RESET  at %8t          ",$time);
-    //     $display("************************************************************");
-    //     repeat(2) #CYCLE;
-    //     $finish;
-    // end
-    // if(igm !== 'b0) begin 
-    //     $display("************************************************************");  
-    //     $display("                          FAIL!                             ");    
-    //     $display("    'igm' should be 0 after initial RESET  at %8t          ",$time);
-    //     $display("************************************************************");
-    //     repeat(2) #CYCLE;
-    //     $finish;
-    // end
-	#CYCLE; release clk;
+    #(1); rst_n = 0; 
+    #(5); rst_n = 1;
+    if(inf.out_valid !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'out_valid' should be 0 after initial RESET  at %8t   	 ",$time);
+        $display("************************************************************");
+        repeat(2) #(1);
+        $finish;
+    end
+    if(inf.out_data !== 'b0) begin 
+        $display("************************************************************");  
+        $display("                          FAIL!                             ");    
+        $display("  'out_data' should be 0 after initial RESET  at %8t        ",$time);
+        $display("************************************************************");
+        repeat(2) #(1);
+        $finish;
+    end
+	#(1); release clk;
 end endtask
 
-// task input_task; begin
-// 	in_valid = 'b1;
-//     fscanf_int = $fscanf(file_in, "%d %d %d %d", logn_gold, g, p, p0i);
-//     logn = logn_gold;
-//     mode = mode_gold;
-// 	@(posedge clk);		
-//     in_valid = 'b0;
-// end endtask
+task input_task; begin
+	inf.len_valid = 'b1;
+    fscanf_int = $fscanf(file_out, "%d %d", logn_gold, xlen_gold);
+    fscanf_int = $fscanf(file_in, "%d %d", logn_gold, xlen_gold);
+    inf.logn = logn_gold;
+    inf.xlen = xlen_gold;
+	@(posedge clk);		
+    in_valid = 'b0;
+    inf.logn = 'bx;
+    inf.xlen = 'bx;
+    repeat($urandom_range(0, 4)) @(posedge clk);
 
-// task wait_out_task; begin
-// 	out_latency = 1;
-// 	while(1) begin
-//         if (mode_gold == 0 && (out_valid_gm === 1 || out_valid_igm === 1))
-//             break;
-//         if (mode_gold == 1 && out_valid_gm === 1)
-//             break;
-//         if (mode_gold == 2 && out_valid_igm === 1)
-//             break;
-// 		if(out_latency === MAX_OUT_LATENCY + 1) begin
-//             $display("***********************************************************");    
-//             $display("                          FAIL!                          	 ");
-// 			$display("         The execution latency are over %d cycles        	 ", MAX_OUT_LATENCY);
-// 		    $display("***********************************************************"); 
-// 			repeat(2) @(posedge clk);
-// 			$finish;
-// 		end
-// 		out_latency = out_latency + 1;
-// 		@(posedge clk);
-// 	end
-// end endtask
 
-// task check_ans_task; begin
-//     if (mode_gold == 0 && out_valid_gm === 1) begin
-//         fscanf_int = $fscanf(file_out_gm, "%d %d", v_gm_gold, gm_gold);
-// 		if(v_gm !== v_gm_gold || gm !== gm_gold)begin
-//             $display("***********************************************************");     
-//             $display("                          FAIL!                          	 ");  
-//             $display("                 Gold v = %4d, gm = %d                     ", v_gm_gold, gm_gold);
-//             $display("                 Your v = %4d, gm = %d                     ", v_gm, gm);
-//             $display("***********************************************************");    
-//                 repeat(2) @(posedge clk);
-//                 $finish;
-// 		end
-// 		i_gm = i_gm + 1;
-// 	end
-//     if (mode_gold == 0 && out_valid_igm === 1) begin
-//         fscanf_int = $fscanf(file_out_igm, "%d %d", v_igm_gold, igm_gold);
-// 		if(v_igm !== v_igm_gold || igm !== igm_gold)begin
-//             $display("***********************************************************");     
-//             $display("                          FAIL!                          	 ");  
-//             $display("                 Gold v = %4d, igm = %d                    ", v_igm_gold, igm_gold);
-//             $display("                 Your v = %4d, igm = %d                    ", v_igm, igm);
-//             $display("***********************************************************");    
-//                 repeat(2) @(posedge clk);
-//                 $finish;
-// 		end
-// 		i_igm = i_igm + 1;
-// 	end
-//     if (mode_gold == 1 && out_valid_gm === 1) begin
-//         fscanf_int = $fscanf(file_out_gm, "%d %d", v_gm_gold, gm_gold);
-//         fscanf_int = $fscanf(file_out_igm, "%d %d", v_igm_gold, igm_gold);
-// 		if(v_gm !== v_gm_gold || gm !== gm_gold)begin
-//             $display("***********************************************************");     
-//             $display("                          FAIL!                          	 ");  
-//             $display("                 Gold v = %4d, gm = %d                     ", v_gm_gold, gm_gold);
-//             $display("                 Your v = %4d, gm = %d                     ", v_gm, gm);
-//             $display("***********************************************************");    
-//                 repeat(2) @(posedge clk);
-//                 $finish;
-// 		end
-// 		i_gm = i_gm + 1;
-// 	end
-//     if (mode_gold == 2 && out_valid_igm === 1) begin
-//         fscanf_int = $fscanf(file_out_gm, "%d %d", v_gm_gold, gm_gold);
-//         fscanf_int = $fscanf(file_out_igm, "%d %d", v_igm_gold, igm_gold);
-// 		if(v_igm !== v_igm_gold || igm !== igm_gold)begin
-//             $display("***********************************************************");     
-//             $display("                          FAIL!                          	 ");  
-//             $display("                 Gold v = %4d, igm = %d                    ", v_igm_gold, igm_gold);
-//             $display("                 Your v = %4d, igm = %d                    ", v_igm, igm);
-//             $display("***********************************************************");    
-//                 repeat(2) @(posedge clk);
-//                 $finish;
-// 		end
-// 		i_igm = i_igm + 1;
-// 	end
-// end endtask
+    for (i_in=0; i_in<(logn_gold*xlen_gold); i_in=i_in+1) begin
+        inf.in_valid = 1;
+        fscanf_int = $fscanf(file_in, "%d", inf.f);
+        @(posedge clk);
+        inf.f = 'bx;
+        inf.in_valid = 0;
+    end
 
-// task YOU_PASS_task; begin
-//     $display ("--------------------------------------------------------------------");
-//     $display ("                         Congratulations!                           ");
-//     $display ("                  You have passed all patterns!                     ");
-//     $display ("                  Your execution cycles = %5d cycles                ", total_latency);
-// 	$display ("                  Your clock period = %.1f ns                       ", CYCLE);
-//     $display ("                  Total Latency = %.1f ns                           ", total_latency*CYCLE);
-//     $display ("--------------------------------------------------------------------");     
-//     repeat(2)@(posedge clk);
-//     $finish;
-// end endtask
+end endtask
+
+task wait_out_task; begin
+	out_latency = 1;
+	while(inf.out_valid !== 1'b1) begin
+		if(out_latency > MAX_OUT_LATENCY) begin
+            $display("***********************************************************");    
+            $display("                          FAIL!                          	 ");
+			$display("         The execution latency are over %d cycles        	 ", MAX_OUT_LATENCY);
+		    $display("***********************************************************"); 
+			repeat(2) @(posedge clk);
+			$finish;
+		end
+		out_latency = out_latency + 1;
+		@(posedge clk);
+	end
+end endtask
+
+task check_ans_task; begin
+    fscanf_int = $fscanf(file_out, "%d", out_data_gold);
+    if(inv.out_data !== out_data_gold)begin
+        $display("***********************************************************");     
+        $display("                          FAIL!                          	 ");  
+        $display("                 word %3d, degree %3d                      ", (i_out/xlen_gold), (i_out%xlen_gold));  
+        $display("                    Gold v = %4d                           ", out_data_gold);
+        $display("                    Your v = %4d                           ", inf.out_data);
+        $display("***********************************************************");    
+        repeat(2) @(posedge clk);
+        $finish;
+    end
+end endtask
+
+task YOU_PASS_task; begin
+    $display ("--------------------------------------------------------------------");
+    $display ("                         Congratulations!                           ");
+    $display ("                  You have passed all patterns!                     ");
+    $display ("                  Your execution cycles = %5d cycles                ", total_latency);
+    $display ("--------------------------------------------------------------------");     
+    repeat(2)@(posedge clk);
+    $finish;
+end endtask
 
 
 endprogram
