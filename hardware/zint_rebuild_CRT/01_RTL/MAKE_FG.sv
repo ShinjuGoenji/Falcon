@@ -23,7 +23,7 @@ TOP_INF.MAKE_FG inf;
 State state, next_state;
 
 logic [LOGN_WIDTH-1:0] logn, logn_comb;
-logic [LOGN_WIDTH-1:0] depth, depth_comb;
+logic [XLEN_WIDTH-1:0] xlen, xlen_comb;
 
 logic [P_WIDTH-1:0] rf_crt_write_buffer [0:WORD_NUM-1], rf_crt_write_buffer_comb [0:WORD_NUM-1];
 
@@ -77,12 +77,12 @@ always_comb begin
         logn_comb = logn;
 end
 
-// depth
+// xlen
 always_comb begin
     if (inf.len_valid)
-        depth_comb = inf.depth;
+        xlen_comb = inf.xlen;
     else
-        depth_comb = depth;
+        xlen_comb = xlen;
 end
 
 
@@ -108,14 +108,14 @@ always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         state <= 0;
         logn <= 0;
-        depth <= 0;
+        xlen <= 0;
         input_ptr <= 0;
         rf_crt_write_buffer <= {0, 0, 0, 0}; // TODO: parameterize reset value
     end
     else begin
         state <= next_state;
         logn <= logn_comb;
-        depth <= depth_comb;
+        xlen <= xlen_comb;
         input_ptr <= input_ptr_comb;
         rf_crt_write_buffer <= rf_crt_write_buffer_comb;
     end

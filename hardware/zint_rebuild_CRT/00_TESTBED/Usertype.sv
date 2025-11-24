@@ -9,10 +9,8 @@ package usertype;
 typedef logic [30:0] uint31_t;
 
 
-/*
- * 31-bit integer
- */
 parameter LOGN_WIDTH = 4;
+parameter XLEN_WIDTH = 9;
 
 typedef enum logic [1:0] { 
     S_IDLE	  = 3'd0,
