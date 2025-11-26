@@ -2,7 +2,7 @@
 
 program automatic PATTERN (
     input clk,
-    output rst_n,
+    output logic rst_n,
     TOP_INF.PATTERN inf
 );
 import usertype::*;
@@ -43,7 +43,7 @@ initial begin
 	repeat(4) @(posedge clk);
 	for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1)begin
         input_task;
-        for (i_out=0; i_out<(logn_gold*xlen_gold); i_out=i_out + 1) begin
+        for (i_out=0; i_out<((1<<logn_gold)*xlen_gold); i_out=i_out + 1) begin
             wait_out_task;
             check_ans_task;
         end
@@ -59,7 +59,7 @@ end
 task reset_task; begin 
     rst_n = 'b1;
     inf.in_valid = 'b0;
-    inf.f = 'bx;
+    inf.in_data = 'bx;
     // inf.p = 'bx;
     // inf.p0i = 'bx;
     // inf.R2 = 'bx;
@@ -96,18 +96,21 @@ task input_task; begin
     inf.logn = logn_gold;
     inf.xlen = xlen_gold;
 	@(posedge clk);		
-    in_valid = 'b0;
+    inf.len_valid = 'b0;
     inf.logn = 'bx;
     inf.xlen = 'bx;
     repeat($urandom_range(0, 4)) @(posedge clk);
 
 
-    for (i_in=0; i_in<(logn_gold*xlen_gold); i_in=i_in+1) begin
+    for (i_in=0; i_in<((1<<logn_gold)*xlen_gold); i_in=i_in+1) begin
         inf.in_valid = 1;
-        fscanf_int = $fscanf(file_in, "%d", inf.f);
+        fscanf_int = $fscanf(file_in, "%d", inf.in_data);
         @(posedge clk);
-        inf.f = 'bx;
+        inf.in_data = 'bx;
         inf.in_valid = 0;
+        if (i_in%(1<<logn_gold) == (1<<logn_gold)-1) begin
+            repeat($urandom_range(1, 4)) @(posedge clk);
+        end
     end
 
 end endtask
@@ -130,7 +133,7 @@ end endtask
 
 task check_ans_task; begin
     fscanf_int = $fscanf(file_out, "%d", out_data_gold);
-    if(inv.out_data !== out_data_gold)begin
+    if(inf.out_data !== out_data_gold)begin
         $display("***********************************************************");     
         $display("                          FAIL!                          	 ");  
         $display("                 word %3d, degree %3d                      ", (i_out/xlen_gold), (i_out%xlen_gold));  

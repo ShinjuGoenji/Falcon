@@ -15,6 +15,21 @@
 module TESTBED;
 
 //================================================================
+// Clock
+//================================================================
+parameter simulation_cycle = `CYCLE_TIME;
+reg  SystemClock;
+
+initial begin
+    SystemClock = 0;
+    #10
+    forever begin
+        #(simulation_cycle / 2.0)
+        SystemClock = ~SystemClock;
+    end
+end
+
+//================================================================
 // Wire Declarations
 //================================================================
 logic clk;
@@ -27,11 +42,11 @@ TOP_INF inf();
 initial begin
     `ifdef RTL
         $fsdbDumpfile("MAKE_FG.fsdb");
-        $fsdbDumpvars(0,"+mda");
+        $fsdbDumpvars(0,"+all");
     `elsif GATE
         $sdf_annotate("MAKE_FG_SYN.sdf", dut_p.MAKE_FG);
         // $fsdbDumpfile("MAKE_FG_SYN.fsdb");
-        // $fsdbDumpvars(0,"+mda");
+        // $fsdbDumpvars(0,"+all");
     `endif
 end
 
@@ -56,20 +71,5 @@ PATTERN test_p (
         .inf(inf.MAKE_FG)
     );
 `endif  
-
-//================================================================
-// Clock
-//================================================================
-parameter simulation_cycle = `CYCLE_TIME;
-reg  SystemClock;
-
-initial begin
-    SystemClock = 0;
-    #10
-    forever begin
-        #(simulation_cycle / 2.0)
-        SystemClock = ~SystemClock;
-    end
-end
 
 endmodule
