@@ -7,7 +7,7 @@
 #======================================================
 # (A) Global Parameters
 #======================================================
-set DESIGN "KEYGEN"
+set DESIGN "MAKE_FG"
 set CYCLE 2.0
 set INPUT_DLY [expr 0*$CYCLE]
 set OUTPUT_DLY [expr 0*$CYCLE]
@@ -17,7 +17,7 @@ set OUTPUT_DLY [expr 0*$CYCLE]
 #======================================================
 # (B-1) analyze + elaborate
 set hdlin_auto_save_templates TRUE
-analyze -f sverilog $DESIGN\.v 
+analyze -f sverilog {Usertype.sv INF.sv MAKE_FG.sv}
 elaborate $DESIGN  
 
 # (B-2) read_sverilog
@@ -122,6 +122,7 @@ write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
 write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
 write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
 write_sdc Netlist/$DESIGN\_SYN.sdc
+write -format svsim   -output Netlist/$DESIGN\_Wrapper.sv
 
 #======================================================
 #  (I) Finish and Quit

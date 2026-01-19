@@ -14,7 +14,7 @@ parameter OUTPUT_PATH = "../00_TESTBED/output.txt";
 parameter PATNUM_PATH = "../00_TESTBED/PATNUM.txt";
 integer file_in, file_out, file_num;
 
-parameter MAX_OUT_LATENCY = 2000;
+parameter MAX_OUT_LATENCY = 4000;
 integer total_latency, out_latency;
 
 integer i_pat, i_in, i_out;
@@ -60,9 +60,6 @@ task reset_task; begin
     rst_n = 'b1;
     inf.in_valid = 'b0;
     inf.in_data = 'bx;
-    // inf.p = 'bx;
-    // inf.p0i = 'bx;
-    // inf.R2 = 'bx;
     inf.len_valid = 'b0;
     inf.logn = 'bx;
     inf.xlen = 'bx;
@@ -136,13 +133,14 @@ task check_ans_task; begin
     if(inf.out_data !== out_data_gold)begin
         $display("***********************************************************");     
         $display("                          FAIL!                          	 ");  
-        $display("                 word %3d, degree %3d                      ", (i_out/xlen_gold), (i_out%xlen_gold));  
+        $display("                 word %3d, degree %3d                      ", (i_out/(1<<logn_gold)), (i_out%(1<<logn_gold)));  
         $display("                    Gold v = %4d                           ", out_data_gold);
         $display("                    Your v = %4d                           ", inf.out_data);
         $display("***********************************************************");    
         repeat(2) @(posedge clk);
         $finish;
     end
+	@(posedge clk);
 end endtask
 
 task YOU_PASS_task; begin

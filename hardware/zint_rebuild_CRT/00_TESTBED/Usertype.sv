@@ -6,12 +6,20 @@ package usertype;
 /*
  * 31-bit integer
  */
-typedef logic [30:0] uint31_t;
+parameter P_WIDTH = 31;
+typedef logic [P_WIDTH-1:0] uint31_t;
 
 parameter LOGN_WIDTH = 4;
 parameter XLEN_WIDTH = 9;
 
 parameter WORD_NUM = 4;
+
+typedef struct packed {
+    uint31_t p; 
+    uint31_t p0i;
+    uint31_t s;
+    uint31_t R2;
+} small_prime;
 
 typedef struct packed {
     logic in_valid;
