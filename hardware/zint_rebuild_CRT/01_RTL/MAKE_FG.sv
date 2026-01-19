@@ -1,25 +1,12 @@
+`include "ZINT_REBUILD_CRT.sv"
+`include "MODP_MONTYMUL_TOP.sv"
+
 module MAKE_FG (
     clk,
     rst_n,
     inf
 );
 import usertype::*;
-// import make_fg_type::*;
-
-
-//---------------------------------------------------------------------
-//   Parameter
-//---------------------------------------------------------------------
-typedef enum logic [1:0] { 
-    S_IDLE	  = 2'd0,
-    S_INPUT	  = 2'd1,
-    S_OUTPUT  = 2'd2
-} State;
-
-typedef struct packed {
-    logic [9:0] addr;
-    uint31_t data;
-} ADDR_DATA;
 
 //---------------------------------------------------------------------
 //   Input & Output
@@ -31,64 +18,99 @@ TOP_INF.MAKE_FG inf;
 //---------------------------------------------------------------------
 //   Logic
 //---------------------------------------------------------------------
-State state, next_state;
-
+logic [LOGN_WIDTH-1:0] inf_logn;
 logic [LOGN_WIDTH-1:0] logn, logn_comb;
 logic [XLEN_WIDTH-1:0] xlen, xlen_comb;
 
-uint31_t rf_crt_write_buffer [0:WORD_NUM-1], rf_crt_write_buffer_comb [0:WORD_NUM-1];
-
+uint31_t intt_output_buffer [0:WORD_NUM-1], intt_output_buffer_comb [0:WORD_NUM-1];
 logic [9:0] input_ptr, input_ptr_comb;
-
-logic all_done, output_done;
-
-/*
- * MOD_SMALL_UNSIGNED
- */
-logic [8:0] u_mod_small_unsigned;
-logic [9:0] mod_small_unsigned_ptr, mod_small_unsigned_ptr_comb;
-
-logic mod_small_unsigned_input_buffer_full, mod_small_unsigned_input_buffer_full_comb;
-logic mod_small_unsigned_ready;
-ADDR_DATA mod_small_unsigned_input_buffer [0:WORD_NUM-1], mod_small_unsigned_input_buffer_comb [0:WORD_NUM-1];
-
+logic intt_write;
 
 /*
  * RF_CRT
  */
-RF_CRT_INF    rf_crt_inf();
 logic         rf_crt_CENA;
+logic [7:0]   rf_crt_AA;
+logic [123:0] rf_crt_QA;
+
 logic         rf_crt_CENB, rf_crt_CENB_comb;
-logic [6:0]   rf_crt_AA, rf_crt_AB_comb;
-logic [6:0]   rf_crt_AB;
-logic [127:0] rf_crt_DB;
-logic [127:0] rf_crt_QA;
+logic [7:0]   rf_crt_AB, rf_crt_AB_comb;
+logic [123:0] rf_crt_DB, rf_crt_DB_comb;
+
+/*
+ * MODP_MONTYMUL_TOP
+ */
+MODP_MONTYMUL_MASTER modp_montymul_req [0:WORD_NUM*2-1];
+MODP_MONTYMUL_SLAVE  modp_montymul_resp [0:WORD_NUM*2-1];
+
+/*
+ * ZINT_REBUILD_CRT
+ */
+logic         zint_rebuild_crt_CENB_comb;
+logic [7:0]   zint_rebuild_crt_AB_comb;
+logic [123:0] zint_rebuild_crt_DB_comb;
+logic         is_read;
+logic         zint_rebuild_crt_CENA;
+logic [7:0]   zint_rebuild_crt_AA;
+uint31_t      zint_rebuild_crt_QA [0:WORD_NUM-1];
+logic         zint_rebuild_out_valid;
+
+//---------------------------------------------------------------------
+//   Submodule
+//---------------------------------------------------------------------
+RF_CRT u_RF_CRT(
+    .clk(clk),
+    .CENA(rf_crt_CENA),
+    .AA(rf_crt_AA),
+    .QA(rf_crt_QA),
+    .CENB(rf_crt_CENB),
+    .AB(rf_crt_AB),
+    .DB(rf_crt_DB)
+);
+
+ZINT_REBUILD_CRT u_ZINT_REBUILD_CRT (
+    // Main channel
+    // Input signals
+    .clk(clk),
+    .rst_n(rst_n),
+    .in_valid(inf.in_valid),
+    .len_valid(inf.len_valid),
+    .x_i(inf.in_data),
+    .inf_logn(inf.logn),
+    .logn(logn),
+    .xlen(xlen),
+    .input_ptr(input_ptr),
+    .intt_write(intt_write),
+    .intt_output_buffer_comb(intt_output_buffer_comb),
+    .rf_crt_CENB(rf_crt_CENB),
+    .rf_crt_AB(rf_crt_AB),
+    // Output signals
+    .out_valid(zint_rebuild_out_valid),
+    // MODP_MONTYMUL_TOP
+    .modp_montymul_req(modp_montymul_req),
+    .modp_montymul_resp(modp_montymul_resp),
+    // RF_CRT
+    .is_write(intt_write),
+    .CENB_comb(zint_rebuild_crt_CENB_comb),
+    .AB_comb(zint_rebuild_crt_AB_comb),
+    .DB_comb(zint_rebuild_crt_DB_comb),
+    .is_read(is_read),
+    .CENA(zint_rebuild_crt_CENA),
+    .AA(zint_rebuild_crt_AA),
+    .QA(zint_rebuild_crt_QA)
+);
+
+MODP_MONTYMUL_TOP #(.MASTER_NUM(WORD_NUM*2), .MUL_NUM(4)) 
+u_MODP_MONTYMUL_TOP (
+    .clk(clk),
+    .rst_n(rst_n),
+    .in_bus(modp_montymul_req),
+    .out_bus(modp_montymul_resp)
+);
 
 //---------------------------------------------------------------------
 //   Combinational Logic
 //---------------------------------------------------------------------
-always_comb begin
-    case (state)
-        S_IDLE: 
-            if (inf.len_valid)
-                next_state = S_INPUT;
-            else
-                next_state = next_state;
-        S_INPUT: 
-            if (all_done)
-                next_state = S_OUTPUT;
-            else
-                next_state = next_state;
-        S_OUTPUT: 
-            if (output_done)
-                next_state = S_IDLE;
-            else
-                next_state = next_state;
-        default: 
-            next_state = S_IDLE;
-    endcase
-end
-
 /*
  * input
  */
@@ -113,141 +135,187 @@ end
  */
 // input pointer
 always_comb begin
-    if (state == S_IDLE)
+    if (inf.len_valid)
         input_ptr_comb = 0;
-    else if (state == S_INPUT && inf.in_valid)
+    else if (inf.in_valid)
         input_ptr_comb = input_ptr + 1;
     else
         input_ptr_comb = input_ptr;
 end
 
 // input data
-genvar rf_crt_write_buffer_comb_idx;
+genvar intt_output_buffer_comb_idx;
 generate
-    for (rf_crt_write_buffer_comb_idx=1; rf_crt_write_buffer_comb_idx<WORD_NUM; rf_crt_write_buffer_comb_idx=rf_crt_write_buffer_comb_idx+1) begin
+    for (intt_output_buffer_comb_idx=0; intt_output_buffer_comb_idx<WORD_NUM-1; intt_output_buffer_comb_idx=intt_output_buffer_comb_idx+1) begin
         always_comb begin
-            if (state == S_INPUT && inf.in_valid)
-                rf_crt_write_buffer_comb[rf_crt_write_buffer_comb_idx] = rf_crt_write_buffer[rf_crt_write_buffer_comb_idx-1];
+            if (inf.in_valid)
+                intt_output_buffer_comb[intt_output_buffer_comb_idx] = intt_output_buffer[intt_output_buffer_comb_idx+1];
             else
-                rf_crt_write_buffer_comb[rf_crt_write_buffer_comb_idx] = rf_crt_write_buffer[rf_crt_write_buffer_comb_idx];
+                intt_output_buffer_comb[intt_output_buffer_comb_idx] = intt_output_buffer[intt_output_buffer_comb_idx];
         end
     end
 endgenerate
 
 always_comb begin
-    if (state == S_INPUT && inf.in_valid)
-        rf_crt_write_buffer_comb[0] = inf.in_data;
+    if (inf.in_valid)
+        intt_output_buffer_comb[WORD_NUM-1] = inf.in_data;
     else
-        rf_crt_write_buffer_comb[0] = rf_crt_write_buffer[0];
-end
-
-/*
- * MOD_SMALL_UNSIGNED
- */
-// pointer
-/* 
- * u = ptr / 2 ^ logn
- */
-assign u_mod_small_unsigned = mod_small_unsigned_ptr >> logn; 
-
-always_comb begin
-    if (inf.in_valid && (!mod_small_unsigned_input_buffer_full || mod_small_unsigned_ready)) 
-            mod_small_unsigned_ptr_comb = mod_small_unsigned_ptr + 1;
-    else
-        mod_small_unsigned_ptr_comb = mod_small_unsigned_ptr;
-end
-
-// TODO: 
-assign mod_small_unsigned_ready = 1;
-assign mod_small_unsigned_input_buffer_full_comb = 0;
-
-genvar mod_small_unsigned_input_buffer_comb_idx;
-generate
-    for (mod_small_unsigned_input_buffer_comb_idx=1; mod_small_unsigned_input_buffer_comb_idx<WORD_NUM; mod_small_unsigned_input_buffer_comb_idx=mod_small_unsigned_input_buffer_comb_idx+1) begin
-        always_comb begin
-            if (inf.in_valid && u_mod_small_unsigned == 0)
-                if (!mod_small_unsigned_input_buffer_full || mod_small_unsigned_ready)
-                    mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_comb_idx] = mod_small_unsigned_input_buffer[mod_small_unsigned_input_buffer_comb_idx-1];
-                else
-                    mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_comb_idx] = mod_small_unsigned_input_buffer[mod_small_unsigned_input_buffer_comb_idx];
-            else
-                mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_comb_idx] = mod_small_unsigned_input_buffer[mod_small_unsigned_input_buffer_comb_idx];
-        end
-    end
-endgenerate
-
-always_comb begin
-    if (inf.in_valid && u_mod_small_unsigned == 0)
-        if (!mod_small_unsigned_input_buffer_full || mod_small_unsigned_ready) begin
-            mod_small_unsigned_input_buffer_comb[0].data = inf.in_data;
-            mod_small_unsigned_input_buffer_comb[0].addr = input_ptr;
-        end
-        else
-            mod_small_unsigned_input_buffer_comb[0] = mod_small_unsigned_input_buffer[0];
-    else
-        mod_small_unsigned_input_buffer_comb[0] = mod_small_unsigned_input_buffer[0];
+        intt_output_buffer_comb[WORD_NUM-1] = intt_output_buffer[WORD_NUM-1];
 end
 
 /*
  * CRT Register File
  */
 // write
-logic intt_write;
+assign intt_write = inf.in_valid && input_ptr % WORD_NUM == (WORD_NUM - 1);
 
-assign intt_write = state == S_INPUT && input_ptr % WORD_NUM == (WORD_NUM - 1) && inf.in_valid;
+// enable
+always_comb begin
+    if (intt_write || !zint_rebuild_crt_CENB_comb)
+        rf_crt_CENB_comb = 0;
+    else
+        rf_crt_CENB_comb = 1;
+end
 
-// CENB
+// address
 always_comb begin
     if (intt_write)
-        rf_crt_CENB_comb = 1;
+        rf_crt_AB_comb = (input_ptr + (1 << logn)) / WORD_NUM;
+    else if (!zint_rebuild_crt_CENB_comb)
+        rf_crt_AB_comb = zint_rebuild_crt_AB_comb;
     else
-        rf_crt_CENB_comb = 0;
+        rf_crt_AB_comb = 0;
 end
 
-// AB
+// data
 always_comb begin
-    rf_crt_AB_comb = input_ptr / WORD_NUM;
+    if (intt_write)
+        rf_crt_DB_comb = {>> {intt_output_buffer_comb}};
+    else if (!zint_rebuild_crt_CENB_comb)
+        rf_crt_DB_comb = {>> {zint_rebuild_crt_DB_comb}};
+    else
+        rf_crt_DB_comb = 0;
 end
 
-// DB
+// read
+assign is_read = 0;
+
+logic debug_state, next_debug_state;
+logic [11:0] debug_cnt, debug_cnt_comb;
+
+logic debug_CENA, debug_CENA_reg;
+logic [7:0] debug_AA;
+uint31_t debug_QA [0:WORD_NUM-1], debug_QA_comb [0:WORD_NUM-1];
+
+// enable
 always_comb begin
-    rf_crt_inf.DB = {>> {rf_crt_write_buffer}};
+    if (is_read || !debug_CENA || !zint_rebuild_crt_CENA)
+        rf_crt_CENA = 0;
+    else
+        rf_crt_CENA = 1;
 end
 
-//---------------------------------------------------------------------
-//   Submodule
-//---------------------------------------------------------------------
-RF_CRT u_RF_CRT(
-    .clk(clk),
-	.inf(rf_crt_inf.SLAVE)
-);
+// address
+always_comb begin
+    if (is_read)
+        rf_crt_AA = 0; 
+    else if (!debug_CENA)
+        rf_crt_AA = debug_AA; 
+    else 
+        rf_crt_AA = zint_rebuild_crt_AA;
+end
 
-//---------------------------------------------------------------------
-//   Sequential Logic
-//---------------------------------------------------------------------
-genvar mod_small_unsigned_input_buffer_idx;
+// data
+assign {>> {zint_rebuild_crt_QA}} = rf_crt_QA;
+
+/*
+ * TODO: debug
+ */
+logic out_valid_reg1, out_valid_reg2;
+uint31_t out_data_comb;
+
+always_comb begin
+    case (debug_state)
+        0: 
+            if (zint_rebuild_out_valid)
+                next_debug_state <= 1;
+            else
+                next_debug_state <= debug_state;
+        1:
+            if (debug_cnt == (1 << logn) * xlen - 1)
+                next_debug_state <= 0;
+            else
+                next_debug_state <= debug_state;
+    endcase
+end
+
+always_comb begin
+    if (debug_state)
+        debug_cnt_comb = debug_cnt + 1;
+    else
+        debug_cnt_comb = 0;
+end
+
+assign debug_CENA = !(debug_state && debug_cnt % WORD_NUM == 0);
+assign debug_AA = (debug_cnt+ (1 << logn)) / WORD_NUM;
+
+genvar i;
 generate
-    for (mod_small_unsigned_input_buffer_idx=0; mod_small_unsigned_input_buffer_idx<WORD_NUM; mod_small_unsigned_input_buffer_idx=mod_small_unsigned_input_buffer_idx+1) begin
-        always_ff @(posedge clk or negedge rst_n) begin
-            if (!rst_n) begin
-                mod_small_unsigned_input_buffer[mod_small_unsigned_input_buffer_idx] = 0;
-            end
-            else begin
-                mod_small_unsigned_input_buffer[mod_small_unsigned_input_buffer_idx] = mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_idx];
-            end
+    for (i = 0; i < WORD_NUM-1; i=i+1) begin
+        always_comb begin
+            if (!debug_CENA_reg) // TODO: parameterize
+                debug_QA_comb[i] = rf_crt_QA[123 - (i * 31) -: 31];
+            else 
+                debug_QA_comb[i] = debug_QA[i+1];
         end
     end
 endgenerate
 
-genvar rf_crt_write_buffer_idx;
+always_comb begin
+    if (!debug_CENA_reg) // TODO: parameterize
+        debug_QA_comb[WORD_NUM-1] = rf_crt_QA[123 - ((WORD_NUM-1) * 31) -: 31];
+    else if (debug_state)
+        debug_QA_comb[WORD_NUM-1] = 0;
+    else 
+        debug_QA_comb[WORD_NUM-1] = debug_QA[WORD_NUM-1];
+end
+
+assign out_data_comb = debug_QA[0];
+
+always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        debug_state <= 0;
+        debug_cnt <= 0;
+        debug_CENA_reg <= 1;
+        debug_QA <= '{default: '0};
+        out_valid_reg1 <= 0;
+        inf.out_valid <= 0;
+        inf.out_data <= 0;
+    end
+    else begin
+        debug_state <= next_debug_state;
+        debug_cnt <= debug_cnt_comb;
+        debug_CENA_reg <= debug_CENA;
+        debug_QA <= debug_QA_comb;
+        out_valid_reg1 <= debug_state;
+        out_valid_reg2 <= out_valid_reg1;
+        inf.out_valid <= out_valid_reg2;
+        inf.out_data <= out_data_comb;
+    end
+end
+
+//---------------------------------------------------------------------
+//   Sequential Logic
+//---------------------------------------------------------------------
+genvar intt_output_buffer_idx;
 generate
-    for (rf_crt_write_buffer_idx=0; rf_crt_write_buffer_idx<WORD_NUM; rf_crt_write_buffer_idx=rf_crt_write_buffer_idx+1) begin
+    for (intt_output_buffer_idx=0; intt_output_buffer_idx<WORD_NUM; intt_output_buffer_idx=intt_output_buffer_idx+1) begin
         always_ff @(posedge clk or negedge rst_n) begin
             if (!rst_n) begin
-                rf_crt_write_buffer[rf_crt_write_buffer_idx] = 0;
+                intt_output_buffer[intt_output_buffer_idx] = 0;
             end
             else begin
-                rf_crt_write_buffer[rf_crt_write_buffer_idx] = rf_crt_write_buffer_comb[rf_crt_write_buffer_idx];
+                intt_output_buffer[intt_output_buffer_idx] = intt_output_buffer_comb[intt_output_buffer_idx];
             end
         end
     end
@@ -255,32 +323,22 @@ endgenerate
 
 always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        state <= S_IDLE;
         logn <= 0;
         xlen <= 0;
         input_ptr <= 0;
-        // MOD_SMALL_UNSIGNED
-        mod_small_unsigned_ptr <= 0;
-        mod_small_unsigned_input_buffer_full <= 0;
         // RF_CRT
-        rf_crt_inf.CENB <= 0;
-        rf_crt_inf.AB <= 0;
-        inf.out_valid <= 0;
-        inf.out_data <= 0;
+        rf_crt_CENB <= 1;
+        rf_crt_AB <= 0;
+        rf_crt_DB <= 0;
     end
     else begin
-        state <= next_state;
         logn <= logn_comb;
         xlen <= xlen_comb;
         input_ptr <= input_ptr_comb;
-        // MOD_SMALL_UNSIGNED
-        mod_small_unsigned_ptr <= mod_small_unsigned_ptr_comb;
-        mod_small_unsigned_input_buffer_full <= mod_small_unsigned_input_buffer_full_comb;
         // RF_CRT
-        rf_crt_inf.CENB <= rf_crt_CENB_comb;
-        rf_crt_inf.AB <= rf_crt_AB_comb;
-        inf.out_valid <= 0;
-        inf.out_data <= 0;
+        rf_crt_CENB <= rf_crt_CENB_comb;
+        rf_crt_AB <= rf_crt_AB_comb;
+        rf_crt_DB <= rf_crt_DB_comb;
     end
 end
 
@@ -288,55 +346,63 @@ endmodule
 
 module RF_CRT (
     clk,
-	inf
+    CENA,
+    AA,
+    QA,
+    CENB,
+    AB,
+    DB
+	// inf
 );
-
-//---------------------------------------------------------------------
-//   Parameter
-//---------------------------------------------------------------------
 
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
-input            clk;
-RF_CRT_INF.SLAVE inf;
+input          clk;
+input          CENA;
+input  [7:0]   AA;
+output [123:0] QA;
+input          CENB;
+input  [7:0]   AB;
+input  [123:0] DB;
+// RF_CRT_INF.SLAVE inf;
 
 //---------------------------------------------------------------------
 //   Logic
 //---------------------------------------------------------------------
 // Redundent
 logic         rf_2p_crt_CENYA;
-logic [6:0]   rf_2p_crt_AYA;
+logic [7:0]   rf_2p_crt_AYA;
 logic         rf_2p_crt_CENYB;
-logic [6:0]   rf_2p_crt_AYB;
-logic [127:0] rf_2p_crt_DYB;
+logic [7:0]   rf_2p_crt_AYB;
+logic [123:0] rf_2p_crt_DYB;
 
 //---------------------------------------------------------------------
 //   SRAM
 //---------------------------------------------------------------------
 
-rf_2p_hse_crt u_rf_2p_hse_crt (
+RF_2p_CRT_4x256 u_RF_2p_CRT_4x256 (
 	.CENYA(rf_2p_crt_CENYA), 
 	.AYA(rf_2p_crt_AYA),     
 	.CENYB(rf_2p_crt_CENYB), 
 	.AYB(rf_2p_crt_AYB),     
 	.DYB(rf_2p_crt_DYB),     
-    .QA(inf.QA),
+    .QA(QA),
     .CLKA(clk),
-    .CENA(inf.CENA),
-    .AA(inf.AA),
+    .CENA(CENA),
+    .AA(AA),
     .CLKB(clk),
-    .CENB(inf.CENB),
-    .AB(inf.AB),
-    .DB(inf.DB),
+    .CENB(CENB),
+    .AB(AB),
+    .DB(DB),
 	// Extra margin adjustment pins input
 	.EMAA(3'b000), .EMASA(1'b0),  .STOVA(1'b0),
 	.EMAB(3'b000), .EMAWB(2'b00), .STOVB(1'b0),
 	// Test mode pins (Redundent), active low 
 	.TENA(1'b1), .BENA(1'b1),
 	.TENB(1'b1),
-	.TCENA(1'b1), .TAA(7'b0), .TQA(128'b0), 
-	.TCENB(1'b1), .TAB(7'b0), .TDB(128'b0),
+	.TCENA(1'b1), .TAA(8'b0), .TQA(124'b0), 
+	.TCENB(1'b1), .TAB(8'b0), .TDB(124'b0),
 	// Retention mode (power down) (active low)
 	.RET1N(1'b1),
 	// Additional support pins input

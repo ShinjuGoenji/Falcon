@@ -3,7 +3,7 @@
 //
 //       CONFIDENTIAL AND PROPRIETARY SOFTWARE OF ARM PHYSICAL IP, INC.
 //      
-//       Copyright (c) 1993 - 2025 ARM Physical IP, Inc.  All Rights Reserved.
+//       Copyright (c) 1993 - 2026 ARM Physical IP, Inc.  All Rights Reserved.
 //      
 //       Use of this Software is subject to the terms and conditions of the
 //       applicable license agreement with ARM Physical IP, Inc.
@@ -15,9 +15,9 @@
 //
 //      Verilog model for Synchronous Two-Port Register File
 //
-//       Instance Name:              rf_2p_hse_crt
-//       Words:                      96
-//       Bits:                       128
+//       Instance Name:              RF_2p_CRT_4x256
+//       Words:                      256
+//       Bits:                       124
 //       Mux:                        1
 //       Drive:                      4
 //       Write Mask:                 Off
@@ -32,7 +32,7 @@
 //       Weak Bit Test:	        Off
 //       Read Disturb Test:	        Off
 //       
-//       Creation Date:  Fri Nov 21 05:26:27 2025
+//       Creation Date:  Thu Jan 15 16:07:47 2026
 //       Version: 	r9p1
 //
 //      Modeling Assumptions: This model supports full gate level simulation
@@ -74,39 +74,39 @@
 `celldefine
 // If POWER_PINS is defined at Simulator Command Line, it selects the module definition with Power Ports
 `ifdef POWER_PINS
-module rf_2p_hse_crt (VDDCE, VDDPE, VSSE, CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA,
-    AA, CLKB, CENB, AB, DB, EMAA, EMASA, EMAB, EMAWB, TENA, BENA, TCENA, TAA, TQA,
-    TENB, TCENB, TAB, TDB, RET1N, STOVA, STOVB, COLLDISN);
+module RF_2p_CRT_4x256 (VDDCE, VDDPE, VSSE, CENYA, AYA, CENYB, AYB, DYB, QA, CLKA,
+    CENA, AA, CLKB, CENB, AB, DB, EMAA, EMASA, EMAB, EMAWB, TENA, BENA, TCENA, TAA,
+    TQA, TENB, TCENB, TAB, TDB, RET1N, STOVA, STOVB, COLLDISN);
 `else
-module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CENB,
+module RF_2p_CRT_4x256 (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CENB,
     AB, DB, EMAA, EMASA, EMAB, EMAWB, TENA, BENA, TCENA, TAA, TQA, TENB, TCENB, TAB,
     TDB, RET1N, STOVA, STOVB, COLLDISN);
 `endif
 
   parameter ASSERT_PREFIX = "";
-  parameter BITS = 128;
-  parameter WORDS = 96;
+  parameter BITS = 124;
+  parameter WORDS = 256;
   parameter MUX = 1;
-  parameter MEM_WIDTH = 128; // redun block size 1, 64 on left, 64 on right
-  parameter MEM_HEIGHT = 96;
-  parameter WP_SIZE = 128 ;
+  parameter MEM_WIDTH = 124; // redun block size 1, 62 on left, 62 on right
+  parameter MEM_HEIGHT = 256;
+  parameter WP_SIZE = 124 ;
   parameter UPM_WIDTH = 3;
   parameter UPMW_WIDTH = 2;
   parameter UPMS_WIDTH = 1;
 
   output  CENYA;
-  output [6:0] AYA;
+  output [7:0] AYA;
   output  CENYB;
-  output [6:0] AYB;
-  output [127:0] DYB;
-  output [127:0] QA;
+  output [7:0] AYB;
+  output [123:0] DYB;
+  output [123:0] QA;
   input  CLKA;
   input  CENA;
-  input [6:0] AA;
+  input [7:0] AA;
   input  CLKB;
   input  CENB;
-  input [6:0] AB;
-  input [127:0] DB;
+  input [7:0] AB;
+  input [123:0] DB;
   input [2:0] EMAA;
   input  EMASA;
   input [2:0] EMAB;
@@ -114,12 +114,12 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   input  TENA;
   input  BENA;
   input  TCENA;
-  input [6:0] TAA;
-  input [127:0] TQA;
+  input [7:0] TAA;
+  input [123:0] TQA;
   input  TENB;
   input  TCENB;
-  input [6:0] TAB;
-  input [127:0] TDB;
+  input [7:0] TAB;
+  input [123:0] TDB;
   input  RET1N;
   input  STOVA;
   input  STOVB;
@@ -132,16 +132,16 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
 
   integer row_address;
   integer mux_address;
-  reg [127:0] mem [0:95];
-  reg [127:0] row;
+  reg [123:0] mem [0:255];
+  reg [123:0] row;
   reg LAST_CLKA;
-  reg [127:0] row_mask;
-  reg [127:0] new_data;
-  reg [127:0] data_out;
+  reg [123:0] row_mask;
+  reg [123:0] new_data;
+  reg [123:0] data_out;
   reg LAST_CLKB;
-  reg [127:0] QA_int;
-  reg [127:0] QA_int_delayed;
-  reg [127:0] writeEnable;
+  reg [123:0] QA_int;
+  reg [123:0] QA_int_delayed;
+  reg [123:0] writeEnable;
   real previous_CLKA;
   real previous_CLKB;
   initial previous_CLKA = 0;
@@ -153,71 +153,71 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   initial cont_flag0_int = 1'b0;
   initial cont_flag1_int = 1'b0;
 
-  reg NOT_CENA, NOT_AA6, NOT_AA5, NOT_AA4, NOT_AA3, NOT_AA2, NOT_AA1, NOT_AA0, NOT_CENB;
-  reg NOT_AB6, NOT_AB5, NOT_AB4, NOT_AB3, NOT_AB2, NOT_AB1, NOT_AB0, NOT_DB127, NOT_DB126;
-  reg NOT_DB125, NOT_DB124, NOT_DB123, NOT_DB122, NOT_DB121, NOT_DB120, NOT_DB119;
-  reg NOT_DB118, NOT_DB117, NOT_DB116, NOT_DB115, NOT_DB114, NOT_DB113, NOT_DB112;
-  reg NOT_DB111, NOT_DB110, NOT_DB109, NOT_DB108, NOT_DB107, NOT_DB106, NOT_DB105;
-  reg NOT_DB104, NOT_DB103, NOT_DB102, NOT_DB101, NOT_DB100, NOT_DB99, NOT_DB98, NOT_DB97;
-  reg NOT_DB96, NOT_DB95, NOT_DB94, NOT_DB93, NOT_DB92, NOT_DB91, NOT_DB90, NOT_DB89;
-  reg NOT_DB88, NOT_DB87, NOT_DB86, NOT_DB85, NOT_DB84, NOT_DB83, NOT_DB82, NOT_DB81;
-  reg NOT_DB80, NOT_DB79, NOT_DB78, NOT_DB77, NOT_DB76, NOT_DB75, NOT_DB74, NOT_DB73;
-  reg NOT_DB72, NOT_DB71, NOT_DB70, NOT_DB69, NOT_DB68, NOT_DB67, NOT_DB66, NOT_DB65;
-  reg NOT_DB64, NOT_DB63, NOT_DB62, NOT_DB61, NOT_DB60, NOT_DB59, NOT_DB58, NOT_DB57;
-  reg NOT_DB56, NOT_DB55, NOT_DB54, NOT_DB53, NOT_DB52, NOT_DB51, NOT_DB50, NOT_DB49;
-  reg NOT_DB48, NOT_DB47, NOT_DB46, NOT_DB45, NOT_DB44, NOT_DB43, NOT_DB42, NOT_DB41;
-  reg NOT_DB40, NOT_DB39, NOT_DB38, NOT_DB37, NOT_DB36, NOT_DB35, NOT_DB34, NOT_DB33;
-  reg NOT_DB32, NOT_DB31, NOT_DB30, NOT_DB29, NOT_DB28, NOT_DB27, NOT_DB26, NOT_DB25;
-  reg NOT_DB24, NOT_DB23, NOT_DB22, NOT_DB21, NOT_DB20, NOT_DB19, NOT_DB18, NOT_DB17;
-  reg NOT_DB16, NOT_DB15, NOT_DB14, NOT_DB13, NOT_DB12, NOT_DB11, NOT_DB10, NOT_DB9;
-  reg NOT_DB8, NOT_DB7, NOT_DB6, NOT_DB5, NOT_DB4, NOT_DB3, NOT_DB2, NOT_DB1, NOT_DB0;
-  reg NOT_EMAA2, NOT_EMAA1, NOT_EMAA0, NOT_EMASA, NOT_EMAB2, NOT_EMAB1, NOT_EMAB0;
-  reg NOT_EMAWB1, NOT_EMAWB0, NOT_TENA, NOT_TCENA, NOT_TAA6, NOT_TAA5, NOT_TAA4, NOT_TAA3;
-  reg NOT_TAA2, NOT_TAA1, NOT_TAA0, NOT_TENB, NOT_TCENB, NOT_TAB6, NOT_TAB5, NOT_TAB4;
-  reg NOT_TAB3, NOT_TAB2, NOT_TAB1, NOT_TAB0, NOT_TDB127, NOT_TDB126, NOT_TDB125, NOT_TDB124;
-  reg NOT_TDB123, NOT_TDB122, NOT_TDB121, NOT_TDB120, NOT_TDB119, NOT_TDB118, NOT_TDB117;
-  reg NOT_TDB116, NOT_TDB115, NOT_TDB114, NOT_TDB113, NOT_TDB112, NOT_TDB111, NOT_TDB110;
-  reg NOT_TDB109, NOT_TDB108, NOT_TDB107, NOT_TDB106, NOT_TDB105, NOT_TDB104, NOT_TDB103;
-  reg NOT_TDB102, NOT_TDB101, NOT_TDB100, NOT_TDB99, NOT_TDB98, NOT_TDB97, NOT_TDB96;
-  reg NOT_TDB95, NOT_TDB94, NOT_TDB93, NOT_TDB92, NOT_TDB91, NOT_TDB90, NOT_TDB89;
-  reg NOT_TDB88, NOT_TDB87, NOT_TDB86, NOT_TDB85, NOT_TDB84, NOT_TDB83, NOT_TDB82;
-  reg NOT_TDB81, NOT_TDB80, NOT_TDB79, NOT_TDB78, NOT_TDB77, NOT_TDB76, NOT_TDB75;
-  reg NOT_TDB74, NOT_TDB73, NOT_TDB72, NOT_TDB71, NOT_TDB70, NOT_TDB69, NOT_TDB68;
-  reg NOT_TDB67, NOT_TDB66, NOT_TDB65, NOT_TDB64, NOT_TDB63, NOT_TDB62, NOT_TDB61;
-  reg NOT_TDB60, NOT_TDB59, NOT_TDB58, NOT_TDB57, NOT_TDB56, NOT_TDB55, NOT_TDB54;
-  reg NOT_TDB53, NOT_TDB52, NOT_TDB51, NOT_TDB50, NOT_TDB49, NOT_TDB48, NOT_TDB47;
-  reg NOT_TDB46, NOT_TDB45, NOT_TDB44, NOT_TDB43, NOT_TDB42, NOT_TDB41, NOT_TDB40;
-  reg NOT_TDB39, NOT_TDB38, NOT_TDB37, NOT_TDB36, NOT_TDB35, NOT_TDB34, NOT_TDB33;
-  reg NOT_TDB32, NOT_TDB31, NOT_TDB30, NOT_TDB29, NOT_TDB28, NOT_TDB27, NOT_TDB26;
-  reg NOT_TDB25, NOT_TDB24, NOT_TDB23, NOT_TDB22, NOT_TDB21, NOT_TDB20, NOT_TDB19;
-  reg NOT_TDB18, NOT_TDB17, NOT_TDB16, NOT_TDB15, NOT_TDB14, NOT_TDB13, NOT_TDB12;
-  reg NOT_TDB11, NOT_TDB10, NOT_TDB9, NOT_TDB8, NOT_TDB7, NOT_TDB6, NOT_TDB5, NOT_TDB4;
-  reg NOT_TDB3, NOT_TDB2, NOT_TDB1, NOT_TDB0, NOT_RET1N, NOT_STOVA, NOT_STOVB, NOT_COLLDISN;
+  reg NOT_CENA, NOT_AA7, NOT_AA6, NOT_AA5, NOT_AA4, NOT_AA3, NOT_AA2, NOT_AA1, NOT_AA0;
+  reg NOT_CENB, NOT_AB7, NOT_AB6, NOT_AB5, NOT_AB4, NOT_AB3, NOT_AB2, NOT_AB1, NOT_AB0;
+  reg NOT_DB123, NOT_DB122, NOT_DB121, NOT_DB120, NOT_DB119, NOT_DB118, NOT_DB117;
+  reg NOT_DB116, NOT_DB115, NOT_DB114, NOT_DB113, NOT_DB112, NOT_DB111, NOT_DB110;
+  reg NOT_DB109, NOT_DB108, NOT_DB107, NOT_DB106, NOT_DB105, NOT_DB104, NOT_DB103;
+  reg NOT_DB102, NOT_DB101, NOT_DB100, NOT_DB99, NOT_DB98, NOT_DB97, NOT_DB96, NOT_DB95;
+  reg NOT_DB94, NOT_DB93, NOT_DB92, NOT_DB91, NOT_DB90, NOT_DB89, NOT_DB88, NOT_DB87;
+  reg NOT_DB86, NOT_DB85, NOT_DB84, NOT_DB83, NOT_DB82, NOT_DB81, NOT_DB80, NOT_DB79;
+  reg NOT_DB78, NOT_DB77, NOT_DB76, NOT_DB75, NOT_DB74, NOT_DB73, NOT_DB72, NOT_DB71;
+  reg NOT_DB70, NOT_DB69, NOT_DB68, NOT_DB67, NOT_DB66, NOT_DB65, NOT_DB64, NOT_DB63;
+  reg NOT_DB62, NOT_DB61, NOT_DB60, NOT_DB59, NOT_DB58, NOT_DB57, NOT_DB56, NOT_DB55;
+  reg NOT_DB54, NOT_DB53, NOT_DB52, NOT_DB51, NOT_DB50, NOT_DB49, NOT_DB48, NOT_DB47;
+  reg NOT_DB46, NOT_DB45, NOT_DB44, NOT_DB43, NOT_DB42, NOT_DB41, NOT_DB40, NOT_DB39;
+  reg NOT_DB38, NOT_DB37, NOT_DB36, NOT_DB35, NOT_DB34, NOT_DB33, NOT_DB32, NOT_DB31;
+  reg NOT_DB30, NOT_DB29, NOT_DB28, NOT_DB27, NOT_DB26, NOT_DB25, NOT_DB24, NOT_DB23;
+  reg NOT_DB22, NOT_DB21, NOT_DB20, NOT_DB19, NOT_DB18, NOT_DB17, NOT_DB16, NOT_DB15;
+  reg NOT_DB14, NOT_DB13, NOT_DB12, NOT_DB11, NOT_DB10, NOT_DB9, NOT_DB8, NOT_DB7;
+  reg NOT_DB6, NOT_DB5, NOT_DB4, NOT_DB3, NOT_DB2, NOT_DB1, NOT_DB0, NOT_EMAA2, NOT_EMAA1;
+  reg NOT_EMAA0, NOT_EMASA, NOT_EMAB2, NOT_EMAB1, NOT_EMAB0, NOT_EMAWB1, NOT_EMAWB0;
+  reg NOT_TENA, NOT_TCENA, NOT_TAA7, NOT_TAA6, NOT_TAA5, NOT_TAA4, NOT_TAA3, NOT_TAA2;
+  reg NOT_TAA1, NOT_TAA0, NOT_TENB, NOT_TCENB, NOT_TAB7, NOT_TAB6, NOT_TAB5, NOT_TAB4;
+  reg NOT_TAB3, NOT_TAB2, NOT_TAB1, NOT_TAB0, NOT_TDB123, NOT_TDB122, NOT_TDB121, NOT_TDB120;
+  reg NOT_TDB119, NOT_TDB118, NOT_TDB117, NOT_TDB116, NOT_TDB115, NOT_TDB114, NOT_TDB113;
+  reg NOT_TDB112, NOT_TDB111, NOT_TDB110, NOT_TDB109, NOT_TDB108, NOT_TDB107, NOT_TDB106;
+  reg NOT_TDB105, NOT_TDB104, NOT_TDB103, NOT_TDB102, NOT_TDB101, NOT_TDB100, NOT_TDB99;
+  reg NOT_TDB98, NOT_TDB97, NOT_TDB96, NOT_TDB95, NOT_TDB94, NOT_TDB93, NOT_TDB92;
+  reg NOT_TDB91, NOT_TDB90, NOT_TDB89, NOT_TDB88, NOT_TDB87, NOT_TDB86, NOT_TDB85;
+  reg NOT_TDB84, NOT_TDB83, NOT_TDB82, NOT_TDB81, NOT_TDB80, NOT_TDB79, NOT_TDB78;
+  reg NOT_TDB77, NOT_TDB76, NOT_TDB75, NOT_TDB74, NOT_TDB73, NOT_TDB72, NOT_TDB71;
+  reg NOT_TDB70, NOT_TDB69, NOT_TDB68, NOT_TDB67, NOT_TDB66, NOT_TDB65, NOT_TDB64;
+  reg NOT_TDB63, NOT_TDB62, NOT_TDB61, NOT_TDB60, NOT_TDB59, NOT_TDB58, NOT_TDB57;
+  reg NOT_TDB56, NOT_TDB55, NOT_TDB54, NOT_TDB53, NOT_TDB52, NOT_TDB51, NOT_TDB50;
+  reg NOT_TDB49, NOT_TDB48, NOT_TDB47, NOT_TDB46, NOT_TDB45, NOT_TDB44, NOT_TDB43;
+  reg NOT_TDB42, NOT_TDB41, NOT_TDB40, NOT_TDB39, NOT_TDB38, NOT_TDB37, NOT_TDB36;
+  reg NOT_TDB35, NOT_TDB34, NOT_TDB33, NOT_TDB32, NOT_TDB31, NOT_TDB30, NOT_TDB29;
+  reg NOT_TDB28, NOT_TDB27, NOT_TDB26, NOT_TDB25, NOT_TDB24, NOT_TDB23, NOT_TDB22;
+  reg NOT_TDB21, NOT_TDB20, NOT_TDB19, NOT_TDB18, NOT_TDB17, NOT_TDB16, NOT_TDB15;
+  reg NOT_TDB14, NOT_TDB13, NOT_TDB12, NOT_TDB11, NOT_TDB10, NOT_TDB9, NOT_TDB8, NOT_TDB7;
+  reg NOT_TDB6, NOT_TDB5, NOT_TDB4, NOT_TDB3, NOT_TDB2, NOT_TDB1, NOT_TDB0, NOT_RET1N;
+  reg NOT_STOVA, NOT_STOVB, NOT_COLLDISN;
   reg NOT_CONTA, NOT_CLKA_PER, NOT_CLKA_MINH, NOT_CLKA_MINL, NOT_CONTB, NOT_CLKB_PER;
   reg NOT_CLKB_MINH, NOT_CLKB_MINL;
   reg clk0_int;
   reg clk1_int;
 
   wire  CENYA_;
-  wire [6:0] AYA_;
+  wire [7:0] AYA_;
   wire  CENYB_;
-  wire [6:0] AYB_;
-  wire [127:0] DYB_;
-  wire [127:0] QA_;
+  wire [7:0] AYB_;
+  wire [123:0] DYB_;
+  wire [123:0] QA_;
  wire  CLKA_;
   wire  CENA_;
   reg  CENA_int;
   reg  CENA_p2;
-  wire [6:0] AA_;
-  reg [6:0] AA_int;
+  wire [7:0] AA_;
+  reg [7:0] AA_int;
  wire  CLKB_;
   wire  CENB_;
   reg  CENB_int;
   reg  CENB_p2;
-  wire [6:0] AB_;
-  reg [6:0] AB_int;
-  wire [127:0] DB_;
-  reg [127:0] DB_int;
+  wire [7:0] AB_;
+  reg [7:0] AB_int;
+  wire [123:0] DB_;
+  reg [123:0] DB_int;
   wire [2:0] EMAA_;
   reg [2:0] EMAA_int;
   wire  EMASA_;
@@ -233,19 +233,19 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   wire  TCENA_;
   reg  TCENA_int;
   reg  TCENA_p2;
-  wire [6:0] TAA_;
-  reg [6:0] TAA_int;
-  wire [127:0] TQA_;
-  reg [127:0] TQA_int;
+  wire [7:0] TAA_;
+  reg [7:0] TAA_int;
+  wire [123:0] TQA_;
+  reg [123:0] TQA_int;
   wire  TENB_;
   reg  TENB_int;
   wire  TCENB_;
   reg  TCENB_int;
   reg  TCENB_p2;
-  wire [6:0] TAB_;
-  reg [6:0] TAB_int;
-  wire [127:0] TDB_;
-  reg [127:0] TDB_int;
+  wire [7:0] TAB_;
+  reg [7:0] TAB_int;
+  wire [123:0] TDB_;
+  reg [123:0] TDB_int;
   wire  RET1N_;
   reg  RET1N_int;
   wire  STOVA_;
@@ -263,6 +263,7 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   assign AYA[4] = AYA_[4]; 
   assign AYA[5] = AYA_[5]; 
   assign AYA[6] = AYA_[6]; 
+  assign AYA[7] = AYA_[7]; 
   assign CENYB = CENYB_; 
   assign AYB[0] = AYB_[0]; 
   assign AYB[1] = AYB_[1]; 
@@ -271,6 +272,7 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   assign AYB[4] = AYB_[4]; 
   assign AYB[5] = AYB_[5]; 
   assign AYB[6] = AYB_[6]; 
+  assign AYB[7] = AYB_[7]; 
   assign DYB[0] = DYB_[0]; 
   assign DYB[1] = DYB_[1]; 
   assign DYB[2] = DYB_[2]; 
@@ -395,10 +397,6 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   assign DYB[121] = DYB_[121]; 
   assign DYB[122] = DYB_[122]; 
   assign DYB[123] = DYB_[123]; 
-  assign DYB[124] = DYB_[124]; 
-  assign DYB[125] = DYB_[125]; 
-  assign DYB[126] = DYB_[126]; 
-  assign DYB[127] = DYB_[127]; 
   assign QA[0] = QA_[0]; 
   assign QA[1] = QA_[1]; 
   assign QA[2] = QA_[2]; 
@@ -523,10 +521,6 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   assign QA[121] = QA_[121]; 
   assign QA[122] = QA_[122]; 
   assign QA[123] = QA_[123]; 
-  assign QA[124] = QA_[124]; 
-  assign QA[125] = QA_[125]; 
-  assign QA[126] = QA_[126]; 
-  assign QA[127] = QA_[127]; 
   assign CLKA_ = CLKA;
   assign CENA_ = CENA;
   assign AA_[0] = AA[0];
@@ -536,6 +530,7 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   assign AA_[4] = AA[4];
   assign AA_[5] = AA[5];
   assign AA_[6] = AA[6];
+  assign AA_[7] = AA[7];
   assign CLKB_ = CLKB;
   assign CENB_ = CENB;
   assign AB_[0] = AB[0];
@@ -545,6 +540,7 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   assign AB_[4] = AB[4];
   assign AB_[5] = AB[5];
   assign AB_[6] = AB[6];
+  assign AB_[7] = AB[7];
   assign DB_[0] = DB[0];
   assign DB_[1] = DB[1];
   assign DB_[2] = DB[2];
@@ -669,10 +665,6 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   assign DB_[121] = DB[121];
   assign DB_[122] = DB[122];
   assign DB_[123] = DB[123];
-  assign DB_[124] = DB[124];
-  assign DB_[125] = DB[125];
-  assign DB_[126] = DB[126];
-  assign DB_[127] = DB[127];
   assign EMAA_[0] = EMAA[0];
   assign EMAA_[1] = EMAA[1];
   assign EMAA_[2] = EMAA[2];
@@ -692,6 +684,7 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   assign TAA_[4] = TAA[4];
   assign TAA_[5] = TAA[5];
   assign TAA_[6] = TAA[6];
+  assign TAA_[7] = TAA[7];
   assign TQA_[0] = TQA[0];
   assign TQA_[1] = TQA[1];
   assign TQA_[2] = TQA[2];
@@ -816,10 +809,6 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   assign TQA_[121] = TQA[121];
   assign TQA_[122] = TQA[122];
   assign TQA_[123] = TQA[123];
-  assign TQA_[124] = TQA[124];
-  assign TQA_[125] = TQA[125];
-  assign TQA_[126] = TQA[126];
-  assign TQA_[127] = TQA[127];
   assign TENB_ = TENB;
   assign TCENB_ = TCENB;
   assign TAB_[0] = TAB[0];
@@ -829,6 +818,7 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   assign TAB_[4] = TAB[4];
   assign TAB_[5] = TAB[5];
   assign TAB_[6] = TAB[6];
+  assign TAB_[7] = TAB[7];
   assign TDB_[0] = TDB[0];
   assign TDB_[1] = TDB[1];
   assign TDB_[2] = TDB[2];
@@ -953,21 +943,17 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   assign TDB_[121] = TDB[121];
   assign TDB_[122] = TDB[122];
   assign TDB_[123] = TDB[123];
-  assign TDB_[124] = TDB[124];
-  assign TDB_[125] = TDB[125];
-  assign TDB_[126] = TDB[126];
-  assign TDB_[127] = TDB[127];
   assign RET1N_ = RET1N;
   assign STOVA_ = STOVA;
   assign STOVB_ = STOVB;
   assign COLLDISN_ = COLLDISN;
 
   assign `ARM_UD_DP CENYA_ = RET1N_ ? (TENA_ ? CENA_ : TCENA_) : 1'bx;
-  assign `ARM_UD_DP AYA_ = RET1N_ ? (TENA_ ? AA_ : TAA_) : {7{1'bx}};
+  assign `ARM_UD_DP AYA_ = RET1N_ ? (TENA_ ? AA_ : TAA_) : {8{1'bx}};
   assign `ARM_UD_DP CENYB_ = RET1N_ ? (TENB_ ? CENB_ : TCENB_) : 1'bx;
-  assign `ARM_UD_DP AYB_ = RET1N_ ? (TENB_ ? AB_ : TAB_) : {7{1'bx}};
-  assign `ARM_UD_DP DYB_ = RET1N_ ? (TENB_ ? DB_ : TDB_) : {128{1'bx}};
-  assign `ARM_UD_SEQ QA_ = RET1N_ ? (BENA_ ? ((STOVA_ ? (QA_int_delayed) : (QA_int))) : TQA_) : {128{1'bx}};
+  assign `ARM_UD_DP AYB_ = RET1N_ ? (TENB_ ? AB_ : TAB_) : {8{1'bx}};
+  assign `ARM_UD_DP DYB_ = RET1N_ ? (TENB_ ? DB_ : TDB_) : {124{1'bx}};
+  assign `ARM_UD_SEQ QA_ = RET1N_ ? (BENA_ ? ((STOVA_ ? (QA_int_delayed) : (QA_int))) : TQA_) : {124{1'bx}};
 
 // If INITIALIZE_MEMORY is defined at Simulator Command Line, it Initializes the Memory with all ZEROS.
 `ifdef INITIALIZE_MEMORY
@@ -999,7 +985,7 @@ task loadmem;
 	reg [BITS-1:0] memld [0:WORDS-1];
 	integer i;
 	reg [BITS-1:0] wordtemp;
-	reg [6:0] Atemp;
+	reg [7:0] Atemp;
   begin
 	$readmemb(filename, memld);
      if (CENA_ === 1'b1 && CENB_ === 1'b1) begin
@@ -1009,7 +995,7 @@ task loadmem;
        mux_address = 0;
       row_address = Atemp;
       row = mem[row_address];
-        writeEnable = {128{1'b1}};
+        writeEnable = {124{1'b1}};
         row_mask =  writeEnable;
         new_data =  wordtemp;
       row = (row & ~row_mask) | (row_mask & (~row_mask | new_data));
@@ -1023,7 +1009,7 @@ task dumpmem;
 	input [1000*8-1:0] filename_dump;
 	integer i, dump_file_desc;
 	reg [BITS-1:0] wordtemp;
-	reg [6:0] Atemp;
+	reg [7:0] Atemp;
   begin
 	dump_file_desc = $fopen(filename_dump);
      if (CENA_ === 1'b1 && CENB_ === 1'b1) begin
@@ -1032,7 +1018,7 @@ task dumpmem;
        mux_address = 0;
       row_address = Atemp;
       row = mem[row_address];
-        writeEnable = {128{1'b1}};
+        writeEnable = {124{1'b1}};
       data_out = row;
       QA_int = data_out;
    	$fdisplay(dump_file_desc, "%b", QA_int);
@@ -1047,25 +1033,25 @@ task dumpmem;
   begin
     if (RET1N_int === 1'bx || RET1N_int === 1'bz) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_int === 1'b0 && CENA_int === 1'b0) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_int === 1'b0) begin
       // no cycle in retention mode
     end else if (^{CENA_int, EMAA_int, EMASA_int, RET1N_int, (STOVA_int && !CENA_int)} 
      === 1'bx) begin
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if ((AA_int >= WORDS) && (CENA_int === 1'b0)) begin
-      QA_int = 0 ? QA_int : {128{1'bx}};
+      QA_int = 0 ? QA_int : {124{1'bx}};
     end else if (CENA_int === 1'b0 && (^AA_int) === 1'bx) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (CENA_int === 1'b0) begin
       mux_address = 0;
       row_address = AA_int;
-      if (row_address > 95)
-        row = {128{1'bx}};
+      if (row_address > 255)
+        row = {124{1'bx}};
       else
         row = mem[row_address];
       data_out = row;
@@ -1078,10 +1064,10 @@ task dumpmem;
   begin
     if (RET1N_int === 1'bx || RET1N_int === 1'bz) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_int === 1'b0 && CENB_int === 1'b0) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_int === 1'b0) begin
       // no cycle in retention mode
     end else if (^{CENB_int, EMAB_int, EMAWB_int, RET1N_int, (STOVB_int && !CENB_int)} 
@@ -1093,11 +1079,11 @@ task dumpmem;
     end else if (CENB_int === 1'b0) begin
       mux_address = 0;
       row_address = AB_int;
-      if (row_address > 95)
-        row = {128{1'bx}};
+      if (row_address > 255)
+        row = {124{1'bx}};
       else
         row = mem[row_address];
-      writeEnable = ~{128{CENB_int}};
+      writeEnable = ~{124{CENB_int}};
       row_mask =  writeEnable;
       new_data =  DB_int;
       row = (row & ~row_mask) | (row_mask & (~row_mask | new_data));
@@ -1115,45 +1101,45 @@ task dumpmem;
   always @ RET1N_ begin
     if (CLKA_ == 1'b1) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end
     if (RET1N_ === 1'bx || RET1N_ === 1'bz) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_ === 1'b0 && RET1N_int === 1'b1 && (CENA_p2 === 1'b0 || TCENA_p2 === 1'b0) ) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_ === 1'b1 && RET1N_int === 1'b0 && (CENA_p2 === 1'b0 || TCENA_p2 === 1'b0) ) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end
     if (RET1N_ == 1'b0) begin
-      QA_int = {128{1'bx}};
-      QA_int_delayed = {128{1'bx}};
+      QA_int = {124{1'bx}};
+      QA_int_delayed = {124{1'bx}};
       CENA_int = 1'bx;
-      AA_int = {7{1'bx}};
+      AA_int = {8{1'bx}};
       EMAA_int = {3{1'bx}};
       EMASA_int = 1'bx;
       TENA_int = 1'bx;
       BENA_int = 1'bx;
       TCENA_int = 1'bx;
-      TAA_int = {7{1'bx}};
-      TQA_int = {128{1'bx}};
+      TAA_int = {8{1'bx}};
+      TQA_int = {124{1'bx}};
       RET1N_int = 1'bx;
       STOVA_int = 1'bx;
       COLLDISN_int = 1'bx;
     end else begin
-      QA_int = {128{1'bx}};
-      QA_int_delayed = {128{1'bx}};
+      QA_int = {124{1'bx}};
+      QA_int_delayed = {124{1'bx}};
       CENA_int = 1'bx;
-      AA_int = {7{1'bx}};
+      AA_int = {8{1'bx}};
       EMAA_int = {3{1'bx}};
       EMASA_int = 1'bx;
       TENA_int = 1'bx;
       BENA_int = 1'bx;
       TCENA_int = 1'bx;
-      TAA_int = {7{1'bx}};
-      TQA_int = {128{1'bx}};
+      TAA_int = {8{1'bx}};
+      TQA_int = {124{1'bx}};
       RET1N_int = 1'bx;
       STOVA_int = 1'bx;
       COLLDISN_int = 1'bx;
@@ -1177,7 +1163,7 @@ task dumpmem;
   end else begin
     if ((CLKA_ === 1'bx || CLKA_ === 1'bz) && RET1N_ !== 1'b0) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (CLKA_ === 1'b1 && LAST_CLKA === 1'b0) begin
       CENA_int = TENA_ ? CENA_ : TCENA_;
       EMAA_int = EMAA_;
@@ -1203,7 +1189,7 @@ task dumpmem;
           $display("%s contention: write B succeeds, read A fails in %m at %0t",ASSERT_PREFIX, $time);
           ROW_CC = 1;
           COL_CC = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
       end else if (((previous_CLKA == previous_CLKB) || ((STOVA_int==1'b1 || STOVB_int==1'b1) 
        && CLKA_ == 1'b1 && CLKB_ == 1'b1)) && (CENA_int !== 1'b1 && CENB_int !== 1'b1) 
        && COLLDISN_int === 1'b1 && row_contention(AA_int, AB_int, 1'b1, 1'b0)) begin
@@ -1219,13 +1205,13 @@ task dumpmem;
           ROW_CC = 1;
           $display("%s contention: write B fails in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
-        DB_int = {128{1'bx}};
+        DB_int = {124{1'bx}};
         WriteB;
         if (col_contention(AA_int,AB_int)) begin
           $display("%s contention: read A fails in %m at %0t",ASSERT_PREFIX, $time);
           COL_CC = 1;
           READ_WRITE = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
       end else begin
           $display("%s contention: read A succeeds in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
@@ -1247,41 +1233,41 @@ task dumpmem;
   always @ RET1N_ begin
     if (CLKB_ == 1'b1) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end
     if (RET1N_ === 1'bx || RET1N_ === 1'bz) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_ === 1'b0 && RET1N_int === 1'b1 && (CENB_p2 === 1'b0 || TCENB_p2 === 1'b0) ) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_ === 1'b1 && RET1N_int === 1'b0 && (CENB_p2 === 1'b0 || TCENB_p2 === 1'b0) ) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end
     if (RET1N_ == 1'b0) begin
       CENB_int = 1'bx;
-      AB_int = {7{1'bx}};
-      DB_int = {128{1'bx}};
+      AB_int = {8{1'bx}};
+      DB_int = {124{1'bx}};
       EMAB_int = {3{1'bx}};
       EMAWB_int = {2{1'bx}};
       TENB_int = 1'bx;
       TCENB_int = 1'bx;
-      TAB_int = {7{1'bx}};
-      TDB_int = {128{1'bx}};
+      TAB_int = {8{1'bx}};
+      TDB_int = {124{1'bx}};
       RET1N_int = 1'bx;
       STOVB_int = 1'bx;
       COLLDISN_int = 1'bx;
     end else begin
       CENB_int = 1'bx;
-      AB_int = {7{1'bx}};
-      DB_int = {128{1'bx}};
+      AB_int = {8{1'bx}};
+      DB_int = {124{1'bx}};
       EMAB_int = {3{1'bx}};
       EMAWB_int = {2{1'bx}};
       TENB_int = 1'bx;
       TCENB_int = 1'bx;
-      TAB_int = {7{1'bx}};
-      TDB_int = {128{1'bx}};
+      TAB_int = {8{1'bx}};
+      TDB_int = {124{1'bx}};
       RET1N_int = 1'bx;
       STOVB_int = 1'bx;
       COLLDISN_int = 1'bx;
@@ -1294,7 +1280,7 @@ task dumpmem;
       // no cycle in retention mode
   end else begin
     if ((CLKB_ === 1'bx || CLKB_ === 1'bz) && RET1N_ !== 1'b0) begin
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (CLKB_ === 1'b1 && LAST_CLKB === 1'b0) begin
       CENB_int = TENB_ ? CENB_ : TCENB_;
       EMAB_int = EMAB_;
@@ -1320,7 +1306,7 @@ task dumpmem;
           $display("%s contention: write B succeeds, read A fails in %m at %0t",ASSERT_PREFIX, $time);
           ROW_CC = 1;
           COL_CC = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
       end else if (((previous_CLKA == previous_CLKB) || ((STOVA_int==1'b1 || STOVB_int==1'b1) 
        && CLKA_ == 1'b1 && CLKB_ == 1'b1)) && COLLDISN_int === 1'b1 && (CENA_int !== 
        1'b1 && CENB_int !== 1'b1) && row_contention(AA_int, AB_int, 1'b1, 1'b0)) begin
@@ -1336,13 +1322,13 @@ task dumpmem;
           ROW_CC = 1;
           $display("%s contention: write B fails in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
-        DB_int = {128{1'bx}};
+        DB_int = {124{1'bx}};
         WriteB;
         if (col_contention(AA_int,AB_int)) begin
           $display("%s contention: read A fails in %m at %0t",ASSERT_PREFIX, $time);
           COL_CC = 1;
           READ_WRITE = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
       end else begin
           $display("%s contention: read A succeeds in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
@@ -1354,8 +1340,8 @@ task dumpmem;
   end
 
   function row_contention;
-    input [6:0] aa;
-    input [6:0] ab;
+    input [7:0] aa;
+    input [7:0] ab;
     input  wena;
     input  wenb;
     reg result;
@@ -1365,7 +1351,7 @@ task dumpmem;
   begin
     anyWrite = ((& wena) === 1'b1 && (& wenb) === 1'b1) ? 1'b0 : 1'b1;
     sameMux = (aa[0:0] == ab[0:0]) ? 1'b1 : 1'b0;
-    if (aa[6:0] == ab[6:0]) begin
+    if (aa[7:0] == ab[7:0]) begin
       sameRow = 1'b1;
     end else begin
       sameRow = 1'b0;
@@ -1380,8 +1366,8 @@ task dumpmem;
   endfunction
 
   function col_contention;
-    input [6:0] aa;
-    input [6:0] ab;
+    input [7:0] aa;
+    input [7:0] ab;
   begin
     if (aa[0:0] == ab[0:0])
       col_contention = 1'b1;
@@ -1391,8 +1377,8 @@ task dumpmem;
   endfunction
 
   function is_contention;
-    input [6:0] aa;
-    input [6:0] ab;
+    input [7:0] aa;
+    input [7:0] ab;
     input  wena;
     input  wenb;
     reg result;
@@ -1415,39 +1401,39 @@ endmodule
 `celldefine
 // If POWER_PINS is defined at Simulator Command Line, it selects the module definition with Power Ports
 `ifdef POWER_PINS
-module rf_2p_hse_crt (VDDCE, VDDPE, VSSE, CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA,
-    AA, CLKB, CENB, AB, DB, EMAA, EMASA, EMAB, EMAWB, TENA, BENA, TCENA, TAA, TQA,
-    TENB, TCENB, TAB, TDB, RET1N, STOVA, STOVB, COLLDISN);
+module RF_2p_CRT_4x256 (VDDCE, VDDPE, VSSE, CENYA, AYA, CENYB, AYB, DYB, QA, CLKA,
+    CENA, AA, CLKB, CENB, AB, DB, EMAA, EMASA, EMAB, EMAWB, TENA, BENA, TCENA, TAA,
+    TQA, TENB, TCENB, TAB, TDB, RET1N, STOVA, STOVB, COLLDISN);
 `else
-module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CENB,
+module RF_2p_CRT_4x256 (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CENB,
     AB, DB, EMAA, EMASA, EMAB, EMAWB, TENA, BENA, TCENA, TAA, TQA, TENB, TCENB, TAB,
     TDB, RET1N, STOVA, STOVB, COLLDISN);
 `endif
 
   parameter ASSERT_PREFIX = "";
-  parameter BITS = 128;
-  parameter WORDS = 96;
+  parameter BITS = 124;
+  parameter WORDS = 256;
   parameter MUX = 1;
-  parameter MEM_WIDTH = 128; // redun block size 1, 64 on left, 64 on right
-  parameter MEM_HEIGHT = 96;
-  parameter WP_SIZE = 128 ;
+  parameter MEM_WIDTH = 124; // redun block size 1, 62 on left, 62 on right
+  parameter MEM_HEIGHT = 256;
+  parameter WP_SIZE = 124 ;
   parameter UPM_WIDTH = 3;
   parameter UPMW_WIDTH = 2;
   parameter UPMS_WIDTH = 1;
 
   output  CENYA;
-  output [6:0] AYA;
+  output [7:0] AYA;
   output  CENYB;
-  output [6:0] AYB;
-  output [127:0] DYB;
-  output [127:0] QA;
+  output [7:0] AYB;
+  output [123:0] DYB;
+  output [123:0] QA;
   input  CLKA;
   input  CENA;
-  input [6:0] AA;
+  input [7:0] AA;
   input  CLKB;
   input  CENB;
-  input [6:0] AB;
-  input [127:0] DB;
+  input [7:0] AB;
+  input [123:0] DB;
   input [2:0] EMAA;
   input  EMASA;
   input [2:0] EMAB;
@@ -1455,12 +1441,12 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   input  TENA;
   input  BENA;
   input  TCENA;
-  input [6:0] TAA;
-  input [127:0] TQA;
+  input [7:0] TAA;
+  input [123:0] TQA;
   input  TENB;
   input  TCENB;
-  input [6:0] TAB;
-  input [127:0] TDB;
+  input [7:0] TAB;
+  input [123:0] TDB;
   input  RET1N;
   input  STOVA;
   input  STOVB;
@@ -1473,16 +1459,16 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
 
   integer row_address;
   integer mux_address;
-  reg [127:0] mem [0:95];
-  reg [127:0] row;
+  reg [123:0] mem [0:255];
+  reg [123:0] row;
   reg LAST_CLKA;
-  reg [127:0] row_mask;
-  reg [127:0] new_data;
-  reg [127:0] data_out;
+  reg [123:0] row_mask;
+  reg [123:0] new_data;
+  reg [123:0] data_out;
   reg LAST_CLKB;
-  reg [127:0] QA_int;
-  reg [127:0] QA_int_delayed;
-  reg [127:0] writeEnable;
+  reg [123:0] QA_int;
+  reg [123:0] QA_int_delayed;
+  reg [123:0] writeEnable;
   real previous_CLKA;
   real previous_CLKB;
   initial previous_CLKA = 0;
@@ -1494,71 +1480,71 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   initial cont_flag0_int = 1'b0;
   initial cont_flag1_int = 1'b0;
 
-  reg NOT_CENA, NOT_AA6, NOT_AA5, NOT_AA4, NOT_AA3, NOT_AA2, NOT_AA1, NOT_AA0, NOT_CENB;
-  reg NOT_AB6, NOT_AB5, NOT_AB4, NOT_AB3, NOT_AB2, NOT_AB1, NOT_AB0, NOT_DB127, NOT_DB126;
-  reg NOT_DB125, NOT_DB124, NOT_DB123, NOT_DB122, NOT_DB121, NOT_DB120, NOT_DB119;
-  reg NOT_DB118, NOT_DB117, NOT_DB116, NOT_DB115, NOT_DB114, NOT_DB113, NOT_DB112;
-  reg NOT_DB111, NOT_DB110, NOT_DB109, NOT_DB108, NOT_DB107, NOT_DB106, NOT_DB105;
-  reg NOT_DB104, NOT_DB103, NOT_DB102, NOT_DB101, NOT_DB100, NOT_DB99, NOT_DB98, NOT_DB97;
-  reg NOT_DB96, NOT_DB95, NOT_DB94, NOT_DB93, NOT_DB92, NOT_DB91, NOT_DB90, NOT_DB89;
-  reg NOT_DB88, NOT_DB87, NOT_DB86, NOT_DB85, NOT_DB84, NOT_DB83, NOT_DB82, NOT_DB81;
-  reg NOT_DB80, NOT_DB79, NOT_DB78, NOT_DB77, NOT_DB76, NOT_DB75, NOT_DB74, NOT_DB73;
-  reg NOT_DB72, NOT_DB71, NOT_DB70, NOT_DB69, NOT_DB68, NOT_DB67, NOT_DB66, NOT_DB65;
-  reg NOT_DB64, NOT_DB63, NOT_DB62, NOT_DB61, NOT_DB60, NOT_DB59, NOT_DB58, NOT_DB57;
-  reg NOT_DB56, NOT_DB55, NOT_DB54, NOT_DB53, NOT_DB52, NOT_DB51, NOT_DB50, NOT_DB49;
-  reg NOT_DB48, NOT_DB47, NOT_DB46, NOT_DB45, NOT_DB44, NOT_DB43, NOT_DB42, NOT_DB41;
-  reg NOT_DB40, NOT_DB39, NOT_DB38, NOT_DB37, NOT_DB36, NOT_DB35, NOT_DB34, NOT_DB33;
-  reg NOT_DB32, NOT_DB31, NOT_DB30, NOT_DB29, NOT_DB28, NOT_DB27, NOT_DB26, NOT_DB25;
-  reg NOT_DB24, NOT_DB23, NOT_DB22, NOT_DB21, NOT_DB20, NOT_DB19, NOT_DB18, NOT_DB17;
-  reg NOT_DB16, NOT_DB15, NOT_DB14, NOT_DB13, NOT_DB12, NOT_DB11, NOT_DB10, NOT_DB9;
-  reg NOT_DB8, NOT_DB7, NOT_DB6, NOT_DB5, NOT_DB4, NOT_DB3, NOT_DB2, NOT_DB1, NOT_DB0;
-  reg NOT_EMAA2, NOT_EMAA1, NOT_EMAA0, NOT_EMASA, NOT_EMAB2, NOT_EMAB1, NOT_EMAB0;
-  reg NOT_EMAWB1, NOT_EMAWB0, NOT_TENA, NOT_TCENA, NOT_TAA6, NOT_TAA5, NOT_TAA4, NOT_TAA3;
-  reg NOT_TAA2, NOT_TAA1, NOT_TAA0, NOT_TENB, NOT_TCENB, NOT_TAB6, NOT_TAB5, NOT_TAB4;
-  reg NOT_TAB3, NOT_TAB2, NOT_TAB1, NOT_TAB0, NOT_TDB127, NOT_TDB126, NOT_TDB125, NOT_TDB124;
-  reg NOT_TDB123, NOT_TDB122, NOT_TDB121, NOT_TDB120, NOT_TDB119, NOT_TDB118, NOT_TDB117;
-  reg NOT_TDB116, NOT_TDB115, NOT_TDB114, NOT_TDB113, NOT_TDB112, NOT_TDB111, NOT_TDB110;
-  reg NOT_TDB109, NOT_TDB108, NOT_TDB107, NOT_TDB106, NOT_TDB105, NOT_TDB104, NOT_TDB103;
-  reg NOT_TDB102, NOT_TDB101, NOT_TDB100, NOT_TDB99, NOT_TDB98, NOT_TDB97, NOT_TDB96;
-  reg NOT_TDB95, NOT_TDB94, NOT_TDB93, NOT_TDB92, NOT_TDB91, NOT_TDB90, NOT_TDB89;
-  reg NOT_TDB88, NOT_TDB87, NOT_TDB86, NOT_TDB85, NOT_TDB84, NOT_TDB83, NOT_TDB82;
-  reg NOT_TDB81, NOT_TDB80, NOT_TDB79, NOT_TDB78, NOT_TDB77, NOT_TDB76, NOT_TDB75;
-  reg NOT_TDB74, NOT_TDB73, NOT_TDB72, NOT_TDB71, NOT_TDB70, NOT_TDB69, NOT_TDB68;
-  reg NOT_TDB67, NOT_TDB66, NOT_TDB65, NOT_TDB64, NOT_TDB63, NOT_TDB62, NOT_TDB61;
-  reg NOT_TDB60, NOT_TDB59, NOT_TDB58, NOT_TDB57, NOT_TDB56, NOT_TDB55, NOT_TDB54;
-  reg NOT_TDB53, NOT_TDB52, NOT_TDB51, NOT_TDB50, NOT_TDB49, NOT_TDB48, NOT_TDB47;
-  reg NOT_TDB46, NOT_TDB45, NOT_TDB44, NOT_TDB43, NOT_TDB42, NOT_TDB41, NOT_TDB40;
-  reg NOT_TDB39, NOT_TDB38, NOT_TDB37, NOT_TDB36, NOT_TDB35, NOT_TDB34, NOT_TDB33;
-  reg NOT_TDB32, NOT_TDB31, NOT_TDB30, NOT_TDB29, NOT_TDB28, NOT_TDB27, NOT_TDB26;
-  reg NOT_TDB25, NOT_TDB24, NOT_TDB23, NOT_TDB22, NOT_TDB21, NOT_TDB20, NOT_TDB19;
-  reg NOT_TDB18, NOT_TDB17, NOT_TDB16, NOT_TDB15, NOT_TDB14, NOT_TDB13, NOT_TDB12;
-  reg NOT_TDB11, NOT_TDB10, NOT_TDB9, NOT_TDB8, NOT_TDB7, NOT_TDB6, NOT_TDB5, NOT_TDB4;
-  reg NOT_TDB3, NOT_TDB2, NOT_TDB1, NOT_TDB0, NOT_RET1N, NOT_STOVA, NOT_STOVB, NOT_COLLDISN;
+  reg NOT_CENA, NOT_AA7, NOT_AA6, NOT_AA5, NOT_AA4, NOT_AA3, NOT_AA2, NOT_AA1, NOT_AA0;
+  reg NOT_CENB, NOT_AB7, NOT_AB6, NOT_AB5, NOT_AB4, NOT_AB3, NOT_AB2, NOT_AB1, NOT_AB0;
+  reg NOT_DB123, NOT_DB122, NOT_DB121, NOT_DB120, NOT_DB119, NOT_DB118, NOT_DB117;
+  reg NOT_DB116, NOT_DB115, NOT_DB114, NOT_DB113, NOT_DB112, NOT_DB111, NOT_DB110;
+  reg NOT_DB109, NOT_DB108, NOT_DB107, NOT_DB106, NOT_DB105, NOT_DB104, NOT_DB103;
+  reg NOT_DB102, NOT_DB101, NOT_DB100, NOT_DB99, NOT_DB98, NOT_DB97, NOT_DB96, NOT_DB95;
+  reg NOT_DB94, NOT_DB93, NOT_DB92, NOT_DB91, NOT_DB90, NOT_DB89, NOT_DB88, NOT_DB87;
+  reg NOT_DB86, NOT_DB85, NOT_DB84, NOT_DB83, NOT_DB82, NOT_DB81, NOT_DB80, NOT_DB79;
+  reg NOT_DB78, NOT_DB77, NOT_DB76, NOT_DB75, NOT_DB74, NOT_DB73, NOT_DB72, NOT_DB71;
+  reg NOT_DB70, NOT_DB69, NOT_DB68, NOT_DB67, NOT_DB66, NOT_DB65, NOT_DB64, NOT_DB63;
+  reg NOT_DB62, NOT_DB61, NOT_DB60, NOT_DB59, NOT_DB58, NOT_DB57, NOT_DB56, NOT_DB55;
+  reg NOT_DB54, NOT_DB53, NOT_DB52, NOT_DB51, NOT_DB50, NOT_DB49, NOT_DB48, NOT_DB47;
+  reg NOT_DB46, NOT_DB45, NOT_DB44, NOT_DB43, NOT_DB42, NOT_DB41, NOT_DB40, NOT_DB39;
+  reg NOT_DB38, NOT_DB37, NOT_DB36, NOT_DB35, NOT_DB34, NOT_DB33, NOT_DB32, NOT_DB31;
+  reg NOT_DB30, NOT_DB29, NOT_DB28, NOT_DB27, NOT_DB26, NOT_DB25, NOT_DB24, NOT_DB23;
+  reg NOT_DB22, NOT_DB21, NOT_DB20, NOT_DB19, NOT_DB18, NOT_DB17, NOT_DB16, NOT_DB15;
+  reg NOT_DB14, NOT_DB13, NOT_DB12, NOT_DB11, NOT_DB10, NOT_DB9, NOT_DB8, NOT_DB7;
+  reg NOT_DB6, NOT_DB5, NOT_DB4, NOT_DB3, NOT_DB2, NOT_DB1, NOT_DB0, NOT_EMAA2, NOT_EMAA1;
+  reg NOT_EMAA0, NOT_EMASA, NOT_EMAB2, NOT_EMAB1, NOT_EMAB0, NOT_EMAWB1, NOT_EMAWB0;
+  reg NOT_TENA, NOT_TCENA, NOT_TAA7, NOT_TAA6, NOT_TAA5, NOT_TAA4, NOT_TAA3, NOT_TAA2;
+  reg NOT_TAA1, NOT_TAA0, NOT_TENB, NOT_TCENB, NOT_TAB7, NOT_TAB6, NOT_TAB5, NOT_TAB4;
+  reg NOT_TAB3, NOT_TAB2, NOT_TAB1, NOT_TAB0, NOT_TDB123, NOT_TDB122, NOT_TDB121, NOT_TDB120;
+  reg NOT_TDB119, NOT_TDB118, NOT_TDB117, NOT_TDB116, NOT_TDB115, NOT_TDB114, NOT_TDB113;
+  reg NOT_TDB112, NOT_TDB111, NOT_TDB110, NOT_TDB109, NOT_TDB108, NOT_TDB107, NOT_TDB106;
+  reg NOT_TDB105, NOT_TDB104, NOT_TDB103, NOT_TDB102, NOT_TDB101, NOT_TDB100, NOT_TDB99;
+  reg NOT_TDB98, NOT_TDB97, NOT_TDB96, NOT_TDB95, NOT_TDB94, NOT_TDB93, NOT_TDB92;
+  reg NOT_TDB91, NOT_TDB90, NOT_TDB89, NOT_TDB88, NOT_TDB87, NOT_TDB86, NOT_TDB85;
+  reg NOT_TDB84, NOT_TDB83, NOT_TDB82, NOT_TDB81, NOT_TDB80, NOT_TDB79, NOT_TDB78;
+  reg NOT_TDB77, NOT_TDB76, NOT_TDB75, NOT_TDB74, NOT_TDB73, NOT_TDB72, NOT_TDB71;
+  reg NOT_TDB70, NOT_TDB69, NOT_TDB68, NOT_TDB67, NOT_TDB66, NOT_TDB65, NOT_TDB64;
+  reg NOT_TDB63, NOT_TDB62, NOT_TDB61, NOT_TDB60, NOT_TDB59, NOT_TDB58, NOT_TDB57;
+  reg NOT_TDB56, NOT_TDB55, NOT_TDB54, NOT_TDB53, NOT_TDB52, NOT_TDB51, NOT_TDB50;
+  reg NOT_TDB49, NOT_TDB48, NOT_TDB47, NOT_TDB46, NOT_TDB45, NOT_TDB44, NOT_TDB43;
+  reg NOT_TDB42, NOT_TDB41, NOT_TDB40, NOT_TDB39, NOT_TDB38, NOT_TDB37, NOT_TDB36;
+  reg NOT_TDB35, NOT_TDB34, NOT_TDB33, NOT_TDB32, NOT_TDB31, NOT_TDB30, NOT_TDB29;
+  reg NOT_TDB28, NOT_TDB27, NOT_TDB26, NOT_TDB25, NOT_TDB24, NOT_TDB23, NOT_TDB22;
+  reg NOT_TDB21, NOT_TDB20, NOT_TDB19, NOT_TDB18, NOT_TDB17, NOT_TDB16, NOT_TDB15;
+  reg NOT_TDB14, NOT_TDB13, NOT_TDB12, NOT_TDB11, NOT_TDB10, NOT_TDB9, NOT_TDB8, NOT_TDB7;
+  reg NOT_TDB6, NOT_TDB5, NOT_TDB4, NOT_TDB3, NOT_TDB2, NOT_TDB1, NOT_TDB0, NOT_RET1N;
+  reg NOT_STOVA, NOT_STOVB, NOT_COLLDISN;
   reg NOT_CONTA, NOT_CLKA_PER, NOT_CLKA_MINH, NOT_CLKA_MINL, NOT_CONTB, NOT_CLKB_PER;
   reg NOT_CLKB_MINH, NOT_CLKB_MINL;
   reg clk0_int;
   reg clk1_int;
 
   wire  CENYA_;
-  wire [6:0] AYA_;
+  wire [7:0] AYA_;
   wire  CENYB_;
-  wire [6:0] AYB_;
-  wire [127:0] DYB_;
-  wire [127:0] QA_;
+  wire [7:0] AYB_;
+  wire [123:0] DYB_;
+  wire [123:0] QA_;
  wire  CLKA_;
   wire  CENA_;
   reg  CENA_int;
   reg  CENA_p2;
-  wire [6:0] AA_;
-  reg [6:0] AA_int;
+  wire [7:0] AA_;
+  reg [7:0] AA_int;
  wire  CLKB_;
   wire  CENB_;
   reg  CENB_int;
   reg  CENB_p2;
-  wire [6:0] AB_;
-  reg [6:0] AB_int;
-  wire [127:0] DB_;
-  reg [127:0] DB_int;
+  wire [7:0] AB_;
+  reg [7:0] AB_int;
+  wire [123:0] DB_;
+  reg [123:0] DB_int;
   wire [2:0] EMAA_;
   reg [2:0] EMAA_int;
   wire  EMASA_;
@@ -1574,19 +1560,19 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   wire  TCENA_;
   reg  TCENA_int;
   reg  TCENA_p2;
-  wire [6:0] TAA_;
-  reg [6:0] TAA_int;
-  wire [127:0] TQA_;
-  reg [127:0] TQA_int;
+  wire [7:0] TAA_;
+  reg [7:0] TAA_int;
+  wire [123:0] TQA_;
+  reg [123:0] TQA_int;
   wire  TENB_;
   reg  TENB_int;
   wire  TCENB_;
   reg  TCENB_int;
   reg  TCENB_p2;
-  wire [6:0] TAB_;
-  reg [6:0] TAB_int;
-  wire [127:0] TDB_;
-  reg [127:0] TDB_int;
+  wire [7:0] TAB_;
+  reg [7:0] TAB_int;
+  wire [123:0] TDB_;
+  reg [123:0] TDB_int;
   wire  RET1N_;
   reg  RET1N_int;
   wire  STOVA_;
@@ -1604,714 +1590,700 @@ module rf_2p_hse_crt (CENYA, AYA, CENYB, AYB, DYB, QA, CLKA, CENA, AA, CLKB, CEN
   buf B5(AYA[4], AYA_[4]);
   buf B6(AYA[5], AYA_[5]);
   buf B7(AYA[6], AYA_[6]);
-  buf B8(CENYB, CENYB_);
-  buf B9(AYB[0], AYB_[0]);
-  buf B10(AYB[1], AYB_[1]);
-  buf B11(AYB[2], AYB_[2]);
-  buf B12(AYB[3], AYB_[3]);
-  buf B13(AYB[4], AYB_[4]);
-  buf B14(AYB[5], AYB_[5]);
-  buf B15(AYB[6], AYB_[6]);
-  buf B16(DYB[0], DYB_[0]);
-  buf B17(DYB[1], DYB_[1]);
-  buf B18(DYB[2], DYB_[2]);
-  buf B19(DYB[3], DYB_[3]);
-  buf B20(DYB[4], DYB_[4]);
-  buf B21(DYB[5], DYB_[5]);
-  buf B22(DYB[6], DYB_[6]);
-  buf B23(DYB[7], DYB_[7]);
-  buf B24(DYB[8], DYB_[8]);
-  buf B25(DYB[9], DYB_[9]);
-  buf B26(DYB[10], DYB_[10]);
-  buf B27(DYB[11], DYB_[11]);
-  buf B28(DYB[12], DYB_[12]);
-  buf B29(DYB[13], DYB_[13]);
-  buf B30(DYB[14], DYB_[14]);
-  buf B31(DYB[15], DYB_[15]);
-  buf B32(DYB[16], DYB_[16]);
-  buf B33(DYB[17], DYB_[17]);
-  buf B34(DYB[18], DYB_[18]);
-  buf B35(DYB[19], DYB_[19]);
-  buf B36(DYB[20], DYB_[20]);
-  buf B37(DYB[21], DYB_[21]);
-  buf B38(DYB[22], DYB_[22]);
-  buf B39(DYB[23], DYB_[23]);
-  buf B40(DYB[24], DYB_[24]);
-  buf B41(DYB[25], DYB_[25]);
-  buf B42(DYB[26], DYB_[26]);
-  buf B43(DYB[27], DYB_[27]);
-  buf B44(DYB[28], DYB_[28]);
-  buf B45(DYB[29], DYB_[29]);
-  buf B46(DYB[30], DYB_[30]);
-  buf B47(DYB[31], DYB_[31]);
-  buf B48(DYB[32], DYB_[32]);
-  buf B49(DYB[33], DYB_[33]);
-  buf B50(DYB[34], DYB_[34]);
-  buf B51(DYB[35], DYB_[35]);
-  buf B52(DYB[36], DYB_[36]);
-  buf B53(DYB[37], DYB_[37]);
-  buf B54(DYB[38], DYB_[38]);
-  buf B55(DYB[39], DYB_[39]);
-  buf B56(DYB[40], DYB_[40]);
-  buf B57(DYB[41], DYB_[41]);
-  buf B58(DYB[42], DYB_[42]);
-  buf B59(DYB[43], DYB_[43]);
-  buf B60(DYB[44], DYB_[44]);
-  buf B61(DYB[45], DYB_[45]);
-  buf B62(DYB[46], DYB_[46]);
-  buf B63(DYB[47], DYB_[47]);
-  buf B64(DYB[48], DYB_[48]);
-  buf B65(DYB[49], DYB_[49]);
-  buf B66(DYB[50], DYB_[50]);
-  buf B67(DYB[51], DYB_[51]);
-  buf B68(DYB[52], DYB_[52]);
-  buf B69(DYB[53], DYB_[53]);
-  buf B70(DYB[54], DYB_[54]);
-  buf B71(DYB[55], DYB_[55]);
-  buf B72(DYB[56], DYB_[56]);
-  buf B73(DYB[57], DYB_[57]);
-  buf B74(DYB[58], DYB_[58]);
-  buf B75(DYB[59], DYB_[59]);
-  buf B76(DYB[60], DYB_[60]);
-  buf B77(DYB[61], DYB_[61]);
-  buf B78(DYB[62], DYB_[62]);
-  buf B79(DYB[63], DYB_[63]);
-  buf B80(DYB[64], DYB_[64]);
-  buf B81(DYB[65], DYB_[65]);
-  buf B82(DYB[66], DYB_[66]);
-  buf B83(DYB[67], DYB_[67]);
-  buf B84(DYB[68], DYB_[68]);
-  buf B85(DYB[69], DYB_[69]);
-  buf B86(DYB[70], DYB_[70]);
-  buf B87(DYB[71], DYB_[71]);
-  buf B88(DYB[72], DYB_[72]);
-  buf B89(DYB[73], DYB_[73]);
-  buf B90(DYB[74], DYB_[74]);
-  buf B91(DYB[75], DYB_[75]);
-  buf B92(DYB[76], DYB_[76]);
-  buf B93(DYB[77], DYB_[77]);
-  buf B94(DYB[78], DYB_[78]);
-  buf B95(DYB[79], DYB_[79]);
-  buf B96(DYB[80], DYB_[80]);
-  buf B97(DYB[81], DYB_[81]);
-  buf B98(DYB[82], DYB_[82]);
-  buf B99(DYB[83], DYB_[83]);
-  buf B100(DYB[84], DYB_[84]);
-  buf B101(DYB[85], DYB_[85]);
-  buf B102(DYB[86], DYB_[86]);
-  buf B103(DYB[87], DYB_[87]);
-  buf B104(DYB[88], DYB_[88]);
-  buf B105(DYB[89], DYB_[89]);
-  buf B106(DYB[90], DYB_[90]);
-  buf B107(DYB[91], DYB_[91]);
-  buf B108(DYB[92], DYB_[92]);
-  buf B109(DYB[93], DYB_[93]);
-  buf B110(DYB[94], DYB_[94]);
-  buf B111(DYB[95], DYB_[95]);
-  buf B112(DYB[96], DYB_[96]);
-  buf B113(DYB[97], DYB_[97]);
-  buf B114(DYB[98], DYB_[98]);
-  buf B115(DYB[99], DYB_[99]);
-  buf B116(DYB[100], DYB_[100]);
-  buf B117(DYB[101], DYB_[101]);
-  buf B118(DYB[102], DYB_[102]);
-  buf B119(DYB[103], DYB_[103]);
-  buf B120(DYB[104], DYB_[104]);
-  buf B121(DYB[105], DYB_[105]);
-  buf B122(DYB[106], DYB_[106]);
-  buf B123(DYB[107], DYB_[107]);
-  buf B124(DYB[108], DYB_[108]);
-  buf B125(DYB[109], DYB_[109]);
-  buf B126(DYB[110], DYB_[110]);
-  buf B127(DYB[111], DYB_[111]);
-  buf B128(DYB[112], DYB_[112]);
-  buf B129(DYB[113], DYB_[113]);
-  buf B130(DYB[114], DYB_[114]);
-  buf B131(DYB[115], DYB_[115]);
-  buf B132(DYB[116], DYB_[116]);
-  buf B133(DYB[117], DYB_[117]);
-  buf B134(DYB[118], DYB_[118]);
-  buf B135(DYB[119], DYB_[119]);
-  buf B136(DYB[120], DYB_[120]);
-  buf B137(DYB[121], DYB_[121]);
-  buf B138(DYB[122], DYB_[122]);
-  buf B139(DYB[123], DYB_[123]);
-  buf B140(DYB[124], DYB_[124]);
-  buf B141(DYB[125], DYB_[125]);
-  buf B142(DYB[126], DYB_[126]);
-  buf B143(DYB[127], DYB_[127]);
-  buf B144(QA[0], QA_[0]);
-  buf B145(QA[1], QA_[1]);
-  buf B146(QA[2], QA_[2]);
-  buf B147(QA[3], QA_[3]);
-  buf B148(QA[4], QA_[4]);
-  buf B149(QA[5], QA_[5]);
-  buf B150(QA[6], QA_[6]);
-  buf B151(QA[7], QA_[7]);
-  buf B152(QA[8], QA_[8]);
-  buf B153(QA[9], QA_[9]);
-  buf B154(QA[10], QA_[10]);
-  buf B155(QA[11], QA_[11]);
-  buf B156(QA[12], QA_[12]);
-  buf B157(QA[13], QA_[13]);
-  buf B158(QA[14], QA_[14]);
-  buf B159(QA[15], QA_[15]);
-  buf B160(QA[16], QA_[16]);
-  buf B161(QA[17], QA_[17]);
-  buf B162(QA[18], QA_[18]);
-  buf B163(QA[19], QA_[19]);
-  buf B164(QA[20], QA_[20]);
-  buf B165(QA[21], QA_[21]);
-  buf B166(QA[22], QA_[22]);
-  buf B167(QA[23], QA_[23]);
-  buf B168(QA[24], QA_[24]);
-  buf B169(QA[25], QA_[25]);
-  buf B170(QA[26], QA_[26]);
-  buf B171(QA[27], QA_[27]);
-  buf B172(QA[28], QA_[28]);
-  buf B173(QA[29], QA_[29]);
-  buf B174(QA[30], QA_[30]);
-  buf B175(QA[31], QA_[31]);
-  buf B176(QA[32], QA_[32]);
-  buf B177(QA[33], QA_[33]);
-  buf B178(QA[34], QA_[34]);
-  buf B179(QA[35], QA_[35]);
-  buf B180(QA[36], QA_[36]);
-  buf B181(QA[37], QA_[37]);
-  buf B182(QA[38], QA_[38]);
-  buf B183(QA[39], QA_[39]);
-  buf B184(QA[40], QA_[40]);
-  buf B185(QA[41], QA_[41]);
-  buf B186(QA[42], QA_[42]);
-  buf B187(QA[43], QA_[43]);
-  buf B188(QA[44], QA_[44]);
-  buf B189(QA[45], QA_[45]);
-  buf B190(QA[46], QA_[46]);
-  buf B191(QA[47], QA_[47]);
-  buf B192(QA[48], QA_[48]);
-  buf B193(QA[49], QA_[49]);
-  buf B194(QA[50], QA_[50]);
-  buf B195(QA[51], QA_[51]);
-  buf B196(QA[52], QA_[52]);
-  buf B197(QA[53], QA_[53]);
-  buf B198(QA[54], QA_[54]);
-  buf B199(QA[55], QA_[55]);
-  buf B200(QA[56], QA_[56]);
-  buf B201(QA[57], QA_[57]);
-  buf B202(QA[58], QA_[58]);
-  buf B203(QA[59], QA_[59]);
-  buf B204(QA[60], QA_[60]);
-  buf B205(QA[61], QA_[61]);
-  buf B206(QA[62], QA_[62]);
-  buf B207(QA[63], QA_[63]);
-  buf B208(QA[64], QA_[64]);
-  buf B209(QA[65], QA_[65]);
-  buf B210(QA[66], QA_[66]);
-  buf B211(QA[67], QA_[67]);
-  buf B212(QA[68], QA_[68]);
-  buf B213(QA[69], QA_[69]);
-  buf B214(QA[70], QA_[70]);
-  buf B215(QA[71], QA_[71]);
-  buf B216(QA[72], QA_[72]);
-  buf B217(QA[73], QA_[73]);
-  buf B218(QA[74], QA_[74]);
-  buf B219(QA[75], QA_[75]);
-  buf B220(QA[76], QA_[76]);
-  buf B221(QA[77], QA_[77]);
-  buf B222(QA[78], QA_[78]);
-  buf B223(QA[79], QA_[79]);
-  buf B224(QA[80], QA_[80]);
-  buf B225(QA[81], QA_[81]);
-  buf B226(QA[82], QA_[82]);
-  buf B227(QA[83], QA_[83]);
-  buf B228(QA[84], QA_[84]);
-  buf B229(QA[85], QA_[85]);
-  buf B230(QA[86], QA_[86]);
-  buf B231(QA[87], QA_[87]);
-  buf B232(QA[88], QA_[88]);
-  buf B233(QA[89], QA_[89]);
-  buf B234(QA[90], QA_[90]);
-  buf B235(QA[91], QA_[91]);
-  buf B236(QA[92], QA_[92]);
-  buf B237(QA[93], QA_[93]);
-  buf B238(QA[94], QA_[94]);
-  buf B239(QA[95], QA_[95]);
-  buf B240(QA[96], QA_[96]);
-  buf B241(QA[97], QA_[97]);
-  buf B242(QA[98], QA_[98]);
-  buf B243(QA[99], QA_[99]);
-  buf B244(QA[100], QA_[100]);
-  buf B245(QA[101], QA_[101]);
-  buf B246(QA[102], QA_[102]);
-  buf B247(QA[103], QA_[103]);
-  buf B248(QA[104], QA_[104]);
-  buf B249(QA[105], QA_[105]);
-  buf B250(QA[106], QA_[106]);
-  buf B251(QA[107], QA_[107]);
-  buf B252(QA[108], QA_[108]);
-  buf B253(QA[109], QA_[109]);
-  buf B254(QA[110], QA_[110]);
-  buf B255(QA[111], QA_[111]);
-  buf B256(QA[112], QA_[112]);
-  buf B257(QA[113], QA_[113]);
-  buf B258(QA[114], QA_[114]);
-  buf B259(QA[115], QA_[115]);
-  buf B260(QA[116], QA_[116]);
-  buf B261(QA[117], QA_[117]);
-  buf B262(QA[118], QA_[118]);
-  buf B263(QA[119], QA_[119]);
-  buf B264(QA[120], QA_[120]);
-  buf B265(QA[121], QA_[121]);
-  buf B266(QA[122], QA_[122]);
-  buf B267(QA[123], QA_[123]);
-  buf B268(QA[124], QA_[124]);
-  buf B269(QA[125], QA_[125]);
-  buf B270(QA[126], QA_[126]);
-  buf B271(QA[127], QA_[127]);
-  buf B272(CLKA_, CLKA);
-  buf B273(CENA_, CENA);
-  buf B274(AA_[0], AA[0]);
-  buf B275(AA_[1], AA[1]);
-  buf B276(AA_[2], AA[2]);
-  buf B277(AA_[3], AA[3]);
-  buf B278(AA_[4], AA[4]);
-  buf B279(AA_[5], AA[5]);
-  buf B280(AA_[6], AA[6]);
-  buf B281(CLKB_, CLKB);
-  buf B282(CENB_, CENB);
-  buf B283(AB_[0], AB[0]);
-  buf B284(AB_[1], AB[1]);
-  buf B285(AB_[2], AB[2]);
-  buf B286(AB_[3], AB[3]);
-  buf B287(AB_[4], AB[4]);
-  buf B288(AB_[5], AB[5]);
-  buf B289(AB_[6], AB[6]);
-  buf B290(DB_[0], DB[0]);
-  buf B291(DB_[1], DB[1]);
-  buf B292(DB_[2], DB[2]);
-  buf B293(DB_[3], DB[3]);
-  buf B294(DB_[4], DB[4]);
-  buf B295(DB_[5], DB[5]);
-  buf B296(DB_[6], DB[6]);
-  buf B297(DB_[7], DB[7]);
-  buf B298(DB_[8], DB[8]);
-  buf B299(DB_[9], DB[9]);
-  buf B300(DB_[10], DB[10]);
-  buf B301(DB_[11], DB[11]);
-  buf B302(DB_[12], DB[12]);
-  buf B303(DB_[13], DB[13]);
-  buf B304(DB_[14], DB[14]);
-  buf B305(DB_[15], DB[15]);
-  buf B306(DB_[16], DB[16]);
-  buf B307(DB_[17], DB[17]);
-  buf B308(DB_[18], DB[18]);
-  buf B309(DB_[19], DB[19]);
-  buf B310(DB_[20], DB[20]);
-  buf B311(DB_[21], DB[21]);
-  buf B312(DB_[22], DB[22]);
-  buf B313(DB_[23], DB[23]);
-  buf B314(DB_[24], DB[24]);
-  buf B315(DB_[25], DB[25]);
-  buf B316(DB_[26], DB[26]);
-  buf B317(DB_[27], DB[27]);
-  buf B318(DB_[28], DB[28]);
-  buf B319(DB_[29], DB[29]);
-  buf B320(DB_[30], DB[30]);
-  buf B321(DB_[31], DB[31]);
-  buf B322(DB_[32], DB[32]);
-  buf B323(DB_[33], DB[33]);
-  buf B324(DB_[34], DB[34]);
-  buf B325(DB_[35], DB[35]);
-  buf B326(DB_[36], DB[36]);
-  buf B327(DB_[37], DB[37]);
-  buf B328(DB_[38], DB[38]);
-  buf B329(DB_[39], DB[39]);
-  buf B330(DB_[40], DB[40]);
-  buf B331(DB_[41], DB[41]);
-  buf B332(DB_[42], DB[42]);
-  buf B333(DB_[43], DB[43]);
-  buf B334(DB_[44], DB[44]);
-  buf B335(DB_[45], DB[45]);
-  buf B336(DB_[46], DB[46]);
-  buf B337(DB_[47], DB[47]);
-  buf B338(DB_[48], DB[48]);
-  buf B339(DB_[49], DB[49]);
-  buf B340(DB_[50], DB[50]);
-  buf B341(DB_[51], DB[51]);
-  buf B342(DB_[52], DB[52]);
-  buf B343(DB_[53], DB[53]);
-  buf B344(DB_[54], DB[54]);
-  buf B345(DB_[55], DB[55]);
-  buf B346(DB_[56], DB[56]);
-  buf B347(DB_[57], DB[57]);
-  buf B348(DB_[58], DB[58]);
-  buf B349(DB_[59], DB[59]);
-  buf B350(DB_[60], DB[60]);
-  buf B351(DB_[61], DB[61]);
-  buf B352(DB_[62], DB[62]);
-  buf B353(DB_[63], DB[63]);
-  buf B354(DB_[64], DB[64]);
-  buf B355(DB_[65], DB[65]);
-  buf B356(DB_[66], DB[66]);
-  buf B357(DB_[67], DB[67]);
-  buf B358(DB_[68], DB[68]);
-  buf B359(DB_[69], DB[69]);
-  buf B360(DB_[70], DB[70]);
-  buf B361(DB_[71], DB[71]);
-  buf B362(DB_[72], DB[72]);
-  buf B363(DB_[73], DB[73]);
-  buf B364(DB_[74], DB[74]);
-  buf B365(DB_[75], DB[75]);
-  buf B366(DB_[76], DB[76]);
-  buf B367(DB_[77], DB[77]);
-  buf B368(DB_[78], DB[78]);
-  buf B369(DB_[79], DB[79]);
-  buf B370(DB_[80], DB[80]);
-  buf B371(DB_[81], DB[81]);
-  buf B372(DB_[82], DB[82]);
-  buf B373(DB_[83], DB[83]);
-  buf B374(DB_[84], DB[84]);
-  buf B375(DB_[85], DB[85]);
-  buf B376(DB_[86], DB[86]);
-  buf B377(DB_[87], DB[87]);
-  buf B378(DB_[88], DB[88]);
-  buf B379(DB_[89], DB[89]);
-  buf B380(DB_[90], DB[90]);
-  buf B381(DB_[91], DB[91]);
-  buf B382(DB_[92], DB[92]);
-  buf B383(DB_[93], DB[93]);
-  buf B384(DB_[94], DB[94]);
-  buf B385(DB_[95], DB[95]);
-  buf B386(DB_[96], DB[96]);
-  buf B387(DB_[97], DB[97]);
-  buf B388(DB_[98], DB[98]);
-  buf B389(DB_[99], DB[99]);
-  buf B390(DB_[100], DB[100]);
-  buf B391(DB_[101], DB[101]);
-  buf B392(DB_[102], DB[102]);
-  buf B393(DB_[103], DB[103]);
-  buf B394(DB_[104], DB[104]);
-  buf B395(DB_[105], DB[105]);
-  buf B396(DB_[106], DB[106]);
-  buf B397(DB_[107], DB[107]);
-  buf B398(DB_[108], DB[108]);
-  buf B399(DB_[109], DB[109]);
-  buf B400(DB_[110], DB[110]);
-  buf B401(DB_[111], DB[111]);
-  buf B402(DB_[112], DB[112]);
-  buf B403(DB_[113], DB[113]);
-  buf B404(DB_[114], DB[114]);
-  buf B405(DB_[115], DB[115]);
-  buf B406(DB_[116], DB[116]);
-  buf B407(DB_[117], DB[117]);
-  buf B408(DB_[118], DB[118]);
-  buf B409(DB_[119], DB[119]);
-  buf B410(DB_[120], DB[120]);
-  buf B411(DB_[121], DB[121]);
-  buf B412(DB_[122], DB[122]);
-  buf B413(DB_[123], DB[123]);
-  buf B414(DB_[124], DB[124]);
-  buf B415(DB_[125], DB[125]);
-  buf B416(DB_[126], DB[126]);
-  buf B417(DB_[127], DB[127]);
-  buf B418(EMAA_[0], EMAA[0]);
-  buf B419(EMAA_[1], EMAA[1]);
-  buf B420(EMAA_[2], EMAA[2]);
-  buf B421(EMASA_, EMASA);
-  buf B422(EMAB_[0], EMAB[0]);
-  buf B423(EMAB_[1], EMAB[1]);
-  buf B424(EMAB_[2], EMAB[2]);
-  buf B425(EMAWB_[0], EMAWB[0]);
-  buf B426(EMAWB_[1], EMAWB[1]);
-  buf B427(TENA_, TENA);
-  buf B428(BENA_, BENA);
-  buf B429(TCENA_, TCENA);
-  buf B430(TAA_[0], TAA[0]);
-  buf B431(TAA_[1], TAA[1]);
-  buf B432(TAA_[2], TAA[2]);
-  buf B433(TAA_[3], TAA[3]);
-  buf B434(TAA_[4], TAA[4]);
-  buf B435(TAA_[5], TAA[5]);
-  buf B436(TAA_[6], TAA[6]);
-  buf B437(TQA_[0], TQA[0]);
-  buf B438(TQA_[1], TQA[1]);
-  buf B439(TQA_[2], TQA[2]);
-  buf B440(TQA_[3], TQA[3]);
-  buf B441(TQA_[4], TQA[4]);
-  buf B442(TQA_[5], TQA[5]);
-  buf B443(TQA_[6], TQA[6]);
-  buf B444(TQA_[7], TQA[7]);
-  buf B445(TQA_[8], TQA[8]);
-  buf B446(TQA_[9], TQA[9]);
-  buf B447(TQA_[10], TQA[10]);
-  buf B448(TQA_[11], TQA[11]);
-  buf B449(TQA_[12], TQA[12]);
-  buf B450(TQA_[13], TQA[13]);
-  buf B451(TQA_[14], TQA[14]);
-  buf B452(TQA_[15], TQA[15]);
-  buf B453(TQA_[16], TQA[16]);
-  buf B454(TQA_[17], TQA[17]);
-  buf B455(TQA_[18], TQA[18]);
-  buf B456(TQA_[19], TQA[19]);
-  buf B457(TQA_[20], TQA[20]);
-  buf B458(TQA_[21], TQA[21]);
-  buf B459(TQA_[22], TQA[22]);
-  buf B460(TQA_[23], TQA[23]);
-  buf B461(TQA_[24], TQA[24]);
-  buf B462(TQA_[25], TQA[25]);
-  buf B463(TQA_[26], TQA[26]);
-  buf B464(TQA_[27], TQA[27]);
-  buf B465(TQA_[28], TQA[28]);
-  buf B466(TQA_[29], TQA[29]);
-  buf B467(TQA_[30], TQA[30]);
-  buf B468(TQA_[31], TQA[31]);
-  buf B469(TQA_[32], TQA[32]);
-  buf B470(TQA_[33], TQA[33]);
-  buf B471(TQA_[34], TQA[34]);
-  buf B472(TQA_[35], TQA[35]);
-  buf B473(TQA_[36], TQA[36]);
-  buf B474(TQA_[37], TQA[37]);
-  buf B475(TQA_[38], TQA[38]);
-  buf B476(TQA_[39], TQA[39]);
-  buf B477(TQA_[40], TQA[40]);
-  buf B478(TQA_[41], TQA[41]);
-  buf B479(TQA_[42], TQA[42]);
-  buf B480(TQA_[43], TQA[43]);
-  buf B481(TQA_[44], TQA[44]);
-  buf B482(TQA_[45], TQA[45]);
-  buf B483(TQA_[46], TQA[46]);
-  buf B484(TQA_[47], TQA[47]);
-  buf B485(TQA_[48], TQA[48]);
-  buf B486(TQA_[49], TQA[49]);
-  buf B487(TQA_[50], TQA[50]);
-  buf B488(TQA_[51], TQA[51]);
-  buf B489(TQA_[52], TQA[52]);
-  buf B490(TQA_[53], TQA[53]);
-  buf B491(TQA_[54], TQA[54]);
-  buf B492(TQA_[55], TQA[55]);
-  buf B493(TQA_[56], TQA[56]);
-  buf B494(TQA_[57], TQA[57]);
-  buf B495(TQA_[58], TQA[58]);
-  buf B496(TQA_[59], TQA[59]);
-  buf B497(TQA_[60], TQA[60]);
-  buf B498(TQA_[61], TQA[61]);
-  buf B499(TQA_[62], TQA[62]);
-  buf B500(TQA_[63], TQA[63]);
-  buf B501(TQA_[64], TQA[64]);
-  buf B502(TQA_[65], TQA[65]);
-  buf B503(TQA_[66], TQA[66]);
-  buf B504(TQA_[67], TQA[67]);
-  buf B505(TQA_[68], TQA[68]);
-  buf B506(TQA_[69], TQA[69]);
-  buf B507(TQA_[70], TQA[70]);
-  buf B508(TQA_[71], TQA[71]);
-  buf B509(TQA_[72], TQA[72]);
-  buf B510(TQA_[73], TQA[73]);
-  buf B511(TQA_[74], TQA[74]);
-  buf B512(TQA_[75], TQA[75]);
-  buf B513(TQA_[76], TQA[76]);
-  buf B514(TQA_[77], TQA[77]);
-  buf B515(TQA_[78], TQA[78]);
-  buf B516(TQA_[79], TQA[79]);
-  buf B517(TQA_[80], TQA[80]);
-  buf B518(TQA_[81], TQA[81]);
-  buf B519(TQA_[82], TQA[82]);
-  buf B520(TQA_[83], TQA[83]);
-  buf B521(TQA_[84], TQA[84]);
-  buf B522(TQA_[85], TQA[85]);
-  buf B523(TQA_[86], TQA[86]);
-  buf B524(TQA_[87], TQA[87]);
-  buf B525(TQA_[88], TQA[88]);
-  buf B526(TQA_[89], TQA[89]);
-  buf B527(TQA_[90], TQA[90]);
-  buf B528(TQA_[91], TQA[91]);
-  buf B529(TQA_[92], TQA[92]);
-  buf B530(TQA_[93], TQA[93]);
-  buf B531(TQA_[94], TQA[94]);
-  buf B532(TQA_[95], TQA[95]);
-  buf B533(TQA_[96], TQA[96]);
-  buf B534(TQA_[97], TQA[97]);
-  buf B535(TQA_[98], TQA[98]);
-  buf B536(TQA_[99], TQA[99]);
-  buf B537(TQA_[100], TQA[100]);
-  buf B538(TQA_[101], TQA[101]);
-  buf B539(TQA_[102], TQA[102]);
-  buf B540(TQA_[103], TQA[103]);
-  buf B541(TQA_[104], TQA[104]);
-  buf B542(TQA_[105], TQA[105]);
-  buf B543(TQA_[106], TQA[106]);
-  buf B544(TQA_[107], TQA[107]);
-  buf B545(TQA_[108], TQA[108]);
-  buf B546(TQA_[109], TQA[109]);
-  buf B547(TQA_[110], TQA[110]);
-  buf B548(TQA_[111], TQA[111]);
-  buf B549(TQA_[112], TQA[112]);
-  buf B550(TQA_[113], TQA[113]);
-  buf B551(TQA_[114], TQA[114]);
-  buf B552(TQA_[115], TQA[115]);
-  buf B553(TQA_[116], TQA[116]);
-  buf B554(TQA_[117], TQA[117]);
-  buf B555(TQA_[118], TQA[118]);
-  buf B556(TQA_[119], TQA[119]);
-  buf B557(TQA_[120], TQA[120]);
-  buf B558(TQA_[121], TQA[121]);
-  buf B559(TQA_[122], TQA[122]);
-  buf B560(TQA_[123], TQA[123]);
-  buf B561(TQA_[124], TQA[124]);
-  buf B562(TQA_[125], TQA[125]);
-  buf B563(TQA_[126], TQA[126]);
-  buf B564(TQA_[127], TQA[127]);
-  buf B565(TENB_, TENB);
-  buf B566(TCENB_, TCENB);
-  buf B567(TAB_[0], TAB[0]);
-  buf B568(TAB_[1], TAB[1]);
-  buf B569(TAB_[2], TAB[2]);
-  buf B570(TAB_[3], TAB[3]);
-  buf B571(TAB_[4], TAB[4]);
-  buf B572(TAB_[5], TAB[5]);
-  buf B573(TAB_[6], TAB[6]);
-  buf B574(TDB_[0], TDB[0]);
-  buf B575(TDB_[1], TDB[1]);
-  buf B576(TDB_[2], TDB[2]);
-  buf B577(TDB_[3], TDB[3]);
-  buf B578(TDB_[4], TDB[4]);
-  buf B579(TDB_[5], TDB[5]);
-  buf B580(TDB_[6], TDB[6]);
-  buf B581(TDB_[7], TDB[7]);
-  buf B582(TDB_[8], TDB[8]);
-  buf B583(TDB_[9], TDB[9]);
-  buf B584(TDB_[10], TDB[10]);
-  buf B585(TDB_[11], TDB[11]);
-  buf B586(TDB_[12], TDB[12]);
-  buf B587(TDB_[13], TDB[13]);
-  buf B588(TDB_[14], TDB[14]);
-  buf B589(TDB_[15], TDB[15]);
-  buf B590(TDB_[16], TDB[16]);
-  buf B591(TDB_[17], TDB[17]);
-  buf B592(TDB_[18], TDB[18]);
-  buf B593(TDB_[19], TDB[19]);
-  buf B594(TDB_[20], TDB[20]);
-  buf B595(TDB_[21], TDB[21]);
-  buf B596(TDB_[22], TDB[22]);
-  buf B597(TDB_[23], TDB[23]);
-  buf B598(TDB_[24], TDB[24]);
-  buf B599(TDB_[25], TDB[25]);
-  buf B600(TDB_[26], TDB[26]);
-  buf B601(TDB_[27], TDB[27]);
-  buf B602(TDB_[28], TDB[28]);
-  buf B603(TDB_[29], TDB[29]);
-  buf B604(TDB_[30], TDB[30]);
-  buf B605(TDB_[31], TDB[31]);
-  buf B606(TDB_[32], TDB[32]);
-  buf B607(TDB_[33], TDB[33]);
-  buf B608(TDB_[34], TDB[34]);
-  buf B609(TDB_[35], TDB[35]);
-  buf B610(TDB_[36], TDB[36]);
-  buf B611(TDB_[37], TDB[37]);
-  buf B612(TDB_[38], TDB[38]);
-  buf B613(TDB_[39], TDB[39]);
-  buf B614(TDB_[40], TDB[40]);
-  buf B615(TDB_[41], TDB[41]);
-  buf B616(TDB_[42], TDB[42]);
-  buf B617(TDB_[43], TDB[43]);
-  buf B618(TDB_[44], TDB[44]);
-  buf B619(TDB_[45], TDB[45]);
-  buf B620(TDB_[46], TDB[46]);
-  buf B621(TDB_[47], TDB[47]);
-  buf B622(TDB_[48], TDB[48]);
-  buf B623(TDB_[49], TDB[49]);
-  buf B624(TDB_[50], TDB[50]);
-  buf B625(TDB_[51], TDB[51]);
-  buf B626(TDB_[52], TDB[52]);
-  buf B627(TDB_[53], TDB[53]);
-  buf B628(TDB_[54], TDB[54]);
-  buf B629(TDB_[55], TDB[55]);
-  buf B630(TDB_[56], TDB[56]);
-  buf B631(TDB_[57], TDB[57]);
-  buf B632(TDB_[58], TDB[58]);
-  buf B633(TDB_[59], TDB[59]);
-  buf B634(TDB_[60], TDB[60]);
-  buf B635(TDB_[61], TDB[61]);
-  buf B636(TDB_[62], TDB[62]);
-  buf B637(TDB_[63], TDB[63]);
-  buf B638(TDB_[64], TDB[64]);
-  buf B639(TDB_[65], TDB[65]);
-  buf B640(TDB_[66], TDB[66]);
-  buf B641(TDB_[67], TDB[67]);
-  buf B642(TDB_[68], TDB[68]);
-  buf B643(TDB_[69], TDB[69]);
-  buf B644(TDB_[70], TDB[70]);
-  buf B645(TDB_[71], TDB[71]);
-  buf B646(TDB_[72], TDB[72]);
-  buf B647(TDB_[73], TDB[73]);
-  buf B648(TDB_[74], TDB[74]);
-  buf B649(TDB_[75], TDB[75]);
-  buf B650(TDB_[76], TDB[76]);
-  buf B651(TDB_[77], TDB[77]);
-  buf B652(TDB_[78], TDB[78]);
-  buf B653(TDB_[79], TDB[79]);
-  buf B654(TDB_[80], TDB[80]);
-  buf B655(TDB_[81], TDB[81]);
-  buf B656(TDB_[82], TDB[82]);
-  buf B657(TDB_[83], TDB[83]);
-  buf B658(TDB_[84], TDB[84]);
-  buf B659(TDB_[85], TDB[85]);
-  buf B660(TDB_[86], TDB[86]);
-  buf B661(TDB_[87], TDB[87]);
-  buf B662(TDB_[88], TDB[88]);
-  buf B663(TDB_[89], TDB[89]);
-  buf B664(TDB_[90], TDB[90]);
-  buf B665(TDB_[91], TDB[91]);
-  buf B666(TDB_[92], TDB[92]);
-  buf B667(TDB_[93], TDB[93]);
-  buf B668(TDB_[94], TDB[94]);
-  buf B669(TDB_[95], TDB[95]);
-  buf B670(TDB_[96], TDB[96]);
-  buf B671(TDB_[97], TDB[97]);
-  buf B672(TDB_[98], TDB[98]);
-  buf B673(TDB_[99], TDB[99]);
-  buf B674(TDB_[100], TDB[100]);
-  buf B675(TDB_[101], TDB[101]);
-  buf B676(TDB_[102], TDB[102]);
-  buf B677(TDB_[103], TDB[103]);
-  buf B678(TDB_[104], TDB[104]);
-  buf B679(TDB_[105], TDB[105]);
-  buf B680(TDB_[106], TDB[106]);
-  buf B681(TDB_[107], TDB[107]);
-  buf B682(TDB_[108], TDB[108]);
-  buf B683(TDB_[109], TDB[109]);
-  buf B684(TDB_[110], TDB[110]);
-  buf B685(TDB_[111], TDB[111]);
-  buf B686(TDB_[112], TDB[112]);
-  buf B687(TDB_[113], TDB[113]);
-  buf B688(TDB_[114], TDB[114]);
-  buf B689(TDB_[115], TDB[115]);
-  buf B690(TDB_[116], TDB[116]);
-  buf B691(TDB_[117], TDB[117]);
-  buf B692(TDB_[118], TDB[118]);
-  buf B693(TDB_[119], TDB[119]);
-  buf B694(TDB_[120], TDB[120]);
-  buf B695(TDB_[121], TDB[121]);
-  buf B696(TDB_[122], TDB[122]);
-  buf B697(TDB_[123], TDB[123]);
-  buf B698(TDB_[124], TDB[124]);
-  buf B699(TDB_[125], TDB[125]);
-  buf B700(TDB_[126], TDB[126]);
-  buf B701(TDB_[127], TDB[127]);
-  buf B702(RET1N_, RET1N);
-  buf B703(STOVA_, STOVA);
-  buf B704(STOVB_, STOVB);
-  buf B705(COLLDISN_, COLLDISN);
+  buf B8(AYA[7], AYA_[7]);
+  buf B9(CENYB, CENYB_);
+  buf B10(AYB[0], AYB_[0]);
+  buf B11(AYB[1], AYB_[1]);
+  buf B12(AYB[2], AYB_[2]);
+  buf B13(AYB[3], AYB_[3]);
+  buf B14(AYB[4], AYB_[4]);
+  buf B15(AYB[5], AYB_[5]);
+  buf B16(AYB[6], AYB_[6]);
+  buf B17(AYB[7], AYB_[7]);
+  buf B18(DYB[0], DYB_[0]);
+  buf B19(DYB[1], DYB_[1]);
+  buf B20(DYB[2], DYB_[2]);
+  buf B21(DYB[3], DYB_[3]);
+  buf B22(DYB[4], DYB_[4]);
+  buf B23(DYB[5], DYB_[5]);
+  buf B24(DYB[6], DYB_[6]);
+  buf B25(DYB[7], DYB_[7]);
+  buf B26(DYB[8], DYB_[8]);
+  buf B27(DYB[9], DYB_[9]);
+  buf B28(DYB[10], DYB_[10]);
+  buf B29(DYB[11], DYB_[11]);
+  buf B30(DYB[12], DYB_[12]);
+  buf B31(DYB[13], DYB_[13]);
+  buf B32(DYB[14], DYB_[14]);
+  buf B33(DYB[15], DYB_[15]);
+  buf B34(DYB[16], DYB_[16]);
+  buf B35(DYB[17], DYB_[17]);
+  buf B36(DYB[18], DYB_[18]);
+  buf B37(DYB[19], DYB_[19]);
+  buf B38(DYB[20], DYB_[20]);
+  buf B39(DYB[21], DYB_[21]);
+  buf B40(DYB[22], DYB_[22]);
+  buf B41(DYB[23], DYB_[23]);
+  buf B42(DYB[24], DYB_[24]);
+  buf B43(DYB[25], DYB_[25]);
+  buf B44(DYB[26], DYB_[26]);
+  buf B45(DYB[27], DYB_[27]);
+  buf B46(DYB[28], DYB_[28]);
+  buf B47(DYB[29], DYB_[29]);
+  buf B48(DYB[30], DYB_[30]);
+  buf B49(DYB[31], DYB_[31]);
+  buf B50(DYB[32], DYB_[32]);
+  buf B51(DYB[33], DYB_[33]);
+  buf B52(DYB[34], DYB_[34]);
+  buf B53(DYB[35], DYB_[35]);
+  buf B54(DYB[36], DYB_[36]);
+  buf B55(DYB[37], DYB_[37]);
+  buf B56(DYB[38], DYB_[38]);
+  buf B57(DYB[39], DYB_[39]);
+  buf B58(DYB[40], DYB_[40]);
+  buf B59(DYB[41], DYB_[41]);
+  buf B60(DYB[42], DYB_[42]);
+  buf B61(DYB[43], DYB_[43]);
+  buf B62(DYB[44], DYB_[44]);
+  buf B63(DYB[45], DYB_[45]);
+  buf B64(DYB[46], DYB_[46]);
+  buf B65(DYB[47], DYB_[47]);
+  buf B66(DYB[48], DYB_[48]);
+  buf B67(DYB[49], DYB_[49]);
+  buf B68(DYB[50], DYB_[50]);
+  buf B69(DYB[51], DYB_[51]);
+  buf B70(DYB[52], DYB_[52]);
+  buf B71(DYB[53], DYB_[53]);
+  buf B72(DYB[54], DYB_[54]);
+  buf B73(DYB[55], DYB_[55]);
+  buf B74(DYB[56], DYB_[56]);
+  buf B75(DYB[57], DYB_[57]);
+  buf B76(DYB[58], DYB_[58]);
+  buf B77(DYB[59], DYB_[59]);
+  buf B78(DYB[60], DYB_[60]);
+  buf B79(DYB[61], DYB_[61]);
+  buf B80(DYB[62], DYB_[62]);
+  buf B81(DYB[63], DYB_[63]);
+  buf B82(DYB[64], DYB_[64]);
+  buf B83(DYB[65], DYB_[65]);
+  buf B84(DYB[66], DYB_[66]);
+  buf B85(DYB[67], DYB_[67]);
+  buf B86(DYB[68], DYB_[68]);
+  buf B87(DYB[69], DYB_[69]);
+  buf B88(DYB[70], DYB_[70]);
+  buf B89(DYB[71], DYB_[71]);
+  buf B90(DYB[72], DYB_[72]);
+  buf B91(DYB[73], DYB_[73]);
+  buf B92(DYB[74], DYB_[74]);
+  buf B93(DYB[75], DYB_[75]);
+  buf B94(DYB[76], DYB_[76]);
+  buf B95(DYB[77], DYB_[77]);
+  buf B96(DYB[78], DYB_[78]);
+  buf B97(DYB[79], DYB_[79]);
+  buf B98(DYB[80], DYB_[80]);
+  buf B99(DYB[81], DYB_[81]);
+  buf B100(DYB[82], DYB_[82]);
+  buf B101(DYB[83], DYB_[83]);
+  buf B102(DYB[84], DYB_[84]);
+  buf B103(DYB[85], DYB_[85]);
+  buf B104(DYB[86], DYB_[86]);
+  buf B105(DYB[87], DYB_[87]);
+  buf B106(DYB[88], DYB_[88]);
+  buf B107(DYB[89], DYB_[89]);
+  buf B108(DYB[90], DYB_[90]);
+  buf B109(DYB[91], DYB_[91]);
+  buf B110(DYB[92], DYB_[92]);
+  buf B111(DYB[93], DYB_[93]);
+  buf B112(DYB[94], DYB_[94]);
+  buf B113(DYB[95], DYB_[95]);
+  buf B114(DYB[96], DYB_[96]);
+  buf B115(DYB[97], DYB_[97]);
+  buf B116(DYB[98], DYB_[98]);
+  buf B117(DYB[99], DYB_[99]);
+  buf B118(DYB[100], DYB_[100]);
+  buf B119(DYB[101], DYB_[101]);
+  buf B120(DYB[102], DYB_[102]);
+  buf B121(DYB[103], DYB_[103]);
+  buf B122(DYB[104], DYB_[104]);
+  buf B123(DYB[105], DYB_[105]);
+  buf B124(DYB[106], DYB_[106]);
+  buf B125(DYB[107], DYB_[107]);
+  buf B126(DYB[108], DYB_[108]);
+  buf B127(DYB[109], DYB_[109]);
+  buf B128(DYB[110], DYB_[110]);
+  buf B129(DYB[111], DYB_[111]);
+  buf B130(DYB[112], DYB_[112]);
+  buf B131(DYB[113], DYB_[113]);
+  buf B132(DYB[114], DYB_[114]);
+  buf B133(DYB[115], DYB_[115]);
+  buf B134(DYB[116], DYB_[116]);
+  buf B135(DYB[117], DYB_[117]);
+  buf B136(DYB[118], DYB_[118]);
+  buf B137(DYB[119], DYB_[119]);
+  buf B138(DYB[120], DYB_[120]);
+  buf B139(DYB[121], DYB_[121]);
+  buf B140(DYB[122], DYB_[122]);
+  buf B141(DYB[123], DYB_[123]);
+  buf B142(QA[0], QA_[0]);
+  buf B143(QA[1], QA_[1]);
+  buf B144(QA[2], QA_[2]);
+  buf B145(QA[3], QA_[3]);
+  buf B146(QA[4], QA_[4]);
+  buf B147(QA[5], QA_[5]);
+  buf B148(QA[6], QA_[6]);
+  buf B149(QA[7], QA_[7]);
+  buf B150(QA[8], QA_[8]);
+  buf B151(QA[9], QA_[9]);
+  buf B152(QA[10], QA_[10]);
+  buf B153(QA[11], QA_[11]);
+  buf B154(QA[12], QA_[12]);
+  buf B155(QA[13], QA_[13]);
+  buf B156(QA[14], QA_[14]);
+  buf B157(QA[15], QA_[15]);
+  buf B158(QA[16], QA_[16]);
+  buf B159(QA[17], QA_[17]);
+  buf B160(QA[18], QA_[18]);
+  buf B161(QA[19], QA_[19]);
+  buf B162(QA[20], QA_[20]);
+  buf B163(QA[21], QA_[21]);
+  buf B164(QA[22], QA_[22]);
+  buf B165(QA[23], QA_[23]);
+  buf B166(QA[24], QA_[24]);
+  buf B167(QA[25], QA_[25]);
+  buf B168(QA[26], QA_[26]);
+  buf B169(QA[27], QA_[27]);
+  buf B170(QA[28], QA_[28]);
+  buf B171(QA[29], QA_[29]);
+  buf B172(QA[30], QA_[30]);
+  buf B173(QA[31], QA_[31]);
+  buf B174(QA[32], QA_[32]);
+  buf B175(QA[33], QA_[33]);
+  buf B176(QA[34], QA_[34]);
+  buf B177(QA[35], QA_[35]);
+  buf B178(QA[36], QA_[36]);
+  buf B179(QA[37], QA_[37]);
+  buf B180(QA[38], QA_[38]);
+  buf B181(QA[39], QA_[39]);
+  buf B182(QA[40], QA_[40]);
+  buf B183(QA[41], QA_[41]);
+  buf B184(QA[42], QA_[42]);
+  buf B185(QA[43], QA_[43]);
+  buf B186(QA[44], QA_[44]);
+  buf B187(QA[45], QA_[45]);
+  buf B188(QA[46], QA_[46]);
+  buf B189(QA[47], QA_[47]);
+  buf B190(QA[48], QA_[48]);
+  buf B191(QA[49], QA_[49]);
+  buf B192(QA[50], QA_[50]);
+  buf B193(QA[51], QA_[51]);
+  buf B194(QA[52], QA_[52]);
+  buf B195(QA[53], QA_[53]);
+  buf B196(QA[54], QA_[54]);
+  buf B197(QA[55], QA_[55]);
+  buf B198(QA[56], QA_[56]);
+  buf B199(QA[57], QA_[57]);
+  buf B200(QA[58], QA_[58]);
+  buf B201(QA[59], QA_[59]);
+  buf B202(QA[60], QA_[60]);
+  buf B203(QA[61], QA_[61]);
+  buf B204(QA[62], QA_[62]);
+  buf B205(QA[63], QA_[63]);
+  buf B206(QA[64], QA_[64]);
+  buf B207(QA[65], QA_[65]);
+  buf B208(QA[66], QA_[66]);
+  buf B209(QA[67], QA_[67]);
+  buf B210(QA[68], QA_[68]);
+  buf B211(QA[69], QA_[69]);
+  buf B212(QA[70], QA_[70]);
+  buf B213(QA[71], QA_[71]);
+  buf B214(QA[72], QA_[72]);
+  buf B215(QA[73], QA_[73]);
+  buf B216(QA[74], QA_[74]);
+  buf B217(QA[75], QA_[75]);
+  buf B218(QA[76], QA_[76]);
+  buf B219(QA[77], QA_[77]);
+  buf B220(QA[78], QA_[78]);
+  buf B221(QA[79], QA_[79]);
+  buf B222(QA[80], QA_[80]);
+  buf B223(QA[81], QA_[81]);
+  buf B224(QA[82], QA_[82]);
+  buf B225(QA[83], QA_[83]);
+  buf B226(QA[84], QA_[84]);
+  buf B227(QA[85], QA_[85]);
+  buf B228(QA[86], QA_[86]);
+  buf B229(QA[87], QA_[87]);
+  buf B230(QA[88], QA_[88]);
+  buf B231(QA[89], QA_[89]);
+  buf B232(QA[90], QA_[90]);
+  buf B233(QA[91], QA_[91]);
+  buf B234(QA[92], QA_[92]);
+  buf B235(QA[93], QA_[93]);
+  buf B236(QA[94], QA_[94]);
+  buf B237(QA[95], QA_[95]);
+  buf B238(QA[96], QA_[96]);
+  buf B239(QA[97], QA_[97]);
+  buf B240(QA[98], QA_[98]);
+  buf B241(QA[99], QA_[99]);
+  buf B242(QA[100], QA_[100]);
+  buf B243(QA[101], QA_[101]);
+  buf B244(QA[102], QA_[102]);
+  buf B245(QA[103], QA_[103]);
+  buf B246(QA[104], QA_[104]);
+  buf B247(QA[105], QA_[105]);
+  buf B248(QA[106], QA_[106]);
+  buf B249(QA[107], QA_[107]);
+  buf B250(QA[108], QA_[108]);
+  buf B251(QA[109], QA_[109]);
+  buf B252(QA[110], QA_[110]);
+  buf B253(QA[111], QA_[111]);
+  buf B254(QA[112], QA_[112]);
+  buf B255(QA[113], QA_[113]);
+  buf B256(QA[114], QA_[114]);
+  buf B257(QA[115], QA_[115]);
+  buf B258(QA[116], QA_[116]);
+  buf B259(QA[117], QA_[117]);
+  buf B260(QA[118], QA_[118]);
+  buf B261(QA[119], QA_[119]);
+  buf B262(QA[120], QA_[120]);
+  buf B263(QA[121], QA_[121]);
+  buf B264(QA[122], QA_[122]);
+  buf B265(QA[123], QA_[123]);
+  buf B266(CLKA_, CLKA);
+  buf B267(CENA_, CENA);
+  buf B268(AA_[0], AA[0]);
+  buf B269(AA_[1], AA[1]);
+  buf B270(AA_[2], AA[2]);
+  buf B271(AA_[3], AA[3]);
+  buf B272(AA_[4], AA[4]);
+  buf B273(AA_[5], AA[5]);
+  buf B274(AA_[6], AA[6]);
+  buf B275(AA_[7], AA[7]);
+  buf B276(CLKB_, CLKB);
+  buf B277(CENB_, CENB);
+  buf B278(AB_[0], AB[0]);
+  buf B279(AB_[1], AB[1]);
+  buf B280(AB_[2], AB[2]);
+  buf B281(AB_[3], AB[3]);
+  buf B282(AB_[4], AB[4]);
+  buf B283(AB_[5], AB[5]);
+  buf B284(AB_[6], AB[6]);
+  buf B285(AB_[7], AB[7]);
+  buf B286(DB_[0], DB[0]);
+  buf B287(DB_[1], DB[1]);
+  buf B288(DB_[2], DB[2]);
+  buf B289(DB_[3], DB[3]);
+  buf B290(DB_[4], DB[4]);
+  buf B291(DB_[5], DB[5]);
+  buf B292(DB_[6], DB[6]);
+  buf B293(DB_[7], DB[7]);
+  buf B294(DB_[8], DB[8]);
+  buf B295(DB_[9], DB[9]);
+  buf B296(DB_[10], DB[10]);
+  buf B297(DB_[11], DB[11]);
+  buf B298(DB_[12], DB[12]);
+  buf B299(DB_[13], DB[13]);
+  buf B300(DB_[14], DB[14]);
+  buf B301(DB_[15], DB[15]);
+  buf B302(DB_[16], DB[16]);
+  buf B303(DB_[17], DB[17]);
+  buf B304(DB_[18], DB[18]);
+  buf B305(DB_[19], DB[19]);
+  buf B306(DB_[20], DB[20]);
+  buf B307(DB_[21], DB[21]);
+  buf B308(DB_[22], DB[22]);
+  buf B309(DB_[23], DB[23]);
+  buf B310(DB_[24], DB[24]);
+  buf B311(DB_[25], DB[25]);
+  buf B312(DB_[26], DB[26]);
+  buf B313(DB_[27], DB[27]);
+  buf B314(DB_[28], DB[28]);
+  buf B315(DB_[29], DB[29]);
+  buf B316(DB_[30], DB[30]);
+  buf B317(DB_[31], DB[31]);
+  buf B318(DB_[32], DB[32]);
+  buf B319(DB_[33], DB[33]);
+  buf B320(DB_[34], DB[34]);
+  buf B321(DB_[35], DB[35]);
+  buf B322(DB_[36], DB[36]);
+  buf B323(DB_[37], DB[37]);
+  buf B324(DB_[38], DB[38]);
+  buf B325(DB_[39], DB[39]);
+  buf B326(DB_[40], DB[40]);
+  buf B327(DB_[41], DB[41]);
+  buf B328(DB_[42], DB[42]);
+  buf B329(DB_[43], DB[43]);
+  buf B330(DB_[44], DB[44]);
+  buf B331(DB_[45], DB[45]);
+  buf B332(DB_[46], DB[46]);
+  buf B333(DB_[47], DB[47]);
+  buf B334(DB_[48], DB[48]);
+  buf B335(DB_[49], DB[49]);
+  buf B336(DB_[50], DB[50]);
+  buf B337(DB_[51], DB[51]);
+  buf B338(DB_[52], DB[52]);
+  buf B339(DB_[53], DB[53]);
+  buf B340(DB_[54], DB[54]);
+  buf B341(DB_[55], DB[55]);
+  buf B342(DB_[56], DB[56]);
+  buf B343(DB_[57], DB[57]);
+  buf B344(DB_[58], DB[58]);
+  buf B345(DB_[59], DB[59]);
+  buf B346(DB_[60], DB[60]);
+  buf B347(DB_[61], DB[61]);
+  buf B348(DB_[62], DB[62]);
+  buf B349(DB_[63], DB[63]);
+  buf B350(DB_[64], DB[64]);
+  buf B351(DB_[65], DB[65]);
+  buf B352(DB_[66], DB[66]);
+  buf B353(DB_[67], DB[67]);
+  buf B354(DB_[68], DB[68]);
+  buf B355(DB_[69], DB[69]);
+  buf B356(DB_[70], DB[70]);
+  buf B357(DB_[71], DB[71]);
+  buf B358(DB_[72], DB[72]);
+  buf B359(DB_[73], DB[73]);
+  buf B360(DB_[74], DB[74]);
+  buf B361(DB_[75], DB[75]);
+  buf B362(DB_[76], DB[76]);
+  buf B363(DB_[77], DB[77]);
+  buf B364(DB_[78], DB[78]);
+  buf B365(DB_[79], DB[79]);
+  buf B366(DB_[80], DB[80]);
+  buf B367(DB_[81], DB[81]);
+  buf B368(DB_[82], DB[82]);
+  buf B369(DB_[83], DB[83]);
+  buf B370(DB_[84], DB[84]);
+  buf B371(DB_[85], DB[85]);
+  buf B372(DB_[86], DB[86]);
+  buf B373(DB_[87], DB[87]);
+  buf B374(DB_[88], DB[88]);
+  buf B375(DB_[89], DB[89]);
+  buf B376(DB_[90], DB[90]);
+  buf B377(DB_[91], DB[91]);
+  buf B378(DB_[92], DB[92]);
+  buf B379(DB_[93], DB[93]);
+  buf B380(DB_[94], DB[94]);
+  buf B381(DB_[95], DB[95]);
+  buf B382(DB_[96], DB[96]);
+  buf B383(DB_[97], DB[97]);
+  buf B384(DB_[98], DB[98]);
+  buf B385(DB_[99], DB[99]);
+  buf B386(DB_[100], DB[100]);
+  buf B387(DB_[101], DB[101]);
+  buf B388(DB_[102], DB[102]);
+  buf B389(DB_[103], DB[103]);
+  buf B390(DB_[104], DB[104]);
+  buf B391(DB_[105], DB[105]);
+  buf B392(DB_[106], DB[106]);
+  buf B393(DB_[107], DB[107]);
+  buf B394(DB_[108], DB[108]);
+  buf B395(DB_[109], DB[109]);
+  buf B396(DB_[110], DB[110]);
+  buf B397(DB_[111], DB[111]);
+  buf B398(DB_[112], DB[112]);
+  buf B399(DB_[113], DB[113]);
+  buf B400(DB_[114], DB[114]);
+  buf B401(DB_[115], DB[115]);
+  buf B402(DB_[116], DB[116]);
+  buf B403(DB_[117], DB[117]);
+  buf B404(DB_[118], DB[118]);
+  buf B405(DB_[119], DB[119]);
+  buf B406(DB_[120], DB[120]);
+  buf B407(DB_[121], DB[121]);
+  buf B408(DB_[122], DB[122]);
+  buf B409(DB_[123], DB[123]);
+  buf B410(EMAA_[0], EMAA[0]);
+  buf B411(EMAA_[1], EMAA[1]);
+  buf B412(EMAA_[2], EMAA[2]);
+  buf B413(EMASA_, EMASA);
+  buf B414(EMAB_[0], EMAB[0]);
+  buf B415(EMAB_[1], EMAB[1]);
+  buf B416(EMAB_[2], EMAB[2]);
+  buf B417(EMAWB_[0], EMAWB[0]);
+  buf B418(EMAWB_[1], EMAWB[1]);
+  buf B419(TENA_, TENA);
+  buf B420(BENA_, BENA);
+  buf B421(TCENA_, TCENA);
+  buf B422(TAA_[0], TAA[0]);
+  buf B423(TAA_[1], TAA[1]);
+  buf B424(TAA_[2], TAA[2]);
+  buf B425(TAA_[3], TAA[3]);
+  buf B426(TAA_[4], TAA[4]);
+  buf B427(TAA_[5], TAA[5]);
+  buf B428(TAA_[6], TAA[6]);
+  buf B429(TAA_[7], TAA[7]);
+  buf B430(TQA_[0], TQA[0]);
+  buf B431(TQA_[1], TQA[1]);
+  buf B432(TQA_[2], TQA[2]);
+  buf B433(TQA_[3], TQA[3]);
+  buf B434(TQA_[4], TQA[4]);
+  buf B435(TQA_[5], TQA[5]);
+  buf B436(TQA_[6], TQA[6]);
+  buf B437(TQA_[7], TQA[7]);
+  buf B438(TQA_[8], TQA[8]);
+  buf B439(TQA_[9], TQA[9]);
+  buf B440(TQA_[10], TQA[10]);
+  buf B441(TQA_[11], TQA[11]);
+  buf B442(TQA_[12], TQA[12]);
+  buf B443(TQA_[13], TQA[13]);
+  buf B444(TQA_[14], TQA[14]);
+  buf B445(TQA_[15], TQA[15]);
+  buf B446(TQA_[16], TQA[16]);
+  buf B447(TQA_[17], TQA[17]);
+  buf B448(TQA_[18], TQA[18]);
+  buf B449(TQA_[19], TQA[19]);
+  buf B450(TQA_[20], TQA[20]);
+  buf B451(TQA_[21], TQA[21]);
+  buf B452(TQA_[22], TQA[22]);
+  buf B453(TQA_[23], TQA[23]);
+  buf B454(TQA_[24], TQA[24]);
+  buf B455(TQA_[25], TQA[25]);
+  buf B456(TQA_[26], TQA[26]);
+  buf B457(TQA_[27], TQA[27]);
+  buf B458(TQA_[28], TQA[28]);
+  buf B459(TQA_[29], TQA[29]);
+  buf B460(TQA_[30], TQA[30]);
+  buf B461(TQA_[31], TQA[31]);
+  buf B462(TQA_[32], TQA[32]);
+  buf B463(TQA_[33], TQA[33]);
+  buf B464(TQA_[34], TQA[34]);
+  buf B465(TQA_[35], TQA[35]);
+  buf B466(TQA_[36], TQA[36]);
+  buf B467(TQA_[37], TQA[37]);
+  buf B468(TQA_[38], TQA[38]);
+  buf B469(TQA_[39], TQA[39]);
+  buf B470(TQA_[40], TQA[40]);
+  buf B471(TQA_[41], TQA[41]);
+  buf B472(TQA_[42], TQA[42]);
+  buf B473(TQA_[43], TQA[43]);
+  buf B474(TQA_[44], TQA[44]);
+  buf B475(TQA_[45], TQA[45]);
+  buf B476(TQA_[46], TQA[46]);
+  buf B477(TQA_[47], TQA[47]);
+  buf B478(TQA_[48], TQA[48]);
+  buf B479(TQA_[49], TQA[49]);
+  buf B480(TQA_[50], TQA[50]);
+  buf B481(TQA_[51], TQA[51]);
+  buf B482(TQA_[52], TQA[52]);
+  buf B483(TQA_[53], TQA[53]);
+  buf B484(TQA_[54], TQA[54]);
+  buf B485(TQA_[55], TQA[55]);
+  buf B486(TQA_[56], TQA[56]);
+  buf B487(TQA_[57], TQA[57]);
+  buf B488(TQA_[58], TQA[58]);
+  buf B489(TQA_[59], TQA[59]);
+  buf B490(TQA_[60], TQA[60]);
+  buf B491(TQA_[61], TQA[61]);
+  buf B492(TQA_[62], TQA[62]);
+  buf B493(TQA_[63], TQA[63]);
+  buf B494(TQA_[64], TQA[64]);
+  buf B495(TQA_[65], TQA[65]);
+  buf B496(TQA_[66], TQA[66]);
+  buf B497(TQA_[67], TQA[67]);
+  buf B498(TQA_[68], TQA[68]);
+  buf B499(TQA_[69], TQA[69]);
+  buf B500(TQA_[70], TQA[70]);
+  buf B501(TQA_[71], TQA[71]);
+  buf B502(TQA_[72], TQA[72]);
+  buf B503(TQA_[73], TQA[73]);
+  buf B504(TQA_[74], TQA[74]);
+  buf B505(TQA_[75], TQA[75]);
+  buf B506(TQA_[76], TQA[76]);
+  buf B507(TQA_[77], TQA[77]);
+  buf B508(TQA_[78], TQA[78]);
+  buf B509(TQA_[79], TQA[79]);
+  buf B510(TQA_[80], TQA[80]);
+  buf B511(TQA_[81], TQA[81]);
+  buf B512(TQA_[82], TQA[82]);
+  buf B513(TQA_[83], TQA[83]);
+  buf B514(TQA_[84], TQA[84]);
+  buf B515(TQA_[85], TQA[85]);
+  buf B516(TQA_[86], TQA[86]);
+  buf B517(TQA_[87], TQA[87]);
+  buf B518(TQA_[88], TQA[88]);
+  buf B519(TQA_[89], TQA[89]);
+  buf B520(TQA_[90], TQA[90]);
+  buf B521(TQA_[91], TQA[91]);
+  buf B522(TQA_[92], TQA[92]);
+  buf B523(TQA_[93], TQA[93]);
+  buf B524(TQA_[94], TQA[94]);
+  buf B525(TQA_[95], TQA[95]);
+  buf B526(TQA_[96], TQA[96]);
+  buf B527(TQA_[97], TQA[97]);
+  buf B528(TQA_[98], TQA[98]);
+  buf B529(TQA_[99], TQA[99]);
+  buf B530(TQA_[100], TQA[100]);
+  buf B531(TQA_[101], TQA[101]);
+  buf B532(TQA_[102], TQA[102]);
+  buf B533(TQA_[103], TQA[103]);
+  buf B534(TQA_[104], TQA[104]);
+  buf B535(TQA_[105], TQA[105]);
+  buf B536(TQA_[106], TQA[106]);
+  buf B537(TQA_[107], TQA[107]);
+  buf B538(TQA_[108], TQA[108]);
+  buf B539(TQA_[109], TQA[109]);
+  buf B540(TQA_[110], TQA[110]);
+  buf B541(TQA_[111], TQA[111]);
+  buf B542(TQA_[112], TQA[112]);
+  buf B543(TQA_[113], TQA[113]);
+  buf B544(TQA_[114], TQA[114]);
+  buf B545(TQA_[115], TQA[115]);
+  buf B546(TQA_[116], TQA[116]);
+  buf B547(TQA_[117], TQA[117]);
+  buf B548(TQA_[118], TQA[118]);
+  buf B549(TQA_[119], TQA[119]);
+  buf B550(TQA_[120], TQA[120]);
+  buf B551(TQA_[121], TQA[121]);
+  buf B552(TQA_[122], TQA[122]);
+  buf B553(TQA_[123], TQA[123]);
+  buf B554(TENB_, TENB);
+  buf B555(TCENB_, TCENB);
+  buf B556(TAB_[0], TAB[0]);
+  buf B557(TAB_[1], TAB[1]);
+  buf B558(TAB_[2], TAB[2]);
+  buf B559(TAB_[3], TAB[3]);
+  buf B560(TAB_[4], TAB[4]);
+  buf B561(TAB_[5], TAB[5]);
+  buf B562(TAB_[6], TAB[6]);
+  buf B563(TAB_[7], TAB[7]);
+  buf B564(TDB_[0], TDB[0]);
+  buf B565(TDB_[1], TDB[1]);
+  buf B566(TDB_[2], TDB[2]);
+  buf B567(TDB_[3], TDB[3]);
+  buf B568(TDB_[4], TDB[4]);
+  buf B569(TDB_[5], TDB[5]);
+  buf B570(TDB_[6], TDB[6]);
+  buf B571(TDB_[7], TDB[7]);
+  buf B572(TDB_[8], TDB[8]);
+  buf B573(TDB_[9], TDB[9]);
+  buf B574(TDB_[10], TDB[10]);
+  buf B575(TDB_[11], TDB[11]);
+  buf B576(TDB_[12], TDB[12]);
+  buf B577(TDB_[13], TDB[13]);
+  buf B578(TDB_[14], TDB[14]);
+  buf B579(TDB_[15], TDB[15]);
+  buf B580(TDB_[16], TDB[16]);
+  buf B581(TDB_[17], TDB[17]);
+  buf B582(TDB_[18], TDB[18]);
+  buf B583(TDB_[19], TDB[19]);
+  buf B584(TDB_[20], TDB[20]);
+  buf B585(TDB_[21], TDB[21]);
+  buf B586(TDB_[22], TDB[22]);
+  buf B587(TDB_[23], TDB[23]);
+  buf B588(TDB_[24], TDB[24]);
+  buf B589(TDB_[25], TDB[25]);
+  buf B590(TDB_[26], TDB[26]);
+  buf B591(TDB_[27], TDB[27]);
+  buf B592(TDB_[28], TDB[28]);
+  buf B593(TDB_[29], TDB[29]);
+  buf B594(TDB_[30], TDB[30]);
+  buf B595(TDB_[31], TDB[31]);
+  buf B596(TDB_[32], TDB[32]);
+  buf B597(TDB_[33], TDB[33]);
+  buf B598(TDB_[34], TDB[34]);
+  buf B599(TDB_[35], TDB[35]);
+  buf B600(TDB_[36], TDB[36]);
+  buf B601(TDB_[37], TDB[37]);
+  buf B602(TDB_[38], TDB[38]);
+  buf B603(TDB_[39], TDB[39]);
+  buf B604(TDB_[40], TDB[40]);
+  buf B605(TDB_[41], TDB[41]);
+  buf B606(TDB_[42], TDB[42]);
+  buf B607(TDB_[43], TDB[43]);
+  buf B608(TDB_[44], TDB[44]);
+  buf B609(TDB_[45], TDB[45]);
+  buf B610(TDB_[46], TDB[46]);
+  buf B611(TDB_[47], TDB[47]);
+  buf B612(TDB_[48], TDB[48]);
+  buf B613(TDB_[49], TDB[49]);
+  buf B614(TDB_[50], TDB[50]);
+  buf B615(TDB_[51], TDB[51]);
+  buf B616(TDB_[52], TDB[52]);
+  buf B617(TDB_[53], TDB[53]);
+  buf B618(TDB_[54], TDB[54]);
+  buf B619(TDB_[55], TDB[55]);
+  buf B620(TDB_[56], TDB[56]);
+  buf B621(TDB_[57], TDB[57]);
+  buf B622(TDB_[58], TDB[58]);
+  buf B623(TDB_[59], TDB[59]);
+  buf B624(TDB_[60], TDB[60]);
+  buf B625(TDB_[61], TDB[61]);
+  buf B626(TDB_[62], TDB[62]);
+  buf B627(TDB_[63], TDB[63]);
+  buf B628(TDB_[64], TDB[64]);
+  buf B629(TDB_[65], TDB[65]);
+  buf B630(TDB_[66], TDB[66]);
+  buf B631(TDB_[67], TDB[67]);
+  buf B632(TDB_[68], TDB[68]);
+  buf B633(TDB_[69], TDB[69]);
+  buf B634(TDB_[70], TDB[70]);
+  buf B635(TDB_[71], TDB[71]);
+  buf B636(TDB_[72], TDB[72]);
+  buf B637(TDB_[73], TDB[73]);
+  buf B638(TDB_[74], TDB[74]);
+  buf B639(TDB_[75], TDB[75]);
+  buf B640(TDB_[76], TDB[76]);
+  buf B641(TDB_[77], TDB[77]);
+  buf B642(TDB_[78], TDB[78]);
+  buf B643(TDB_[79], TDB[79]);
+  buf B644(TDB_[80], TDB[80]);
+  buf B645(TDB_[81], TDB[81]);
+  buf B646(TDB_[82], TDB[82]);
+  buf B647(TDB_[83], TDB[83]);
+  buf B648(TDB_[84], TDB[84]);
+  buf B649(TDB_[85], TDB[85]);
+  buf B650(TDB_[86], TDB[86]);
+  buf B651(TDB_[87], TDB[87]);
+  buf B652(TDB_[88], TDB[88]);
+  buf B653(TDB_[89], TDB[89]);
+  buf B654(TDB_[90], TDB[90]);
+  buf B655(TDB_[91], TDB[91]);
+  buf B656(TDB_[92], TDB[92]);
+  buf B657(TDB_[93], TDB[93]);
+  buf B658(TDB_[94], TDB[94]);
+  buf B659(TDB_[95], TDB[95]);
+  buf B660(TDB_[96], TDB[96]);
+  buf B661(TDB_[97], TDB[97]);
+  buf B662(TDB_[98], TDB[98]);
+  buf B663(TDB_[99], TDB[99]);
+  buf B664(TDB_[100], TDB[100]);
+  buf B665(TDB_[101], TDB[101]);
+  buf B666(TDB_[102], TDB[102]);
+  buf B667(TDB_[103], TDB[103]);
+  buf B668(TDB_[104], TDB[104]);
+  buf B669(TDB_[105], TDB[105]);
+  buf B670(TDB_[106], TDB[106]);
+  buf B671(TDB_[107], TDB[107]);
+  buf B672(TDB_[108], TDB[108]);
+  buf B673(TDB_[109], TDB[109]);
+  buf B674(TDB_[110], TDB[110]);
+  buf B675(TDB_[111], TDB[111]);
+  buf B676(TDB_[112], TDB[112]);
+  buf B677(TDB_[113], TDB[113]);
+  buf B678(TDB_[114], TDB[114]);
+  buf B679(TDB_[115], TDB[115]);
+  buf B680(TDB_[116], TDB[116]);
+  buf B681(TDB_[117], TDB[117]);
+  buf B682(TDB_[118], TDB[118]);
+  buf B683(TDB_[119], TDB[119]);
+  buf B684(TDB_[120], TDB[120]);
+  buf B685(TDB_[121], TDB[121]);
+  buf B686(TDB_[122], TDB[122]);
+  buf B687(TDB_[123], TDB[123]);
+  buf B688(RET1N_, RET1N);
+  buf B689(STOVA_, STOVA);
+  buf B690(STOVB_, STOVB);
+  buf B691(COLLDISN_, COLLDISN);
 
   assign CENYA_ = RET1N_ ? (TENA_ ? CENA_ : TCENA_) : 1'bx;
-  assign AYA_ = RET1N_ ? (TENA_ ? AA_ : TAA_) : {7{1'bx}};
+  assign AYA_ = RET1N_ ? (TENA_ ? AA_ : TAA_) : {8{1'bx}};
   assign CENYB_ = RET1N_ ? (TENB_ ? CENB_ : TCENB_) : 1'bx;
-  assign AYB_ = RET1N_ ? (TENB_ ? AB_ : TAB_) : {7{1'bx}};
-  assign DYB_ = RET1N_ ? (TENB_ ? DB_ : TDB_) : {128{1'bx}};
+  assign AYB_ = RET1N_ ? (TENB_ ? AB_ : TAB_) : {8{1'bx}};
+  assign DYB_ = RET1N_ ? (TENB_ ? DB_ : TDB_) : {124{1'bx}};
    `ifdef ARM_FAULT_MODELING
-     rf_2p_hse_crt_error_injection u1(.CLK(CLKA_), .Q_out(QA_), .A(AA_int), .CEN(CENA_int), .TQ(TQA_), .BEN(BENA_), .Q_in(QA_int));
+     RF_2p_CRT_4x256_error_injection u1(.CLK(CLKA_), .Q_out(QA_), .A(AA_int), .CEN(CENA_int), .TQ(TQA_), .BEN(BENA_), .Q_in(QA_int));
   `else
-  assign QA_ = RET1N_ ? (BENA_ ? ((STOVA_ ? (QA_int_delayed) : (QA_int))) : TQA_) : {128{1'bx}};
+  assign QA_ = RET1N_ ? (BENA_ ? ((STOVA_ ? (QA_int_delayed) : (QA_int))) : TQA_) : {124{1'bx}};
   `endif
 
 // If INITIALIZE_MEMORY is defined at Simulator Command Line, it Initializes the Memory with all ZEROS.
@@ -2344,7 +2316,7 @@ task loadmem;
 	reg [BITS-1:0] memld [0:WORDS-1];
 	integer i;
 	reg [BITS-1:0] wordtemp;
-	reg [6:0] Atemp;
+	reg [7:0] Atemp;
   begin
 	$readmemb(filename, memld);
      if (CENA_ === 1'b1 && CENB_ === 1'b1) begin
@@ -2354,7 +2326,7 @@ task loadmem;
        mux_address = 0;
       row_address = Atemp;
       row = mem[row_address];
-        writeEnable = {128{1'b1}};
+        writeEnable = {124{1'b1}};
         row_mask =  writeEnable;
         new_data =  wordtemp;
       row = (row & ~row_mask) | (row_mask & (~row_mask | new_data));
@@ -2368,7 +2340,7 @@ task dumpmem;
 	input [1000*8-1:0] filename_dump;
 	integer i, dump_file_desc;
 	reg [BITS-1:0] wordtemp;
-	reg [6:0] Atemp;
+	reg [7:0] Atemp;
   begin
 	dump_file_desc = $fopen(filename_dump);
      if (CENA_ === 1'b1 && CENB_ === 1'b1) begin
@@ -2377,7 +2349,7 @@ task dumpmem;
        mux_address = 0;
       row_address = Atemp;
       row = mem[row_address];
-        writeEnable = {128{1'b1}};
+        writeEnable = {124{1'b1}};
       data_out = row;
       QA_int = data_out;
    	$fdisplay(dump_file_desc, "%b", QA_int);
@@ -2392,25 +2364,25 @@ task dumpmem;
   begin
     if (RET1N_int === 1'bx || RET1N_int === 1'bz) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_int === 1'b0 && CENA_int === 1'b0) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_int === 1'b0) begin
       // no cycle in retention mode
     end else if (^{CENA_int, EMAA_int, EMASA_int, RET1N_int, (STOVA_int && !CENA_int)} 
      === 1'bx) begin
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if ((AA_int >= WORDS) && (CENA_int === 1'b0)) begin
-      QA_int = 0 ? QA_int : {128{1'bx}};
+      QA_int = 0 ? QA_int : {124{1'bx}};
     end else if (CENA_int === 1'b0 && (^AA_int) === 1'bx) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (CENA_int === 1'b0) begin
       mux_address = 0;
       row_address = AA_int;
-      if (row_address > 95)
-        row = {128{1'bx}};
+      if (row_address > 255)
+        row = {124{1'bx}};
       else
         row = mem[row_address];
       data_out = row;
@@ -2423,10 +2395,10 @@ task dumpmem;
   begin
     if (RET1N_int === 1'bx || RET1N_int === 1'bz) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_int === 1'b0 && CENB_int === 1'b0) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_int === 1'b0) begin
       // no cycle in retention mode
     end else if (^{CENB_int, EMAB_int, EMAWB_int, RET1N_int, (STOVB_int && !CENB_int)} 
@@ -2438,11 +2410,11 @@ task dumpmem;
     end else if (CENB_int === 1'b0) begin
       mux_address = 0;
       row_address = AB_int;
-      if (row_address > 95)
-        row = {128{1'bx}};
+      if (row_address > 255)
+        row = {124{1'bx}};
       else
         row = mem[row_address];
-      writeEnable = ~{128{CENB_int}};
+      writeEnable = ~{124{CENB_int}};
       row_mask =  writeEnable;
       new_data =  DB_int;
       row = (row & ~row_mask) | (row_mask & (~row_mask | new_data));
@@ -2460,45 +2432,45 @@ task dumpmem;
   always @ RET1N_ begin
     if (CLKA_ == 1'b1) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end
     if (RET1N_ === 1'bx || RET1N_ === 1'bz) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_ === 1'b0 && RET1N_int === 1'b1 && (CENA_p2 === 1'b0 || TCENA_p2 === 1'b0) ) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_ === 1'b1 && RET1N_int === 1'b0 && (CENA_p2 === 1'b0 || TCENA_p2 === 1'b0) ) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end
     if (RET1N_ == 1'b0) begin
-      QA_int = {128{1'bx}};
-      QA_int_delayed = {128{1'bx}};
+      QA_int = {124{1'bx}};
+      QA_int_delayed = {124{1'bx}};
       CENA_int = 1'bx;
-      AA_int = {7{1'bx}};
+      AA_int = {8{1'bx}};
       EMAA_int = {3{1'bx}};
       EMASA_int = 1'bx;
       TENA_int = 1'bx;
       BENA_int = 1'bx;
       TCENA_int = 1'bx;
-      TAA_int = {7{1'bx}};
-      TQA_int = {128{1'bx}};
+      TAA_int = {8{1'bx}};
+      TQA_int = {124{1'bx}};
       RET1N_int = 1'bx;
       STOVA_int = 1'bx;
       COLLDISN_int = 1'bx;
     end else begin
-      QA_int = {128{1'bx}};
-      QA_int_delayed = {128{1'bx}};
+      QA_int = {124{1'bx}};
+      QA_int_delayed = {124{1'bx}};
       CENA_int = 1'bx;
-      AA_int = {7{1'bx}};
+      AA_int = {8{1'bx}};
       EMAA_int = {3{1'bx}};
       EMASA_int = 1'bx;
       TENA_int = 1'bx;
       BENA_int = 1'bx;
       TCENA_int = 1'bx;
-      TAA_int = {7{1'bx}};
-      TQA_int = {128{1'bx}};
+      TAA_int = {8{1'bx}};
+      TQA_int = {124{1'bx}};
       RET1N_int = 1'bx;
       STOVA_int = 1'bx;
       COLLDISN_int = 1'bx;
@@ -2522,7 +2494,7 @@ task dumpmem;
   end else begin
     if ((CLKA_ === 1'bx || CLKA_ === 1'bz) && RET1N_ !== 1'b0) begin
       failedWrite(0);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (CLKA_ === 1'b1 && LAST_CLKA === 1'b0) begin
       CENA_int = TENA_ ? CENA_ : TCENA_;
       EMAA_int = EMAA_;
@@ -2548,7 +2520,7 @@ task dumpmem;
           $display("%s contention: write B succeeds, read A fails in %m at %0t",ASSERT_PREFIX, $time);
           ROW_CC = 1;
           COL_CC = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
       end else if (((previous_CLKA == previous_CLKB) || ((STOVA_int==1'b1 || STOVB_int==1'b1) 
        && CLKA_ == 1'b1 && CLKB_ == 1'b1)) && (CENA_int !== 1'b1 && CENB_int !== 1'b1) 
        && COLLDISN_int === 1'b1 && row_contention(AA_int, AB_int, 1'b1, 1'b0)) begin
@@ -2564,13 +2536,13 @@ task dumpmem;
           ROW_CC = 1;
           $display("%s contention: write B fails in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
-        DB_int = {128{1'bx}};
+        DB_int = {124{1'bx}};
         WriteB;
         if (col_contention(AA_int,AB_int)) begin
           $display("%s contention: read A fails in %m at %0t",ASSERT_PREFIX, $time);
           COL_CC = 1;
           READ_WRITE = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
       end else begin
           $display("%s contention: read A succeeds in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
@@ -2592,14 +2564,14 @@ task dumpmem;
     end else if (CENA_int === 1'bx || EMAA_int[0] === 1'bx || EMAA_int[1] === 1'bx || 
       EMAA_int[2] === 1'bx || EMASA_int === 1'bx || RET1N_int === 1'bx || (STOVA_int && !CENA_int) === 1'bx || 
       TENA_int === 1'bx || clk0_int === 1'bx) begin
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if  (cont_flag0_int === 1'bx && COLLDISN_int === 1'b1 &&  (CENA_int !== 
      1'b1 && CENB_int !== 1'b1) && is_contention(AA_int, AB_int, 1'b1, 1'b0)) begin
       cont_flag0_int = 1'b0;
           $display("%s contention: write B succeeds, read A fails in %m at %0t",ASSERT_PREFIX, $time);
           ROW_CC = 1;
           COL_CC = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
     end else if  ((CENA_int !== 1'b1 && CENB_int !== 1'b1) && cont_flag0_int === 1'bx 
      && (COLLDISN_int === 1'b0 || COLLDISN_int === 1'bx) && row_contention(AA_int,
       AB_int,1'b1, 1'b0)) begin
@@ -2608,13 +2580,13 @@ task dumpmem;
           ROW_CC = 1;
           $display("%s contention: write B fails in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
-        DB_int = {128{1'bx}};
+        DB_int = {124{1'bx}};
         WriteB;
         if (col_contention(AA_int,AB_int)) begin
           $display("%s contention: read A fails in %m at %0t",ASSERT_PREFIX, $time);
           COL_CC = 1;
           READ_WRITE = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
       end else begin
           $display("%s contention: read A succeeds in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
@@ -2634,41 +2606,41 @@ task dumpmem;
   always @ RET1N_ begin
     if (CLKB_ == 1'b1) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end
     if (RET1N_ === 1'bx || RET1N_ === 1'bz) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_ === 1'b0 && RET1N_int === 1'b1 && (CENB_p2 === 1'b0 || TCENB_p2 === 1'b0) ) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (RET1N_ === 1'b1 && RET1N_int === 1'b0 && (CENB_p2 === 1'b0 || TCENB_p2 === 1'b0) ) begin
       failedWrite(1);
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end
     if (RET1N_ == 1'b0) begin
       CENB_int = 1'bx;
-      AB_int = {7{1'bx}};
-      DB_int = {128{1'bx}};
+      AB_int = {8{1'bx}};
+      DB_int = {124{1'bx}};
       EMAB_int = {3{1'bx}};
       EMAWB_int = {2{1'bx}};
       TENB_int = 1'bx;
       TCENB_int = 1'bx;
-      TAB_int = {7{1'bx}};
-      TDB_int = {128{1'bx}};
+      TAB_int = {8{1'bx}};
+      TDB_int = {124{1'bx}};
       RET1N_int = 1'bx;
       STOVB_int = 1'bx;
       COLLDISN_int = 1'bx;
     end else begin
       CENB_int = 1'bx;
-      AB_int = {7{1'bx}};
-      DB_int = {128{1'bx}};
+      AB_int = {8{1'bx}};
+      DB_int = {124{1'bx}};
       EMAB_int = {3{1'bx}};
       EMAWB_int = {2{1'bx}};
       TENB_int = 1'bx;
       TCENB_int = 1'bx;
-      TAB_int = {7{1'bx}};
-      TDB_int = {128{1'bx}};
+      TAB_int = {8{1'bx}};
+      TDB_int = {124{1'bx}};
       RET1N_int = 1'bx;
       STOVB_int = 1'bx;
       COLLDISN_int = 1'bx;
@@ -2681,7 +2653,7 @@ task dumpmem;
       // no cycle in retention mode
   end else begin
     if ((CLKB_ === 1'bx || CLKB_ === 1'bz) && RET1N_ !== 1'b0) begin
-      QA_int = {128{1'bx}};
+      QA_int = {124{1'bx}};
     end else if (CLKB_ === 1'b1 && LAST_CLKB === 1'b0) begin
       CENB_int = TENB_ ? CENB_ : TCENB_;
       EMAB_int = EMAB_;
@@ -2707,7 +2679,7 @@ task dumpmem;
           $display("%s contention: write B succeeds, read A fails in %m at %0t",ASSERT_PREFIX, $time);
           ROW_CC = 1;
           COL_CC = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
       end else if (((previous_CLKA == previous_CLKB) || ((STOVA_int==1'b1 || STOVB_int==1'b1) 
        && CLKA_ == 1'b1 && CLKB_ == 1'b1)) && COLLDISN_int === 1'b1 && (CENA_int !== 
        1'b1 && CENB_int !== 1'b1) && row_contention(AA_int, AB_int, 1'b1, 1'b0)) begin
@@ -2723,13 +2695,13 @@ task dumpmem;
           ROW_CC = 1;
           $display("%s contention: write B fails in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
-        DB_int = {128{1'bx}};
+        DB_int = {124{1'bx}};
         WriteB;
         if (col_contention(AA_int,AB_int)) begin
           $display("%s contention: read A fails in %m at %0t",ASSERT_PREFIX, $time);
           COL_CC = 1;
           READ_WRITE = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
       end else begin
           $display("%s contention: read A succeeds in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
@@ -2756,7 +2728,7 @@ task dumpmem;
           $display("%s contention: write B succeeds, read A fails in %m at %0t",ASSERT_PREFIX, $time);
           ROW_CC = 1;
           COL_CC = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
     end else if  ((CENA_int !== 1'b1 && CENB_int !== 1'b1) && cont_flag1_int === 1'bx 
      && (COLLDISN_int === 1'b0 || COLLDISN_int === 1'bx) && row_contention(AA_int,
       AB_int,1'b1, 1'b0)) begin
@@ -2765,13 +2737,13 @@ task dumpmem;
           ROW_CC = 1;
           $display("%s contention: write B fails in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
-        DB_int = {128{1'bx}};
+        DB_int = {124{1'bx}};
         WriteB;
         if (col_contention(AA_int,AB_int)) begin
           $display("%s contention: read A fails in %m at %0t",ASSERT_PREFIX, $time);
           COL_CC = 1;
           READ_WRITE = 1;
-        QA_int = {128{1'bx}};
+        QA_int = {124{1'bx}};
       end else begin
           $display("%s contention: read A succeeds in %m at %0t",ASSERT_PREFIX, $time);
           READ_WRITE = 1;
@@ -2783,8 +2755,8 @@ task dumpmem;
   end
 
   function row_contention;
-    input [6:0] aa;
-    input [6:0] ab;
+    input [7:0] aa;
+    input [7:0] ab;
     input  wena;
     input  wenb;
     reg result;
@@ -2794,7 +2766,7 @@ task dumpmem;
   begin
     anyWrite = ((& wena) === 1'b1 && (& wenb) === 1'b1) ? 1'b0 : 1'b1;
     sameMux = (aa[0:0] == ab[0:0]) ? 1'b1 : 1'b0;
-    if (aa[6:0] == ab[6:0]) begin
+    if (aa[7:0] == ab[7:0]) begin
       sameRow = 1'b1;
     end else begin
       sameRow = 1'b0;
@@ -2809,8 +2781,8 @@ task dumpmem;
   endfunction
 
   function col_contention;
-    input [6:0] aa;
-    input [6:0] ab;
+    input [7:0] aa;
+    input [7:0] ab;
   begin
     if (aa[0:0] == ab[0:0])
       col_contention = 1'b1;
@@ -2820,8 +2792,8 @@ task dumpmem;
   endfunction
 
   function is_contention;
-    input [6:0] aa;
-    input [6:0] ab;
+    input [7:0] aa;
+    input [7:0] ab;
     input  wena;
     input  wenb;
     reg result;
@@ -2844,6 +2816,10 @@ task dumpmem;
 
   always @ NOT_CENA begin
     CENA_int = 1'bx;
+    if ( globalNotifier0 === 1'b0 ) globalNotifier0 = 1'bx;
+  end
+  always @ NOT_AA7 begin
+    AA_int[7] = 1'bx;
     if ( globalNotifier0 === 1'b0 ) globalNotifier0 = 1'bx;
   end
   always @ NOT_AA6 begin
@@ -2878,6 +2854,10 @@ task dumpmem;
     CENB_int = 1'bx;
     if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
   end
+  always @ NOT_AB7 begin
+    AB_int[7] = 1'bx;
+    if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
+  end
   always @ NOT_AB6 begin
     AB_int[6] = 1'bx;
     if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
@@ -2904,22 +2884,6 @@ task dumpmem;
   end
   always @ NOT_AB0 begin
     AB_int[0] = 1'bx;
-    if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
-  end
-  always @ NOT_DB127 begin
-    DB_int[127] = 1'bx;
-    if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
-  end
-  always @ NOT_DB126 begin
-    DB_int[126] = 1'bx;
-    if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
-  end
-  always @ NOT_DB125 begin
-    DB_int[125] = 1'bx;
-    if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
-  end
-  always @ NOT_DB124 begin
-    DB_int[124] = 1'bx;
     if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
   end
   always @ NOT_DB123 begin
@@ -3462,6 +3426,10 @@ task dumpmem;
     CENA_int = 1'bx;
     if ( globalNotifier0 === 1'b0 ) globalNotifier0 = 1'bx;
   end
+  always @ NOT_TAA7 begin
+    AA_int[7] = 1'bx;
+    if ( globalNotifier0 === 1'b0 ) globalNotifier0 = 1'bx;
+  end
   always @ NOT_TAA6 begin
     AA_int[6] = 1'bx;
     if ( globalNotifier0 === 1'b0 ) globalNotifier0 = 1'bx;
@@ -3498,6 +3466,10 @@ task dumpmem;
     CENB_int = 1'bx;
     if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
   end
+  always @ NOT_TAB7 begin
+    AB_int[7] = 1'bx;
+    if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
+  end
   always @ NOT_TAB6 begin
     AB_int[6] = 1'bx;
     if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
@@ -3524,22 +3496,6 @@ task dumpmem;
   end
   always @ NOT_TAB0 begin
     AB_int[0] = 1'bx;
-    if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
-  end
-  always @ NOT_TDB127 begin
-    DB_int[127] = 1'bx;
-    if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
-  end
-  always @ NOT_TDB126 begin
-    DB_int[126] = 1'bx;
-    if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
-  end
-  always @ NOT_TDB125 begin
-    DB_int[125] = 1'bx;
-    if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
-  end
-  always @ NOT_TDB124 begin
-    DB_int[124] = 1'bx;
     if ( globalNotifier1 === 1'b0 ) globalNotifier1 = 1'bx;
   end
   always @ NOT_TDB123 begin
@@ -4403,6 +4359,10 @@ task dumpmem;
        (CENA => CENYA) = (1.000, 1.000);
     if (TENA == 1'b0)
        (TCENA => CENYA) = (1.000, 1.000);
+    if (AA[7] == 1'b0 && TAA[7] == 1'b1)
+       (TENA => AYA[7]) = (1.000, 1.000);
+    if (AA[7] == 1'b1 && TAA[7] == 1'b0)
+       (TENA => AYA[7]) = (1.000, 1.000);
     if (AA[6] == 1'b0 && TAA[6] == 1'b1)
        (TENA => AYA[6]) = (1.000, 1.000);
     if (AA[6] == 1'b1 && TAA[6] == 1'b0)
@@ -4432,6 +4392,8 @@ task dumpmem;
     if (AA[0] == 1'b1 && TAA[0] == 1'b0)
        (TENA => AYA[0]) = (1.000, 1.000);
     if (TENA == 1'b1)
+       (AA[7] => AYA[7]) = (1.000, 1.000);
+    if (TENA == 1'b1)
        (AA[6] => AYA[6]) = (1.000, 1.000);
     if (TENA == 1'b1)
        (AA[5] => AYA[5]) = (1.000, 1.000);
@@ -4445,6 +4407,8 @@ task dumpmem;
        (AA[1] => AYA[1]) = (1.000, 1.000);
     if (TENA == 1'b1)
        (AA[0] => AYA[0]) = (1.000, 1.000);
+    if (TENA == 1'b0)
+       (TAA[7] => AYA[7]) = (1.000, 1.000);
     if (TENA == 1'b0)
        (TAA[6] => AYA[6]) = (1.000, 1.000);
     if (TENA == 1'b0)
@@ -4467,6 +4431,10 @@ task dumpmem;
        (CENB => CENYB) = (1.000, 1.000);
     if (TENB == 1'b0)
        (TCENB => CENYB) = (1.000, 1.000);
+    if (AB[7] == 1'b0 && TAB[7] == 1'b1)
+       (TENB => AYB[7]) = (1.000, 1.000);
+    if (AB[7] == 1'b1 && TAB[7] == 1'b0)
+       (TENB => AYB[7]) = (1.000, 1.000);
     if (AB[6] == 1'b0 && TAB[6] == 1'b1)
        (TENB => AYB[6]) = (1.000, 1.000);
     if (AB[6] == 1'b1 && TAB[6] == 1'b0)
@@ -4496,6 +4464,8 @@ task dumpmem;
     if (AB[0] == 1'b1 && TAB[0] == 1'b0)
        (TENB => AYB[0]) = (1.000, 1.000);
     if (TENB == 1'b1)
+       (AB[7] => AYB[7]) = (1.000, 1.000);
+    if (TENB == 1'b1)
        (AB[6] => AYB[6]) = (1.000, 1.000);
     if (TENB == 1'b1)
        (AB[5] => AYB[5]) = (1.000, 1.000);
@@ -4510,6 +4480,8 @@ task dumpmem;
     if (TENB == 1'b1)
        (AB[0] => AYB[0]) = (1.000, 1.000);
     if (TENB == 1'b0)
+       (TAB[7] => AYB[7]) = (1.000, 1.000);
+    if (TENB == 1'b0)
        (TAB[6] => AYB[6]) = (1.000, 1.000);
     if (TENB == 1'b0)
        (TAB[5] => AYB[5]) = (1.000, 1.000);
@@ -4523,22 +4495,6 @@ task dumpmem;
        (TAB[1] => AYB[1]) = (1.000, 1.000);
     if (TENB == 1'b0)
        (TAB[0] => AYB[0]) = (1.000, 1.000);
-    if (DB[127] == 1'b0 && TDB[127] == 1'b1)
-       (TENB => DYB[127]) = (1.000, 1.000);
-    if (DB[127] == 1'b1 && TDB[127] == 1'b0)
-       (TENB => DYB[127]) = (1.000, 1.000);
-    if (DB[126] == 1'b0 && TDB[126] == 1'b1)
-       (TENB => DYB[126]) = (1.000, 1.000);
-    if (DB[126] == 1'b1 && TDB[126] == 1'b0)
-       (TENB => DYB[126]) = (1.000, 1.000);
-    if (DB[125] == 1'b0 && TDB[125] == 1'b1)
-       (TENB => DYB[125]) = (1.000, 1.000);
-    if (DB[125] == 1'b1 && TDB[125] == 1'b0)
-       (TENB => DYB[125]) = (1.000, 1.000);
-    if (DB[124] == 1'b0 && TDB[124] == 1'b1)
-       (TENB => DYB[124]) = (1.000, 1.000);
-    if (DB[124] == 1'b1 && TDB[124] == 1'b0)
-       (TENB => DYB[124]) = (1.000, 1.000);
     if (DB[123] == 1'b0 && TDB[123] == 1'b1)
        (TENB => DYB[123]) = (1.000, 1.000);
     if (DB[123] == 1'b1 && TDB[123] == 1'b0)
@@ -5036,14 +4992,6 @@ task dumpmem;
     if (DB[0] == 1'b1 && TDB[0] == 1'b0)
        (TENB => DYB[0]) = (1.000, 1.000);
     if (TENB == 1'b1)
-       (DB[127] => DYB[127]) = (1.000, 1.000);
-    if (TENB == 1'b1)
-       (DB[126] => DYB[126]) = (1.000, 1.000);
-    if (TENB == 1'b1)
-       (DB[125] => DYB[125]) = (1.000, 1.000);
-    if (TENB == 1'b1)
-       (DB[124] => DYB[124]) = (1.000, 1.000);
-    if (TENB == 1'b1)
        (DB[123] => DYB[123]) = (1.000, 1.000);
     if (TENB == 1'b1)
        (DB[122] => DYB[122]) = (1.000, 1.000);
@@ -5291,14 +5239,6 @@ task dumpmem;
        (DB[1] => DYB[1]) = (1.000, 1.000);
     if (TENB == 1'b1)
        (DB[0] => DYB[0]) = (1.000, 1.000);
-    if (TENB == 1'b0)
-       (TDB[127] => DYB[127]) = (1.000, 1.000);
-    if (TENB == 1'b0)
-       (TDB[126] => DYB[126]) = (1.000, 1.000);
-    if (TENB == 1'b0)
-       (TDB[125] => DYB[125]) = (1.000, 1.000);
-    if (TENB == 1'b0)
-       (TDB[124] => DYB[124]) = (1.000, 1.000);
     if (TENB == 1'b0)
        (TDB[123] => DYB[123]) = (1.000, 1.000);
     if (TENB == 1'b0)
@@ -5548,14 +5488,6 @@ task dumpmem;
     if (TENB == 1'b0)
        (TDB[0] => DYB[0]) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[127] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[126] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[125] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[124] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[123] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[122] : 1'b0)) = (1.000, 1.000);
@@ -5803,14 +5735,6 @@ task dumpmem;
        (posedge CLKA => (QA[1] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[0] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[127] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[126] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[125] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[124] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
        (posedge CLKA => (QA[123] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
@@ -6060,14 +5984,6 @@ task dumpmem;
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
        (posedge CLKA => (QA[0] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[127] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[126] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[125] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[124] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[123] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[122] : 1'b0)) = (1.000, 1.000);
@@ -6315,14 +6231,6 @@ task dumpmem;
        (posedge CLKA => (QA[1] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[0] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[127] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[126] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[125] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[124] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
        (posedge CLKA => (QA[123] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
@@ -6572,14 +6480,6 @@ task dumpmem;
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
        (posedge CLKA => (QA[0] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[127] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[126] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[125] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[124] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[123] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[122] : 1'b0)) = (1.000, 1.000);
@@ -6827,14 +6727,6 @@ task dumpmem;
        (posedge CLKA => (QA[1] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[0] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[127] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[126] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[125] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[124] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
        (posedge CLKA => (QA[123] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
@@ -7084,14 +6976,6 @@ task dumpmem;
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1)
        (posedge CLKA => (QA[0] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[127] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[126] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[125] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
-       (posedge CLKA => (QA[124] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[123] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[122] : 1'b0)) = (1.000, 1.000);
@@ -7340,14 +7224,6 @@ task dumpmem;
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0)
        (posedge CLKA => (QA[0] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[127] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[126] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[125] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
-       (posedge CLKA => (QA[124] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
        (posedge CLKA => (QA[123] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
        (posedge CLKA => (QA[122] : 1'b0)) = (1.000, 1.000);
@@ -7595,14 +7471,6 @@ task dumpmem;
        (posedge CLKA => (QA[1] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b0 && EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1)
        (posedge CLKA => (QA[0] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b1)
-       (negedge CLKA => (QA[127] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b1)
-       (negedge CLKA => (QA[126] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b1)
-       (negedge CLKA => (QA[125] : 1'b0)) = (1.000, 1.000);
-    if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b1)
-       (negedge CLKA => (QA[124] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b1)
        (negedge CLKA => (QA[123] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b1)
@@ -7851,22 +7719,6 @@ task dumpmem;
        (negedge CLKA => (QA[1] : 1'b0)) = (1.000, 1.000);
     if (RET1N == 1'b1 && BENA == 1'b1 && STOVA == 1'b1)
        (negedge CLKA => (QA[0] : 1'b0)) = (1.000, 1.000);
-    if (TQA[127] == 1'b1)
-       (BENA => QA[127]) = (1.000, 1.000);
-    if (TQA[127] == 1'b0)
-       (BENA => QA[127]) = (1.000, 1.000);
-    if (TQA[126] == 1'b1)
-       (BENA => QA[126]) = (1.000, 1.000);
-    if (TQA[126] == 1'b0)
-       (BENA => QA[126]) = (1.000, 1.000);
-    if (TQA[125] == 1'b1)
-       (BENA => QA[125]) = (1.000, 1.000);
-    if (TQA[125] == 1'b0)
-       (BENA => QA[125]) = (1.000, 1.000);
-    if (TQA[124] == 1'b1)
-       (BENA => QA[124]) = (1.000, 1.000);
-    if (TQA[124] == 1'b0)
-       (BENA => QA[124]) = (1.000, 1.000);
     if (TQA[123] == 1'b1)
        (BENA => QA[123]) = (1.000, 1.000);
     if (TQA[123] == 1'b0)
@@ -8364,14 +8216,6 @@ task dumpmem;
     if (TQA[0] == 1'b0)
        (BENA => QA[0]) = (1.000, 1.000);
     if (BENA == 1'b0)
-       (TQA[127] => QA[127]) = (1.000, 1.000);
-    if (BENA == 1'b0)
-       (TQA[126] => QA[126]) = (1.000, 1.000);
-    if (BENA == 1'b0)
-       (TQA[125] => QA[125]) = (1.000, 1.000);
-    if (BENA == 1'b0)
-       (TQA[124] => QA[124]) = (1.000, 1.000);
-    if (BENA == 1'b0)
        (TQA[123] => QA[123]) = (1.000, 1.000);
     if (BENA == 1'b0)
        (TQA[122] => QA[122]) = (1.000, 1.000);
@@ -8670,6 +8514,7 @@ task dumpmem;
     $setuphold(posedge CLKA &&& TENAeq1, posedge CENA, 1.000, 0.500, NOT_CENA);
     $setuphold(posedge CLKA &&& TENAeq1, negedge CENA, 1.000, 0.500, NOT_CENA);
     $setuphold(posedge RET1N &&& TENAeq1, negedge CENA, 0.000, 0.500, NOT_RET1N);
+    $setuphold(posedge CLKA &&& TENAeq1andCENAeq0, posedge AA[7], 1.000, 0.500, NOT_AA7);
     $setuphold(posedge CLKA &&& TENAeq1andCENAeq0, posedge AA[6], 1.000, 0.500, NOT_AA6);
     $setuphold(posedge CLKA &&& TENAeq1andCENAeq0, posedge AA[5], 1.000, 0.500, NOT_AA5);
     $setuphold(posedge CLKA &&& TENAeq1andCENAeq0, posedge AA[4], 1.000, 0.500, NOT_AA4);
@@ -8677,6 +8522,7 @@ task dumpmem;
     $setuphold(posedge CLKA &&& TENAeq1andCENAeq0, posedge AA[2], 1.000, 0.500, NOT_AA2);
     $setuphold(posedge CLKA &&& TENAeq1andCENAeq0, posedge AA[1], 1.000, 0.500, NOT_AA1);
     $setuphold(posedge CLKA &&& TENAeq1andCENAeq0, posedge AA[0], 1.000, 0.500, NOT_AA0);
+    $setuphold(posedge CLKA &&& TENAeq1andCENAeq0, negedge AA[7], 1.000, 0.500, NOT_AA7);
     $setuphold(posedge CLKA &&& TENAeq1andCENAeq0, negedge AA[6], 1.000, 0.500, NOT_AA6);
     $setuphold(posedge CLKA &&& TENAeq1andCENAeq0, negedge AA[5], 1.000, 0.500, NOT_AA5);
     $setuphold(posedge CLKA &&& TENAeq1andCENAeq0, negedge AA[4], 1.000, 0.500, NOT_AA4);
@@ -8771,6 +8617,7 @@ task dumpmem;
     $setuphold(posedge CLKB &&& TENBeq1, posedge CENB, 1.000, 0.500, NOT_CENB);
     $setuphold(posedge CLKB &&& TENBeq1, negedge CENB, 1.000, 0.500, NOT_CENB);
     $setuphold(posedge RET1N &&& TENBeq1, negedge CENB, 0.000, 0.500, NOT_RET1N);
+    $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge AB[7], 1.000, 0.500, NOT_AB7);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge AB[6], 1.000, 0.500, NOT_AB6);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge AB[5], 1.000, 0.500, NOT_AB5);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge AB[4], 1.000, 0.500, NOT_AB4);
@@ -8778,6 +8625,7 @@ task dumpmem;
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge AB[2], 1.000, 0.500, NOT_AB2);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge AB[1], 1.000, 0.500, NOT_AB1);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge AB[0], 1.000, 0.500, NOT_AB0);
+    $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge AB[7], 1.000, 0.500, NOT_AB7);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge AB[6], 1.000, 0.500, NOT_AB6);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge AB[5], 1.000, 0.500, NOT_AB5);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge AB[4], 1.000, 0.500, NOT_AB4);
@@ -8785,10 +8633,6 @@ task dumpmem;
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge AB[2], 1.000, 0.500, NOT_AB2);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge AB[1], 1.000, 0.500, NOT_AB1);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge AB[0], 1.000, 0.500, NOT_AB0);
-    $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge DB[127], 1.000, 0.500, NOT_DB127);
-    $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge DB[126], 1.000, 0.500, NOT_DB126);
-    $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge DB[125], 1.000, 0.500, NOT_DB125);
-    $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge DB[124], 1.000, 0.500, NOT_DB124);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge DB[123], 1.000, 0.500, NOT_DB123);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge DB[122], 1.000, 0.500, NOT_DB122);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge DB[121], 1.000, 0.500, NOT_DB121);
@@ -8913,10 +8757,6 @@ task dumpmem;
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge DB[2], 1.000, 0.500, NOT_DB2);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge DB[1], 1.000, 0.500, NOT_DB1);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, posedge DB[0], 1.000, 0.500, NOT_DB0);
-    $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge DB[127], 1.000, 0.500, NOT_DB127);
-    $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge DB[126], 1.000, 0.500, NOT_DB126);
-    $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge DB[125], 1.000, 0.500, NOT_DB125);
-    $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge DB[124], 1.000, 0.500, NOT_DB124);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge DB[123], 1.000, 0.500, NOT_DB123);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge DB[122], 1.000, 0.500, NOT_DB122);
     $setuphold(posedge CLKB &&& TENBeq1andCENBeq0, negedge DB[121], 1.000, 0.500, NOT_DB121);
@@ -9064,6 +8904,7 @@ task dumpmem;
     $setuphold(posedge CLKA &&& TENAeq0, posedge TCENA, 1.000, 0.500, NOT_TCENA);
     $setuphold(posedge CLKA &&& TENAeq0, negedge TCENA, 1.000, 0.500, NOT_TCENA);
     $setuphold(posedge RET1N &&& TENAeq0, negedge TCENA, 0.000, 0.500, NOT_RET1N);
+    $setuphold(posedge CLKA &&& TENAeq0andTCENAeq0, posedge TAA[7], 1.000, 0.500, NOT_TAA7);
     $setuphold(posedge CLKA &&& TENAeq0andTCENAeq0, posedge TAA[6], 1.000, 0.500, NOT_TAA6);
     $setuphold(posedge CLKA &&& TENAeq0andTCENAeq0, posedge TAA[5], 1.000, 0.500, NOT_TAA5);
     $setuphold(posedge CLKA &&& TENAeq0andTCENAeq0, posedge TAA[4], 1.000, 0.500, NOT_TAA4);
@@ -9071,6 +8912,7 @@ task dumpmem;
     $setuphold(posedge CLKA &&& TENAeq0andTCENAeq0, posedge TAA[2], 1.000, 0.500, NOT_TAA2);
     $setuphold(posedge CLKA &&& TENAeq0andTCENAeq0, posedge TAA[1], 1.000, 0.500, NOT_TAA1);
     $setuphold(posedge CLKA &&& TENAeq0andTCENAeq0, posedge TAA[0], 1.000, 0.500, NOT_TAA0);
+    $setuphold(posedge CLKA &&& TENAeq0andTCENAeq0, negedge TAA[7], 1.000, 0.500, NOT_TAA7);
     $setuphold(posedge CLKA &&& TENAeq0andTCENAeq0, negedge TAA[6], 1.000, 0.500, NOT_TAA6);
     $setuphold(posedge CLKA &&& TENAeq0andTCENAeq0, negedge TAA[5], 1.000, 0.500, NOT_TAA5);
     $setuphold(posedge CLKA &&& TENAeq0andTCENAeq0, negedge TAA[4], 1.000, 0.500, NOT_TAA4);
@@ -9083,6 +8925,7 @@ task dumpmem;
     $setuphold(posedge CLKB &&& TENBeq0, posedge TCENB, 1.000, 0.500, NOT_TCENB);
     $setuphold(posedge CLKB &&& TENBeq0, negedge TCENB, 1.000, 0.500, NOT_TCENB);
     $setuphold(posedge RET1N &&& TENBeq0, negedge TCENB, 0.000, 0.500, NOT_RET1N);
+    $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TAB[7], 1.000, 0.500, NOT_TAB7);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TAB[6], 1.000, 0.500, NOT_TAB6);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TAB[5], 1.000, 0.500, NOT_TAB5);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TAB[4], 1.000, 0.500, NOT_TAB4);
@@ -9090,6 +8933,7 @@ task dumpmem;
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TAB[2], 1.000, 0.500, NOT_TAB2);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TAB[1], 1.000, 0.500, NOT_TAB1);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TAB[0], 1.000, 0.500, NOT_TAB0);
+    $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TAB[7], 1.000, 0.500, NOT_TAB7);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TAB[6], 1.000, 0.500, NOT_TAB6);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TAB[5], 1.000, 0.500, NOT_TAB5);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TAB[4], 1.000, 0.500, NOT_TAB4);
@@ -9097,10 +8941,6 @@ task dumpmem;
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TAB[2], 1.000, 0.500, NOT_TAB2);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TAB[1], 1.000, 0.500, NOT_TAB1);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TAB[0], 1.000, 0.500, NOT_TAB0);
-    $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TDB[127], 1.000, 0.500, NOT_TDB127);
-    $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TDB[126], 1.000, 0.500, NOT_TDB126);
-    $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TDB[125], 1.000, 0.500, NOT_TDB125);
-    $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TDB[124], 1.000, 0.500, NOT_TDB124);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TDB[123], 1.000, 0.500, NOT_TDB123);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TDB[122], 1.000, 0.500, NOT_TDB122);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TDB[121], 1.000, 0.500, NOT_TDB121);
@@ -9225,10 +9065,6 @@ task dumpmem;
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TDB[2], 1.000, 0.500, NOT_TDB2);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TDB[1], 1.000, 0.500, NOT_TDB1);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, posedge TDB[0], 1.000, 0.500, NOT_TDB0);
-    $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TDB[127], 1.000, 0.500, NOT_TDB127);
-    $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TDB[126], 1.000, 0.500, NOT_TDB126);
-    $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TDB[125], 1.000, 0.500, NOT_TDB125);
-    $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TDB[124], 1.000, 0.500, NOT_TDB124);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TDB[123], 1.000, 0.500, NOT_TDB123);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TDB[122], 1.000, 0.500, NOT_TDB122);
     $setuphold(posedge CLKB &&& TENBeq0andTCENBeq0, negedge TDB[121], 1.000, 0.500, NOT_TDB121);
@@ -9376,22 +9212,22 @@ endmodule
 `endcelldefine
 `endif
 `timescale 1ns/1ps
-module rf_2p_hse_crt_error_injection (Q_out, Q_in, CLK, A, CEN, BEN, TQ);
-   output [127:0] Q_out;
-   input [127:0] Q_in;
+module RF_2p_CRT_4x256_error_injection (Q_out, Q_in, CLK, A, CEN, BEN, TQ);
+   output [123:0] Q_out;
+   input [123:0] Q_in;
    input CLK;
-   input [6:0] A;
+   input [7:0] A;
    input CEN;
    input BEN;
-   input [127:0] TQ;
+   input [123:0] TQ;
    parameter LEFT_RED_COLUMN_FAULT = 2'd1;
    parameter RIGHT_RED_COLUMN_FAULT = 2'd2;
    parameter NO_RED_FAULT = 2'd0;
-   reg [127:0] Q_out;
+   reg [123:0] Q_out;
    reg entry_found;
    reg list_complete;
-   reg [18:0] fault_table [95:0];
-   reg [18:0] fault_entry;
+   reg [19:0] fault_table [255:0];
+   reg [19:0] fault_entry;
 initial
 begin
    `ifdef DUT
@@ -9400,12 +9236,12 @@ begin
        `define pre_pend_path TB.CHIP
    `endif
    `ifdef ARM_NONREPAIRABLE_FAULT
-      `pre_pend_path.SMARCHCHKBVCD_LVISION_MBISTPG_ASSEMBLY_UNDER_TEST_INST.MEM0_MEM_INST.u1.add_fault(7'd78,7'd70,2'd1,2'd0);
+      `pre_pend_path.SMARCHCHKBVCD_LVISION_MBISTPG_ASSEMBLY_UNDER_TEST_INST.MEM0_MEM_INST.u1.add_fault(8'd163,7'd98,2'd1,2'd0);
    `endif
 end
    task add_fault;
    //This task injects fault in memory
-      input [6:0] address;
+      input [7:0] address;
       input [6:0] bitPlace;
       input [1:0] fault_type;
       input [1:0] red_fault;
@@ -9415,7 +9251,7 @@ end
    begin
       done = 1'b0;
       i = 0;
-      while ((!done) && i < 95)
+      while ((!done) && i < 255)
       begin
          fault_entry = fault_table[i];
          if (fault_entry[0] === 1'b0 || fault_entry[0] === 1'bx)
@@ -9424,7 +9260,7 @@ end
             fault_entry[2:1] = red_fault;
             fault_entry[4:3] = fault_type;
             fault_entry[11:5] = bitPlace;
-            fault_entry[18:12] = address;
+            fault_entry[19:12] = address;
             fault_table[i] = fault_entry;
             done = 1'b1;
          end
@@ -9436,7 +9272,7 @@ end
 task remove_all_faults;
    integer i;
 begin
-   for (i = 0; i < 96; i=i+1)
+   for (i = 0; i < 256; i=i+1)
    begin
       fault_entry = fault_table[i];
       fault_entry[0] = 1'b0;
@@ -9450,7 +9286,7 @@ task bit_error;
 //
 // This task injects error depending upon fault type to particular bit
 // of the output
-   inout [127:0] q_int;
+   inout [123:0] q_int;
    input [1:0] fault_type;
    input [6:0] bitLoc;
 begin
@@ -9473,10 +9309,10 @@ task error_injection_on_output;
 // If fault is repaired using repair bus, this task does not
 // courrpt Q output in read cycle
 //
-   output [127:0] Q_output;
+   output [123:0] Q_output;
    reg list_complete;
    integer i;
-   reg [6:0] row_address;
+   reg [7:0] row_address;
    reg [6:0] bitPlace;
    reg [1:0] fault_type;
    reg [1:0] red_fault;
@@ -9497,9 +9333,9 @@ begin
          begin
             if (row_address == A)
             begin
-               if (bitPlace < 64)
+               if (bitPlace < 62)
                   bit_error(Q_output,fault_type, bitPlace);
-               else if (bitPlace >= 64 )
+               else if (bitPlace >= 62 )
                   bit_error(Q_output,fault_type, bitPlace);
             end
          end

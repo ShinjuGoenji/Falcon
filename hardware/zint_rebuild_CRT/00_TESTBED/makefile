@@ -4,7 +4,7 @@
 # Set your desired file names
 ######################################
 top_design=MAKE_FG
-define=FALCON512
+define=FALCON1024
 source_file="filelist.f"	# Name of your source file
 output_file="simv"      	# Desired output simulation file name
 log_file="vcs.log"      	# Desired log file name
@@ -47,7 +47,7 @@ VCS_RTL_SIM = vcs ${TIMESCALE} \
     -R \
     -debug_access+all \
     -y ${DW_SIM} \
-    +libext+.v \
+    +libext+.sv \
     -f ${source_file} \
     -o ${output_file} \
     -l ${log_file} \
@@ -78,6 +78,7 @@ VCS_GATE_SIM = vcs ${TIMESCALE} \
 	   ${TSMC40_UDP_RVT} \
 	   ${TSMC40_UDP_LVT} \
     +define+GATE \
+    +define+ARM_WIDTH=0.0 \
 	+neg_tchk 
 
 VCS_POST_SIM = vcs ${TIMESCALE} \
@@ -138,7 +139,7 @@ DC_shell_gui = dcnxt_shell -f ${syn_tcl} \
     -output_log_file ${syn_log} \
 	-gui
 
-Read_DC_shell_gui = dcnxt_shell -x 'read_sverilog ${top_design}.v' -gui
+Read_DC_shell_gui = dcnxt_shell -x 'read_sverilog ${top_design}.sv' -gui
 Read_DDC_shell_gui = dcnxt_shell -x "read_ddc ${top_design}_SYN.ddc" -gui
 
 # =====================================

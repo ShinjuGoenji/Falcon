@@ -2,46 +2,52 @@
  * 
  */
 module MODP_MONTYMUL_TOP #(
-    parameter MASTER_NUM = 10,
-    parameter MUL_NUM = 2
+    parameter MASTER_NUM = 4,
+    parameter MUL_NUM = 4
 )(
     // Input signals
     clk,
     rst_n,
-    in_valid_bus,
-    a_bus,
-    b_bus,
-    p_bus,
-    p0i_bus,
-    isMQ_bus,
-    // Output signals
-    out_valid_bus,
-    d_bus,
-    ready_bus
+    in_bus,
+    out_bus
+    // inf
+    // in_valid_bus,
+    // a_bus,
+    // b_bus,
+    // p_bus,
+    // p0i_bus,
+    // isMQ_bus,
+    // // Output signals
+    // out_valid_bus,
+    // d_bus,
+    // ready_bus
 );
+import usertype::*;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
 //---------------------------------------------------------------------
-localparam P_WIDTH = 31;
-
-integer i, j;
+// localparam P_WIDTH = 31;
 
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
 input                               clk;
 input                               rst_n;
-input      [MASTER_NUM-1:0]         in_valid_bus;
-input      [P_WIDTH*MASTER_NUM-1:0] a_bus;
-input      [P_WIDTH*MASTER_NUM-1:0] b_bus;
-input      [P_WIDTH*MASTER_NUM-1:0] p_bus;
-input      [P_WIDTH*MASTER_NUM-1:0] p0i_bus;
-input      [MASTER_NUM-1:0]         isMQ_bus;
+input  MODP_MONTYMUL_MASTER in_bus  [0:MASTER_NUM-1];
+output MODP_MONTYMUL_SLAVE  out_bus [0:MASTER_NUM-1];
+// input      [MASTER_NUM-1:0]         in_valid_bus;
+// input      [P_WIDTH*MASTER_NUM-1:0] a_bus;
+// input      [P_WIDTH*MASTER_NUM-1:0] b_bus;
+// input      [P_WIDTH*MASTER_NUM-1:0] p_bus;
+// input      [P_WIDTH*MASTER_NUM-1:0] p0i_bus;
+// input      [MASTER_NUM-1:0]         isMQ_bus;
     
-output reg [MASTER_NUM-1:0]         out_valid_bus;
-output reg [P_WIDTH*MASTER_NUM-1:0] d_bus;
-output reg [MASTER_NUM-1:0]         ready_bus;
+// output reg [MASTER_NUM-1:0]         out_valid_bus;
+// output reg [P_WIDTH*MASTER_NUM-1:0] d_bus;
+// output reg [MASTER_NUM-1:0]         ready_bus;
+
+// MODP_MONTYMUL_INF.MODP_MONTYMUL_TOP inf;
 
 //---------------------------------------------------------------------
 //   Logic
@@ -105,12 +111,12 @@ endgenerate
 genvar i_bus_idx;
 generate
     for (i_bus_idx = 0; i_bus_idx < MASTER_NUM; i_bus_idx = i_bus_idx + 1) begin
-        assign in_valid_bus_w[i_bus_idx] = in_valid_bus[i_bus_idx];
-        assign a_bus_w[i_bus_idx]        = a_bus[P_WIDTH*(i_bus_idx+1)-1 -: P_WIDTH];
-        assign b_bus_w[i_bus_idx]        = b_bus[P_WIDTH*(i_bus_idx+1)-1 -: P_WIDTH];
-        assign p_bus_w[i_bus_idx]        = p_bus[P_WIDTH*(i_bus_idx+1)-1 -: P_WIDTH];
-        assign p0i_bus_w[i_bus_idx]      = p0i_bus[P_WIDTH*(i_bus_idx+1)-1 -: P_WIDTH];
-        assign isMQ_bus_w[i_bus_idx]     = isMQ_bus[i_bus_idx];
+        assign in_valid_bus_w[i_bus_idx] = in_bus[i_bus_idx].in_valid;
+        assign a_bus_w[i_bus_idx]        = in_bus[i_bus_idx].a;
+        assign b_bus_w[i_bus_idx]        = in_bus[i_bus_idx].b;
+        assign p_bus_w[i_bus_idx]        = in_bus[i_bus_idx].p;
+        assign p0i_bus_w[i_bus_idx]      = in_bus[i_bus_idx].p0i;
+        assign isMQ_bus_w[i_bus_idx]     = in_bus[i_bus_idx].isMQ;
     end
 endgenerate
 
@@ -118,7 +124,7 @@ endgenerate
  * Arbiter
  */
 always_comb begin : ARBITER
-    for (j = 0; j < MUL_NUM; j = j + 1) begin
+    for (int j = 0; j < MUL_NUM; j = j + 1) begin
         i_valid[j] = 1'b0;
         a[j] = {P_WIDTH{1'b0}};
         b[j] = {P_WIDTH{1'b0}};
@@ -127,12 +133,13 @@ always_comb begin : ARBITER
         isMQ[j] = 1'b0;
         i_bus[j] = 0;
     end
-    for (i = 0; i < MASTER_NUM; i = i + 1) begin
+    for (int i = 0; i < MASTER_NUM; i = i + 1) begin
         grant[i] = 1'b0;
-        ready_bus[i] = 1'b1;
+        out_bus[i].ready = 1'b1;
+        // ready_bus[i] = 1'b1;
     end
-    for (j = 0; j < MUL_NUM; j = j + 1) begin
-        for (i = 0; i < MASTER_NUM; i = i + 1) begin
+    for (int j = 0; j < MUL_NUM; j = j + 1) begin
+        for (int i = 0; i < MASTER_NUM; i = i + 1) begin
             if (in_valid_bus_w[i] && ~grant[i]) begin
                 i_valid[j] = in_valid_bus_w[i];
                 a[j]       = a_bus_w[i];
@@ -147,9 +154,10 @@ always_comb begin : ARBITER
         end
     end
     instance_cnt = MUL_NUM;
-    for (i = 0; i < MASTER_NUM; i = i + 1) begin
+    for (int i = 0; i < MASTER_NUM; i = i + 1) begin
         if (i >= MUL_NUM && instance_cnt == 0) begin
-            ready_bus[i] = 1'b0;
+            // ready_bus[i] = 1'b0;
+            out_bus[i].ready = 1'b0;
         end
         if (in_valid_bus_w[i] && grant[i]) begin
             instance_cnt = instance_cnt - 1;
@@ -161,11 +169,11 @@ end
  * Map kernel to bus
  */
 always_comb begin
-    for (i = 0; i < MASTER_NUM; i = i + 1) begin
+    for (int i = 0; i < MASTER_NUM; i = i + 1) begin
         out_valid_bus_comb[i] = 0;
         d_bus_comb[i] = 0;
     end
-    for (j = 0; j < MUL_NUM; j = j + 1) begin
+    for (int j = 0; j < MUL_NUM; j = j + 1) begin
         if (o_valid[j]) begin
             out_valid_bus_comb[o_bus[j]] = o_valid[j];
             d_bus_comb[o_bus[j]] = d[j];
@@ -180,8 +188,10 @@ genvar o_bus_idx;
 generate
     for (o_bus_idx = 0; o_bus_idx < MASTER_NUM; o_bus_idx = o_bus_idx + 1) begin
         always_comb begin
-            out_valid_bus[o_bus_idx] = out_valid_bus_comb[o_bus_idx];
-            d_bus[P_WIDTH*(o_bus_idx+1)-1 -: P_WIDTH] = d_bus_comb[o_bus_idx];
+            // out_valid_bus[o_bus_idx] = out_valid_bus_comb[o_bus_idx];
+            // d_bus[P_WIDTH*(o_bus_idx+1)-1 -: P_WIDTH] = d_bus_comb[o_bus_idx];
+            out_bus[o_bus_idx].out_valid = out_valid_bus_comb[o_bus_idx];
+            out_bus[o_bus_idx].d = d_bus_comb[o_bus_idx];
         end
     end
 endgenerate
