@@ -34,7 +34,6 @@ module ZINT_MOD_SMALL_UNSIGNED #(parameter SLAVE_NUM)
     // MODP_MONTYMUL_TOP
     modp_montymul_req,
     modp_montymul_resp
-    // modp_montymul_inf
 );
 import usertype::*;
 
@@ -77,7 +76,6 @@ output logic read_xlast;
  */
 output MODP_MONTYMUL_MASTER modp_montymul_req [0:WORD_NUM-1];
 input  MODP_MONTYMUL_SLAVE  modp_montymul_resp [0:WORD_NUM-1];
-// ZINT_REBUILD_CRT_INF.ZINT_MOD_SMALL_UNSIGNED modp_montymul_inf;
 
 //---------------------------------------------------------------------
 //   Logic
@@ -287,8 +285,6 @@ always_comb begin
             out_valid_modp_add_comb = 1;
         else 
             out_valid_modp_add_comb = 0;
-    // if (ready && in_valid)
-    //     out_valid_modp_add_comb = 1;
     else
         out_valid_modp_add_comb = 0;
 end

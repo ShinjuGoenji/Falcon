@@ -9,7 +9,8 @@ package usertype;
 parameter P_WIDTH = 31;
 typedef logic [P_WIDTH-1:0] uint31_t;
 
-parameter LOGN_WIDTH = 4;
+// parameter LOGN_WIDTH = 4;
+parameter NUM_WIDTH = 9;
 parameter XLEN_WIDTH = 9;
 
 parameter WORD_NUM = 4;

@@ -27,6 +27,7 @@ novas*
 alib-52/
 *.ddc
 *.pvl
+*.pvk
 *.syn
 *.svf
 *.mr

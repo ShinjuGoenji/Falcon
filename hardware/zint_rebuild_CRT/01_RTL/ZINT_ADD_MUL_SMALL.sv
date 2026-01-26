@@ -21,7 +21,6 @@ module ZINT_ADD_MUL_SMALL #(parameter SLAVE_NUM)
     is_write,
     stall,
     // Output signals
-    // ready,
     out_valid,
     x_o,
     read_ena,
@@ -37,7 +36,6 @@ module ZINT_ADD_MUL_SMALL #(parameter SLAVE_NUM)
     // MODP_MONTYMUL_TOP
     modp_montymul_req,
     modp_montymul_resp
-    // modp_montymul_inf
 );
 import usertype::*;
 
@@ -93,7 +91,6 @@ output logic [XLEN_WIDTH-1:0] len;
  */
 output MODP_MONTYMUL_MASTER modp_montymul_req [0:WORD_NUM-1];
 input  MODP_MONTYMUL_SLAVE  modp_montymul_resp [0:WORD_NUM-1];
-// ZINT_REBUILD_CRT_INF.ZINT_ADD_MUL_SMALL modp_montymul_inf;
 
 //---------------------------------------------------------------------
 //   Logic

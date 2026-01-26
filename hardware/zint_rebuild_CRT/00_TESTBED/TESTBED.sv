@@ -10,7 +10,7 @@
 `elsif GATE
     `include "MAKE_FG_SYN.v"
     // `include "MAKE_FG_Wrapper.sv"
-    `define CYCLE_TIME 2.0
+    `define CYCLE_TIME 2.5 
 `endif
 	  		  	
 module TESTBED;
@@ -72,7 +72,7 @@ PATTERN test_p (
         .inf_in_valid(inf.in_valid), 
         .inf_in_data(inf.in_data), 
         .inf_len_valid(inf.len_valid), 
-        .inf_logn(inf.logn), 
+        .inf_num(inf.num), 
         .inf_xlen(inf.xlen),
         .inf_out_valid(inf.out_valid), 
         .inf_out_data(inf.out_data)

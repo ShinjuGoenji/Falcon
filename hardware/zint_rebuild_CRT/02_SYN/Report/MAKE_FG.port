@@ -1,0 +1,151 @@
+ 
+****************************************
+Report : port
+Design : MAKE_FG
+Version: T-2022.03
+Date   : Wed Jan 21 00:57:52 2026
+****************************************
+
+
+                       Pin      Wire     Max     Max     Connection
+Port           Dir     Load     Load     Trans   Cap     Class      Attrs
+--------------------------------------------------------------------------------
+clk            in      0.0000   0.0000   --      --      --         
+inf.in_data[0] in      0.0000   0.0000   --      --      --         
+inf.in_data[1] in      0.0000   0.0000   --      --      --         
+inf.in_data[2] in      0.0000   0.0000   --      --      --         
+inf.in_data[3] in      0.0000   0.0000   --      --      --         
+inf.in_data[4] in      0.0000   0.0000   --      --      --         
+inf.in_data[5] in      0.0000   0.0000   --      --      --         
+inf.in_data[6] in      0.0000   0.0000   --      --      --         
+inf.in_data[7] in      0.0000   0.0000   --      --      --         
+inf.in_data[8] in      0.0000   0.0000   --      --      --         
+inf.in_data[9] in      0.0000   0.0000   --      --      --         
+inf.in_data[10]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[11]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[12]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[13]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[14]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[15]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[16]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[17]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[18]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[19]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[20]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[21]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[22]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[23]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[24]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[25]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[26]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[27]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[28]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[29]
+               in      0.0000   0.0000   --      --      --         
+inf.in_data[30]
+               in      0.0000   0.0000   --      --      --         
+inf.in_valid   in      0.0000   0.0000   --      --      --         
+inf.len_valid  in      0.0000   0.0000   --      --      --         
+inf.num[0]     in      0.0000   0.0000   --      --      --         
+inf.num[1]     in      0.0000   0.0000   --      --      --         
+inf.num[2]     in      0.0000   0.0000   --      --      --         
+inf.num[3]     in      0.0000   0.0000   --      --      --         
+inf.num[4]     in      0.0000   0.0000   --      --      --         
+inf.num[5]     in      0.0000   0.0000   --      --      --         
+inf.num[6]     in      0.0000   0.0000   --      --      --         
+inf.num[7]     in      0.0000   0.0000   --      --      --         
+inf.num[8]     in      0.0000   0.0000   --      --      --         
+inf.xlen[0]    in      0.0000   0.0000   --      --      --         
+inf.xlen[1]    in      0.0000   0.0000   --      --      --         
+inf.xlen[2]    in      0.0000   0.0000   --      --      --         
+inf.xlen[3]    in      0.0000   0.0000   --      --      --         
+inf.xlen[4]    in      0.0000   0.0000   --      --      --         
+inf.xlen[5]    in      0.0000   0.0000   --      --      --         
+inf.xlen[6]    in      0.0000   0.0000   --      --      --         
+inf.xlen[7]    in      0.0000   0.0000   --      --      --         
+inf.xlen[8]    in      0.0000   0.0000   --      --      --         
+rst_n          in      0.0000   0.0000   --      --      --         
+inf.out_data[0]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[1]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[2]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[3]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[4]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[5]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[6]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[7]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[8]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[9]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[10]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[11]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[12]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[13]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[14]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[15]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[16]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[17]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[18]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[19]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[20]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[21]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[22]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[23]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[24]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[25]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[26]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[27]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[28]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[29]
+               out     0.0500   0.0000   --      --      --         
+inf.out_data[30]
+               out     0.0500   0.0000   --      --      --         
+inf.out_valid  out     0.0500   0.0000   --      --      --         
+
+1

@@ -18,8 +18,8 @@ TOP_INF.MAKE_FG inf;
 //---------------------------------------------------------------------
 //   Logic
 //---------------------------------------------------------------------
-logic [LOGN_WIDTH-1:0] inf_logn;
-logic [LOGN_WIDTH-1:0] logn, logn_comb;
+logic [NUM_WIDTH-1:0]  inf_num;
+logic [NUM_WIDTH-1:0]  num, num_comb;
 logic [XLEN_WIDTH-1:0] xlen, xlen_comb;
 
 uint31_t intt_output_buffer [0:WORD_NUM-1], intt_output_buffer_comb [0:WORD_NUM-1];
@@ -49,7 +49,7 @@ MODP_MONTYMUL_SLAVE  modp_montymul_resp [0:WORD_NUM*2-1];
 logic         zint_rebuild_crt_CENB_comb;
 logic [7:0]   zint_rebuild_crt_AB_comb;
 logic [123:0] zint_rebuild_crt_DB_comb;
-logic         is_read;
+logic         is_read; // TODO: may not be necessary
 logic         zint_rebuild_crt_CENA;
 logic [7:0]   zint_rebuild_crt_AA;
 uint31_t      zint_rebuild_crt_QA [0:WORD_NUM-1];
@@ -76,14 +76,11 @@ ZINT_REBUILD_CRT u_ZINT_REBUILD_CRT (
     .in_valid(inf.in_valid),
     .len_valid(inf.len_valid),
     .x_i(inf.in_data),
-    .inf_logn(inf.logn),
-    .logn(logn),
+    .inf_num(inf.num),
+    .num(num),
     .xlen(xlen),
     .input_ptr(input_ptr),
-    .intt_write(intt_write),
     .intt_output_buffer_comb(intt_output_buffer_comb),
-    .rf_crt_CENB(rf_crt_CENB),
-    .rf_crt_AB(rf_crt_AB),
     // Output signals
     .out_valid(zint_rebuild_out_valid),
     // MODP_MONTYMUL_TOP
@@ -91,10 +88,10 @@ ZINT_REBUILD_CRT u_ZINT_REBUILD_CRT (
     .modp_montymul_resp(modp_montymul_resp),
     // RF_CRT
     .is_write(intt_write),
+    .is_read(is_read),
     .CENB_comb(zint_rebuild_crt_CENB_comb),
     .AB_comb(zint_rebuild_crt_AB_comb),
     .DB_comb(zint_rebuild_crt_DB_comb),
-    .is_read(is_read),
     .CENA(zint_rebuild_crt_CENA),
     .AA(zint_rebuild_crt_AA),
     .QA(zint_rebuild_crt_QA)
@@ -114,12 +111,12 @@ u_MODP_MONTYMUL_TOP (
 /*
  * input
  */
-// logn
+// num
 always_comb begin
     if (inf.len_valid)
-        logn_comb = inf.logn;
+        num_comb = inf.num;
     else
-        logn_comb = logn;
+        num_comb = num;
 end
 
 // xlen
@@ -180,7 +177,7 @@ end
 // address
 always_comb begin
     if (intt_write)
-        rf_crt_AB_comb = (input_ptr + (1 << logn)) / WORD_NUM;
+        rf_crt_AB_comb = (input_ptr + num) / WORD_NUM;
     else if (!zint_rebuild_crt_CENB_comb)
         rf_crt_AB_comb = zint_rebuild_crt_AB_comb;
     else
@@ -242,7 +239,7 @@ always_comb begin
             else
                 next_debug_state <= debug_state;
         1:
-            if (debug_cnt == (1 << logn) * xlen - 1)
+            if (debug_cnt == num * xlen - 1)
                 next_debug_state <= 0;
             else
                 next_debug_state <= debug_state;
@@ -257,14 +254,14 @@ always_comb begin
 end
 
 assign debug_CENA = !(debug_state && debug_cnt % WORD_NUM == 0);
-assign debug_AA = (debug_cnt+ (1 << logn)) / WORD_NUM;
+assign debug_AA = (debug_cnt+num) / WORD_NUM;
 
 genvar i;
 generate
     for (i = 0; i < WORD_NUM-1; i=i+1) begin
         always_comb begin
-            if (!debug_CENA_reg) // TODO: parameterize
-                debug_QA_comb[i] = rf_crt_QA[123 - (i * 31) -: 31];
+            if (!debug_CENA_reg)
+                debug_QA_comb[i] = rf_crt_QA[(WORD_NUM*P_WIDTH-1)-(i*P_WIDTH) -: P_WIDTH];
             else 
                 debug_QA_comb[i] = debug_QA[i+1];
         end
@@ -272,8 +269,8 @@ generate
 endgenerate
 
 always_comb begin
-    if (!debug_CENA_reg) // TODO: parameterize
-        debug_QA_comb[WORD_NUM-1] = rf_crt_QA[123 - ((WORD_NUM-1) * 31) -: 31];
+    if (!debug_CENA_reg)
+        debug_QA_comb[WORD_NUM-1] = rf_crt_QA[(WORD_NUM*P_WIDTH-1)-((WORD_NUM-1)*P_WIDTH) -: P_WIDTH];
     else if (debug_state)
         debug_QA_comb[WORD_NUM-1] = 0;
     else 
@@ -289,6 +286,7 @@ always_ff @(posedge clk or negedge rst_n) begin
         debug_CENA_reg <= 1;
         debug_QA <= '{default: '0};
         out_valid_reg1 <= 0;
+        out_valid_reg2 <= 0;
         inf.out_valid <= 0;
         inf.out_data <= 0;
     end
@@ -307,34 +305,22 @@ end
 //---------------------------------------------------------------------
 //   Sequential Logic
 //---------------------------------------------------------------------
-genvar intt_output_buffer_idx;
-generate
-    for (intt_output_buffer_idx=0; intt_output_buffer_idx<WORD_NUM; intt_output_buffer_idx=intt_output_buffer_idx+1) begin
-        always_ff @(posedge clk or negedge rst_n) begin
-            if (!rst_n) begin
-                intt_output_buffer[intt_output_buffer_idx] = 0;
-            end
-            else begin
-                intt_output_buffer[intt_output_buffer_idx] = intt_output_buffer_comb[intt_output_buffer_idx];
-            end
-        end
-    end
-endgenerate
-
 always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        logn <= 0;
+        num <= 0;
         xlen <= 0;
         input_ptr <= 0;
+        intt_output_buffer <= '{default: '0};
         // RF_CRT
         rf_crt_CENB <= 1;
         rf_crt_AB <= 0;
         rf_crt_DB <= 0;
     end
     else begin
-        logn <= logn_comb;
+        num <= num_comb;
         xlen <= xlen_comb;
         input_ptr <= input_ptr_comb;
+        intt_output_buffer <= intt_output_buffer_comb;
         // RF_CRT
         rf_crt_CENB <= rf_crt_CENB_comb;
         rf_crt_AB <= rf_crt_AB_comb;
@@ -352,8 +338,8 @@ module RF_CRT (
     CENB,
     AB,
     DB
-	// inf
 );
+import usertype::*;
 
 //---------------------------------------------------------------------
 //   Input & Output
@@ -365,28 +351,27 @@ output [123:0] QA;
 input          CENB;
 input  [7:0]   AB;
 input  [123:0] DB;
-// RF_CRT_INF.SLAVE inf;
 
 //---------------------------------------------------------------------
 //   Logic
 //---------------------------------------------------------------------
 // Redundent
-logic         rf_2p_crt_CENYA;
-logic [7:0]   rf_2p_crt_AYA;
-logic         rf_2p_crt_CENYB;
-logic [7:0]   rf_2p_crt_AYB;
-logic [123:0] rf_2p_crt_DYB;
+logic         CENYA;
+logic [7:0]   AYA;
+logic         CENYB;
+logic [7:0]   AYB;
+logic [123:0] DYB;
 
 //---------------------------------------------------------------------
 //   SRAM
 //---------------------------------------------------------------------
 
 RF_2p_CRT_4x256 u_RF_2p_CRT_4x256 (
-	.CENYA(rf_2p_crt_CENYA), 
-	.AYA(rf_2p_crt_AYA),     
-	.CENYB(rf_2p_crt_CENYB), 
-	.AYB(rf_2p_crt_AYB),     
-	.DYB(rf_2p_crt_DYB),     
+	.CENYA(CENYA), 
+	.AYA(AYA),     
+	.CENYB(CENYB), 
+	.AYB(AYB),     
+	.DYB(DYB),     
     .QA(QA),
     .CLKA(clk),
     .CENA(CENA),
