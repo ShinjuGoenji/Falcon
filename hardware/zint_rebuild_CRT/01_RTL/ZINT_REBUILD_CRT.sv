@@ -18,26 +18,22 @@ module ZINT_REBUILD_CRT (
     in_valid,
     len_valid,
     x_i,
-    inf_logn,
-    logn,
+    inf_num,
+    num,
     xlen,
     input_ptr,
-    intt_write,
     intt_output_buffer_comb,
-    rf_crt_CENB,
-    rf_crt_AB,
     // Output signals
     out_valid,
     // MODP_MONTYMUL_TOP
     modp_montymul_req,
     modp_montymul_resp,
-    // modp_montymul_inf,
     // RF_CRT
     is_write,
+    is_read,
     CENB_comb, 
     AB_comb, 
     DB_comb,
-    is_read,
     CENA, 
     AA, 
     QA
@@ -63,18 +59,14 @@ input  logic            rst_n;
 input  logic            in_valid;
 input  logic            len_valid;
 input  uint31_t         x_i;
-input  [LOGN_WIDTH-1:0] inf_logn;
-input  [LOGN_WIDTH-1:0] logn;
+input  [NUM_WIDTH-1:0]  inf_num;
+input  [NUM_WIDTH-1:0]  num;
 input  [XLEN_WIDTH-1:0] xlen;
 
 input  [9:0]            input_ptr;
-input                   intt_write;
 input  uint31_t         intt_output_buffer_comb [0:WORD_NUM-1];
 
-input rf_crt_CENB;
-input [7:0]   rf_crt_AB;
-
-output logic            out_valid;
+output logic  out_valid;
 
 /*
  * MODP_MONTYMUL
@@ -86,13 +78,15 @@ input  MODP_MONTYMUL_SLAVE  modp_montymul_resp [0:WORD_NUM*2-1];
  * RF_CRT
  */
 input  logic         is_write;
-output logic         CENB_comb;
-output logic [7:0]   AB_comb;
-output logic [123:0] DB_comb;
 input  logic         is_read;
+
 output logic         CENA;
 output logic [7:0]   AA;
 input  uint31_t      QA [0:WORD_NUM-1];
+
+output logic         CENB_comb;
+output logic [7:0]   AB_comb;
+output logic [123:0] DB_comb;
 
 //---------------------------------------------------------------------
 //   Logic
@@ -108,11 +102,12 @@ logic [9:0] mod_small_unsigned_ptr, mod_small_unsigned_ptr_comb;
 logic [7:0] mod_small_unsigned_ptr_reg, mod_small_unsigned_ptr_reg_comb;
 logic [7:0] mod_small_unsigned_AA, mod_small_unsigned_AB, mod_small_unsigned_AB_comb;
 
+logic in_valid_mod_small_unsigned, in_valid_mod_small_unsigned_comb;
 uint31_t mod_small_unsigned_input_buffer [0:WORD_NUM-1], mod_small_unsigned_input_buffer_comb [0:WORD_NUM-1];
+
 logic mod_small_unsigned_output_buffer_full, mod_small_unsigned_output_buffer_full_comb;
 uint31_t mod_small_unsigned_output_buffer [0:WORD_NUM-1], mod_small_unsigned_output_buffer_comb [0:WORD_NUM-1];
 
-logic in_valid_mod_small_unsigned, in_valid_mod_small_unsigned_comb;
 logic [8:0] dlen_mod_small_unsigned, dlen_mod_small_unsigned_comb, dlen_tmp_mod_small_unsigned;
 uint31_t p_mod_small_unsigned, p_mod_small_unsigned_comb;
 uint31_t p0i_mod_small_unsigned, p0i_mod_small_unsigned_comb;
@@ -120,7 +115,8 @@ uint31_t R2_mod_small_unsigned, R2_mod_small_unsigned_comb;
 logic out_valid_mod_small_unsigned;
 uint31_t x_mod_small_unsigned [0:WORD_NUM-1];
 
-logic read_ena_mod_small_unsigned, read_ena_mod_small_unsigned_comb, read_ena_mod_small_unsigned_reg;
+logic read_ena_mod_small_unsigned, read_ena_mod_small_unsigned_comb;
+logic read_ena_mod_small_unsigned_reg;
 logic receive_mod_small_unsigned;
 logic new_state_mod_small_unsigned;
 logic read_xlast_mod_small_unsigned;
@@ -152,7 +148,8 @@ uint31_t x_add_mul_small [0:WORD_NUM-1];
 logic is_write_add_mul_small, stall_add_mul_small;
 logic [7:0] add_mul_small_AA, add_mul_small_AB, add_mul_small_AB_comb;
 
-logic read_ena_add_mul_small, read_ena_add_mul_small_comb, read_ena_add_mul_small_reg;
+logic read_ena_add_mul_small, read_ena_add_mul_small_comb;
+logic read_ena_add_mul_small_reg;
 logic read_valid_add_mul_small;
 logic new_state_add_mul_small;
 
@@ -190,8 +187,6 @@ small_prime prime_0, prime_1;
 //---------------------------------------------------------------------
 //   Submodule
 //---------------------------------------------------------------------
-// ZINT_REBUILD_CRT_INF zint_rebuild_crt_inf();
-
 ZINT_MOD_SMALL_UNSIGNED #(.SLAVE_NUM(WORD_NUM)) u_ZINT_MOD_SMALL_UNSIGNED (
     // Main channel
     // Input signals
@@ -216,7 +211,6 @@ ZINT_MOD_SMALL_UNSIGNED #(.SLAVE_NUM(WORD_NUM)) u_ZINT_MOD_SMALL_UNSIGNED (
     // MODP_MONTYMUL_TOP
     .modp_montymul_req(modp_montymul_req[0:WORD_NUM-1]),
     .modp_montymul_resp(modp_montymul_resp[0:WORD_NUM-1])
-    // .modp_montymul_inf(zint_rebuild_crt_inf.ZINT_MOD_SMALL_UNSIGNED)
 );
 
 ZINT_ADD_MUL_SMALL #(.SLAVE_NUM(WORD_NUM)) u_ZINT_ADD_MUL_SMALL (
@@ -238,8 +232,6 @@ ZINT_ADD_MUL_SMALL #(.SLAVE_NUM(WORD_NUM)) u_ZINT_ADD_MUL_SMALL (
     .x_o(x_add_mul_small),
     .read_ena(read_ena_add_mul_small),
     .uA(uA_add_mul_small),
-    // .tmp_ena(tmp_ena),
-    // .tmp_idx(tmp_idx),
     .tmp(tmp_o),
     .r_state(r_state_add_mul_small),
     .new_state(new_state_add_mul_small), 
@@ -251,22 +243,14 @@ ZINT_ADD_MUL_SMALL #(.SLAVE_NUM(WORD_NUM)) u_ZINT_ADD_MUL_SMALL (
     // MODP_MONTYMUL_TOP
     .modp_montymul_req(modp_montymul_req[WORD_NUM:WORD_NUM*2-1]),
     .modp_montymul_resp(modp_montymul_resp[WORD_NUM:WORD_NUM*2-1])
-    // .modp_montymul_inf(zint_rebuild_crt_inf.ZINT_ADD_MUL_SMALL)
 );
-
-// always_comb begin
-//    zint_rebuild_crt_inf.i_mod_small_unsigned = modp_montymul_inf.i_mod_small_unsigned;
-//    modp_montymul_inf.o_mod_small_unsigned = zint_rebuild_crt_inf.o_mod_small_unsigned;
-//    zint_rebuild_crt_inf.i_add_mul_small = modp_montymul_inf.i_add_mul_small;
-//    modp_montymul_inf.o_add_mul_small = zint_rebuild_crt_inf.o_add_mul_small;
-// end
 
 PRIMES u_PRIMES_0 (.idx(prime_idx_0), .prime(prime_0));
 PRIMES u_PRIMES_1 (.idx(prime_idx_1), .prime(prime_1));
 
 RF_TMP u_RF_TMP (
     .clk(clk),
-	.CENA(rf_tmp_CENA),
+    .CENA(rf_tmp_CENA),
     .AA(rf_tmp_AA),
     .QA(rf_tmp_QA),
     .CENB(rf_tmp_CENB),
@@ -287,7 +271,7 @@ always_comb begin
             else 
                 next_state <= state;
         S_EXE: 
-            if (add_mul_small_ptr == (((1 << logn) / WORD_NUM) * xlen - 1) && new_state_add_mul_small)
+            if (add_mul_small_ptr == ((num / WORD_NUM) * xlen - 1) && new_state_add_mul_small)
                 next_state <= S_IDLE;
             else 
                 next_state <= state;
@@ -299,9 +283,9 @@ assign intt_AB_comb = input_ptr / WORD_NUM;
 /*
  * ZINT_MOD_SMALL_UNSIGNED
  */
-// u = ptr / 2 ^ logn
-assign u_mod_small_unsigned = mod_small_unsigned_ptr / ((1 << logn) / WORD_NUM); 
-assign u_mod_small_unsigned_comb = mod_small_unsigned_ptr_comb / ((1 << logn) / WORD_NUM); 
+// u = ptr / num
+assign u_mod_small_unsigned = mod_small_unsigned_ptr / (num / WORD_NUM); 
+assign u_mod_small_unsigned_comb = mod_small_unsigned_ptr_comb / (num / WORD_NUM); 
 
 always_comb begin
     if (len_valid)
@@ -313,7 +297,7 @@ always_comb begin
 end
 
 logic intt_forwarding_mod_small_unsigned;
-assign intt_forwarding_mod_small_unsigned = intt_write && input_ptr / WORD_NUM == mod_small_unsigned_ptr && u_mod_small_unsigned == 0;
+assign intt_forwarding_mod_small_unsigned = is_write && input_ptr / WORD_NUM == mod_small_unsigned_ptr && u_mod_small_unsigned == 0;
 
 // input buffer
 genvar mod_small_unsigned_input_buffer_comb_idx;
@@ -322,7 +306,7 @@ generate
         always_comb begin
             if (intt_forwarding_mod_small_unsigned) // intt forwarding
                 mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_comb_idx] = intt_output_buffer_comb[mod_small_unsigned_input_buffer_comb_idx];
-            else if (cc_out_valid_add_mul_small && read_xlast_mod_small_unsigned && mod_small_unsigned_ptr_comb == add_mul_small_ptr_reg && mod_small_unsigned_ptr_comb < ((1 << logn) / WORD_NUM) * (xlen - 1)) // add_mul_small forwarding
+            else if (cc_out_valid_add_mul_small && read_xlast_mod_small_unsigned && mod_small_unsigned_ptr_comb == add_mul_small_ptr_reg && mod_small_unsigned_ptr_comb < (num / WORD_NUM) * (xlen - 1)) // add_mul_small forwarding
                 mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_comb_idx] = x_add_mul_small[mod_small_unsigned_input_buffer_comb_idx];
             else if (read_ena_mod_small_unsigned_reg)        
                 mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_comb_idx] = QA[mod_small_unsigned_input_buffer_comb_idx];
@@ -336,7 +320,7 @@ endgenerate
 always_comb begin
     if (intt_forwarding_mod_small_unsigned) // intt forwarding
         in_valid_mod_small_unsigned_comb = 1;
-    else if (cc_out_valid_add_mul_small && read_xlast_mod_small_unsigned && mod_small_unsigned_ptr_comb == add_mul_small_ptr_reg && mod_small_unsigned_ptr_comb < ((1 << logn) / WORD_NUM) * (xlen - 1)) // add_mul_small forwarding
+    else if (cc_out_valid_add_mul_small && read_xlast_mod_small_unsigned && mod_small_unsigned_ptr_comb == add_mul_small_ptr_reg && mod_small_unsigned_ptr_comb < (num / WORD_NUM) * (xlen - 1)) // add_mul_small forwarding
         in_valid_mod_small_unsigned_comb = 1;
     else if (read_ena_mod_small_unsigned_reg)        
         in_valid_mod_small_unsigned_comb = 1;
@@ -348,7 +332,7 @@ end
 
 always_comb begin
     if (state == S_EXE && read_ena_mod_small_unsigned)
-        if (!(mod_small_unsigned_ptr_comb < ((1 << logn) / WORD_NUM) * (xlen - 1)) || mod_small_unsigned_ptr_comb > add_mul_small_ptr_reg) // TODO: restrict ptr stop point
+        if (!(mod_small_unsigned_ptr_comb < (num / WORD_NUM) * (xlen - 1)) || mod_small_unsigned_ptr_comb > add_mul_small_ptr_reg) // TODO: restrict ptr stop point
             read_ena_mod_small_unsigned_comb = 0;
         else if (u_mod_small_unsigned == 0) // intt forwarding
             read_ena_mod_small_unsigned_comb = 0;
@@ -366,7 +350,7 @@ assign is_read_mod_small_unsigned_comb = is_read || read_ena_add_mul_small_comb;
 
 // prime
 logic mod_small_unsigned_round;
-assign mod_small_unsigned_round = (mod_small_unsigned_ptr & (((1 << logn) / WORD_NUM) - 1)) == 0 && mod_small_unsigned_ptr != 0;
+assign mod_small_unsigned_round = (mod_small_unsigned_ptr & ((num / WORD_NUM) - 1)) == 0 && mod_small_unsigned_ptr != 0;
 
 always_comb begin
     if (state == S_IDLE && len_valid)
@@ -441,7 +425,7 @@ always_comb begin
     if (state == S_IDLE)
         mod_small_unsigned_AB_comb = 0;
     else if (out_valid_mod_small_unsigned) // TODO: check if correct
-        mod_small_unsigned_AB_comb = mod_small_unsigned_ptr_reg & ((1 << logn) / WORD_NUM - 1);
+        mod_small_unsigned_AB_comb = mod_small_unsigned_ptr_reg & (num / WORD_NUM - 1);
     else
         mod_small_unsigned_AB_comb = mod_small_unsigned_AB;
 end
@@ -449,15 +433,15 @@ end
 /*
  * ZINT_ADD_MUL_SMALL
  */
-// u = ptr / 2 ^ logn
-assign u_add_mul_small = add_mul_small_ptr / ((1 << logn) / WORD_NUM); 
-assign u_add_mul_small_comb = add_mul_small_ptr_comb / ((1 << logn) / WORD_NUM); 
+// u = ptr / num
+assign u_add_mul_small = add_mul_small_ptr / (num / WORD_NUM); 
+assign u_add_mul_small_comb = add_mul_small_ptr_comb / (num / WORD_NUM); 
 
 always_comb begin
     if (len_valid)
-        add_mul_small_ptr_comb = (1 << inf_logn) / WORD_NUM;
+        add_mul_small_ptr_comb = inf_num / WORD_NUM;
     else if (new_state_add_mul_small)
-        if (add_mul_small_ptr == (((1 << logn) / WORD_NUM) * xlen - 1))
+        if (add_mul_small_ptr == ((num / WORD_NUM) * xlen - 1))
             add_mul_small_ptr_comb = add_mul_small_ptr;
         else
             add_mul_small_ptr_comb = add_mul_small_ptr + 1;
@@ -496,12 +480,10 @@ logic mod_small_unsigned_output_buffer_full_reg, mod_small_unsigned_output_buffe
 logic mod_small_unsigned_not_write;
 
 always_comb begin
-    if ((add_mul_small_ptr - (1 << logn) / WORD_NUM) > mod_small_unsigned_ptr_reg)
+    if ((add_mul_small_ptr - num / WORD_NUM) > mod_small_unsigned_ptr_reg)
         mod_small_unsigned_not_write = 1;
-    else if ((add_mul_small_ptr - (1 << logn) / WORD_NUM) == mod_small_unsigned_ptr_reg)
-        if (mod_small_unsigned_ptr_reg == (((1 << logn) / WORD_NUM) * (xlen - 1)) - 1)
-        // if (mod_small_unsigned_output_buffer_full_comb || mod_small_unsigned_output_buffer_full || mod_small_unsigned_output_buffer_full_reg)
-        // if (mod_small_unsigned_output_buffer_full_comb || mod_small_unsigned_output_buffer_full || mod_small_unsigned_output_buffer_full_reg)
+    else if ((add_mul_small_ptr - num / WORD_NUM) == mod_small_unsigned_ptr_reg)
+        if (mod_small_unsigned_ptr_reg == ((num / WORD_NUM) * (xlen - 1)) - 1)
             mod_small_unsigned_not_write = 0;
         else
             mod_small_unsigned_not_write = 1;
@@ -560,7 +542,7 @@ end
 // prime
 logic [7:0] vB_add_mul_small, vB_add_mul_small_comb;
 logic mul_small_round;
-assign mul_small_round = (vB_add_mul_small & (((1 << logn) / WORD_NUM) - 1)) == (((1 << logn) / WORD_NUM) - 1);
+assign mul_small_round = (vB_add_mul_small & ((num / WORD_NUM) - 1)) == ((num / WORD_NUM) - 1);
 
 always_comb begin
     if (state == S_IDLE && len_valid)
@@ -642,9 +624,9 @@ end
 always_comb begin
     if (out_valid_add_mul_small)
         if (!add_mul_small_output_buffer_full) // buffer is empty
-            add_mul_small_AB_comb = (uB_add_mul_small * ((1 << logn) / WORD_NUM)) + (vB_add_mul_small & ((1 << logn) / WORD_NUM - 1));
+            add_mul_small_AB_comb = (uB_add_mul_small * (num / WORD_NUM)) + (vB_add_mul_small & (num / WORD_NUM - 1));
         else if (add_mul_small_output_buffer_full && !stall_add_mul_small) // buffer will be written and empty next cycle
-            add_mul_small_AB_comb = (uB_add_mul_small * ((1 << logn) / WORD_NUM)) + (vB_add_mul_small & ((1 << logn) / WORD_NUM - 1));
+            add_mul_small_AB_comb = (uB_add_mul_small * (num / WORD_NUM)) + (vB_add_mul_small & (num / WORD_NUM - 1));
         else
            add_mul_small_AB_comb = add_mul_small_AB;
     else
@@ -746,8 +728,8 @@ end
 // read
 assign CENA = !(read_ena_add_mul_small_comb || read_ena_mod_small_unsigned_comb);
 
-assign add_mul_small_AA = (uA_add_mul_small * ((1 << logn) / WORD_NUM)) + (add_mul_small_ptr & ((1 << logn) / WORD_NUM - 1));
-assign mod_small_unsigned_AA = (uA_mod_small_unsigned * ((1 << logn) / WORD_NUM)) + (mod_small_unsigned_ptr_comb & ((1 << logn) / WORD_NUM - 1));
+assign add_mul_small_AA = (uA_add_mul_small * (num / WORD_NUM)) + (add_mul_small_ptr & (num / WORD_NUM - 1));
+assign mod_small_unsigned_AA = (uA_mod_small_unsigned * (num / WORD_NUM)) + (mod_small_unsigned_ptr_comb & (num / WORD_NUM - 1));
 
 always_comb begin
     if (read_ena_add_mul_small_comb)
@@ -759,9 +741,7 @@ end
 /*
  * output
  */
-assign out_valid = add_mul_small_ptr_reg == (((1 << logn) / WORD_NUM) * xlen - 1) && out_valid_add_mul_small;
-// assign out_valid = vB_add_mul_small == ((1 << logn) / WORD_NUM) * xlen;
-
+assign out_valid = add_mul_small_ptr_reg == ((num / WORD_NUM) * xlen - 1) && out_valid_add_mul_small;
 
 //---------------------------------------------------------------------
 //   Sequential Logic

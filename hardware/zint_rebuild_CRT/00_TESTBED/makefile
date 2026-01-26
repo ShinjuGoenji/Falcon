@@ -66,6 +66,7 @@ VCS_GATE_SIM = vcs ${TIMESCALE} \
     -Mupdate \
     -R \
     -debug_access+all \
+    -debug_pp \
     -f ${source_file} \
     -o ${output_file} \
     -l ${log_file} \
