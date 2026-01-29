@@ -6,7 +6,7 @@ Report : timing
         -max_paths 3
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Wed Jan 21 00:57:51 2026
+Date   : Thu Jan 29 18:21:29 2026
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -14,9 +14,9 @@ Date   : Wed Jan 21 00:57:51 2026
 Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
 Wire Load Model Mode: top
 
-  Startpoint: u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[5]
+  Startpoint: logn_reg[0]
               (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/xr_reg[0][6]
+  Endpoint: u_ZINT_REBUILD_CRT/s_add_mul_small_reg[12]
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
@@ -29,62 +29,96 @@ Wire Load Model Mode: top
   --------------------------------------------------------------------------
   clock clk (rise edge)                                   0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[5]/CK (DFFRPQ_X4M_A9TH)
-                                                          0.00 #     0.00 r
-  u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[5]/Q (DFFRPQ_X4M_A9TH)
-                                                          0.22       0.22 r
-  U25359/Y (XNOR2_X0P5M_A9TH)                             0.24       0.46 r
-  U15499/Y (OAI22_X1M_A9TR)                               0.18       0.63 f
-  U18339/CO (ADDF_X1M_A9TH)                               0.19       0.82 f
-  U14245/S (ADDF_X1M_A9TH)                                0.20       1.02 r
-  U18351/S (ADDF_X1M_A9TH)                                0.20       1.22 f
-  U2018/Y (NOR2_X2B_A9TL)                                 0.05       1.27 r
-  U18353/Y (NOR2_X0P5B_A9TL)                              0.05       1.32 f
-  U18403/Y (AOI21_X1P4M_A9TL)                             0.05       1.38 r
-  U13779/Y (OAI21_X1P4M_A9TL)                             0.04       1.42 f
-  U18405/Y (AOI21_X2M_A9TL)                               0.05       1.47 r
-  U19892/Y (OAI21_X3M_A9TL)                               0.04       1.50 f
-  U6804/Y (AOI21_X3M_A9TL)                                0.05       1.55 r
-  U16365/Y (OAI2XB1_X3M_A9TL)                             0.03       1.58 f
-  U19692/Y (NAND2_X2M_A9TL)                               0.03       1.61 r
-  U6512/Y (NAND2_X4M_A9TL)                                0.03       1.64 f
-  U13337/Y (OR2_X3B_A9TL)                                 0.05       1.68 f
-  U26127/Y (AOI21B_X6M_A9TL)                              0.03       1.72 r
-  U25845/Y (OAI2XB1_X6M_A9TL)                             0.03       1.75 f
-  U8846/Y (INV_X1M_A9TR)                                  0.08       1.83 r
-  U12991/Y (OAI21_X2M_A9TL)                               0.06       1.88 f
-  U24722/Y (AOI21_X1P4M_A9TL)                             0.05       1.94 r
-  U709/Y (XOR2_X0P7M_A9TL)                                0.06       2.00 r
-  U5692/Y (NAND2_X1P4M_A9TL)                              0.04       2.04 f
-  U15407/Y (NAND2_X3A_A9TL)                               0.05       2.09 r
-  U8729/Y (NAND2_X1A_A9TR)                                0.04       2.13 f
-  U22562/Y (AO1B2_X1M_A9TL)                               0.05       2.18 r
-  U6353/Y (AOI21_X2M_A9TR)                                0.03       2.21 f
-  U10129/Y (AO1B2_X1M_A9TL)                               0.04       2.25 r
-  u_ZINT_REBUILD_CRT/modp_montymul_resp[4][d][6] (ZINT_REBUILD_CRT)
-                                                          0.00       2.25 r
-  u_ZINT_REBUILD_CRT/U10258/Y (INV_X1M_A9TR)              0.03       2.28 f
-  u_ZINT_REBUILD_CRT/U15355/Y (OAI211_X1M_A9TL)           0.05       2.34 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/xr_reg[0][6]/D (DFFRPQ_X2M_A9TR)
-                                                          0.00       2.34 r
-  data arrival time                                                  2.34
+  logn_reg[0]/CK (DFFRPQ_X4M_A9TL)                        0.00 #     0.00 r
+  logn_reg[0]/Q (DFFRPQ_X4M_A9TL)                         0.12       0.12 r
+  U1243/Y (NAND2_X6M_A9TL)                                0.03       0.15 f
+  U499/Y (NOR2_X6A_A9TL)                                  0.04       0.18 r
+  u_ZINT_REBUILD_CRT/num[3] (ZINT_REBUILD_CRT)            0.00       0.18 r
+  u_ZINT_REBUILD_CRT/U14388/Y (INV_X11M_A9TL)             0.02       0.21 f
+  u_ZINT_REBUILD_CRT/U2132/Y (NOR2_X2M_A9TR)              0.04       0.24 r
+  u_ZINT_REBUILD_CRT/U10084/Y (INV_X2M_A9TH)              0.04       0.28 f
+  u_ZINT_REBUILD_CRT/U14716/Y (NAND2_X3M_A9TL)            0.03       0.31 r
+  u_ZINT_REBUILD_CRT/U14715/CON (CGENI_X2M_A9TL)          0.04       0.36 f
+  u_ZINT_REBUILD_CRT/U14923/Y (AOI21_X4M_A9TL)            0.04       0.39 r
+  u_ZINT_REBUILD_CRT/U14917/Y (NAND3BB_X8M_A9TL)          0.05       0.44 r
+  u_ZINT_REBUILD_CRT/U2477/Y (NAND2_X8M_A9TL)             0.02       0.46 f
+  u_ZINT_REBUILD_CRT/U2476/Y (INV_X16M_A9TL)              0.02       0.48 r
+  u_ZINT_REBUILD_CRT/U2354/Y (NAND2_X6M_A9TL)             0.02       0.50 f
+  u_ZINT_REBUILD_CRT/U16949/Y (OAI21_X8M_A9TL)            0.03       0.53 r
+  u_ZINT_REBUILD_CRT/U16962/Y (INV_X11M_A9TL)             0.02       0.55 f
+  u_ZINT_REBUILD_CRT/U14539/Y (BUFH_X13M_A9TL)            0.02       0.57 f
+  u_ZINT_REBUILD_CRT/U2071/Y (NAND2B_X3M_A9TL)            0.02       0.59 r
+  u_ZINT_REBUILD_CRT/U14656/Y (NAND3_X6A_A9TL)            0.03       0.62 f
+  u_ZINT_REBUILD_CRT/U14655/Y (AOI21_X8M_A9TL)            0.04       0.66 r
+  u_ZINT_REBUILD_CRT/U17063/Y (INV_X6M_A9TL)              0.02       0.68 f
+  u_ZINT_REBUILD_CRT/U16995/Y (NAND2_X8M_A9TL)            0.02       0.70 r
+  u_ZINT_REBUILD_CRT/U16718/Y (INV_X16M_A9TL)             0.02       0.72 f
+  u_ZINT_REBUILD_CRT/U1998/Y (NAND2B_X2M_A9TL)            0.04       0.76 f
+  u_ZINT_REBUILD_CRT/U14940/Y (OA21_X8M_A9TL)             0.05       0.81 f
+  u_ZINT_REBUILD_CRT/U1956/Y (NAND2XB_X2M_A9TL)           0.03       0.84 r
+  u_ZINT_REBUILD_CRT/U10474/Y (NAND2XB_X2M_A9TL)          0.02       0.86 f
+  u_ZINT_REBUILD_CRT/U7494/Y (INV_X3M_A9TL)               0.03       0.89 r
+  u_ZINT_REBUILD_CRT/U14606/Y (NAND2_X8M_A9TL)            0.02       0.91 f
+  u_ZINT_REBUILD_CRT/U14824/Y (NAND2XB_X6M_A9TL)          0.02       0.93 r
+  u_ZINT_REBUILD_CRT/U1876/Y (BUFH_X9M_A9TL)              0.03       0.96 r
+  u_ZINT_REBUILD_CRT/U15002/Y (INV_X16M_A9TL)             0.02       0.98 f
+  u_ZINT_REBUILD_CRT/U15055/Y (OAI21_X4M_A9TL)            0.03       1.01 r
+  u_ZINT_REBUILD_CRT/U14903/Y (MXIT2_X4M_A9TL)            0.04       1.05 f
+  u_ZINT_REBUILD_CRT/U14612/Y (NOR2_X8A_A9TL)             0.04       1.08 r
+  u_ZINT_REBUILD_CRT/U1594/Y (NAND2_X3M_A9TL)             0.03       1.11 f
+  u_ZINT_REBUILD_CRT/U14691/Y (AOI21_X6M_A9TL)            0.03       1.14 r
+  u_ZINT_REBUILD_CRT/U2451/Y (OAI21_X8M_A9TL)             0.03       1.17 f
+  u_ZINT_REBUILD_CRT/U7459/Y (NAND2_X4M_A9TL)             0.02       1.19 r
+  u_ZINT_REBUILD_CRT/U14968/Y (AND2_X11B_A9TL)            0.03       1.22 r
+  u_ZINT_REBUILD_CRT/U14993/Y (INV_X16M_A9TL)             0.02       1.25 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/idx[1] (PRIMES_0)         0.00       1.25 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U3064/Y (INV_X3P5M_A9TL)
+                                                          0.02       1.27 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U4441/Y (NAND2_X8M_A9TL)
+                                                          0.03       1.30 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U5278/Y (NOR2_X8A_A9TL)
+                                                          0.04       1.34 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U2386/Y (BUFH_X3P5M_A9TL)
+                                                          0.05       1.39 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U3859/Y (NAND2_X6M_A9TL)
+                                                          0.04       1.42 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U738/Y (NAND3XXB_X3M_A9TL)
+                                                          0.05       1.47 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U574/Y (NOR2_X4M_A9TL)
+                                                          0.04       1.52 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U3808/Y (AND2_X3B_A9TL)
+                                                          0.04       1.56 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U1673/Y (INV_X1P7B_A9TR)
+                                                          0.02       1.58 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U3227/Y (OAI31_X2M_A9TR)
+                                                          0.05       1.64 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U3666/Y (NOR3BB_X3M_A9TL)
+                                                          0.06       1.70 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U3649/Y (NAND3_X2A_A9TL)
+                                                          0.02       1.72 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/prime[s][12] (PRIMES_0)
+                                                          0.00       1.72 r
+  u_ZINT_REBUILD_CRT/U10388/Y (AO1B2_X2M_A9TL)            0.05       1.77 r
+  u_ZINT_REBUILD_CRT/s_add_mul_small_reg[12]/D (DFFRPQ_X2M_A9TL)
+                                                          0.00       1.77 r
+  data arrival time                                                  1.77
 
-  clock clk (rise edge)                                   2.40       2.40
-  clock network delay (ideal)                             0.00       2.40
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/xr_reg[0][6]/CK (DFFRPQ_X2M_A9TR)
-                                                          0.00       2.40 r
-  library setup time                                     -0.06       2.34
-  data required time                                                 2.34
+  clock clk (rise edge)                                   1.80       1.80
+  clock network delay (ideal)                             0.00       1.80
+  u_ZINT_REBUILD_CRT/s_add_mul_small_reg[12]/CK (DFFRPQ_X2M_A9TL)
+                                                          0.00       1.80 r
+  library setup time                                     -0.03       1.77
+  data required time                                                 1.77
   --------------------------------------------------------------------------
-  data required time                                                 2.34
-  data arrival time                                                 -2.34
+  data required time                                                 1.77
+  data arrival time                                                 -1.77
   --------------------------------------------------------------------------
   slack (MET)                                                        0.00
 
 
-  Startpoint: u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/p_reg_reg[11]
+  Startpoint: logn_reg[0]
               (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/xr_reg[2][27]
+  Endpoint: u_ZINT_REBUILD_CRT/s_add_mul_small_reg[11]
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
@@ -97,66 +131,97 @@ Wire Load Model Mode: top
   --------------------------------------------------------------------------
   clock clk (rise edge)                                   0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/p_reg_reg[11]/CK (DFFRPQ_X4M_A9TL)
-                                                          0.00 #     0.00 r
-  u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/p_reg_reg[11]/Q (DFFRPQ_X4M_A9TL)
-                                                          0.09       0.09 f
-  U9788/Y (INV_X1M_A9TR)                                  0.04       0.14 r
-  U28907/Y (XOR2_X4M_A9TL)                                0.14       0.28 r
-  U9598/Y (INV_X4M_A9TL)                                  0.07       0.35 f
-  U4587/Y (NOR2B_X2M_A9TR)                                0.08       0.42 r
-  U2400/Y (INV_X6M_A9TL)                                  0.06       0.49 f
-  U4099/Y (NOR2_X0P5B_A9TL)                               0.07       0.55 r
-  U14947/Y (AOI2XB1_X2M_A9TR)                             0.05       0.61 f
-  U14881/Y (INV_X1M_A9TR)                                 0.06       0.67 r
-  U20995/Y (XOR2_X0P7M_A9TL)                              0.09       0.76 r
-  U27655/Y (XOR2_X1P4M_A9TL)                              0.08       0.84 r
-  U25993/Y (OAI21_X1M_A9TL)                               0.06       0.91 f
-  U14354/Y (NAND2_X1A_A9TR)                               0.06       0.97 r
-  U19036/CO (ADDF_X1M_A9TL)                               0.09       1.06 r
-  U19050/S (ADDF_X1M_A9TL)                                0.09       1.15 r
-  U2641/CO (ADDF_X1M_A9TR)                                0.13       1.28 r
-  U1556/Y (XNOR2_X1M_A9TL)                                0.14       1.42 r
-  U13887/Y (OR2_X1M_A9TL)                                 0.11       1.53 r
-  U28328/Y (NAND2_X2B_A9TR)                               0.05       1.58 f
-  U3355/Y (NOR2_X2B_A9TL)                                 0.05       1.63 r
-  U16276/Y (AND2_X1B_A9TL)                                0.07       1.70 r
-  U10330/Y (NAND2_X2A_A9TL)                               0.03       1.73 f
-  U25781/Y (NAND2_X4M_A9TL)                               0.03       1.75 r
-  U28214/Y (AOI21_X6M_A9TL)                               0.03       1.78 f
-  U29226/Y (OAI2XB1_X6M_A9TL)                             0.03       1.82 r
-  U28332/Y (AOI21_X6M_A9TL)                               0.04       1.85 f
-  U25862/Y (OAI21_X6M_A9TL)                               0.03       1.89 r
-  U26634/Y (AOI21B_X6M_A9TL)                              0.03       1.92 f
-  U25863/Y (OAI21_X6M_A9TL)                               0.03       1.96 r
-  U858/Y (XOR2_X1M_A9TR)                                  0.10       2.05 r
-  U27743/Y (OAI21_X6M_A9TL)                               0.07       2.12 f
-  U28855/Y (AO22_X0P7M_A9TL)                              0.09       2.21 f
-  U5193/Y (INV_X1M_A9TR)                                  0.04       2.25 r
-  U10171/Y (OAI211_X1M_A9TR)                              0.06       2.30 f
-  u_ZINT_REBUILD_CRT/modp_montymul_resp[6][d][27] (ZINT_REBUILD_CRT)
-                                                          0.00       2.30 f
-  u_ZINT_REBUILD_CRT/U16582/Y (AO21_X1M_A9TL)             0.08       2.38 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/xr_reg[2][27]/D (DFFRPQ_X2M_A9TL)
-                                                          0.00       2.38 f
-  data arrival time                                                  2.38
+  logn_reg[0]/CK (DFFRPQ_X4M_A9TL)                        0.00 #     0.00 r
+  logn_reg[0]/Q (DFFRPQ_X4M_A9TL)                         0.12       0.12 r
+  U1243/Y (NAND2_X6M_A9TL)                                0.03       0.15 f
+  U499/Y (NOR2_X6A_A9TL)                                  0.04       0.18 r
+  u_ZINT_REBUILD_CRT/num[3] (ZINT_REBUILD_CRT)            0.00       0.18 r
+  u_ZINT_REBUILD_CRT/U14388/Y (INV_X11M_A9TL)             0.02       0.21 f
+  u_ZINT_REBUILD_CRT/U2132/Y (NOR2_X2M_A9TR)              0.04       0.24 r
+  u_ZINT_REBUILD_CRT/U10084/Y (INV_X2M_A9TH)              0.04       0.28 f
+  u_ZINT_REBUILD_CRT/U14716/Y (NAND2_X3M_A9TL)            0.03       0.31 r
+  u_ZINT_REBUILD_CRT/U14715/CON (CGENI_X2M_A9TL)          0.04       0.36 f
+  u_ZINT_REBUILD_CRT/U14923/Y (AOI21_X4M_A9TL)            0.04       0.39 r
+  u_ZINT_REBUILD_CRT/U14917/Y (NAND3BB_X8M_A9TL)          0.05       0.44 r
+  u_ZINT_REBUILD_CRT/U2477/Y (NAND2_X8M_A9TL)             0.02       0.46 f
+  u_ZINT_REBUILD_CRT/U2476/Y (INV_X16M_A9TL)              0.02       0.48 r
+  u_ZINT_REBUILD_CRT/U2354/Y (NAND2_X6M_A9TL)             0.02       0.50 f
+  u_ZINT_REBUILD_CRT/U16949/Y (OAI21_X8M_A9TL)            0.03       0.53 r
+  u_ZINT_REBUILD_CRT/U16962/Y (INV_X11M_A9TL)             0.02       0.55 f
+  u_ZINT_REBUILD_CRT/U14539/Y (BUFH_X13M_A9TL)            0.02       0.57 f
+  u_ZINT_REBUILD_CRT/U2071/Y (NAND2B_X3M_A9TL)            0.02       0.59 r
+  u_ZINT_REBUILD_CRT/U14656/Y (NAND3_X6A_A9TL)            0.03       0.62 f
+  u_ZINT_REBUILD_CRT/U14655/Y (AOI21_X8M_A9TL)            0.04       0.66 r
+  u_ZINT_REBUILD_CRT/U17063/Y (INV_X6M_A9TL)              0.02       0.68 f
+  u_ZINT_REBUILD_CRT/U16995/Y (NAND2_X8M_A9TL)            0.02       0.70 r
+  u_ZINT_REBUILD_CRT/U16718/Y (INV_X16M_A9TL)             0.02       0.72 f
+  u_ZINT_REBUILD_CRT/U1998/Y (NAND2B_X2M_A9TL)            0.04       0.76 f
+  u_ZINT_REBUILD_CRT/U14940/Y (OA21_X8M_A9TL)             0.05       0.81 f
+  u_ZINT_REBUILD_CRT/U1956/Y (NAND2XB_X2M_A9TL)           0.03       0.84 r
+  u_ZINT_REBUILD_CRT/U10474/Y (NAND2XB_X2M_A9TL)          0.02       0.86 f
+  u_ZINT_REBUILD_CRT/U7494/Y (INV_X3M_A9TL)               0.03       0.89 r
+  u_ZINT_REBUILD_CRT/U14606/Y (NAND2_X8M_A9TL)            0.02       0.91 f
+  u_ZINT_REBUILD_CRT/U14824/Y (NAND2XB_X6M_A9TL)          0.02       0.93 r
+  u_ZINT_REBUILD_CRT/U1876/Y (BUFH_X9M_A9TL)              0.03       0.96 r
+  u_ZINT_REBUILD_CRT/U15002/Y (INV_X16M_A9TL)             0.02       0.98 f
+  u_ZINT_REBUILD_CRT/U10403/Y (INV_X7P5M_A9TL)            0.02       1.00 r
+  u_ZINT_REBUILD_CRT/U1795/Y (NAND3_X3A_A9TL)             0.03       1.02 f
+  u_ZINT_REBUILD_CRT/U15001/Y (AND2_X6B_A9TL)             0.04       1.06 f
+  u_ZINT_REBUILD_CRT/U1668/Y (NAND2_X6M_A9TL)             0.03       1.09 r
+  u_ZINT_REBUILD_CRT/U14834/Y (NOR2_X4M_A9TR)             0.03       1.12 f
+  u_ZINT_REBUILD_CRT/U1420/Y (NOR3_X3M_A9TL)              0.04       1.16 r
+  u_ZINT_REBUILD_CRT/U7459/Y (NAND2_X4M_A9TL)             0.03       1.19 f
+  u_ZINT_REBUILD_CRT/U14968/Y (AND2_X11B_A9TL)            0.03       1.22 f
+  u_ZINT_REBUILD_CRT/U14993/Y (INV_X16M_A9TL)             0.03       1.25 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/idx[1] (PRIMES_0)         0.00       1.25 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U4298/Y (NAND2B_X6M_A9TL)
+                                                          0.04       1.28 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U1941/Y (INV_X7P5M_A9TL)
+                                                          0.03       1.31 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U2803/Y (NAND2XB_X6M_A9TL)
+                                                          0.03       1.34 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U2793/Y (INV_X2P5M_A9TL)
+                                                          0.03       1.37 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U3858/Y (NAND2_X6M_A9TL)
+                                                          0.03       1.41 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U4821/Y (NAND4_X1A_A9TL)
+                                                          0.05       1.46 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U5188/Y (NOR2_X2A_A9TR)
+                                                          0.05       1.51 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U4109/Y (NAND2_X2M_A9TL)
+                                                          0.04       1.55 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U318/Y (INV_X1M_A9TR)     0.04       1.60 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U3712/Y (NAND3_X2A_A9TL)
+                                                          0.03       1.63 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U3707/Y (NAND2_X1P4A_A9TL)
+                                                          0.03       1.66 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U3617/Y (NAND3_X2M_A9TL)
+                                                          0.04       1.69 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/U3919/Y (NAND4BB_X2M_A9TL)
+                                                          0.05       1.75 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_1/prime[s][11] (PRIMES_0)
+                                                          0.00       1.75 f
+  u_ZINT_REBUILD_CRT/U20254/Y (AO1B2_X4M_A9TL)            0.04       1.78 f
+  u_ZINT_REBUILD_CRT/s_add_mul_small_reg[11]/D (DFFRPQ_X2M_A9TL)
+                                                          0.00       1.78 f
+  data arrival time                                                  1.78
 
-  clock clk (rise edge)                                   2.40       2.40
-  clock network delay (ideal)                             0.00       2.40
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/xr_reg[2][27]/CK (DFFRPQ_X2M_A9TL)
-                                                          0.00       2.40 r
-  library setup time                                     -0.02       2.38
-  data required time                                                 2.38
+  clock clk (rise edge)                                   1.80       1.80
+  clock network delay (ideal)                             0.00       1.80
+  u_ZINT_REBUILD_CRT/s_add_mul_small_reg[11]/CK (DFFRPQ_X2M_A9TL)
+                                                          0.00       1.80 r
+  library setup time                                     -0.02       1.78
+  data required time                                                 1.78
   --------------------------------------------------------------------------
-  data required time                                                 2.38
-  data arrival time                                                 -2.38
+  data required time                                                 1.78
+  data arrival time                                                 -1.78
   --------------------------------------------------------------------------
   slack (MET)                                                        0.00
 
 
-  Startpoint: u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/p_reg_reg[17]
+  Startpoint: logn_reg[3]
               (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: u_ZINT_REBUILD_CRT/u_ZINT_MOD_SMALL_UNSIGNED/x0_reg[1][29]
+  Endpoint: u_ZINT_REBUILD_CRT/R2_mod_small_unsigned_reg[17]
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
@@ -169,58 +234,61 @@ Wire Load Model Mode: top
   --------------------------------------------------------------------------
   clock clk (rise edge)                                   0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/p_reg_reg[17]/CK (DFFRPQ_X2M_A9TL)
-                                                          0.00 #     0.00 r
-  u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/p_reg_reg[17]/Q (DFFRPQ_X2M_A9TL)
-                                                          0.11       0.11 f
-  U4607/Y (XOR2_X0P7M_A9TL)                               0.09       0.20 f
-  U6141/Y (INV_X5M_A9TL)                                  0.11       0.31 r
-  U21278/Y (NAND2_X4A_A9TL)                               0.12       0.42 f
-  U4414/Y (OAI22_X1M_A9TR)                                0.10       0.53 r
-  U11831/CO (ADDF_X1M_A9TH)                               0.19       0.71 r
-  U14920/Y (OR2_X0P5M_A9TL)                               0.08       0.80 r
-  U3475/Y (AO1B2_X1M_A9TL)                                0.07       0.86 r
-  U18648/S (ADDF_X1M_A9TL)                                0.12       0.98 f
-  U16893/Y (NAND2B_X0P7M_A9TR)                            0.08       1.06 f
-  U16865/Y (OAI22BB_X2M_A9TL)                             0.08       1.14 f
-  U1763/S (ADDF_X1M_A9TR)                                 0.17       1.31 r
-  U2655/Y (NOR2_X1B_A9TR)                                 0.10       1.41 f
-  U16665/Y (NOR2_X2M_A9TR)                                0.08       1.48 r
-  U7978/Y (NAND2_X1A_A9TL)                                0.06       1.54 f
-  U26014/Y (NOR2_X4A_A9TL)                                0.05       1.59 r
-  U26069/Y (NOR2_X6A_A9TL)                                0.02       1.61 f
-  U28910/Y (OAI2XB1_X6M_A9TL)                             0.03       1.64 r
-  U29283/Y (AOI21B_X6M_A9TL)                              0.03       1.67 f
-  U28909/Y (OAI21_X6M_A9TL)                               0.03       1.71 r
-  U25805/Y (AOI21_X6M_A9TL)                               0.04       1.74 f
-  U25875/Y (OAI21_X4M_A9TL)                               0.04       1.78 r
-  U18769/Y (AOI21_X4M_A9TL)                               0.04       1.82 f
-  U28911/Y (OAI2XB1_X6M_A9TL)                             0.04       1.86 r
-  U25874/Y (AOI21_X6M_A9TL)                               0.04       1.90 f
-  U26070/Y (OAI2XB1_X6M_A9TL)                             0.03       1.93 r
-  U25872/Y (AOI21B_X6M_A9TL)                              0.04       1.97 f
-  U29282/Y (OAI2XB1_X6M_A9TL)                             0.03       2.00 r
-  U25873/Y (AOI21_X4M_A9TL)                               0.04       2.05 f
-  U12589/Y (XOR2_X2M_A9TL)                                0.04       2.09 r
-  U4916/Y (AO1B2_X6M_A9TL)                                0.06       2.15 r
-  U5427/Y (AOI22_X0P7M_A9TL)                              0.05       2.21 f
-  U12458/Y (OAI211_X1M_A9TL)                              0.08       2.29 r
-  u_ZINT_REBUILD_CRT/modp_montymul_resp[1][d][29] (ZINT_REBUILD_CRT)
-                                                          0.00       2.29 r
-  u_ZINT_REBUILD_CRT/U10221/Y (AO1B2_X1M_A9TL)            0.07       2.36 r
-  u_ZINT_REBUILD_CRT/u_ZINT_MOD_SMALL_UNSIGNED/x0_reg[1][29]/D (DFFRPQ_X2M_A9TL)
-                                                          0.00       2.36 r
-  data arrival time                                                  2.36
+  logn_reg[3]/CK (DFFSQN_X3M_A9TL)                        0.00 #     0.00 r
+  logn_reg[3]/QN (DFFSQN_X3M_A9TL)                        0.10       0.10 r
+  U503/Y (BUFH_X3M_A9TL)                                  0.04       0.14 r
+  U676/Y (BUFH_X3P5M_A9TL)                                0.04       0.18 r
+  u_ZINT_REBUILD_CRT/logn[3] (ZINT_REBUILD_CRT)           0.00       0.18 r
+  u_ZINT_REBUILD_CRT/U12753/Y (NAND2B_X6M_A9TL)           0.04       0.22 r
+  u_ZINT_REBUILD_CRT/U3731/Y (NOR2_X6M_A9TL)              0.04       0.26 f
+  u_ZINT_REBUILD_CRT/U1735/Y (INV_X1M_A9TR)               0.11       0.37 r
+  u_ZINT_REBUILD_CRT/U17522/Y (NOR2_X1A_A9TL)             0.06       0.42 f
+  u_ZINT_REBUILD_CRT/U9938/Y (AOI21_X2M_A9TL)             0.04       0.46 r
+  u_ZINT_REBUILD_CRT/U1553/Y (OAI21_X1P4M_A9TR)           0.06       0.52 f
+  u_ZINT_REBUILD_CRT/U4620/Y (INV_X2M_A9TL)               0.05       0.57 r
+  u_ZINT_REBUILD_CRT/U4413/Y (NOR2_X4M_A9TL)              0.03       0.61 f
+  u_ZINT_REBUILD_CRT/U10775/Y (NAND2_X2M_A9TL)            0.03       0.64 r
+  u_ZINT_REBUILD_CRT/U2482/Y (XOR2_X3M_A9TL)              0.03       0.67 f
+  u_ZINT_REBUILD_CRT/U10736/Y (NOR2_X4A_A9TL)             0.04       0.71 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/idx[8] (PRIMES_1)         0.00       0.71 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U237/Y (INV_X2M_A9TL)     0.03       0.74 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U579/Y (NAND2_X3B_A9TR)
+                                                          0.03       0.77 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U572/Y (INV_X5M_A9TL)     0.04       0.81 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U3144/Y (NAND2XB_X4M_A9TL)
+                                                          0.05       0.86 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U3763/Y (NAND2B_X2M_A9TR)
+                                                          0.12       0.97 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U1199/Y (AND2_X1P4B_A9TR)
+                                                          0.13       1.10 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U65/Y (NAND2XB_X1M_A9TL)
+                                                          0.06       1.16 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U2596/Y (NOR3_X1A_A9TH)
+                                                          0.12       1.28 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U4122/Y (NOR4BB_X1M_A9TH)
+                                                          0.20       1.48 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U2879/Y (AO21A1AI2_X1M_A9TR)
+                                                          0.10       1.58 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U2121/Y (NOR2_X1M_A9TL)
+                                                          0.07       1.65 r
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/U2113/Y (NAND4_X1A_A9TL)
+                                                          0.05       1.71 f
+  u_ZINT_REBUILD_CRT/u_PRIMES_0/prime[R2][17] (PRIMES_1)
+                                                          0.00       1.71 f
+  u_ZINT_REBUILD_CRT/U9300/Y (OAI22BB_X2M_A9TL)           0.07       1.78 f
+  u_ZINT_REBUILD_CRT/R2_mod_small_unsigned_reg[17]/D (DFFRPQ_X3M_A9TL)
+                                                          0.00       1.78 f
+  data arrival time                                                  1.78
 
-  clock clk (rise edge)                                   2.40       2.40
-  clock network delay (ideal)                             0.00       2.40
-  u_ZINT_REBUILD_CRT/u_ZINT_MOD_SMALL_UNSIGNED/x0_reg[1][29]/CK (DFFRPQ_X2M_A9TL)
-                                                          0.00       2.40 r
-  library setup time                                     -0.04       2.36
-  data required time                                                 2.36
+  clock clk (rise edge)                                   1.80       1.80
+  clock network delay (ideal)                             0.00       1.80
+  u_ZINT_REBUILD_CRT/R2_mod_small_unsigned_reg[17]/CK (DFFRPQ_X3M_A9TL)
+                                                          0.00       1.80 r
+  library setup time                                     -0.02       1.78
+  data required time                                                 1.78
   --------------------------------------------------------------------------
-  data required time                                                 2.36
-  data arrival time                                                 -2.36
+  data required time                                                 1.78
+  data arrival time                                                 -1.78
   --------------------------------------------------------------------------
   slack (MET)                                                        0.00
 

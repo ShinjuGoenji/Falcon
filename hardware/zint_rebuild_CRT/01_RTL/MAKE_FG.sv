@@ -18,8 +18,8 @@ TOP_INF.MAKE_FG inf;
 //---------------------------------------------------------------------
 //   Logic
 //---------------------------------------------------------------------
-logic [NUM_WIDTH-1:0]  inf_num;
-logic [NUM_WIDTH-1:0]  num, num_comb;
+logic [NUM_WIDTH-1:0]  num;
+logic [LOGN_WIDTH-1:0] logn, logn_comb;
 logic [XLEN_WIDTH-1:0] xlen, xlen_comb;
 
 uint31_t intt_output_buffer [0:WORD_NUM-1], intt_output_buffer_comb [0:WORD_NUM-1];
@@ -76,7 +76,8 @@ ZINT_REBUILD_CRT u_ZINT_REBUILD_CRT (
     .in_valid(inf.in_valid),
     .len_valid(inf.len_valid),
     .x_i(inf.in_data),
-    .inf_num(inf.num),
+    .inf_logn(inf.logn),
+    .logn(logn),
     .num(num),
     .xlen(xlen),
     .input_ptr(input_ptr),
@@ -112,11 +113,14 @@ u_MODP_MONTYMUL_TOP (
  * input
  */
 // num
+assign num = 1 << logn;
+
+// logn
 always_comb begin
     if (inf.len_valid)
-        num_comb = inf.num;
+        logn_comb = inf.logn;
     else
-        num_comb = num;
+        logn_comb = logn;
 end
 
 // xlen
@@ -254,7 +258,7 @@ always_comb begin
 end
 
 assign debug_CENA = !(debug_state && debug_cnt % WORD_NUM == 0);
-assign debug_AA = (debug_cnt+num) / WORD_NUM;
+assign debug_AA = (debug_cnt + num) / WORD_NUM;
 
 genvar i;
 generate
@@ -307,7 +311,7 @@ end
 //---------------------------------------------------------------------
 always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        num <= 0;
+        logn <= 0;
         xlen <= 0;
         input_ptr <= 0;
         intt_output_buffer <= '{default: '0};
@@ -317,7 +321,7 @@ always_ff @(posedge clk or negedge rst_n) begin
         rf_crt_DB <= 0;
     end
     else begin
-        num <= num_comb;
+        logn <= logn_comb;
         xlen <= xlen_comb;
         input_ptr <= input_ptr_comb;
         intt_output_buffer <= intt_output_buffer_comb;

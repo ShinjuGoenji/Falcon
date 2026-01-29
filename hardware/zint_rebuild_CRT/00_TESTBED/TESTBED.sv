@@ -10,7 +10,7 @@
 `elsif GATE
     `include "MAKE_FG_SYN.v"
     // `include "MAKE_FG_Wrapper.sv"
-    `define CYCLE_TIME 2.5 
+    `define CYCLE_TIME 2.0 
 `endif
 	  		  	
 module TESTBED;
@@ -46,8 +46,8 @@ initial begin
         $fsdbDumpvars(0,"+all");
     `elsif GATE
         $sdf_annotate("MAKE_FG_SYN.sdf", dut_p);
-        $fsdbDumpfile("MAKE_FG_SYN.fsdb");
-        $fsdbDumpvars(0,"+all");
+        // $fsdbDumpfile("MAKE_FG_SYN.fsdb");
+        // $fsdbDumpvars(0,"+all");
     `endif
 end
 
@@ -72,7 +72,7 @@ PATTERN test_p (
         .inf_in_valid(inf.in_valid), 
         .inf_in_data(inf.in_data), 
         .inf_len_valid(inf.len_valid), 
-        .inf_num(inf.num), 
+        .inf_logn(inf.logn), 
         .inf_xlen(inf.xlen),
         .inf_out_valid(inf.out_valid), 
         .inf_out_data(inf.out_data)

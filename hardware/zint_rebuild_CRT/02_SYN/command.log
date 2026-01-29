@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version T-2022.03 for linux64 -- Feb 22, 2022
-#@ # Date:   Wed Jan 21 00:47:34 2026
+#@ # Date:   Thu Jan 29 18:14:32 2026
 #@ # Run by: daniel_kuo@eda_root
 #@ 
 
@@ -8602,8 +8602,8 @@ source /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/.synopsys_dc.set
 #@ set target_library " sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db \
 #@                      sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db \
 #@                      sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db 
-#@                      RF_2p_CRT_4x256_nldm_tt_0p90v_0p90v_25c.db \
-#@                      RF_2p_CRT_TMP_nldm_tt_0p90v_0p90v_25c.db "
+#@                      RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db \
+#@                      RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db "
 #@ set link_library        " * $target_library dw_foundation.sldb standard.sldb "
 #@ set symbol_library      " *.sdb "
 #@ set synthetic_library   " dw_foundation.sldb "
@@ -8629,7 +8629,14 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/s
 #@ # (A) Global Parameters
 #@ #======================================================
 #@ set DESIGN "MAKE_FG"
-#@ set CYCLE 2.4
+#@ # set CYCLE 2.0 
+#@ if {[info exists env(PERIOD)]} {
+#@     set CYCLE $env(PERIOD)
+#@ } else {
+#@     set CYCLE 1.8 ;
+#@     puts "Warning: PERIOD not set, using default $CYCLE"
+#@ }
+#@ 
 #@ set INPUT_DLY [expr 0*$CYCLE]
 #@ set OUTPUT_DLY [expr 0*$CYCLE]
 #@ 
@@ -8638,7 +8645,7 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/s
 #@ #======================================================
 #@ # (B-1) analyze + elaborate
 #@ set hdlin_auto_save_templates TRUE
-#@ analyze -f sverilog {INF.sv MAKE_FG.sv}
+#@ analyze -f sverilog {Usertype.sv INF.sv MAKE_FG.sv}
 #@ elaborate $DESIGN  
 #@ 
 #@ # (B-2) read_sverilog
@@ -8661,7 +8668,7 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/s
 #@ 
 #@ # (D-1) Setting Clock Constraints
 #@ create_clock -name clk -period $CYCLE [get_ports clk] 
-#@ # set_dont_touch_network             [get_clocks clk]
+#@ set_dont_touch_network             [get_clocks clk]
 #@ # set_fix_hold                       [get_clocks clk]
 #@ # set_clock_uncertainty       0.1    [get_clocks clk]
 #@ # set_clock_latency   -source 0      [get_clocks clk]
@@ -8671,12 +8678,12 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/s
 #@ 
 #@ # (D-2) Setting in/out Constraints
 #@ set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
-#@ # set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
+#@ set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
 #@ set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time check 
-#@ # set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
+#@ set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
 #@ set_input_delay 0 -clock clk clk
 #@ set_input_delay 0 -clock clk rst_n
-#@ #set_max_delay $CYCLE -from [all_inputs] -to [all_outputs]
+#@ # set_max_delay $CYCLE -from [all_inputs] -to [all_outputs]
 #@ 
 #@ # (D-3) Setting Design Environment
 #@ # set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [get_ports clk]
@@ -8685,14 +8692,14 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/s
 #@ set_load 0.05 [all_outputs]
 #@ 
 #@ # (D-4) Setting DRC Constraint
-#@ #set_max_delay           0     ; # Optimize delay max effort                 
-#@ #set_max_area            0      ; # Optimize area max effort           
+#@ # set_max_delay           0     ; # Optimize delay max effort                 
+#@ # set_max_area            0      ; # Optimize area max effort           
 #@ # set_max_transition      3       [all_inputs]   ; # U18 LUT Max Transition Value  
 #@ # set_max_capacitance     0.15    [all_inputs]   ; # U18 LUT Max Capacitance Value
 #@ # set_max_fanout          10      [all_inputs]
 #@ # set_dont_use slow/JKFF*
-#@ #set_dont_touch [get_cells core_reg_macro]
-#@ #set hdlin_ff_always_sync_set_reset true
+#@ # set_dont_touch [get_cells core_reg_macro]
+#@ # set hdlin_ff_always_sync_set_reset true
 #@ 
 #@ # (D-5) Report Clock skew
 #@ report_clock -skew clk
@@ -8701,13 +8708,23 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/s
 #@ #======================================================
 #@ #  (E) Optimization
 #@ #======================================================
+#@ uniquify
+#@ set_fix_multiple_port_nets -all -buffer_constants
 #@ check_design > Report/$DESIGN\.check
-#@ set_fix_multiple_port_nets -all -buffer_constants [get_designs *]
-#@ set_fix_hold [all_clocks]
+#@ 
+#@ # compile_ultra -no_autoungroup
+#@ 
 #@ compile_ultra
-#@ compile_ultra -incremental
-#@ #uniquify
-#@ #compile
+#@ set_fix_hold [get_clocks clk]
+#@ compile -incremental_mapping -only_hold_time
+#@ 
+#@ # set_fix_multiple_port_nets -all -buffer_constants
+#@ # set_fix_hold [get_clocks clk]
+#@ # check_design > Report/$DESIGN\.check
+#@ # compile_ultra
+#@ # # compile_ultra -incremental
+#@ # # uniquify
+#@ # # compile
 #@ 
 #@ #======================================================
 #@ #  (F) Output Reports 
@@ -8744,7 +8761,7 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/s
 #@ write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
 #@ write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
 #@ write_sdc Netlist/$DESIGN\_SYN.sdc
-#@ write -format svsim   -output Netlist/$DESIGN\_Wrapper.sv
+#@ # write -format svsim   -output Netlist/$DESIGN\_Wrapper.sv
 #@ 
 #@ #======================================================
 #@ #  (I) Finish and Quit
