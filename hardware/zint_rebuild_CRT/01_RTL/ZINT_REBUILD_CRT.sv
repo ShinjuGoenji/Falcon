@@ -18,8 +18,9 @@ module ZINT_REBUILD_CRT (
     in_valid,
     len_valid,
     x_i,
-    inf_num,
+    inf_logn,
     num,
+    logn,
     xlen,
     input_ptr,
     intt_output_buffer_comb,
@@ -59,8 +60,9 @@ input  logic            rst_n;
 input  logic            in_valid;
 input  logic            len_valid;
 input  uint31_t         x_i;
-input  [NUM_WIDTH-1:0]  inf_num;
+input  [LOGN_WIDTH-1:0] inf_logn;
 input  [NUM_WIDTH-1:0]  num;
+input  [LOGN_WIDTH-1:0] logn;
 input  [XLEN_WIDTH-1:0] xlen;
 
 input  [9:0]            input_ptr;
@@ -93,6 +95,7 @@ output logic [123:0] DB_comb;
 //---------------------------------------------------------------------
 State state, next_state;
 logic [7:0] intt_AB, intt_AB_comb;
+logic [9:0] num_1, num_1_comb;
 
 /*
  * ZINT_MOD_SMALL_UNSIGNED
@@ -280,12 +283,19 @@ end
 
 assign intt_AB_comb = input_ptr / WORD_NUM;
 
+always_comb begin
+    if (len_valid)
+        num_1_comb = ((1 << inf_logn) / WORD_NUM) - 1;
+    else
+        num_1_comb = num_1;
+end
+
 /*
  * ZINT_MOD_SMALL_UNSIGNED
  */
 // u = ptr / num
-assign u_mod_small_unsigned = mod_small_unsigned_ptr / (num / WORD_NUM); 
-assign u_mod_small_unsigned_comb = mod_small_unsigned_ptr_comb / (num / WORD_NUM); 
+assign u_mod_small_unsigned = ((mod_small_unsigned_ptr & ~num_1) * WORD_NUM) >> logn; 
+assign u_mod_small_unsigned_comb = ((mod_small_unsigned_ptr_comb & ~num_1) * WORD_NUM) >> logn;
 
 always_comb begin
     if (len_valid)
@@ -350,7 +360,8 @@ assign is_read_mod_small_unsigned_comb = is_read || read_ena_add_mul_small_comb;
 
 // prime
 logic mod_small_unsigned_round;
-assign mod_small_unsigned_round = (mod_small_unsigned_ptr & ((num / WORD_NUM) - 1)) == 0 && mod_small_unsigned_ptr != 0;
+assign mod_small_unsigned_round = (mod_small_unsigned_ptr & num_1) == 0 && mod_small_unsigned_ptr != 0;
+// assign mod_small_unsigned_round = (mod_small_unsigned_ptr & ((num / WORD_NUM) - 1)) == 0 && mod_small_unsigned_ptr != 0;
 
 always_comb begin
     if (state == S_IDLE && len_valid)
@@ -439,7 +450,7 @@ assign u_add_mul_small_comb = add_mul_small_ptr_comb / (num / WORD_NUM);
 
 always_comb begin
     if (len_valid)
-        add_mul_small_ptr_comb = inf_num / WORD_NUM;
+        add_mul_small_ptr_comb = (1 << inf_logn) / WORD_NUM;
     else if (new_state_add_mul_small)
         if (add_mul_small_ptr == ((num / WORD_NUM) * xlen - 1))
             add_mul_small_ptr_comb = add_mul_small_ptr;
@@ -542,7 +553,8 @@ end
 // prime
 logic [7:0] vB_add_mul_small, vB_add_mul_small_comb;
 logic mul_small_round;
-assign mul_small_round = (vB_add_mul_small & ((num / WORD_NUM) - 1)) == ((num / WORD_NUM) - 1);
+// assign mul_small_round = (vB_add_mul_small & ((num / WORD_NUM) - 1)) == ((num / WORD_NUM) - 1);
+assign mul_small_round = (vB_add_mul_small & num_1) == num_1;
 
 always_comb begin
     if (state == S_IDLE && len_valid)
@@ -805,8 +817,10 @@ endgenerate
 always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         state <= S_IDLE;
+        num_1 <= 0;
         // ZINT_MOD_SMALL_UNSIGNED
         mod_small_unsigned_ptr <= 0;
+        // u_mod_small_unsigned <= 0;
         in_valid_mod_small_unsigned <= 0;
         dlen_mod_small_unsigned <= 0;
         p_mod_small_unsigned <= 0;
@@ -842,8 +856,10 @@ always_ff @(posedge clk or negedge rst_n) begin
     end
     else begin
         state <= next_state;
+        num_1 <= num_1_comb;
         // ZINT_MOD_SMALL_UNSIGNED
         mod_small_unsigned_ptr <= mod_small_unsigned_ptr_comb;
+        // u_mod_small_unsigned <= u_mod_small_unsigned_comb;
         in_valid_mod_small_unsigned <= in_valid_mod_small_unsigned_comb;
         dlen_mod_small_unsigned <= dlen_mod_small_unsigned_comb;
         p_mod_small_unsigned <= p_mod_small_unsigned_comb;

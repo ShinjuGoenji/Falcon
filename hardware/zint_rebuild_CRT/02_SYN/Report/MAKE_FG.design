@@ -5,22 +5,22 @@ Warning: Design 'MAKE_FG' contains 1 high-fanout nets. A fanout number of 1000 w
 Report : design
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Wed Jan 21 00:57:51 2026
+Date   : Thu Jan 29 18:21:29 2026
 ****************************************
 
 Design allows ideal nets on clock nets.
 
 Library(s) Used:
 
-    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
-    RF_2p_CRT_TMP_nldm_tt_0p90v_0p90v_25c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_TMP_nldm_tt_0p90v_0p90v_25c.db)
-    RF_2p_CRT_4x256_nldm_tt_0p90v_0p90v_25c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x256_nldm_tt_0p90v_0p90v_25c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+    RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db)
+    RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db)
 
 Local Link Library:
 
-    {sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db, sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db, sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db, RF_2p_CRT_4x256_nldm_tt_0p90v_0p90v_25c.db, RF_2p_CRT_TMP_nldm_tt_0p90v_0p90v_25c.db}
+    {sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db, sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db, sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db, RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db, RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db}
 
 Flip-Flop Types:
 
