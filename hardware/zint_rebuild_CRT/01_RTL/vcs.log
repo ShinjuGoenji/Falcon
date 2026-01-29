@@ -4,7 +4,7 @@ Command: vcs -timescale=1ns/1fs -j4 -sverilog +v2k -full64 -Mupdate -R -debug_ac
 +define+RTL +define+ +notimingchecks
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Thu Jan 29 03:15:13 2026
+         Version T-2022.06_Full64 -- Thu Jan 29 18:31:22 2026
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -22,14 +22,67 @@ Command: vcs -timescale=1ns/1fs -j4 -sverilog +v2k -full64 -Mupdate -R -debug_ac
             Inclusivity and Diversity" (Refer to article 000036315 at
                         https://solvnetplus.synopsys.com)
 
-The design hasn't changed and need not be recompiled. 
-If you really want to, delete file /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/01_RTL/simv.daidir/.vcs.timestamp and
-run VCS again.
+Parsing design file 'TESTBED.sv'
+Parsing included file 'Usertype.sv'.
+Back to file 'TESTBED.sv'.
+Parsing included file 'INF.sv'.
+Back to file 'TESTBED.sv'.
+Parsing included file 'PATTERN.sv'.
+Parsing included file 'Usertype.sv'.
+Back to file 'PATTERN.sv'.
+Back to file 'TESTBED.sv'.
+Parsing included file 'MAKE_FG.sv'.
+Parsing included file 'ZINT_REBUILD_CRT.sv'.
+Parsing included file 'ZINT_MOD_SMALL_UNSIGNED.sv'.
+Parsing included file 'MODP_ADD.sv'.
+Back to file 'ZINT_MOD_SMALL_UNSIGNED.sv'.
+Back to file 'ZINT_REBUILD_CRT.sv'.
+Parsing included file 'ZINT_ADD_MUL_SMALL.sv'.
+Parsing included file 'MODP_SUB.sv'.
+Back to file 'ZINT_ADD_MUL_SMALL.sv'.
+Back to file 'ZINT_REBUILD_CRT.sv'.
+Back to file 'MAKE_FG.sv'.
+Parsing included file 'MODP_MONTYMUL_TOP.sv'.
+Back to file 'MAKE_FG.sv'.
+Back to file 'TESTBED.sv'.
+Parsing design file '../04_MEM/RF_2p_CRT_4x256.v'
+Parsing design file '../04_MEM/RF_2p_CRT_TMP.v'
+Top Level Modules:
+       TESTBED
+       RF_2p_CRT_4x256_error_injection
+       RF_2p_CRT_TMP_error_injection
+TimeScale is 1 ns / 1 ps
+Notice: Ports coerced to inout, use -notice for details
+Starting vcs inline pass...
+
+
+Note-[VCS_PARAL] Parallel code-gen enabled
+  VCS is running with parallel code generation(-j)...
+
+14 modules and 0 UDP read.
+	However, due to incremental compilation, no re-compilation is necessary.
+make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/01_RTL/csrc' \
+
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
+rm -f _cuarc0.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
+-Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _22141_archive_1.so _prev_archive_1.so \
+_cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o \
+rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a \
+-lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o \
+-Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   \
+/usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/2022.06//share/PLI/VCS/LINUX64/pli.a \
+-ldl -lm  -lc -lpthread -ldl 
+../simv up to date
+make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/01_RTL/csrc' \
 
 Command: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/01_RTL/./simv +v2k +libext+.sv -a vcs.log +define+RTL +define+ +notimingchecks
 Chronologic VCS simulator copyright 1991-2022
 Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jan 29 03:15 2026
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jan 29 18:31 2026
 *Verdi* Loading libsscore_vcs202206.so
 FSDB Dumper for VCS, Release Verdi_T-2022.06, Linux x86_64/64bit, 05/29/2022
 (C) 1996 - 2022 by Synopsys, Inc.
@@ -56,6 +109,6 @@ $finish called from file "PATTERN.sv", line 127.
 $finish at simulation time             16762600
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 16762600 ps
-CPU Time:      0.690 seconds;       Data structure size:   0.2Mb
-Thu Jan 29 03:15:14 2026
-CPU time: .736 seconds in simulation
+CPU Time:      0.670 seconds;       Data structure size:   0.2Mb
+Thu Jan 29 18:31:24 2026
+CPU time: .795 seconds to compile + .259 seconds to elab + .244 seconds to link + .722 seconds in simulation
