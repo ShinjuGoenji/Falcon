@@ -25,12 +25,9 @@ set OUTPUT_DLY [expr 0*$CYCLE]
 # (B-1) analyze + elaborate
 set hdlin_auto_save_templates TRUE
 analyze -f sverilog {Usertype.sv INF.sv MAKE_FG.sv}
-elaborate $DESIGN  
+elaborate $DESIGN 
 
-# (B-2) read_sverilog
-# read_sverilog $DESIGN\.v
-
-# (B-3) set current design
+# (B-2) set current design
 current_design $DESIGN
 link
 
@@ -38,8 +35,6 @@ link
 #  (C) Global Setting
 #======================================================
 set_wire_load_mode top
-# set_operating_conditions -max WCCOM -min BCCOM
-# set_wire_load_model -name umc18_wl10 -library slow
 
 #======================================================
 #  (D) Set Design Constraints
@@ -48,12 +43,6 @@ set_wire_load_mode top
 # (D-1) Setting Clock Constraints
 create_clock -name clk -period $CYCLE [get_ports clk] 
 set_dont_touch_network             [get_clocks clk]
-# set_fix_hold                       [get_clocks clk]
-# set_clock_uncertainty       0.1    [get_clocks clk]
-# set_clock_latency   -source 0      [get_clocks clk]
-# set_clock_latency           1      [get_clocks clk] 
-# set_input_transition        0.5    [all_inputs] 
-# set_clock_transition        0.1    [all_clocks] 
 
 # (D-2) Setting in/out Constraints
 set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
@@ -62,44 +51,23 @@ set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time c
 set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
 set_input_delay 0 -clock clk clk
 set_input_delay 0 -clock clk rst_n
-# set_max_delay $CYCLE -from [all_inputs] -to [all_outputs]
 
 # (D-3) Setting Design Environment
-# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [get_ports clk]
-# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [remove_from_collection [all_inputs] [get_ports clk]]
-# set_load  [load_of "umc18io3v5v_slow/P8C/A"]       [all_outputs] ; # ~= 0.038
 set_load 0.05 [all_outputs]
 
-# (D-4) Setting DRC Constraint
-# set_max_delay           0     ; # Optimize delay max effort                 
-# set_max_area            0      ; # Optimize area max effort           
-# set_max_transition      3       [all_inputs]   ; # U18 LUT Max Transition Value  
-# set_max_capacitance     0.15    [all_inputs]   ; # U18 LUT Max Capacitance Value
-# set_max_fanout          10      [all_inputs]
-# set_dont_use slow/JKFF*
-# set_dont_touch [get_cells core_reg_macro]
-# set hdlin_ff_always_sync_set_reset true
-
-# (D-5) Report Clock skew
+# (D-4) Report Clock skew
 report_clock -skew clk
 check_timing
 
 #======================================================
 #  (E) Optimization
 #======================================================
-uniquify
-set_fix_multiple_port_nets -all -buffer_constants
 check_design > Report/$DESIGN\.check
-
+set_fix_multiple_port_nets -all -buffer_constants
 compile_ultra
-set_fix_hold [get_clocks clk]
+set_fix_hold [all_clocks]
 compile -incremental_mapping -only_hold_time
 
-# set_fix_multiple_port_nets -all -buffer_constants
-# set_fix_hold [get_clocks clk]
-# check_design > Report/$DESIGN\.check
-# compile_ultra
-# # compile_ultra -incremental
 # # uniquify
 # # compile
 
@@ -109,12 +77,13 @@ compile -incremental_mapping -only_hold_time
 report_design  >  Report/$DESIGN\.design
 report_resource >  Report/$DESIGN\.resource
 report_timing -max_paths 3 >  Report/$DESIGN\.timing
+report_timing -delay_type min >  Report/$DESIGN\_hold.timing
 report_area >  Report/$DESIGN\.area
+report_area -hierarchy >  Report/$DESIGN\_hier.area
 report_power > Report/$DESIGN\.power
 report_clock > Report/$DESIGN\.clock
 report_port >  Report/$DESIGN\.port
 report_power >  Report/$DESIGN\.power
-#report_reference > Report/$DESIGN\.reference
 
 #======================================================
 #  (G) Change Naming Rule
@@ -142,9 +111,8 @@ write_sdc Netlist/$DESIGN\_SYN.sdc
 #======================================================
 #  (I) Finish and Quit
 #======================================================
-
 report_resource
 report_area -hierarchy
 report_timing -delay_type min
-report_timing
+report_timing -max_paths 3
 exit
