@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# ---------------------------------------------------------
+# Parameters
+# ---------------------------------------------------------
+PERIOD_LIST="1.9 1.95 2.0 2.05 2.1 2.15 2.2 2.25"
+DESIGN="MAKE_FG"
+REPORT_CSV="sweep_report.csv"
+
+echo "Target_Period(ns), Slack(ns), Eff_Period(ns), Area(um2), ATP(Area*Eff_Period)" > $REPORT_CSV
+
+echo "========================================================"
+echo "Starting Synthesis Sweep for Design: $DESIGN"
+echo "Periods to sweep: $PERIOD_LIST"
+echo "Output CSV: $REPORT_CSV"
+echo "========================================================"
+
+for period in $PERIOD_LIST; do
+    echo ""
+    echo "--------------------------------------------------------"
+    echo "Running Synthesis for Period = $period ns ..."
+    echo "--------------------------------------------------------"
+
+    export PERIOD=$period
+    dc_shell -f syn.tcl | tee "syn_${period}.log"
+    TIMING_RPT="Report/${DESIGN}.timing"
+    AREA_RPT="Report/${DESIGN}.area"
+    if [ ! -f "$TIMING_RPT" ] || [ ! -f "$AREA_RPT" ]; then
+        echo "Error: Reports not found for period $period. Skipping..."
+        continue
+    fi
+    cp "$TIMING_RPT" "Report/${DESIGN}_${period}.timing"
+    cp "$AREA_RPT" "Report/${DESIGN}_${period}.area"
+
+    # ---------------------------------------------------------
+    # Data Parsing Logic
+    # ---------------------------------------------------------
+    
+    slack=$(grep "slack (" "$TIMING_RPT" | awk '{print $3}')
+    if [ -z "$slack" ]; then slack="0.0"; fi
+
+    area=$(grep "Total cell area:" "$AREA_RPT" | awk '{print $4}')
+    if [ -z "$area" ]; then area="0.0"; fi
+
+    eff_period=$(echo "$period - $slack" | bc -l)
+    atp=$(echo "$area * $eff_period" | bc -l)
+    printf "%.2f, %.4f, %.4f, %.2f, %.2f\n" $period $slack $eff_period $area $atp >> $REPORT_CSV
+    
+    echo "  -> Done. Slack=$slack, Area=$area, ATP=$atp"
+
+done
+
+echo ""
+echo "========================================================"
+echo "Sweep Completed. Summary:"
+echo "========================================================"
+column -s, -t $REPORT_CSV

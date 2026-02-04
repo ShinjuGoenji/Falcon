@@ -31,4 +31,22 @@ Net Interconnect area:               0.000000
 
 Total cell area:                165348.523130
 Total area:                     165348.523130
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area                Local cell area
+                                  --------------------  ----------------------------------- 
+Hierarchical cell                 Absolute     Percent  Combi-       Noncombi-   Black-
+                                  Total        Total    national     national    boxes       Design
+--------------------------------  -----------  -------  -----------  ----------  ----------  -----------------------------
+MAKE_FG                           165348.5231    100.0   68841.0572   4176.9754  34997.6250  MAKE_FG
+u_ZINT_REBUILD_CRT                 57332.8655     34.7    9098.9891   5088.9382   8828.9648  ZINT_REBUILD_CRT
+u_ZINT_REBUILD_CRT/u_PRIMES_0       4505.8355      2.7    4505.8355      0.0000      0.0000  PRIMES_1
+u_ZINT_REBUILD_CRT/u_PRIMES_1       4380.4151      2.6    4380.4151      0.0000      0.0000  PRIMES_0
+u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL
+                                   25429.7227     15.4   23838.4940   1591.2288      0.0000  ZINT_ADD_MUL_SMALL_SLAVE_NUM4
+--------------------------------  -----------  -------  -----------  ----------  ----------  -----------------------------
+Total                                                   110664.7909  10857.1424  43826.5898
+
 1

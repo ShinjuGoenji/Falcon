@@ -9,11 +9,17 @@ package usertype;
 parameter P_WIDTH = 31;
 typedef logic [P_WIDTH-1:0] uint31_t;
 
-// parameter LOGN_WIDTH = 4;
+parameter LOGN_WIDTH = 4;
 parameter NUM_WIDTH = 9;
 parameter XLEN_WIDTH = 9;
 
 parameter WORD_NUM = 4;
+
+typedef enum logic { 
+    UNKNOWN	= 1'dx,
+    FALCON_512	= 1'd0,
+    FALCON_1024 = 1'd1
+} FALCON_MODE;
 
 typedef struct packed {
     uint31_t p; 
