@@ -15,6 +15,12 @@ parameter XLEN_WIDTH = 9;
 
 parameter WORD_NUM = 4;
 
+typedef enum logic { 
+    UNKNOWN	= 1'dx,
+    FALCON_512	= 1'd0,
+    FALCON_1024 = 1'd1
+} FALCON_MODE;
+
 typedef struct packed {
     uint31_t p; 
     uint31_t p0i;

@@ -18,6 +18,7 @@ module ZINT_REBUILD_CRT (
     in_valid,
     len_valid,
     x_i,
+    mode,
     inf_logn,
     num,
     logn,
@@ -60,6 +61,7 @@ input  logic            rst_n;
 input  logic            in_valid;
 input  logic            len_valid;
 input  uint31_t         x_i;
+input  FALCON_MODE      mode;
 input  [LOGN_WIDTH-1:0] inf_logn;
 input  [NUM_WIDTH-1:0]  num;
 input  [LOGN_WIDTH-1:0] logn;
@@ -96,6 +98,8 @@ output logic [123:0] DB_comb;
 State state, next_state;
 logic [7:0] intt_AB, intt_AB_comb;
 logic [9:0] num_1, num_1_comb;
+logic [9:0] MOD_SMALL_UNSIGNED_PTR_END;
+logic [9:0] ADD_MUL_SMALL_PTR_END;
 
 /*
  * ZINT_MOD_SMALL_UNSIGNED
@@ -270,24 +274,291 @@ always_comb begin
     case (state)
         S_IDLE: 
             if (in_valid) 
-                next_state <= S_EXE;
+                next_state = S_EXE;
             else 
-                next_state <= state;
+                next_state = state;
         S_EXE: 
-            if (add_mul_small_ptr == ((num / WORD_NUM) * xlen - 1) && new_state_add_mul_small)
-                next_state <= S_IDLE;
+            if (add_mul_small_ptr == ADD_MUL_SMALL_PTR_END && new_state_add_mul_small)
+                next_state = S_IDLE;
             else 
-                next_state <= state;
+                next_state = state;
     endcase
 end
 
 assign intt_AB_comb = input_ptr / WORD_NUM;
 
+// num_1 = num - 1 = 2^logn - 1
 always_comb begin
     if (len_valid)
-        num_1_comb = ((1 << inf_logn) / WORD_NUM) - 1;
+        if (((1 << inf_logn) / WORD_NUM) > 0)
+            num_1_comb = ((1 << inf_logn) / WORD_NUM) - 1;
+        else 
+            num_1_comb = 0;
     else
         num_1_comb = num_1;
+end
+
+// MOD_SMALL_UNSIGNED_PTR_END = num * (xlen - 1)
+// ADD_MUL_SMALL_PTR_END      = num * xlen - 1
+always_comb begin
+    if (mode) begin // FALCON-1024
+        case (logn)
+            8:  case (xlen)
+                    2: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<8)/WORD_NUM)*(2-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<8)/WORD_NUM)*2-1;
+                    end
+                    3: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<8)/WORD_NUM)*(3-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<8)/WORD_NUM)*3-1;
+                    end
+                    5: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<8)/WORD_NUM)*(5-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<8)/WORD_NUM)*5-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            7:  case (xlen)
+                    2: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<7)/WORD_NUM)*(2-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<7)/WORD_NUM)*2-1;
+                    end
+                    3: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<7)/WORD_NUM)*(3-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<7)/WORD_NUM)*3-1;
+                    end
+                    7: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<7)/WORD_NUM)*(7-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<7)/WORD_NUM)*7-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            6:  case (xlen)
+                    4: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<6)/WORD_NUM)*(4-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<6)/WORD_NUM)*4-1;
+                    end
+                    5: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<6)/WORD_NUM)*(5-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<6)/WORD_NUM)*5-1;
+                    end
+                    12: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<6)/WORD_NUM)*(12-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<6)/WORD_NUM)*12-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            5:  case (xlen)
+                    7: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<5)/WORD_NUM)*(7-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<5)/WORD_NUM)*7-1;
+                    end
+                    21: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<5)/WORD_NUM)*(21-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<5)/WORD_NUM)*21-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            4:  case (xlen)
+                    14: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<4)/WORD_NUM)*(14-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<4)/WORD_NUM)*14-1;
+                    end
+                    40: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<4)/WORD_NUM)*(40-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<4)/WORD_NUM)*40-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            3:  case (xlen)
+                    27: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<3)/WORD_NUM)*(27-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<3)/WORD_NUM)*27-1;
+                    end
+                    78: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<3)/WORD_NUM)*(78-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<3)/WORD_NUM)*78-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            2:  case (xlen)
+                    53: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<2)/WORD_NUM)*(53-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<2)/WORD_NUM)*53-1;
+                    end
+                    157: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<2)/WORD_NUM)*(157-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<2)/WORD_NUM)*157-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            1:  case (xlen)
+                    106: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<1)/WORD_NUM)*(106-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<1)/WORD_NUM)*106-1;
+                    end
+                    209: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<1)/WORD_NUM)*(209-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<1)/WORD_NUM)*209-1;
+                    end
+                    308: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<1)/WORD_NUM)*(308-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<1)/WORD_NUM)*308-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            default: begin
+                MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                ADD_MUL_SMALL_PTR_END      = 'x;
+            end 
+        endcase
+    end
+    else begin // FALCON-512
+        case (logn)
+            7:  case (xlen)
+                    2: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<7)/WORD_NUM)*(2-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<7)/WORD_NUM)*2-1;
+                    end
+                    3: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<7)/WORD_NUM)*(3-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<7)/WORD_NUM)*3-1;
+                    end
+                    5: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<7)/WORD_NUM)*(5-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<7)/WORD_NUM)*5-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            6:  case (xlen)
+                    2: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<6)/WORD_NUM)*(2-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<6)/WORD_NUM)*2-1;
+                    end
+                    3: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<6)/WORD_NUM)*(3-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<6)/WORD_NUM)*3-1;
+                    end
+                    7: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<6)/WORD_NUM)*(7-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<6)/WORD_NUM)*7-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            5:  case (xlen)
+                    4: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<5)/WORD_NUM)*(4-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<5)/WORD_NUM)*4-1;
+                    end
+                    5: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<5)/WORD_NUM)*(5-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<5)/WORD_NUM)*5-1;
+                    end
+                    12: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<5)/WORD_NUM)*(12-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<5)/WORD_NUM)*12-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            4:  case (xlen)
+                    7: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<4)/WORD_NUM)*(7-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<4)/WORD_NUM)*7-1;
+                    end
+                    21: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<4)/WORD_NUM)*(21-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<4)/WORD_NUM)*21-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            3:  case (xlen)
+                    14: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<3)/WORD_NUM)*(14-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<3)/WORD_NUM)*14-1;
+                    end
+                    40: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<3)/WORD_NUM)*(40-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<3)/WORD_NUM)*40-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            2:  case (xlen)
+                    27: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<2)/WORD_NUM)*(27-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<2)/WORD_NUM)*27-1;
+                    end
+                    78: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<2)/WORD_NUM)*(78-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<2)/WORD_NUM)*78-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            1:  case (xlen)
+                    53: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<1)/WORD_NUM)*(53-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<1)/WORD_NUM)*53-1;
+                    end
+                    106: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<1)/WORD_NUM)*(106-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<1)/WORD_NUM)*106-1;
+                    end
+                    157: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = ((1<<1)/WORD_NUM)*(157-1);
+                        ADD_MUL_SMALL_PTR_END      = ((1<<1)/WORD_NUM)*157-1;
+                    end
+                    default: begin
+                        MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                        ADD_MUL_SMALL_PTR_END      = 'x;
+                    end
+                endcase
+            default: begin
+                MOD_SMALL_UNSIGNED_PTR_END = 'x;
+                ADD_MUL_SMALL_PTR_END      = 'x;
+            end 
+        endcase
+    end
 end
 
 /*
@@ -308,6 +579,8 @@ end
 
 logic intt_forwarding_mod_small_unsigned;
 assign intt_forwarding_mod_small_unsigned = is_write && input_ptr / WORD_NUM == mod_small_unsigned_ptr && u_mod_small_unsigned == 0;
+logic add_mul_small_forwarding_mod_small_unsigned;
+assign add_mul_small_forwarding_mod_small_unsigned = cc_out_valid_add_mul_small && read_xlast_mod_small_unsigned && mod_small_unsigned_ptr_comb == add_mul_small_ptr_reg && mod_small_unsigned_ptr_comb < MOD_SMALL_UNSIGNED_PTR_END;
 
 // input buffer
 genvar mod_small_unsigned_input_buffer_comb_idx;
@@ -316,7 +589,7 @@ generate
         always_comb begin
             if (intt_forwarding_mod_small_unsigned) // intt forwarding
                 mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_comb_idx] = intt_output_buffer_comb[mod_small_unsigned_input_buffer_comb_idx];
-            else if (cc_out_valid_add_mul_small && read_xlast_mod_small_unsigned && mod_small_unsigned_ptr_comb == add_mul_small_ptr_reg && mod_small_unsigned_ptr_comb < (num / WORD_NUM) * (xlen - 1)) // add_mul_small forwarding
+            else if (add_mul_small_forwarding_mod_small_unsigned) // add_mul_small forwarding
                 mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_comb_idx] = x_add_mul_small[mod_small_unsigned_input_buffer_comb_idx];
             else if (read_ena_mod_small_unsigned_reg)        
                 mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_comb_idx] = QA[mod_small_unsigned_input_buffer_comb_idx];
@@ -328,9 +601,9 @@ endgenerate
 
 // in_valid
 always_comb begin
-    if (intt_forwarding_mod_small_unsigned) // intt forwarding
+    if (intt_forwarding_mod_small_unsigned)
         in_valid_mod_small_unsigned_comb = 1;
-    else if (cc_out_valid_add_mul_small && read_xlast_mod_small_unsigned && mod_small_unsigned_ptr_comb == add_mul_small_ptr_reg && mod_small_unsigned_ptr_comb < (num / WORD_NUM) * (xlen - 1)) // add_mul_small forwarding
+    else if (add_mul_small_forwarding_mod_small_unsigned)
         in_valid_mod_small_unsigned_comb = 1;
     else if (read_ena_mod_small_unsigned_reg)        
         in_valid_mod_small_unsigned_comb = 1;
@@ -342,7 +615,7 @@ end
 
 always_comb begin
     if (state == S_EXE && read_ena_mod_small_unsigned)
-        if (!(mod_small_unsigned_ptr_comb < (num / WORD_NUM) * (xlen - 1)) || mod_small_unsigned_ptr_comb > add_mul_small_ptr_reg) // TODO: restrict ptr stop point
+        if (!(mod_small_unsigned_ptr_comb < MOD_SMALL_UNSIGNED_PTR_END) || mod_small_unsigned_ptr_comb > add_mul_small_ptr_reg) // TODO: restrict ptr stop point
             read_ena_mod_small_unsigned_comb = 0;
         else if (u_mod_small_unsigned == 0) // intt forwarding
             read_ena_mod_small_unsigned_comb = 0;
@@ -361,7 +634,6 @@ assign is_read_mod_small_unsigned_comb = is_read || read_ena_add_mul_small_comb;
 // prime
 logic mod_small_unsigned_round;
 assign mod_small_unsigned_round = (mod_small_unsigned_ptr & num_1) == 0 && mod_small_unsigned_ptr != 0;
-// assign mod_small_unsigned_round = (mod_small_unsigned_ptr & ((num / WORD_NUM) - 1)) == 0 && mod_small_unsigned_ptr != 0;
 
 always_comb begin
     if (state == S_IDLE && len_valid)
@@ -426,7 +698,9 @@ endgenerate
 always_comb begin
     if (len_valid)
         mod_small_unsigned_ptr_reg_comb = mod_small_unsigned_ptr_comb;
-    else if (new_state_mod_small_unsigned)
+    // else if (new_state_mod_small_unsigned)
+    //     mod_small_unsigned_ptr_reg_comb = mod_small_unsigned_ptr;
+    else if ((out_valid_mod_small_unsigned && !mod_small_unsigned_output_buffer_full_comb) || (mod_small_unsigned_output_buffer_full && !mod_small_unsigned_output_buffer_full_comb))
         mod_small_unsigned_ptr_reg_comb = mod_small_unsigned_ptr;
     else
         mod_small_unsigned_ptr_reg_comb = mod_small_unsigned_ptr_reg;
@@ -436,7 +710,7 @@ always_comb begin
     if (state == S_IDLE)
         mod_small_unsigned_AB_comb = 0;
     else if (out_valid_mod_small_unsigned) // TODO: check if correct
-        mod_small_unsigned_AB_comb = mod_small_unsigned_ptr_reg & (num / WORD_NUM - 1);
+        mod_small_unsigned_AB_comb = mod_small_unsigned_ptr_reg & num_1;
     else
         mod_small_unsigned_AB_comb = mod_small_unsigned_AB;
 end
@@ -445,14 +719,14 @@ end
  * ZINT_ADD_MUL_SMALL
  */
 // u = ptr / num
-assign u_add_mul_small = add_mul_small_ptr / (num / WORD_NUM); 
-assign u_add_mul_small_comb = add_mul_small_ptr_comb / (num / WORD_NUM); 
+assign u_add_mul_small = ((add_mul_small_ptr & ~num_1) * WORD_NUM) >> logn; 
+assign u_add_mul_small_comb = ((add_mul_small_ptr_comb & ~num_1) * WORD_NUM) >> logn; 
 
 always_comb begin
     if (len_valid)
         add_mul_small_ptr_comb = (1 << inf_logn) / WORD_NUM;
     else if (new_state_add_mul_small)
-        if (add_mul_small_ptr == ((num / WORD_NUM) * xlen - 1))
+        if (add_mul_small_ptr == ADD_MUL_SMALL_PTR_END)
             add_mul_small_ptr_comb = add_mul_small_ptr;
         else
             add_mul_small_ptr_comb = add_mul_small_ptr + 1;
@@ -488,18 +762,18 @@ always_comb begin
 end
 
 logic mod_small_unsigned_output_buffer_full_reg, mod_small_unsigned_output_buffer_full_reg2;
-logic mod_small_unsigned_not_write;
+logic mod_small_unsigned_not_write, mod_small_unsigned_not_write_comb;
 
 always_comb begin
     if ((add_mul_small_ptr - num / WORD_NUM) > mod_small_unsigned_ptr_reg)
-        mod_small_unsigned_not_write = 1;
+        mod_small_unsigned_not_write_comb = 1;
     else if ((add_mul_small_ptr - num / WORD_NUM) == mod_small_unsigned_ptr_reg)
-        if (mod_small_unsigned_ptr_reg == ((num / WORD_NUM) * (xlen - 1)) - 1)
-            mod_small_unsigned_not_write = 0;
+        if (mod_small_unsigned_ptr_reg == MOD_SMALL_UNSIGNED_PTR_END)
+            mod_small_unsigned_not_write_comb = 0;
         else
-            mod_small_unsigned_not_write = 1;
+            mod_small_unsigned_not_write_comb = 1;
     else 
-        mod_small_unsigned_not_write = 0;
+        mod_small_unsigned_not_write_comb = 0;
 end
 
 always_comb begin
@@ -508,7 +782,7 @@ always_comb begin
             READ_XQ: 
                 if (mod_small_unsigned_ptr_reg == 0)
                     read_valid_add_mul_small = out_valid_mod_small_unsigned;
-                else if (mod_small_unsigned_not_write)
+                else if (mod_small_unsigned_not_write || mod_small_unsigned_not_write_comb)
                     read_valid_add_mul_small = 0;
                 else 
                     read_valid_add_mul_small = !is_read;
@@ -532,7 +806,7 @@ always_comb begin
             READ_XQ: 
                 if (mod_small_unsigned_ptr_reg == 0) // mod_small_unsigned forwarding
                     read_ena_add_mul_small_comb = 0;
-                else if (mod_small_unsigned_not_write)
+                else if (mod_small_unsigned_not_write || mod_small_unsigned_not_write_comb)
                     read_ena_add_mul_small_comb = 0;
                 else 
                     read_ena_add_mul_small_comb = !is_read;
@@ -553,8 +827,7 @@ end
 // prime
 logic [7:0] vB_add_mul_small, vB_add_mul_small_comb;
 logic mul_small_round;
-// assign mul_small_round = (vB_add_mul_small & ((num / WORD_NUM) - 1)) == ((num / WORD_NUM) - 1);
-assign mul_small_round = (vB_add_mul_small & num_1) == num_1;
+assign mul_small_round = ({2'b0, vB_add_mul_small} & num_1) == num_1;
 
 always_comb begin
     if (state == S_IDLE && len_valid)
@@ -618,8 +891,8 @@ endgenerate
 always_comb begin
     if (len_valid)
         add_mul_small_ptr_reg_comb = add_mul_small_ptr_comb;
-    else if (new_state_add_mul_small)
-        add_mul_small_ptr_reg_comb = add_mul_small_ptr;
+    else if (!add_mul_small_output_buffer_full_comb && add_mul_small_output_buffer_full && uB_add_mul_small == 1)
+        add_mul_small_ptr_reg_comb = add_mul_small_ptr_reg + 1;
     else
         add_mul_small_ptr_reg_comb = add_mul_small_ptr_reg;
 end
@@ -636,9 +909,9 @@ end
 always_comb begin
     if (out_valid_add_mul_small)
         if (!add_mul_small_output_buffer_full) // buffer is empty
-            add_mul_small_AB_comb = (uB_add_mul_small * (num / WORD_NUM)) + (vB_add_mul_small & (num / WORD_NUM - 1));
+            add_mul_small_AB_comb = ((uB_add_mul_small << logn) / WORD_NUM) + (vB_add_mul_small & num_1);
         else if (add_mul_small_output_buffer_full && !stall_add_mul_small) // buffer will be written and empty next cycle
-            add_mul_small_AB_comb = (uB_add_mul_small * (num / WORD_NUM)) + (vB_add_mul_small & (num / WORD_NUM - 1));
+            add_mul_small_AB_comb = ((uB_add_mul_small << logn) / WORD_NUM) + (vB_add_mul_small & num_1);
         else
            add_mul_small_AB_comb = add_mul_small_AB;
     else
@@ -649,21 +922,20 @@ end
  * tmp
  */
 // read
-always_comb begin // TODO: add_mul_small_ptr -> add_mul_small_ptr_reg ?
-    if (mul_small_round && len_add_mul_small == 1)
-        if (out_valid_add_mul_small && uB_add_mul_small == 1)
+always_comb begin
+    if (mul_small_round && len_add_mul_small == 1 && (num / WORD_NUM) > 1)
+        if (out_valid_add_mul_small && uB_add_mul_small == 1 && !stall_add_mul_small)
             tmp_comb = tmp_o;
         else
             tmp_comb = tmp;
     else if (tmp_valid)
-    // if (tmp_valid)
         tmp_comb = rf_tmp_QA;
     else
         tmp_comb = tmp;
 end
 
 always_comb begin
-    if (mul_small_round && len_add_mul_small == 1 && uA_add_mul_small == 1)
+    if (mul_small_round && len_add_mul_small == 1 && uA_add_mul_small == 1 && (num / WORD_NUM) > 1)
         tmp_valid_comb = 0;
     else if (state == S_EXE && read_ena_add_mul_small && r_state_add_mul_small == READ_X)
         tmp_valid_comb = !is_read;
@@ -740,8 +1012,8 @@ end
 // read
 assign CENA = !(read_ena_add_mul_small_comb || read_ena_mod_small_unsigned_comb);
 
-assign add_mul_small_AA = (uA_add_mul_small * (num / WORD_NUM)) + (add_mul_small_ptr & (num / WORD_NUM - 1));
-assign mod_small_unsigned_AA = (uA_mod_small_unsigned * (num / WORD_NUM)) + (mod_small_unsigned_ptr_comb & (num / WORD_NUM - 1));
+assign add_mul_small_AA = ((uA_add_mul_small << logn) / WORD_NUM) + (add_mul_small_ptr & num_1);
+assign mod_small_unsigned_AA = ((uA_mod_small_unsigned << logn) / WORD_NUM) + (mod_small_unsigned_ptr_comb & num_1);
 
 always_comb begin
     if (read_ena_add_mul_small_comb)
@@ -753,7 +1025,7 @@ end
 /*
  * output
  */
-assign out_valid = add_mul_small_ptr_reg == ((num / WORD_NUM) * xlen - 1) && out_valid_add_mul_small;
+assign out_valid = add_mul_small_ptr_reg == ADD_MUL_SMALL_PTR_END && add_mul_small_output_buffer_full && !add_mul_small_output_buffer_full_comb;
 
 //---------------------------------------------------------------------
 //   Sequential Logic
@@ -763,10 +1035,10 @@ generate
     for (mod_small_unsigned_input_buffer_idx=0; mod_small_unsigned_input_buffer_idx<WORD_NUM; mod_small_unsigned_input_buffer_idx=mod_small_unsigned_input_buffer_idx+1) begin
         always_ff @(posedge clk or negedge rst_n) begin
             if (!rst_n) begin
-                mod_small_unsigned_input_buffer[mod_small_unsigned_input_buffer_idx] = 0;
+                mod_small_unsigned_input_buffer[mod_small_unsigned_input_buffer_idx] <= 0;
             end
             else begin
-                mod_small_unsigned_input_buffer[mod_small_unsigned_input_buffer_idx] = mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_idx];
+                mod_small_unsigned_input_buffer[mod_small_unsigned_input_buffer_idx] <= mod_small_unsigned_input_buffer_comb[mod_small_unsigned_input_buffer_idx];
             end
         end
     end
@@ -777,10 +1049,10 @@ generate
     for (mod_small_unsigned_output_buffer_idx=0; mod_small_unsigned_output_buffer_idx<WORD_NUM; mod_small_unsigned_output_buffer_idx=mod_small_unsigned_output_buffer_idx+1) begin
         always_ff @(posedge clk or negedge rst_n) begin
             if (!rst_n) begin
-                mod_small_unsigned_output_buffer[mod_small_unsigned_output_buffer_idx] = 0;
+                mod_small_unsigned_output_buffer[mod_small_unsigned_output_buffer_idx] <= 0;
             end
             else begin
-                mod_small_unsigned_output_buffer[mod_small_unsigned_output_buffer_idx] = mod_small_unsigned_output_buffer_comb[mod_small_unsigned_output_buffer_idx];
+                mod_small_unsigned_output_buffer[mod_small_unsigned_output_buffer_idx] <= mod_small_unsigned_output_buffer_comb[mod_small_unsigned_output_buffer_idx];
             end
         end
     end
@@ -791,10 +1063,10 @@ generate
     for (add_mul_small_input_buffer_idx=0; add_mul_small_input_buffer_idx<WORD_NUM; add_mul_small_input_buffer_idx=add_mul_small_input_buffer_idx+1) begin
         always_ff @(posedge clk or negedge rst_n) begin
             if (!rst_n) begin
-                add_mul_small_input_buffer[add_mul_small_input_buffer_idx] = 0;
+                add_mul_small_input_buffer[add_mul_small_input_buffer_idx] <= 0;
             end
             else begin
-                add_mul_small_input_buffer[add_mul_small_input_buffer_idx] = add_mul_small_input_buffer_comb[add_mul_small_input_buffer_idx];
+                add_mul_small_input_buffer[add_mul_small_input_buffer_idx] <= add_mul_small_input_buffer_comb[add_mul_small_input_buffer_idx];
             end
         end
     end
@@ -805,10 +1077,10 @@ generate
     for (add_mul_small_output_buffer_idx=0; add_mul_small_output_buffer_idx<WORD_NUM; add_mul_small_output_buffer_idx=add_mul_small_output_buffer_idx+1) begin
         always_ff @(posedge clk or negedge rst_n) begin
             if (!rst_n) begin
-                add_mul_small_output_buffer[add_mul_small_output_buffer_idx] = 0;
+                add_mul_small_output_buffer[add_mul_small_output_buffer_idx] <= 0;
             end
             else begin
-                add_mul_small_output_buffer[add_mul_small_output_buffer_idx] = add_mul_small_output_buffer_comb[add_mul_small_output_buffer_idx];
+                add_mul_small_output_buffer[add_mul_small_output_buffer_idx] <= add_mul_small_output_buffer_comb[add_mul_small_output_buffer_idx];
             end
         end
     end
@@ -833,6 +1105,7 @@ always_ff @(posedge clk or negedge rst_n) begin
         mod_small_unsigned_ptr_reg <= 0;
         is_read_mod_small_unsigned <= 0;
         // ZINT_ADD_MUL_SMALL
+        mod_small_unsigned_not_write <= 0;
         add_mul_small_ptr <= 0;
         in_valid_add_mul_small <= 0;
         len_i_add_mul_small <= 0;
@@ -872,6 +1145,7 @@ always_ff @(posedge clk or negedge rst_n) begin
         mod_small_unsigned_ptr_reg <= mod_small_unsigned_ptr_reg_comb;
         is_read_mod_small_unsigned <= is_read_mod_small_unsigned_comb;
         // ZINT_ADD_MUL_SMALL
+        mod_small_unsigned_not_write <= mod_small_unsigned_not_write_comb;
         add_mul_small_ptr <= add_mul_small_ptr_comb;
         in_valid_add_mul_small <= in_valid_add_mul_small_comb;
         len_i_add_mul_small <= len_i_add_mul_small_comb;

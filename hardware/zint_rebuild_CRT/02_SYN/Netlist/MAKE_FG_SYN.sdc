@@ -1,6 +1,6 @@
 ###################################################################
 
-# Created by write_sdc on Thu Jan 29 18:21:35 2026
+# Created by write_sdc on Wed Feb  4 01:02:20 2026
 
 ###################################################################
 set sdc_version 2.1
@@ -41,7 +41,7 @@ set_load -pin_load 0.05 [get_ports {inf_out_data[3]}]
 set_load -pin_load 0.05 [get_ports {inf_out_data[2]}]
 set_load -pin_load 0.05 [get_ports {inf_out_data[1]}]
 set_load -pin_load 0.05 [get_ports {inf_out_data[0]}]
-create_clock [get_ports clk]  -period 1.8  -waveform {0 0.9}
+create_clock [get_ports clk]  -period 1.55  -waveform {0 0.775}
 set_input_delay -clock clk  0  [get_ports clk]
 set_input_delay -clock clk  0  [get_ports rst_n]
 set_input_delay -clock clk  0  [get_ports inf_in_valid]
@@ -76,6 +76,7 @@ set_input_delay -clock clk  0  [get_ports {inf_in_data[3]}]
 set_input_delay -clock clk  0  [get_ports {inf_in_data[2]}]
 set_input_delay -clock clk  0  [get_ports {inf_in_data[1]}]
 set_input_delay -clock clk  0  [get_ports {inf_in_data[0]}]
+set_input_delay -clock clk  0  [get_ports inf_mode]
 set_input_delay -clock clk  0  [get_ports inf_len_valid]
 set_input_delay -clock clk  0  [get_ports {inf_logn[3]}]
 set_input_delay -clock clk  0  [get_ports {inf_logn[2]}]
