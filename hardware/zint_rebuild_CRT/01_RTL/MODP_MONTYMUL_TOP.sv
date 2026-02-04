@@ -5,29 +5,12 @@ module MODP_MONTYMUL_TOP #(
     parameter MASTER_NUM = 4,
     parameter MUL_NUM = 4
 )(
-    // Input signals
     clk,
     rst_n,
     in_bus,
     out_bus
-    // inf
-    // in_valid_bus,
-    // a_bus,
-    // b_bus,
-    // p_bus,
-    // p0i_bus,
-    // isMQ_bus,
-    // // Output signals
-    // out_valid_bus,
-    // d_bus,
-    // ready_bus
 );
 import usertype::*;
-
-//---------------------------------------------------------------------
-//   Parameter & Integer
-//---------------------------------------------------------------------
-// localparam P_WIDTH = 31;
 
 //---------------------------------------------------------------------
 //   Input & Output
@@ -36,18 +19,6 @@ input                               clk;
 input                               rst_n;
 input  MODP_MONTYMUL_MASTER in_bus  [0:MASTER_NUM-1];
 output MODP_MONTYMUL_SLAVE  out_bus [0:MASTER_NUM-1];
-// input      [MASTER_NUM-1:0]         in_valid_bus;
-// input      [P_WIDTH*MASTER_NUM-1:0] a_bus;
-// input      [P_WIDTH*MASTER_NUM-1:0] b_bus;
-// input      [P_WIDTH*MASTER_NUM-1:0] p_bus;
-// input      [P_WIDTH*MASTER_NUM-1:0] p0i_bus;
-// input      [MASTER_NUM-1:0]         isMQ_bus;
-    
-// output reg [MASTER_NUM-1:0]         out_valid_bus;
-// output reg [P_WIDTH*MASTER_NUM-1:0] d_bus;
-// output reg [MASTER_NUM-1:0]         ready_bus;
-
-// MODP_MONTYMUL_INF.MODP_MONTYMUL_TOP inf;
 
 //---------------------------------------------------------------------
 //   Logic
@@ -65,14 +36,11 @@ logic [P_WIDTH-1:0]          b       [0:MUL_NUM-1];
 logic [P_WIDTH-1:0]          p       [0:MUL_NUM-1];
 logic [P_WIDTH-1:0]          p0i     [0:MUL_NUM-1];
 logic                        isMQ    [0:MUL_NUM-1];
-logic [$clog2(MASTER_NUM):0] i_bus   [0:MUL_NUM-1];
+logic [$clog2(MASTER_NUM)-1:0] i_bus   [0:MUL_NUM-1];
 
 logic                        o_valid [0:MUL_NUM-1];
 logic [P_WIDTH-1:0]          d       [0:MUL_NUM-1];
-logic [$clog2(MASTER_NUM):0] o_bus   [0:MUL_NUM-1];
-
-logic                     grant [0:MASTER_NUM-1];
-logic [$clog2(MUL_NUM):0] instance_cnt;
+logic [$clog2(MASTER_NUM)-1:0] o_bus   [0:MUL_NUM-1];
 
 logic               out_valid_bus_comb [0:MASTER_NUM-1];
 logic [P_WIDTH-1:0] d_bus_comb [0:MASTER_NUM-1];
@@ -126,41 +94,31 @@ endgenerate
 always_comb begin : ARBITER
     for (int j = 0; j < MUL_NUM; j = j + 1) begin
         i_valid[j] = 1'b0;
-        a[j] = {P_WIDTH{1'b0}};
-        b[j] = {P_WIDTH{1'b0}};
-        p[j] = {P_WIDTH{1'b0}};
-        p0i[j] = {P_WIDTH{1'b0}};
-        isMQ[j] = 1'b0;
-        i_bus[j] = 0;
+        a[j]       = {P_WIDTH{1'b0}};
+        b[j]       = {P_WIDTH{1'b0}};
+        p[j]       = {P_WIDTH{1'b0}};
+        p0i[j]     = {P_WIDTH{1'b0}};
+        isMQ[j]    = 1'b0;
+        i_bus[j]   = 0;
     end
     for (int i = 0; i < MASTER_NUM; i = i + 1) begin
-        grant[i] = 1'b0;
-        out_bus[i].ready = 1'b1;
-        // ready_bus[i] = 1'b1;
+        out_bus[i].ready = 1'b0;
     end
+    
     for (int j = 0; j < MUL_NUM; j = j + 1) begin
-        for (int i = 0; i < MASTER_NUM; i = i + 1) begin
-            if (in_valid_bus_w[i] && ~grant[i]) begin
-                i_valid[j] = in_valid_bus_w[i];
-                a[j]       = a_bus_w[i];
-                b[j]       = b_bus_w[i];
-                p[j]       = p_bus_w[i];
-                p0i[j]     = p0i_bus_w[i];
-                isMQ[j]    = isMQ_bus_w[i];
-                grant[i]   = 1'b1;
-                i_bus[j] = i;
-                break;
+        for (int m_idx = j; m_idx < MASTER_NUM; m_idx = m_idx + MUL_NUM) begin
+            if (in_valid_bus_w[m_idx]) begin
+                i_valid[j] = 1'b1;
+                a[j]       = a_bus_w[m_idx];
+                b[j]       = b_bus_w[m_idx];
+                p[j]       = p_bus_w[m_idx];
+                p0i[j]     = p0i_bus_w[m_idx];
+                isMQ[j]    = isMQ_bus_w[m_idx];
+                i_bus[j]   = m_idx[$clog2(MASTER_NUM)-1:0];
+
+                out_bus[m_idx].ready = 1'b1; 
+                break; 
             end
-        end
-    end
-    instance_cnt = MUL_NUM;
-    for (int i = 0; i < MASTER_NUM; i = i + 1) begin
-        if (i >= MUL_NUM && instance_cnt == 0) begin
-            // ready_bus[i] = 1'b0;
-            out_bus[i].ready = 1'b0;
-        end
-        if (in_valid_bus_w[i] && grant[i]) begin
-            instance_cnt = instance_cnt - 1;
         end
     end
 end
@@ -168,18 +126,22 @@ end
 /*
  * Map kernel to bus
  */
-always_comb begin
-    for (int i = 0; i < MASTER_NUM; i = i + 1) begin
-        out_valid_bus_comb[i] = 0;
-        d_bus_comb[i] = 0;
-    end
-    for (int j = 0; j < MUL_NUM; j = j + 1) begin
-        if (o_valid[j]) begin
-            out_valid_bus_comb[o_bus[j]] = o_valid[j];
-            d_bus_comb[o_bus[j]] = d[j];
+genvar o_idx;
+generate
+    for (o_idx = 0; o_idx < MASTER_NUM; o_idx = o_idx + 1) begin : OUTPUT_GROUPING
+        // localparam int mul_idx = o_idx % MUL_NUM;
+        always_comb begin
+            out_valid_bus_comb[o_idx] = 1'b0;
+            d_bus_comb[o_idx]         = {P_WIDTH{1'b0}};
+            if (o_valid[o_idx % MUL_NUM]) begin
+                if (o_bus[o_idx % MUL_NUM] == o_idx[$clog2(MASTER_NUM)-1:0]) begin
+                    out_valid_bus_comb[o_idx] = 1'b1;
+                    d_bus_comb[o_idx]         = d[o_idx % MUL_NUM];
+                end
+            end
         end
     end
-end
+endgenerate
 
 //---------------------------------------------------------------------
 //   Sequential Logic
@@ -188,8 +150,6 @@ genvar o_bus_idx;
 generate
     for (o_bus_idx = 0; o_bus_idx < MASTER_NUM; o_bus_idx = o_bus_idx + 1) begin
         always_comb begin
-            // out_valid_bus[o_bus_idx] = out_valid_bus_comb[o_bus_idx];
-            // d_bus[P_WIDTH*(o_bus_idx+1)-1 -: P_WIDTH] = d_bus_comb[o_bus_idx];
             out_bus[o_bus_idx].out_valid = out_valid_bus_comb[o_bus_idx];
             out_bus[o_bus_idx].d = d_bus_comb[o_bus_idx];
         end
@@ -238,11 +198,11 @@ input  [P_WIDTH-1:0] b;
 input  [P_WIDTH-1:0] p;
 input  [P_WIDTH-1:0] p0i;
 input                isMQ;
-input  [$clog2(MASTER_NUM):0] i_bus;
+input  [$clog2(MASTER_NUM)-1:0] i_bus;
     
 output reg               out_valid;
 output reg [P_WIDTH-1:0] d;
-output reg [$clog2(MASTER_NUM):0] o_bus;
+output reg [$clog2(MASTER_NUM)-1:0] o_bus;
 
 //---------------------------------------------------------------------
 //   Logic
@@ -259,6 +219,8 @@ logic [P_WIDTH*2:0]          z_w_q;
 logic [P_WIDTH*2:0]          z_w_p;
 logic [P_WIDTH:0]            z_w_q_shift;
 logic [P_WIDTH:0]            z_w_p_shift;
+logic [Q_WIDTH:0]          d_q;
+logic [P_WIDTH:0]          d_p;
 
 //---------------------------------------------------------------------
 //   Combinational Logic
@@ -273,18 +235,21 @@ assign z_w_p = a_b_reg + w_p;
 assign z_w_q_shift = z_w_q[P_WIDTH*2:Q_WIDTH];
 assign z_w_p_shift = z_w_p[P_WIDTH*2:P_WIDTH];
 
+assign d_q = z_w_q_shift - p_reg;
+assign d_p = z_w_p_shift - p_reg;
+
 always_comb begin
     if (isMQ_reg) begin
-        if (z_w_q_shift >= p_reg)
-            d = z_w_q_shift - p_reg;
-        else
+        if (d_q[Q_WIDTH])
             d = z_w_q_shift;
+        else
+            d = d_q;
     end
     else begin
-        if (z_w_p_shift >= p_reg)
-            d = z_w_p_shift - p_reg;
-        else
+        if (d_p[P_WIDTH])
             d = z_w_p_shift;
+        else
+            d = d_p;
     end
 end
 

@@ -1,0 +1,46 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 1
+Design : MAKE_FG
+Version: T-2022.03
+Date   : Wed Feb  4 01:02:13 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: clk (clock source 'clk')
+  Endpoint: u_RF_CRT/u_RF_2p_CRT_4x256
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  MAKE_FG            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clk (in)                                                0.00 #     0.00 r
+  u_RF_CRT/u_RF_2p_CRT_4x256/CLKB (RF_2p_CRT_4x256)       0.00 #     0.00 r
+  data arrival time                                                  0.00
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  u_RF_CRT/u_RF_2p_CRT_4x256/CLKA (RF_2p_CRT_4x256)       0.00       0.00 r
+  library hold time                                       0.00       0.00
+  data required time                                                 0.00
+  --------------------------------------------------------------------------
+  data required time                                                 0.00
+  data arrival time                                                  0.00
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1

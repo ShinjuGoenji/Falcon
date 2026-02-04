@@ -3,14 +3,18 @@
 Report : port
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Wed Jan 21 00:57:52 2026
+Date   : Wed Feb  4 01:02:17 2026
 ****************************************
 
+
+
+Attributes:
+    d - dont_touch_network
 
                        Pin      Wire     Max     Max     Connection
 Port           Dir     Load     Load     Trans   Cap     Class      Attrs
 --------------------------------------------------------------------------------
-clk            in      0.0000   0.0000   --      --      --         
+clk            in      0.0000   0.0000   --      --      --         d
 inf.in_data[0] in      0.0000   0.0000   --      --      --         
 inf.in_data[1] in      0.0000   0.0000   --      --      --         
 inf.in_data[2] in      0.0000   0.0000   --      --      --         
@@ -65,15 +69,11 @@ inf.in_data[30]
                in      0.0000   0.0000   --      --      --         
 inf.in_valid   in      0.0000   0.0000   --      --      --         
 inf.len_valid  in      0.0000   0.0000   --      --      --         
-inf.num[0]     in      0.0000   0.0000   --      --      --         
-inf.num[1]     in      0.0000   0.0000   --      --      --         
-inf.num[2]     in      0.0000   0.0000   --      --      --         
-inf.num[3]     in      0.0000   0.0000   --      --      --         
-inf.num[4]     in      0.0000   0.0000   --      --      --         
-inf.num[5]     in      0.0000   0.0000   --      --      --         
-inf.num[6]     in      0.0000   0.0000   --      --      --         
-inf.num[7]     in      0.0000   0.0000   --      --      --         
-inf.num[8]     in      0.0000   0.0000   --      --      --         
+inf.logn[0]    in      0.0000   0.0000   --      --      --         
+inf.logn[1]    in      0.0000   0.0000   --      --      --         
+inf.logn[2]    in      0.0000   0.0000   --      --      --         
+inf.logn[3]    in      0.0000   0.0000   --      --      --         
+inf.mode       in      0.0000   0.0000   --      --      --         
 inf.xlen[0]    in      0.0000   0.0000   --      --      --         
 inf.xlen[1]    in      0.0000   0.0000   --      --      --         
 inf.xlen[2]    in      0.0000   0.0000   --      --      --         

@@ -4,17 +4,17 @@ Report : power
         -analysis_effort low
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Wed Jan 21 00:57:52 2026
+Date   : Wed Feb  4 01:02:17 2026
 ****************************************
 
 
 Library(s) Used:
 
     sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
-    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
-    RF_2p_CRT_TMP_nldm_tt_0p90v_0p90v_25c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_TMP_nldm_tt_0p90v_0p90v_25c.db)
-    RF_2p_CRT_4x256_nldm_tt_0p90v_0p90v_25c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x256_nldm_tt_0p90v_0p90v_25c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db)
+    RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db)
 
 
 Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
@@ -39,24 +39,24 @@ Attributes
 i - Including register clock pin internal power
 
 
-  Cell Internal Power  =   4.7403 mW   (87%)
-  Net Switching Power  = 732.2878 uW   (13%)
+  Cell Internal Power  =   7.0435 mW   (82%)
+  Net Switching Power  =   1.5011 mW   (18%)
                          ---------
-Total Dynamic Power    =   5.4726 mW  (100%)
+Total Dynamic Power    =   8.5445 mW  (100%)
 
-Cell Leakage Power     =   2.6917 mW
+Cell Leakage Power     =   4.5691 mW
 
 
                  Internal         Switching           Leakage            Total
 Power Group      Power            Power               Power              Power   (   %    )  Attrs
 --------------------------------------------------------------------------------------------------
 io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
-memory             1.3682        1.1960e-02          643.2740            2.0234  (  24.78%)
+memory             1.4752        1.4214e-02          842.2030            2.3316  (  17.78%)
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
-clock_network      2.9351            0.0000            0.0000            0.0000  (   0.00%)  i
-register       3.7749e-02        2.6326e-02           90.9773            3.0902  (  37.85%)
+clock_network      4.5944            0.0000            0.0000            0.0000  (   0.00%)  i
+register       8.5738e-02        7.1724e-02          129.4031            4.8813  (  37.22%)
 sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational      0.3993            0.6940        1.9574e+03            3.0507  (  37.37%)
+combinational      0.8881            1.4151        3.5975e+03            5.9008  (  45.00%)
 --------------------------------------------------------------------------------------------------
-Total              4.7403 mW         0.7323 mW     2.6917e+03 uW         8.1643 mW
+Total              7.0435 mW         1.5011 mW     4.5691e+03 uW        13.1137 mW
 1
