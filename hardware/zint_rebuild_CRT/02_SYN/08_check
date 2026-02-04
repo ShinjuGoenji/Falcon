@@ -38,7 +38,10 @@ else
     echo -e "${GREEN}--> V No Error in syn.log!${NO_COLOR}"
 fi
 if grep -i -q 'violated' "Report/${Design}.timing"; then
-	echo  -e "${RED}--> X Timing (violated) ---${NO_COLOR}"
+	echo  -e "${RED}--> X Setup Timing (violated) ---${NO_COLOR}"
+    flag=1
+elif grep -i -q 'violated' "Report/${Design}_hold.timing"; then
+	echo  -e "${RED}--> X Hold Timing (violated) ---${NO_COLOR}"
     flag=1
 else				
     echo -e "${GREEN}--> V Timing (MET) Checked!${NO_COLOR}"

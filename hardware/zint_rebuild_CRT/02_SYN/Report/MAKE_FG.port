@@ -3,7 +3,7 @@
 Report : port
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Thu Jan 29 18:21:33 2026
+Date   : Wed Feb  4 01:02:17 2026
 ****************************************
 
 
@@ -73,6 +73,7 @@ inf.logn[0]    in      0.0000   0.0000   --      --      --
 inf.logn[1]    in      0.0000   0.0000   --      --      --         
 inf.logn[2]    in      0.0000   0.0000   --      --      --         
 inf.logn[3]    in      0.0000   0.0000   --      --      --         
+inf.mode       in      0.0000   0.0000   --      --      --         
 inf.xlen[0]    in      0.0000   0.0000   --      --      --         
 inf.xlen[1]    in      0.0000   0.0000   --      --      --         
 inf.xlen[2]    in      0.0000   0.0000   --      --      --         

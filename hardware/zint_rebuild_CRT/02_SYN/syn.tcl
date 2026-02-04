@@ -12,7 +12,7 @@ set DESIGN "MAKE_FG"
 if {[info exists env(PERIOD)]} {
     set CYCLE $env(PERIOD)
 } else {
-    set CYCLE 1.8 ;
+    set CYCLE 1.55 ;
     puts "Warning: PERIOD not set, using default $CYCLE"
 }
 
@@ -114,5 +114,5 @@ write_sdc Netlist/$DESIGN\_SYN.sdc
 report_resource
 report_area -hierarchy
 report_timing -delay_type min
-report_timing -max_paths 3
+report_timing 
 exit

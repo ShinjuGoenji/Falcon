@@ -75,6 +75,7 @@ ZINT_REBUILD_CRT u_ZINT_REBUILD_CRT (
     .rst_n(rst_n),
     .in_valid(inf.in_valid),
     .len_valid(inf.len_valid),
+    .mode(inf.mode),
     .x_i(inf.in_data),
     .inf_logn(inf.logn),
     .logn(logn),
@@ -168,7 +169,12 @@ end
  * CRT Register File
  */
 // write
-assign intt_write = inf.in_valid && input_ptr % WORD_NUM == (WORD_NUM - 1);
+always_comb begin
+    if ((1 << logn) >= WORD_NUM)
+        intt_write = inf.in_valid && input_ptr % WORD_NUM == (WORD_NUM - 1);
+    else 
+        intt_write = inf.in_valid && input_ptr % WORD_NUM == (WORD_NUM - 1);
+end
 
 // enable
 always_comb begin

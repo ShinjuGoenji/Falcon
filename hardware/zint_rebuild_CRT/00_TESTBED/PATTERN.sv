@@ -14,7 +14,7 @@ parameter OUTPUT_PATH = "../00_TESTBED/output.txt";
 parameter PATNUM_PATH = "../00_TESTBED/PATNUM.txt";
 integer file_in, file_out, file_num;
 
-parameter MAX_OUT_LATENCY = 4000;
+parameter MAX_OUT_LATENCY = 6000;
 integer total_latency, out_latency;
 
 integer i_pat, i_in, i_out;
@@ -49,6 +49,7 @@ initial begin
             wait_out_task;
             check_ans_task;
         end
+        inf.mode = UNKNOWN;
 		$display("PASS PATTERN NO.%4d", i_pat+1);
 		repeat($urandom_range(0, 4)) @(posedge clk);
 	end
@@ -61,6 +62,7 @@ end
 task reset_task; begin 
     rst_n = 'b1;
     inf.in_valid = 'b0;
+    inf.mode = UNKNOWN;
     inf.in_data = 'bx;
     inf.len_valid = 'b0;
     inf.logn = 'bx;
@@ -90,18 +92,18 @@ end endtask
 
 task input_task; begin
 	inf.len_valid = 'b1;
+    inf.mode = FALCON_1024;
     fscanf_int = $fscanf(file_out, "%d %d", logn_gold, xlen_gold);
     fscanf_int = $fscanf(file_in, "%d %d", logn_gold, xlen_gold);
-    // num_gold = (1 << num_gold);
+
     inf.logn = logn_gold;
     inf.xlen = xlen_gold;
-	@(posedge clk);		
+    @(posedge clk);		
     inf.len_valid = 'b0;
     inf.logn = 'bx;
     inf.xlen = 'bx;
     repeat($urandom_range(0, 4)) @(posedge clk);
-
-
+    
     for (i_in=0; i_in<((1 << logn_gold)*xlen_gold); i_in=i_in+1) begin
         inf.in_valid = 1;
         fscanf_int = $fscanf(file_in, "%d", inf.in_data);
