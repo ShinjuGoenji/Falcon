@@ -1,0 +1,4 @@
+current_design "MAKE_FG"
+
+clock -name "clk" -period 1.6
+reset -name "rst_n" -value 0

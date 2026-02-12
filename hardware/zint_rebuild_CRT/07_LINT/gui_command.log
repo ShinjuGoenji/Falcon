@@ -1,0 +1,18 @@
+gui_select_message -rule SYNTH_5166 -msg {MAKE_FG -> ($display) Statement is not synthesizable. Ignoring it}
+# Started at 19:10:13, Completed at 19:10:13 (Elapsed time = 00:00:00.000)
+
+gui_select_message -rule W216 -msg Inappropriate\ range\ select\ for\ int_part_sel\ variable:\ \"m_idx[($clog2(MASTER_NUM)\ -\ 1):0]\ \"
+# Started at 19:10:20, Completed at 19:10:20 (Elapsed time = 00:00:00.000)
+
+gui_select_message -rule W362 -msg For\ operator\ (<),\ left\ expression:\ \"add_mul_small_ptr\"\ width\ 10\ should\ match\ right\ expression:\ \"intt_AB\"\ width\ 12\ [Hierarchy:\ ':MAKE_FG:u_ZINT_REBUILD_CRT@ZINT_REBUILD_CRT']
+# Started at 19:12:05, Completed at 19:12:05 (Elapsed time = 00:00:00.000)
+
+gui_select_message -rule W362 -msg For\ operator\ (<),\ left\ expression:\ \"add_mul_small_ptr\"\ width\ 10\ should\ match\ right\ expression:\ \"intt_AB\"\ width\ 12\ [Hierarchy:\ ':MAKE_FG:u_ZINT_REBUILD_CRT@ZINT_REBUILD_CRT']
+# Started at 19:12:07, Completed at 19:12:07 (Elapsed time = 00:00:00.000)
+
+gui_select_message -rule W362 -msg For\ operator\ (>=),\ left\ expression:\ \"a_b\"\ width\ 32\ should\ match\ right\ expression:\ \"p\"\ width\ 31\ [Hierarchy:\ ':MAKE_FG:u_ZINT_REBUILD_CRT@ZINT_REBUILD_CRT:u_ZINT_MOD_SMALL_UNSIGNED@ZINT_MOD_SMALL_UNSIGNED:\\genblk1[0].u_MODP_ADD\ @MODP_ADD']
+# Started at 19:12:09, Completed at 19:12:09 (Elapsed time = 00:00:00.000)
+
+gui_select_message -rule W528 -msg {Please refer to 'SignalUsageReport.rpt' for details of violating bits}
+# Started at 19:12:18, Completed at 19:12:18 (Elapsed time = 00:00:00.000)
+
