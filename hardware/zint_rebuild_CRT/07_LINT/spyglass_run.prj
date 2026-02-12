@@ -1,0 +1,44 @@
+#!SPYGLASS_PROJECT_FILE
+#!VERSION 3.0
+#  -------------------------------------------------------------------
+#  This is a software generated project file. Manual edits to this file could be lost during the next save operation
+#  Copyright Synopsys Inc.
+#  Last Updated By: SpyGlass SpyGlass_vU-2023.03
+#  Last Updated On Thu Feb 12 19:10:09 2026
+#
+#  -------------------------------------------------------------------
+
+##Data Import Section
+
+read_file -type verilog ../00_TESTBED/Usertype.sv
+#BackRefFile:lint.tcl #LineNumber:26
+read_file -type verilog ../00_TESTBED/INF.sv
+#BackRefFile:lint.tcl #LineNumber:27
+read_file -type verilog ../01_RTL/MAKE_FG.sv
+#BackRefFile:lint.tcl #LineNumber:28
+read_file -type verilog ../04_MEM/RF_2p_CRT_2x1024.v
+#BackRefFile:lint.tcl #LineNumber:30
+read_file -type verilog ../04_MEM/RF_2p_CRT_TMP.v
+#BackRefFile:lint.tcl #LineNumber:31
+read_file -type verilog ../04_MEM/RF_2p_CRT_4x512.v
+#BackRefFile:lint.tcl #LineNumber:32
+read_file -type sgdc ./lint.sgdc
+
+##Common Options Section
+
+set_option projectwdir .
+set_option language_mode mixed
+set_option designread_enable_synthesis no
+set_option designread_disable_flatten no
+set_option top MAKE_FG
+set_option incdir { ../01_RTL }
+set_option enableSV yes
+set_option enableSV09 yes
+set_option stop { RF_2p_CRT_4x512 RF_2p_CRT_2x1024 RF_2p_CRT_TMP }
+set_option active_methodology $SPYGLASS_HOME/GuideWare/latest/block/rtl_handoff
+
+
+##Goal Setup Section
+
+current_methodology $SPYGLASS_HOME/GuideWare/latest/block/rtl_handoff
+

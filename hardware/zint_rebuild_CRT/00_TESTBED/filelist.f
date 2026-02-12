@@ -1,3 +1,4 @@
 TESTBED.sv
-../04_MEM/RF_2p_CRT_4x256.v
+../04_MEM/RF_2p_CRT_2x1024.v
+../04_MEM/RF_2p_CRT_4x512.v
 ../04_MEM/RF_2p_CRT_TMP.v

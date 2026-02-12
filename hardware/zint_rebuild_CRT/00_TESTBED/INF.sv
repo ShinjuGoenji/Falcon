@@ -1,6 +1,6 @@
 interface TOP_INF();
 
-import  usertype::*;
+import  FALCON_Config::*;
 
 logic in_valid;
 logic len_valid;

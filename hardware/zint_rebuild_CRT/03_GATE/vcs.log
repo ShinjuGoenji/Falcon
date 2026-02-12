@@ -8,16 +8,16 @@ Warning-[DBGACC_DBG] Multiple debug options being used
   The debug switches '-debug_access' and '-debug_pp' are being used together. 
   For better performance, consider using only '-debug_access'.
 
-Command: vcs -timescale=1ns/1fs -j4 -sverilog +v2k -full64 -Mupdate -R -debug_access+all \
+Command: vcs -timescale=1ns/1fs -j8 -sverilog +v2k -full64 -Mupdate -R -debug_access+all \
 -debug_pp -f filelist.f -o simv -l vcs.log -P /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/novas.tab \
 /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a -v /home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v \
 /home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_rvt_neg.v /home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_lvt_neg.v \
 /home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_udp.v /home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_rvt_udp.v \
 /home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_lvt_udp.v +define+GATE \
-+define+ARM_WIDTH=0.0 +neg_tchk
++define+CYCLE_TIME=1.55 +define+WN=4 +define+ARM_WIDTH=0.0 +neg_tchk
 *** Using c compiler gcc instead of cc ...
                          Chronologic VCS (TM)
-         Version T-2022.06_Full64 -- Wed Feb  4 00:37:11 2026
+         Version T-2022.06_Full64 -- Thu Feb 12 20:34:53 2026
 
                     Copyright (c) 1991 - 2022 Synopsys, Inc.
    This software and the associated documentation are proprietary to Synopsys,
@@ -43,10 +43,18 @@ Back to file 'TESTBED.sv'.
 Parsing included file 'PATTERN.sv'.
 Parsing included file 'Usertype.sv'.
 Back to file 'PATTERN.sv'.
+
+Warning-[RVOSFD] Return value discarded
+PATTERN.sv, 249
+  System function '$sscanf' is invoked as task, its return value is discarded.
+  "PATTERN.sv", 249
+  Source info:         $sscanf(key, "%d %d", logn_val, xlen_val);
+
 Back to file 'TESTBED.sv'.
 Parsing included file 'MAKE_FG_SYN.v'.
 Back to file 'TESTBED.sv'.
-Parsing design file '../04_MEM/RF_2p_CRT_4x256.v'
+Parsing design file '../04_MEM/RF_2p_CRT_2x1024.v'
+Parsing design file '../04_MEM/RF_2p_CRT_4x512.v'
 Parsing design file '../04_MEM/RF_2p_CRT_TMP.v'
 Parsing design file '/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_rvt_neg.v'
 Parsing design file '/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_lvt_neg.v'
@@ -1378,7 +1386,9 @@ Warning-[WUPD] UDP previously declared
 Parsing library file '/home/daniel_kuo/CBDK_TSMC40_Arm_f2.0/CIC/Verilog/sc9_cln40g_base_hvt_neg.v'
 Top Level Modules:
        TESTBED
-       RF_2p_CRT_4x256_error_injection
+       RF_2p_CRT_2x1024
+       RF_2p_CRT_2x1024_error_injection
+       RF_2p_CRT_4x512_error_injection
        RF_2p_CRT_TMP_error_injection
        A2SDFFQN_X0P5M_A9TR
        A2SDFFQN_X1M_A9TR
@@ -1392,22 +1402,22 @@ Top Level Modules:
        ADDFCIN_X1M_A9TR
        ADDFCIN_X1P4M_A9TR
        ADDFCIN_X2M_A9TR
-       ADDFH_X1M_A9TR
+       ADDFH_X1P4M_A9TR
        ADDFH_X2M_A9TR
        ADDF_X1P4M_A9TR
        ADDH_X1P4M_A9TR
-       ADDH_X2M_A9TR
        AND2_X0P5B_A9TR
        AND2_X0P7B_A9TR
        AND2_X11B_A9TR
        AND2_X11M_A9TR
        AND2_X1B_A9TR
-       AND2_X3B_A9TR
        AND2_X3M_A9TR
        AND2_X6B_A9TR
        AND2_X6M_A9TR
        AND2_X8B_A9TR
        AND2_X8M_A9TR
+       AND3_X0P5M_A9TR
+       AND3_X0P7M_A9TR
        AND3_X11M_A9TR
        AND3_X1P4M_A9TR
        AND3_X2M_A9TR
@@ -1425,20 +1435,19 @@ Top Level Modules:
        AO1B2_X0P5M_A9TR
        AO1B2_X0P7M_A9TR
        AO1B2_X1M_A9TR
-       AO1B2_X4M_A9TR
+       AO1B2_X1P4M_A9TR
+       AO1B2_X3M_A9TR
        AO1B2_X6M_A9TR
-       AO21A1AI2_X0P7M_A9TR
        AO21A1AI2_X1P4M_A9TR
        AO21A1AI2_X2M_A9TR
        AO21A1AI2_X3M_A9TR
        AO21A1AI2_X4M_A9TR
        AO21A1AI2_X6M_A9TR
-       AO21B_X0P5M_A9TR
-       AO21B_X2M_A9TR
-       AO21B_X3M_A9TR
+       AO21B_X1P4M_A9TR
        AO21B_X4M_A9TR
        AO21B_X6M_A9TR
        AO21_X1P4M_A9TR
+       AO21_X2M_A9TR
        AO21_X3M_A9TR
        AO21_X4M_A9TR
        AO21_X6M_A9TR
@@ -1448,17 +1457,19 @@ Top Level Modules:
        AO22_X4M_A9TR
        AO22_X6M_A9TR
        AOI211_X0P5M_A9TR
-       AOI211_X0P7M_A9TR
        AOI211_X1P4M_A9TR
        AOI211_X3M_A9TR
        AOI211_X4M_A9TR
        AOI21B_X0P5M_A9TR
        AOI21B_X0P7M_A9TR
        AOI21B_X1P4M_A9TR
+       AOI21B_X2M_A9TR
        AOI21B_X3M_A9TR
        AOI21B_X4M_A9TR
        AOI21B_X6M_A9TR
        AOI21B_X8M_A9TR
+       AOI21_X0P5M_A9TR
+       AOI21_X3M_A9TR
        AOI21_X4M_A9TR
        AOI21_X6M_A9TR
        AOI21_X8M_A9TR
@@ -1484,19 +1495,19 @@ Top Level Modules:
        AOI22BB_X4M_A9TR
        AOI22BB_X6M_A9TR
        AOI22BB_X8M_A9TR
-       AOI22_X0P5M_A9TR
-       AOI22_X1P4M_A9TR
        AOI22_X3M_A9TR
        AOI22_X4M_A9TR
+       AOI22_X6M_A9TR
        AOI22_X8M_A9TR
        AOI2XB1_X0P5M_A9TR
        AOI2XB1_X0P7M_A9TR
+       AOI2XB1_X1M_A9TR
        AOI2XB1_X1P4M_A9TR
+       AOI2XB1_X2M_A9TR
        AOI2XB1_X3M_A9TR
        AOI2XB1_X4M_A9TR
        AOI2XB1_X6M_A9TR
        AOI2XB1_X8M_A9TR
-       AOI31_X0P5M_A9TR
        AOI31_X1P4M_A9TR
        AOI31_X2M_A9TR
        AOI31_X3M_A9TR
@@ -1526,11 +1537,9 @@ Top Level Modules:
        BMXT_X1P4M_A9TR
        BMXT_X2M_A9TR
        BUFH_X0P7M_A9TR
-       BUFH_X0P8M_A9TR
-       BUFH_X11M_A9TR
        BUFH_X13M_A9TR
        BUFH_X16M_A9TR
-       BUFH_X1P2M_A9TR
+       BUFH_X7P5M_A9TR
        BUFH_X9M_A9TR
        BUFZ_X11M_A9TR
        BUFZ_X16M_A9TR
@@ -1547,12 +1556,8 @@ Top Level Modules:
        BUF_X11M_A9TR
        BUF_X13B_A9TR
        BUF_X13M_A9TR
-       BUF_X16B_A9TR
        BUF_X1P2B_A9TR
-       BUF_X1P2M_A9TR
-       BUF_X1P4B_A9TR
-       BUF_X1P4M_A9TR
-       BUF_X1P7B_A9TR
+       BUF_X1P7M_A9TR
        BUF_X2B_A9TR
        BUF_X3B_A9TR
        BUF_X3P5B_A9TR
@@ -1671,14 +1676,11 @@ Top Level Modules:
        FRICG_X6B_A9TR
        FRICG_X7P5B_A9TR
        FRICG_X9B_A9TR
-       INV_X0P5B_A9TR
-       INV_X0P5M_A9TR
        INV_X0P7B_A9TR
        INV_X0P8B_A9TR
        INV_X0P8M_A9TR
        INV_X11B_A9TR
        INV_X13B_A9TR
-       INV_X13M_A9TR
        INV_X16B_A9TR
        INV_X1P4B_A9TR
        INV_X1P4M_A9TR
@@ -1754,8 +1756,6 @@ Top Level Modules:
        MX2_X0P5B_A9TR
        MX2_X0P7B_A9TR
        MX2_X1P4B_A9TR
-       MX2_X2B_A9TR
-       MX2_X3B_A9TR
        MX2_X4B_A9TR
        MX2_X6B_A9TR
        MX2_X8B_A9TR
@@ -1778,8 +1778,8 @@ Top Level Modules:
        MXIT4_X2M_A9TR
        MXIT4_X3M_A9TR
        MXT2_X0P5B_A9TR
+       MXT2_X0P5M_A9TR
        MXT2_X0P7B_A9TR
-       MXT2_X1B_A9TR
        MXT2_X2B_A9TR
        MXT2_X2M_A9TR
        MXT2_X3B_A9TR
@@ -1795,32 +1795,22 @@ Top Level Modules:
        MXT4_X2M_A9TR
        MXT4_X3M_A9TR
        NAND2B_X0P7M_A9TR
-       NAND2B_X1M_A9TR
-       NAND2B_X1P4M_A9TR
-       NAND2B_X4M_A9TR
        NAND2B_X6M_A9TR
        NAND2B_X8M_A9TR
        NAND2XB_X0P5M_A9TR
-       NAND2XB_X1P4M_A9TR
+       NAND2XB_X4M_A9TR
        NAND2XB_X6M_A9TR
        NAND2XB_X8M_A9TR
-       NAND2_X0P5B_A9TR
        NAND2_X0P5M_A9TR
        NAND2_X0P7B_A9TR
        NAND2_X0P7M_A9TR
        NAND2_X1M_A9TR
-       NAND2_X1P4M_A9TR
-       NAND2_X2A_A9TR
-       NAND2_X2M_A9TR
        NAND2_X3A_A9TR
-       NAND2_X3M_A9TR
        NAND2_X4A_A9TR
        NAND2_X4M_A9TR
        NAND2_X6A_A9TR
-       NAND2_X6M_A9TR
        NAND2_X8A_A9TR
        NAND2_X8B_A9TR
-       NAND2_X8M_A9TR
        NAND3BB_X1P4M_A9TR
        NAND3BB_X2M_A9TR
        NAND3BB_X3M_A9TR
@@ -1828,6 +1818,7 @@ Top Level Modules:
        NAND3BB_X6M_A9TR
        NAND3BB_X8M_A9TR
        NAND3B_X0P5M_A9TR
+       NAND3B_X1M_A9TR
        NAND3B_X1P4M_A9TR
        NAND3B_X2M_A9TR
        NAND3B_X3M_A9TR
@@ -1835,13 +1826,13 @@ Top Level Modules:
        NAND3B_X6M_A9TR
        NAND3XXB_X0P5M_A9TR
        NAND3XXB_X0P7M_A9TR
-       NAND3XXB_X1M_A9TR
        NAND3XXB_X1P4M_A9TR
+       NAND3XXB_X2M_A9TR
        NAND3XXB_X3M_A9TR
        NAND3XXB_X4M_A9TR
        NAND3XXB_X6M_A9TR
        NAND3_X1P4A_A9TR
-       NAND3_X2A_A9TR
+       NAND3_X1P4M_A9TR
        NAND3_X2M_A9TR
        NAND3_X3A_A9TR
        NAND3_X3M_A9TR
@@ -1854,11 +1845,14 @@ Top Level Modules:
        NAND4BB_X3M_A9TR
        NAND4BB_X4M_A9TR
        NAND4BB_X6M_A9TR
+       NAND4B_X0P5M_A9TR
+       NAND4B_X0P7M_A9TR
        NAND4B_X1P4M_A9TR
        NAND4B_X2M_A9TR
        NAND4B_X3M_A9TR
        NAND4B_X4M_A9TR
        NAND4XXXB_X0P5M_A9TR
+       NAND4XXXB_X0P7M_A9TR
        NAND4XXXB_X1P4M_A9TR
        NAND4XXXB_X2M_A9TR
        NAND4XXXB_X3M_A9TR
@@ -1866,27 +1860,24 @@ Top Level Modules:
        NAND4_X0P5M_A9TR
        NAND4_X1P4A_A9TR
        NAND4_X1P4M_A9TR
+       NAND4_X2A_A9TR
        NAND4_X2M_A9TR
        NAND4_X3A_A9TR
        NAND4_X3M_A9TR
        NAND4_X4A_A9TR
        NAND4_X4M_A9TR
        NOR2B_X0P5M_A9TR
-       NOR2B_X4M_A9TR
-       NOR2B_X6M_A9TR
+       NOR2B_X1P4M_A9TR
        NOR2B_X8M_A9TR
        NOR2XB_X0P5M_A9TR
-       NOR2XB_X1P4M_A9TR
+       NOR2XB_X0P7M_A9TR
        NOR2XB_X4M_A9TR
-       NOR2XB_X6M_A9TR
        NOR2XB_X8M_A9TR
-       NOR2_X0P5M_A9TR
        NOR2_X0P7A_A9TR
        NOR2_X0P7B_A9TR
        NOR2_X1B_A9TR
        NOR2_X1P4A_A9TR
-       NOR2_X1P4B_A9TR
-       NOR2_X6A_A9TR
+       NOR2_X6B_A9TR
        NOR2_X6M_A9TR
        NOR2_X8A_A9TR
        NOR2_X8B_A9TR
@@ -1897,14 +1888,15 @@ Top Level Modules:
        NOR3BB_X6M_A9TR
        NOR3BB_X8M_A9TR
        NOR3_X0P5M_A9TR
+       NOR3_X3A_A9TR
        NOR3_X3M_A9TR
        NOR3_X4A_A9TR
        NOR3_X4M_A9TR
        NOR4BB_X0P5M_A9TR
        NOR4BB_X1P4M_A9TR
+       NOR4BB_X2M_A9TR
        NOR4BB_X3M_A9TR
        NOR4BB_X4M_A9TR
-       OA1B2_X0P5M_A9TR
        OA1B2_X0P7M_A9TR
        OA1B2_X1M_A9TR
        OA1B2_X1P4M_A9TR
@@ -1914,13 +1906,12 @@ Top Level Modules:
        OA1B2_X8M_A9TR
        OA211_X0P5M_A9TR
        OA211_X0P7M_A9TR
-       OA211_X1M_A9TR
        OA211_X1P4M_A9TR
        OA211_X2M_A9TR
        OA211_X3M_A9TR
        OA211_X4M_A9TR
        OA211_X6M_A9TR
-       OA21A1OI2_X0P5M_A9TR
+       OA21A1OI2_X1M_A9TR
        OA21A1OI2_X2M_A9TR
        OA21A1OI2_X3M_A9TR
        OA21A1OI2_X4M_A9TR
@@ -1934,7 +1925,6 @@ Top Level Modules:
        OA21B_X6M_A9TR
        OA21B_X8M_A9TR
        OA21_X1P4M_A9TR
-       OA21_X2M_A9TR
        OA21_X3M_A9TR
        OA21_X4M_A9TR
        OA21_X6M_A9TR
@@ -1946,11 +1936,13 @@ Top Level Modules:
        OA22_X4M_A9TR
        OA22_X6M_A9TR
        OA22_X8M_A9TR
+       OAI211_X0P7M_A9TR
        OAI211_X1P4M_A9TR
        OAI211_X3M_A9TR
        OAI211_X4M_A9TR
        OAI21B_X0P5M_A9TR
        OAI21B_X0P7M_A9TR
+       OAI21B_X1M_A9TR
        OAI21B_X1P4M_A9TR
        OAI21B_X2M_A9TR
        OAI21B_X3M_A9TR
@@ -1958,6 +1950,7 @@ Top Level Modules:
        OAI21B_X6M_A9TR
        OAI21B_X8M_A9TR
        OAI21_X4M_A9TR
+       OAI21_X6M_A9TR
        OAI21_X8M_A9TR
        OAI221_X0P5M_A9TR
        OAI221_X0P7M_A9TR
@@ -1968,7 +1961,6 @@ Top Level Modules:
        OAI221_X4M_A9TR
        OAI222_X0P5M_A9TR
        OAI222_X0P7M_A9TR
-       OAI222_X1M_A9TR
        OAI222_X1P4M_A9TR
        OAI222_X2M_A9TR
        OAI222_X3M_A9TR
@@ -1977,14 +1969,15 @@ Top Level Modules:
        OAI22BB_X0P7M_A9TR
        OAI22BB_X1M_A9TR
        OAI22BB_X2M_A9TR
-       OAI22BB_X3M_A9TR
        OAI22BB_X4M_A9TR
        OAI22BB_X6M_A9TR
        OAI22BB_X8M_A9TR
        OAI22_X8M_A9TR
        OAI2XB1_X0P5M_A9TR
        OAI2XB1_X0P7M_A9TR
+       OAI2XB1_X1P4M_A9TR
        OAI2XB1_X4M_A9TR
+       OAI2XB1_X6M_A9TR
        OAI2XB1_X8M_A9TR
        OAI31_X1P4M_A9TR
        OAI31_X3M_A9TR
@@ -1995,12 +1988,15 @@ Top Level Modules:
        OR2_X11B_A9TR
        OR2_X11M_A9TR
        OR2_X2M_A9TR
+       OR2_X3B_A9TR
+       OR2_X3M_A9TR
        OR2_X4B_A9TR
        OR2_X4M_A9TR
        OR2_X6B_A9TR
        OR2_X6M_A9TR
        OR2_X8B_A9TR
        OR2_X8M_A9TR
+       OR3_X0P5M_A9TR
        OR3_X1M_A9TR
        OR3_X1P4M_A9TR
        OR3_X2M_A9TR
@@ -2010,7 +2006,6 @@ Top Level Modules:
        OR3_X8M_A9TR
        OR4_X0P5M_A9TR
        OR4_X0P7M_A9TR
-       OR4_X1M_A9TR
        OR4_X1P4M_A9TR
        OR4_X2M_A9TR
        OR4_X3M_A9TR
@@ -2018,7 +2013,6 @@ Top Level Modules:
        OR4_X6M_A9TR
        OR4_X8M_A9TR
        OR6_X0P5M_A9TR
-       OR6_X0P7M_A9TR
        OR6_X1M_A9TR
        OR6_X1P4M_A9TR
        OR6_X2M_A9TR
@@ -2127,6 +2121,7 @@ Top Level Modules:
        SDFFYQ_X4M_A9TR
        TIEHI_X1M_A9TR
        TIELO_X1M_A9TR
+       XNOR2_X4M_A9TR
        XNOR3_X0P5M_A9TR
        XNOR3_X0P7M_A9TR
        XNOR3_X1M_A9TR
@@ -2134,6 +2129,7 @@ Top Level Modules:
        XNOR3_X2M_A9TR
        XNOR3_X3M_A9TR
        XNOR3_X4M_A9TR
+       XOR2_X4M_A9TR
        XOR3_X0P5M_A9TR
        XOR3_X0P7M_A9TR
        XOR3_X1M_A9TR
@@ -2153,18 +2149,13 @@ Top Level Modules:
        ADDFCIN_X1M_A9TL
        ADDFCIN_X1P4M_A9TL
        ADDFCIN_X2M_A9TL
+       ADDFH_X1M_A9TL
        AND2_X0P5B_A9TL
        AND2_X0P7B_A9TL
-       AND2_X11M_A9TL
-       AND2_X3M_A9TL
-       AND2_X6M_A9TL
-       AND2_X8M_A9TL
        AND3_X0P5M_A9TL
        AND3_X11M_A9TL
-       AND3_X2M_A9TL
        AND3_X8M_A9TL
        AND4_X2M_A9TL
-       AND4_X3M_A9TL
        AND4_X4M_A9TL
        AND4_X6M_A9TL
        AND4_X8M_A9TL
@@ -2174,13 +2165,13 @@ Top Level Modules:
        AO1B2_X1M_A9TL
        AO1B2_X3M_A9TL
        AO21A1AI2_X1P4M_A9TL
-       AO21B_X1P4M_A9TL
+       AO21B_X0P7M_A9TL
        AO21_X0P5M_A9TL
-       AO21_X4M_A9TL
-       AO22_X6M_A9TL
-       AOI211_X0P5M_A9TL
-       AOI21B_X0P7M_A9TL
-       AOI21B_X8M_A9TL
+       AO21_X1P4M_A9TL
+       AO21_X3M_A9TL
+       AO22_X0P5M_A9TL
+       AO22_X4M_A9TL
+       AOI21B_X0P5M_A9TL
        AOI221_X0P5M_A9TL
        AOI221_X0P7M_A9TL
        AOI221_X1M_A9TL
@@ -2189,15 +2180,17 @@ Top Level Modules:
        AOI221_X3M_A9TL
        AOI221_X4M_A9TL
        AOI222_X0P5M_A9TL
+       AOI222_X1P4M_A9TL
        AOI22BB_X0P5M_A9TL
-       AOI22BB_X1M_A9TL
+       AOI22BB_X0P7M_A9TL
        AOI22BB_X1P4M_A9TL
        AOI22BB_X2M_A9TL
        AOI22BB_X4M_A9TL
+       AOI22_X4M_A9TL
        AOI2XB1_X0P5M_A9TL
        AOI2XB1_X0P7M_A9TL
        AOI31_X1P4M_A9TL
-       AOI31_X2M_A9TL
+       AOI31_X3M_A9TL
        AOI31_X4M_A9TL
        AOI32_X0P5M_A9TL
        AOI32_X0P7M_A9TL
@@ -2223,7 +2216,6 @@ Top Level Modules:
        BMXT_X1P4M_A9TL
        BMXT_X2M_A9TL
        BUFH_X0P7M_A9TL
-       BUFH_X11M_A9TL
        BUFZ_X11M_A9TL
        BUFZ_X16M_A9TL
        BUFZ_X1M_A9TL
@@ -2236,19 +2228,12 @@ Top Level Modules:
        BUF_X0P7B_A9TL
        BUF_X0P7M_A9TL
        BUF_X0P8M_A9TL
-       BUF_X11B_A9TL
-       BUF_X11M_A9TL
        BUF_X13B_A9TL
-       BUF_X13M_A9TL
-       BUF_X1P2M_A9TL
+       BUF_X1P2B_A9TL
        BUF_X1P4B_A9TL
-       BUF_X1P4M_A9TL
        BUF_X1P7B_A9TL
-       BUF_X1P7M_A9TL
-       BUF_X2P5M_A9TL
        BUF_X3B_A9TL
        BUF_X3P5B_A9TL
-       BUF_X4B_A9TL
        BUF_X5B_A9TL
        BUF_X6B_A9TL
        BUF_X7P5B_A9TL
@@ -2259,7 +2244,6 @@ Top Level Modules:
        CGENCON_X1M_A9TL
        CGENCON_X1P4M_A9TL
        CGENCON_X2M_A9TL
-       CGENI_X1M_A9TL
        CGENI_X1P4M_A9TL
        CMPR42_X1M_A9TL
        CMPR42_X1P4M_A9TL
@@ -2280,11 +2264,9 @@ Top Level Modules:
        DFFQ_X3M_A9TL
        DFFQ_X4M_A9TL
        DFFRPQN_X0P5M_A9TL
-       DFFRPQN_X1M_A9TL
-       DFFRPQN_X2M_A9TL
-       DFFRPQN_X3M_A9TL
        DFFRPQ_X0P5M_A9TL
        DFFSQN_X0P5M_A9TL
+       DFFSQN_X1M_A9TL
        DFFSQ_X0P5M_A9TL
        DFFSQ_X1M_A9TL
        DFFSQ_X3M_A9TL
@@ -2358,23 +2340,8 @@ Top Level Modules:
        FRICG_X6B_A9TL
        FRICG_X7P5B_A9TL
        FRICG_X9B_A9TL
-       INV_X0P5B_A9TL
-       INV_X0P5M_A9TL
-       INV_X0P7B_A9TL
        INV_X0P8B_A9TL
-       INV_X11B_A9TL
-       INV_X13B_A9TL
-       INV_X13M_A9TL
-       INV_X16B_A9TL
        INV_X1B_A9TL
-       INV_X1P2B_A9TL
-       INV_X1P4B_A9TL
-       INV_X1P4M_A9TL
-       INV_X2B_A9TL
-       INV_X3B_A9TL
-       INV_X4B_A9TL
-       INV_X5B_A9TL
-       INV_X6B_A9TL
        INV_X9B_A9TL
        LATNQN_X0P5M_A9TL
        LATNQN_X1M_A9TL
@@ -2440,6 +2407,7 @@ Top Level Modules:
        M2SDFFQ_X3M_A9TL
        M2SDFFQ_X4M_A9TL
        MX2_X0P5B_A9TL
+       MX2_X1P4B_A9TL
        MX2_X6B_A9TL
        MX2_X8B_A9TL
        MXGL2_X0P5B_A9TL
@@ -2461,7 +2429,6 @@ Top Level Modules:
        MXT2_X1M_A9TL
        MXT2_X2B_A9TL
        MXT2_X3B_A9TL
-       MXT2_X3M_A9TL
        MXT2_X4B_A9TL
        MXT2_X4M_A9TL
        MXT2_X6B_A9TL
@@ -2471,29 +2438,10 @@ Top Level Modules:
        MXT4_X1P4M_A9TL
        MXT4_X2M_A9TL
        MXT4_X3M_A9TL
-       NAND2B_X0P7M_A9TL
-       NAND2B_X1M_A9TL
        NAND2XB_X0P5M_A9TL
-       NAND2_X0P5B_A9TL
        NAND2_X0P5M_A9TL
-       NAND2_X0P7B_A9TL
-       NAND2_X0P7M_A9TL
-       NAND2_X1B_A9TL
-       NAND2_X1M_A9TL
-       NAND2_X1P4M_A9TL
-       NAND2_X2A_A9TL
-       NAND2_X2B_A9TL
-       NAND2_X3A_A9TL
-       NAND2_X3B_A9TL
-       NAND2_X4A_A9TL
-       NAND2_X4B_A9TL
-       NAND2_X6A_A9TL
-       NAND2_X6B_A9TL
-       NAND2_X8A_A9TL
-       NAND2_X8B_A9TL
        NAND3BB_X8M_A9TL
        NAND3B_X0P5M_A9TL
-       NAND3B_X0P7M_A9TL
        NAND3B_X1M_A9TL
        NAND3B_X1P4M_A9TL
        NAND3B_X2M_A9TL
@@ -2505,42 +2453,38 @@ Top Level Modules:
        NAND3XXB_X1M_A9TL
        NAND3XXB_X1P4M_A9TL
        NAND3XXB_X2M_A9TL
+       NAND3XXB_X3M_A9TL
        NAND3XXB_X4M_A9TL
        NAND3XXB_X6M_A9TL
-       NAND3_X1P4M_A9TL
-       NAND3_X6M_A9TL
+       NAND3_X1P4A_A9TL
+       NAND3_X3M_A9TL
        NAND4BB_X3M_A9TL
        NAND4BB_X4M_A9TL
        NAND4BB_X6M_A9TL
        NAND4B_X0P5M_A9TL
+       NAND4B_X0P7M_A9TL
        NAND4B_X1P4M_A9TL
-       NAND4B_X3M_A9TL
        NAND4B_X4M_A9TL
        NAND4XXXB_X0P5M_A9TL
        NAND4XXXB_X0P7M_A9TL
        NAND4XXXB_X1P4M_A9TL
+       NAND4XXXB_X2M_A9TL
        NAND4XXXB_X3M_A9TL
        NAND4XXXB_X4M_A9TL
        NAND4_X0P5M_A9TL
-       NAND4_X1P4A_A9TL
        NAND4_X1P4M_A9TL
-       NAND4_X2M_A9TL
-       NAND4_X3A_A9TL
+       NAND4_X3M_A9TL
        NAND4_X4M_A9TL
        NOR2B_X0P5M_A9TL
-       NOR2B_X1P4M_A9TL
-       NOR2XB_X0P5M_A9TL
        NOR2_X0P5M_A9TL
        NOR2_X0P7A_A9TL
-       NOR2_X0P7B_A9TL
-       NOR2_X1B_A9TL
-       NOR2_X1P4A_A9TL
-       NOR2_X8M_A9TL
        NOR3BB_X0P5M_A9TL
+       NOR3BB_X1P4M_A9TL
+       NOR3BB_X3M_A9TL
        NOR3_X0P5M_A9TL
-       NOR3_X1P4M_A9TL
-       NOR4BB_X0P5M_A9TL
+       NOR3_X4A_A9TL
        NOR4BB_X3M_A9TL
+       NOR4BB_X4M_A9TL
        OA1B2_X0P5M_A9TL
        OA1B2_X1M_A9TL
        OA211_X0P5M_A9TL
@@ -2548,21 +2492,26 @@ Top Level Modules:
        OA211_X1M_A9TL
        OA211_X1P4M_A9TL
        OA211_X2M_A9TL
+       OA211_X3M_A9TL
        OA211_X4M_A9TL
        OA211_X6M_A9TL
-       OA21A1OI2_X0P5M_A9TL
        OA21A1OI2_X4M_A9TL
+       OA21A1OI2_X6M_A9TL
        OA21B_X0P5M_A9TL
        OA21B_X0P7M_A9TL
        OA21B_X1P4M_A9TL
-       OA21B_X2M_A9TL
-       OA21B_X4M_A9TL
+       OA21B_X3M_A9TL
+       OA21B_X8M_A9TL
        OA21_X0P5M_A9TL
-       OA22_X0P5M_A9TL
        OA22_X1P4M_A9TL
+       OA22_X3M_A9TL
+       OA22_X4M_A9TL
        OA22_X8M_A9TL
+       OAI211_X1P4M_A9TL
        OAI21B_X0P5M_A9TL
        OAI21B_X0P7M_A9TL
+       OAI21B_X1M_A9TL
+       OAI21B_X1P4M_A9TL
        OAI21B_X4M_A9TL
        OAI21B_X8M_A9TL
        OAI221_X0P5M_A9TL
@@ -2573,32 +2522,30 @@ Top Level Modules:
        OAI221_X3M_A9TL
        OAI221_X4M_A9TL
        OAI222_X0P5M_A9TL
+       OAI222_X0P7M_A9TL
        OAI222_X1P4M_A9TL
-       OAI222_X2M_A9TL
        OAI222_X3M_A9TL
        OAI222_X4M_A9TL
        OAI22BB_X0P5M_A9TL
        OAI22BB_X0P7M_A9TL
        OAI2XB1_X0P5M_A9TL
+       OAI2XB1_X0P7M_A9TL
+       OAI31_X0P5M_A9TL
        OAI31_X4M_A9TL
        OR2_X0P5B_A9TL
        OR2_X0P7B_A9TL
        OR2_X11B_A9TL
        OR2_X6B_A9TL
-       OR3_X0P5M_A9TL
        OR3_X1P4M_A9TL
+       OR3_X2M_A9TL
        OR3_X3M_A9TL
        OR3_X4M_A9TL
        OR3_X6M_A9TL
        OR3_X8M_A9TL
        OR4_X0P5M_A9TL
        OR4_X0P7M_A9TL
-       OR4_X1M_A9TL
-       OR4_X1P4M_A9TL
        OR4_X2M_A9TL
        OR4_X3M_A9TL
-       OR4_X4M_A9TL
-       OR4_X6M_A9TL
        OR4_X8M_A9TL
        OR6_X0P5M_A9TL
        OR6_X1M_A9TL
@@ -2716,51 +2663,44 @@ Top Level Modules:
        XNOR3_X4M_A9TL
        XOR3_X0P5M_A9TL
        XOR3_X0P7M_A9TL
+       XOR3_X1P4M_A9TL
 TimeScale is 1 ns / 1 ps
 
 Warning-[TFIPC] Too few instance port connections
-MAKE_FG_SYN.v, 49132
-ZINT_REBUILD_CRT, "RF_2p_CRT_TMP u_RF_TMP_u_RF_2p_CRT_TMP( .AYA ({SYNOPSYS_UNCONNECTED_8, SYNOPSYS_UNCONNECTED_7, SYNOPSYS_UNCONNECTED_6, SYNOPSYS_UNCONNECTED_5, SYNOPSYS_UNCONNECTED_4, SYNOPSYS_UNCONNECTED_3, SYNOPSYS_UNCONNECTED_2, SYNOPSYS_UNCONNECTED_1}),  .AYB ({SYNOPSYS_UNCONNECTED_16, SYNOPSYS_UNCONNECTED_15, SYNOPSYS_UNCONNECTED_14, SYNOPSYS_UNCONNECTED_13, SYNOPSYS_UNCONNECTED_12, SYNOPSYS_UNCONNECTED_11, SYNOPSYS_UNCONNECTED_10, SYNOPSYS_UNCONNECTED_9}),  .DYB ({SYNOPSYS_UNCONNECTED_40, SYNOPSYS_UNCONNECTED_38, SYNOPSYS_UNCONNECTED_37, SYNOPSYS_UNCONNECTED_36, SYNOPSYS_UNCONNECTED_35, SYNOPSYS_UNCONNECTED_34, SYNOPSYS_UNCONNECTED_33, SYNOPSYS_UNCONNECTED_32, SYNOPSYS_UNCONNECTED_31, SYNOPSYS_UNCONNECTED_30, SYNOPSYS_UNCONNECTED_29, SYNOPSYS_UNCONNECTED_27, SYNOP ... "
+MAKE_FG_SYN.v, 50018
+ZINT_REBUILD_CRT, "RF_2p_CRT_TMP u_RF_TMP_u_RF_2p_CRT_TMP( .AYA ({SYNOPSYS_UNCONNECTED_9, SYNOPSYS_UNCONNECTED_8, SYNOPSYS_UNCONNECTED_7, SYNOPSYS_UNCONNECTED_6, SYNOPSYS_UNCONNECTED_5, SYNOPSYS_UNCONNECTED_4, SYNOPSYS_UNCONNECTED_3, SYNOPSYS_UNCONNECTED_2, SYNOPSYS_UNCONNECTED_1}),  .AYB ({SYNOPSYS_UNCONNECTED_18, SYNOPSYS_UNCONNECTED_17, SYNOPSYS_UNCONNECTED_16, SYNOPSYS_UNCONNECTED_15, SYNOPSYS_UNCONNECTED_14, SYNOPSYS_UNCONNECTED_13, SYNOPSYS_UNCONNECTED_12, SYNOPSYS_UNCONNECTED_11, SYNOPSYS_UNCONNECTED_10}),  .DYB ({SYNOPSYS_UNCONNECTED_42, SYNOPSYS_UNCONNECTED_40, SYNOPSYS_UNCONNECTED_39, SYNOPSYS_UNCONNECTED_38, SYNOPSYS_UNCONNECTED_37, SYNOPSYS_UNCONNECTED_36, SYNOPSYS_UNCONNECTED_35, SYNOPSYS_UNCONNECTED_34, SYNOPSYS_UNCONNECTED_33, SYNOPSYS_UNCONNECTED_32, SYNOP ... "
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
   ports.
 
 
 Warning-[TFIPC] Too few instance port connections
-MAKE_FG_SYN.v, 61163
-ZINT_REBUILD_CRT, "ZINT_ADD_MUL_SMALL_SLAVE_NUM4 u_ZINT_ADD_MUL_SMALL( .clk (clk),  .rst_n (rst_n),  .in_valid (in_valid_add_mul_small),  .x_i ({add_mul_small_input_buffer[122:103], n13, add_mul_small_input_buffer[102:0]}),  .y (tmp),  .s (s_add_mul_small),  .p ({p_add_mul_small[30:11], N669, N669, N669, N669, N669, N669, N669, N669, N669, N669, p_add_mul_small[0]}),  .p0i (p0i_add_mul_small),  .len_i (len_i_add_mul_small),  .read_valid (read_valid_add_mul_small),  .is_write (is_write),  .stall (stall_add_mul_small),  .out_valid (out_valid_add_mul_small),  .x_o (x_add_mul_small),  .read_ena (read_ena_add_mul_small),  .uA (uA_add_mul_small),  .tmp (tmp_o),  .new_state (new_state_add_mul_small),  .uB (uB_add_mul_small),  .receive (receive_add_mul_small),  .prime_ena (prime_ ... "
+MAKE_FG_SYN.v, 61872
+ZINT_REBUILD_CRT, "ZINT_ADD_MUL_SMALL_SLAVE_NUM4 u_ZINT_ADD_MUL_SMALL( .clk (clk),  .rst_n (rst_n),  .in_valid (in_valid_add_mul_small),  .x_i (add_mul_small_input_buffer),  .y (tmp),  .s (s_add_mul_small),  .p ({p_add_mul_small[30:11], N703, N703, N703, N703, N703, N703, N703, N703, N703, N703, p_add_mul_small[0]}),  .p0i (p0i_add_mul_small),  .len_i (len_i_add_mul_small),  .read_valid (read_valid_add_mul_small),  .is_write (is_write),  .stall (stall_add_mul_small),  .out_valid (out_valid_add_mul_small),  .x_o (x_add_mul_small),  .read_ena (read_ena_add_mul_small),  .uA (uA_add_mul_small),  .tmp (tmp_o),  .new_state (new_state_add_mul_small),  .uB (uB_add_mul_small),  .receive (receive_add_mul_small),  .prime_ena (prime_ena_add_mul_small),  .modp_montymul_resp (modp_mont ... "
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
   ports.
 
 
 Warning-[TFIPC] Too few instance port connections
-MAKE_FG_SYN.v, 4086
-MAKE_FG, "RF_2p_CRT_4x256 u_RF_CRT_u_RF_2p_CRT_4x256( .AYA ({SYNOPSYS_UNCONNECTED_8, SYNOPSYS_UNCONNECTED_7, SYNOPSYS_UNCONNECTED_6, SYNOPSYS_UNCONNECTED_5, SYNOPSYS_UNCONNECTED_4, SYNOPSYS_UNCONNECTED_3, SYNOPSYS_UNCONNECTED_2, SYNOPSYS_UNCONNECTED_1}),  .AYB ({SYNOPSYS_UNCONNECTED_16, SYNOPSYS_UNCONNECTED_15, SYNOPSYS_UNCONNECTED_14, SYNOPSYS_UNCONNECTED_13, SYNOPSYS_UNCONNECTED_12, SYNOPSYS_UNCONNECTED_11, SYNOPSYS_UNCONNECTED_10, SYNOPSYS_UNCONNECTED_9}),  .DYB ({SYNOPSYS_UNCONNECTED_43, SYNOPSYS_UNCONNECTED_42, SYNOPSYS_UNCONNECTED_41, SYNOPSYS_UNCONNECTED_40, SYNOPSYS_UNCONNECTED_38, SYNOPSYS_UNCONNECTED_37, SYNOPSYS_UNCONNECTED_36, SYNOPSYS_UNCONNECTED_35, SYNOPSYS_UNCONNECTED_34, SYNOPSYS_UNCONNECTED_33, SYNOPSYS_UNCONNECTED_32, SYNOPSYS_UNCONNECTED_31, S ... "
+MAKE_FG_SYN.v, 4202
+MAKE_FG, "RF_2p_CRT_4x512 u_RF_CRT_GEN_CRT_MEM_4_8_genblk1_0__u_RF_2p_CRT_4x512( .AYA ({SYNOPSYS_UNCONNECTED_9, SYNOPSYS_UNCONNECTED_8, SYNOPSYS_UNCONNECTED_7, SYNOPSYS_UNCONNECTED_6, SYNOPSYS_UNCONNECTED_5, SYNOPSYS_UNCONNECTED_4, SYNOPSYS_UNCONNECTED_3, SYNOPSYS_UNCONNECTED_2, SYNOPSYS_UNCONNECTED_1}),  .AYB ({SYNOPSYS_UNCONNECTED_18, SYNOPSYS_UNCONNECTED_17, SYNOPSYS_UNCONNECTED_16, SYNOPSYS_UNCONNECTED_15, SYNOPSYS_UNCONNECTED_14, SYNOPSYS_UNCONNECTED_13, SYNOPSYS_UNCONNECTED_12, SYNOPSYS_UNCONNECTED_11, SYNOPSYS_UNCONNECTED_10}),  .DYB ({SYNOPSYS_UNCONNECTED_45, SYNOPSYS_UNCONNECTED_44, SYNOPSYS_UNCONNECTED_43, SYNOPSYS_UNCONNECTED_42, SYNOPSYS_UNCONNECTED_40, SYNOPSYS_UNCONNECTED_39, SYNOPSYS_UNCONNECTED_38, SYNOPSYS_UNCONNECTED_37, SYNOPSYS_UNCONNECTED_36, ... "
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
   ports.
 
 
 Warning-[TFIPC] Too few instance port connections
-MAKE_FG_SYN.v, 13009
-MAKE_FG, "ADDF_X1M_A9TL U5718( .A (n14445),  .B (n14444),  .CI (n14443),  .S (n495));"
+MAKE_FG_SYN.v, 45649
+MAKE_FG, "ADDF_X1M_A9TH U30970( .A (n33255),  .B (n33254),  .CI (n33253),  .S (n33257));"
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
   ports.
 
 
 Warning-[TFIPC] Too few instance port connections
-MAKE_FG_SYN.v, 30121
-MAKE_FG, "ADDF_X1M_A9TL U19270( .A (n8766),  .B (n8767),  .CI (n8765),  .S (n20849));"
-  The above instance has fewer port connections than the module definition.
-  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
-  ports.
-
-
-Warning-[TFIPC] Too few instance port connections
-MAKE_FG_SYN.v, 46551
-MAKE_FG, "ZINT_REBUILD_CRT u_ZINT_REBUILD_CRT( .clk (clk),  .rst_n (rst_n),  .in_valid (inf_in_valid),  .len_valid (inf_len_valid),  .x_i ({n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068, n33068}),  .mode (inf_mode),  .inf_logn (inf_logn),  .num ({add_x_18_B_8_, add_x_18_B_7_, add_x_18_B_6_, add_x_18_B_5_, add_x_18_B_4_, add_x_18_B_3_, add_x_18_B_2_, n33068, n33068}),  .logn (logn),  .xlen ({n33068, xlen[7:5], n33068, n22194, xlen[2:0]}),  .input_ptr ({input_ptr[9:2], n33068, n33068}),  .intt_output_buffer_comb (intt_output_buffer_comb),  .out_valid (zint_rebuild_out_valid), ... "
+MAKE_FG_SYN.v, 45950
+MAKE_FG, "ZINT_REBUILD_CRT u_ZINT_REBUILD_CRT( .clk (clk),  .rst_n (rst_n),  .in_valid (n5495),  .len_valid (inf_len_valid),  .mode (inf_mode),  .inf_logn (inf_logn),  .num ({add_x_10_B_10_, add_x_10_B_9_, add_x_10_B_8_, add_x_10_B_7_, add_x_10_B_6_, add_x_10_B_5_, add_x_10_B_4_, add_x_10_B_3_, add_x_10_B_2_, n33894, n33894}),  .logn (logn),  .xlen ({xlen[8], n33521, xlen[6:0]}),  .input_ptr ({input_ptr[11:2], n33894, n33894}),  .intt_output_buffer_comb (intt_output_buffer_comb),  .out_valid (zint_rebuild_out_valid),  .modp_montymul_resp ({modp_montymul_resp[259:228], n33894, modp_montymul_resp[226:195], n33894, modp_montymul_resp[193:162], n33894, modp_montymul_resp[160:129], n33894, modp_montymul_resp[127:96], n33891, modp_montymul_resp[95:64], n8031, modp_mont ... "
   The above instance has fewer port connections than the module definition.
   Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
   ports.
@@ -3805,78 +3745,78 @@ Warning-[DDTC] Duplicate Timing Check is disabled
    ***    Turnoff delay: "FROM_FILE"
    ***    Approximation (mipd) policy: "MAXIMUM"
 
-   ***    SDF annotation begin: Wed Feb  4 00:37:14 2026
+   ***    SDF annotation begin: Thu Feb 12 20:34:56 2026
 
 
 SDF Info: +pulse_r/100, +pulse_e/100 in effect
 
 Warning-[SDFCOM_CFTC] Cannot find timing check 
-MAKE_FG_SYN.sdf, 155493
-module: DFFRPQ_X0P5M_A9TH, "instance: TESTBED.dut_p.debug_QA_reg_1__16_"
+MAKE_FG_SYN.sdf, 171890
+module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.debug_cnt_reg_3_"
   SDF Warning: Cannot find timing check $hold(posedge CK &&& 
   (ENABLE_D==1'h1),negedge R,...)
       
 
 
 Warning-[SDFCOM_CFTC] Cannot find timing check 
-MAKE_FG_SYN.sdf, 155514
-module: DFFRPQ_X0P5M_A9TH, "instance: TESTBED.dut_p.u_MODP_MONTYMUL_TOP_genblk1_2__u_MODP_MONTYMUL_o_bus_reg_2_"
+MAKE_FG_SYN.sdf, 171911
+module: DFFRPQN_X2M_A9TL, "instance: TESTBED.dut_p.u_MODP_MONTYMUL_TOP_genblk1_2__u_MODP_MONTYMUL_a_b_p0i_reg_reg_22_"
   SDF Warning: Cannot find timing check $hold(posedge CK &&& 
   (ENABLE_D==1'h1),negedge R,...)
       
 
 
 Warning-[SDFCOM_CFTC] Cannot find timing check 
-MAKE_FG_SYN.sdf, 155535
-module: DFFRPQ_X0P5M_A9TH, "instance: TESTBED.dut_p.debug_QA_reg_1__17_"
+MAKE_FG_SYN.sdf, 171932
+module: DFFRPQ_X4M_A9TL, "instance: TESTBED.dut_p.u_MODP_MONTYMUL_TOP_genblk1_1__u_MODP_MONTYMUL_p_reg_reg_26_"
   SDF Warning: Cannot find timing check $hold(posedge CK &&& 
   (ENABLE_D==1'h1),negedge R,...)
       
 
 
 Warning-[SDFCOM_CFTC] Cannot find timing check 
-MAKE_FG_SYN.sdf, 155556
-module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.u_MODP_MONTYMUL_TOP_genblk1_2__u_MODP_MONTYMUL_a_b_reg_reg_55_"
+MAKE_FG_SYN.sdf, 171953
+module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.rf_crt_DB_reg_12_"
   SDF Warning: Cannot find timing check $hold(posedge CK &&& 
   (ENABLE_D==1'h1),negedge R,...)
       
 
 
 Warning-[SDFCOM_CFTC] Cannot find timing check 
-MAKE_FG_SYN.sdf, 155577
-module: DFFSQ_X2M_A9TL, "instance: TESTBED.dut_p.debug_CENA_reg_reg"
-  SDF Warning: Cannot find timing check $hold(posedge CK &&& 
-  (ENABLE_NOT_D==1'h1),posedge SN,...)
-      
-
-
-Warning-[SDFCOM_CFTC] Cannot find timing check 
-MAKE_FG_SYN.sdf, 155598
-module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.u_MODP_MONTYMUL_TOP_genblk1_0__u_MODP_MONTYMUL_a_b_reg_reg_47_"
+MAKE_FG_SYN.sdf, 171974
+module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.u_MODP_MONTYMUL_TOP_genblk1_1__u_MODP_MONTYMUL_a_b_reg_reg_40_"
   SDF Warning: Cannot find timing check $hold(posedge CK &&& 
   (ENABLE_D==1'h1),negedge R,...)
       
 
 
 Warning-[SDFCOM_CFTC] Cannot find timing check 
-MAKE_FG_SYN.sdf, 156780
-module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.u_ZINT_REBUILD_CRT.p0i_add_mul_small_reg_16_"
+MAKE_FG_SYN.sdf, 171995
+module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.u_MODP_MONTYMUL_TOP_genblk1_2__u_MODP_MONTYMUL_a_b_reg_reg_34_"
   SDF Warning: Cannot find timing check $hold(posedge CK &&& 
   (ENABLE_D==1'h1),negedge R,...)
       
 
 
 Warning-[SDFCOM_CFTC] Cannot find timing check 
-MAKE_FG_SYN.sdf, 478609
-module: DFFRPQ_X3M_A9TL, "instance: TESTBED.dut_p.u_ZINT_REBUILD_CRT.u_ZINT_ADD_MUL_SMALL.xr_reg_2__30_"
+MAKE_FG_SYN.sdf, 172016
+module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.u_MODP_MONTYMUL_TOP_genblk1_2__u_MODP_MONTYMUL_a_b_reg_reg_35_"
   SDF Warning: Cannot find timing check $hold(posedge CK &&& 
   (ENABLE_D==1'h1),negedge R,...)
       
 
 
 Warning-[SDFCOM_CFTC] Cannot find timing check 
-MAKE_FG_SYN.sdf, 478630
-module: DFFRPQ_X3M_A9TL, "instance: TESTBED.dut_p.u_ZINT_REBUILD_CRT.u_ZINT_ADD_MUL_SMALL.xr_reg_3__1_"
+MAKE_FG_SYN.sdf, 172037
+module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.u_MODP_MONTYMUL_TOP_genblk1_2__u_MODP_MONTYMUL_a_b_reg_reg_31_"
+  SDF Warning: Cannot find timing check $hold(posedge CK &&& 
+  (ENABLE_D==1'h1),negedge R,...)
+      
+
+
+Warning-[SDFCOM_CFTC] Cannot find timing check 
+MAKE_FG_SYN.sdf, 172058
+module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.u_MODP_MONTYMUL_TOP_genblk1_2__u_MODP_MONTYMUL_a_b_reg_reg_36_"
   SDF Warning: Cannot find timing check $hold(posedge CK &&& 
   (ENABLE_D==1'h1),negedge R,...)
       
@@ -3884,16 +3824,16 @@ module: DFFRPQ_X3M_A9TL, "instance: TESTBED.dut_p.u_ZINT_REBUILD_CRT.u_ZINT_ADD_
 All future warnings not reported; use +sdfverbose to report them.
 
 Warning-[SDFCOM_CFTC] Cannot find timing check 
-MAKE_FG_SYN.sdf, 478651
-module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.u_ZINT_REBUILD_CRT.u_ZINT_ADD_MUL_SMALL.p_tmp_reg_15_"
+MAKE_FG_SYN.sdf, 172079
+module: DFFRPQ_X2M_A9TL, "instance: TESTBED.dut_p.u_MODP_MONTYMUL_TOP_genblk1_2__u_MODP_MONTYMUL_a_b_reg_reg_5_"
   SDF Warning: Cannot find timing check $hold(posedge CK &&& 
   (ENABLE_D==1'h1),negedge R,...)
       
 
 
           Total errors: 0
-          Total warnings: 2356
-   ***    SDF annotation completed: Wed Feb  4 00:37:15 2026
+          Total warnings: 2375
+   ***    SDF annotation completed: Thu Feb 12 20:34:57 2026
 
 
 
@@ -3907,960 +3847,24 @@ Starting vcs inline pass...
 Note-[VCS_PARAL] Parallel code-gen enabled
   VCS is running with parallel code generation(-j)...
 
-2255 modules and 11 UDPs read.
-recompiling module PRIMES_1
+2244 modules and 11 UDPs read.
+recompiling package FALCON_Config
 recompiling module PATTERN
-recompiling module AOI222_X1M_A9TL
-recompiling module AOI222_X4M_A9TL
-recompiling module DFFRPQ_X0P5M_A9TR
-recompiling module DFFRPQ_X1M_A9TR
-recompiling module ADDFH_X1M_A9TL
-recompiling module ADDF_X1P4M_A9TL
-recompiling module DFFRPQ_X3M_A9TL
-recompiling module DFFSQN_X3M_A9TL
-recompiling module DFFRPQ_X0P5M_A9TH
-recompiling module DFFSQ_X0P5M_A9TH
-recompiling module OAI22BB_X3M_A9TR
-recompiling module AOI22BB_X2M_A9TL
-recompiling module AOI22BB_X8M_A9TL
-recompiling module OAI22BB_X1P4M_A9TL
-recompiling module OAI22BB_X6M_A9TL
-recompiling module AO22_X1M_A9TR
-recompiling module AOI22_X1M_A9TR
-recompiling module OA22_X0P7M_A9TR
-recompiling module OAI22_X0P5M_A9TR
-recompiling module OAI22_X2M_A9TR
-recompiling module AO22_X0P5M_A9TL
-recompiling module AO22_X2M_A9TL
-recompiling module AOI22_X0P5M_A9TL
-recompiling module AOI22_X2M_A9TL
-recompiling module AOI22_X8M_A9TL
-recompiling module OA22_X1P4M_A9TL
-recompiling module OA22_X6M_A9TL
-recompiling module OAI22_X1M_A9TL
-recompiling module OAI22_X4M_A9TL
-recompiling module AO22_X1M_A9TH
-recompiling module OA22_X0P7M_A9TH
-recompiling module OAI22_X1M_A9TH
-recompiling module OA21A1OI2_X1P4M_A9TR
-recompiling module AO21A1AI2_X0P7M_A9TL
-recompiling module AO21A1AI2_X3M_A9TL
-recompiling module OA21A1OI2_X3M_A9TL
-recompiling module XOR3_X1M_A9TL
-recompiling module XOR3_X4M_A9TL
-recompiling module XOR3_X0P5M_A9TH
-recompiling module AOI31_X0P7M_A9TR
-recompiling module OAI31_X0P7M_A9TR
-recompiling module AOI31_X0P7M_A9TL
-recompiling module AOI31_X3M_A9TL
-recompiling module OAI31_X0P7M_A9TL
-recompiling module OAI31_X3M_A9TL
-recompiling module AOI31_X1M_A9TH
-recompiling module AOI211_X0P7M_A9TR
-recompiling module MXIT2_X1P4M_A9TR
-recompiling module OAI211_X0P5M_A9TR
-recompiling module OAI211_X2M_A9TR
-recompiling module AOI211_X0P7M_A9TL
-recompiling module AOI211_X3M_A9TL
-recompiling module CGEN_X2M_A9TL
-recompiling module MXIT2_X1P4M_A9TL
-recompiling module OA211_X2M_A9TL
-recompiling module OAI211_X0P5M_A9TL
-recompiling module OAI211_X2M_A9TL
-recompiling module AOI211_X0P7M_A9TH
-recompiling module OAI211_X0P5M_A9TH
-recompiling module MX2_X2B_A9TL
-recompiling module MXT2_X0P7M_A9TL
-recompiling module MXT2_X1P4M_A9TL
-recompiling module MXT2_X6M_A9TL
-recompiling module AO21B_X1M_A9TR
-recompiling module AOI21B_X1M_A9TR
-recompiling module OAI2XB1_X1M_A9TR
-recompiling module ADDH_X1P4M_A9TL
-recompiling module AO21B_X1M_A9TL
-recompiling module AO21B_X4M_A9TL
-recompiling module AOI21B_X1M_A9TL
-recompiling module AOI21B_X4M_A9TL
-recompiling module AOI2XB1_X3M_A9TL
-recompiling module OA21B_X2M_A9TL
-recompiling module OA21B_X8M_A9TL
-recompiling module OAI21B_X1P4M_A9TL
-recompiling module OAI21B_X6M_A9TL
-recompiling module OAI2XB1_X1M_A9TL
-recompiling module OAI2XB1_X4M_A9TL
-recompiling module AO21B_X0P5M_A9TH
-recompiling module AOI21B_X1M_A9TH
-recompiling module AO1B2_X1P4M_A9TR
-recompiling module AOI21_X1P4M_A9TR
-recompiling module NAND4BB_X1M_A9TR
-recompiling module NOR4BB_X1M_A9TR
-recompiling module OA21_X1M_A9TR
-recompiling module OAI21_X0P7M_A9TR
-recompiling module OAI21_X3M_A9TR
-recompiling module AO1B2_X2M_A9TL
-recompiling module AO21_X2M_A9TL
-recompiling module AOI21_X0P5M_A9TL
-recompiling module AOI21_X2M_A9TL
-recompiling module AOI21_X8M_A9TL
-recompiling module NAND4BB_X1P4M_A9TL
-recompiling module NOR4BB_X1P4M_A9TL
-recompiling module OA1B2_X2M_A9TL
-recompiling module OA1B2_X8M_A9TL
-recompiling module OA21_X1P4M_A9TL
-recompiling module OA21_X6M_A9TL
-recompiling module OAI21_X1M_A9TL
-recompiling module OAI21_X4M_A9TL
-recompiling module OR6_X0P7M_A9TL
-recompiling module AO21_X1M_A9TH
-recompiling module AOI21_X2M_A9TH
-recompiling module NOR4BB_X0P7M_A9TH
-recompiling module OA21_X0P7M_A9TH
-recompiling module OAI21_X1M_A9TH
-recompiling module NAND4B_X0P5M_A9TR
-recompiling module NAND4XXXB_X0P7M_A9TR
-recompiling module NOR3BB_X1M_A9TR
-recompiling module NAND3BB_X3M_A9TL
-recompiling module NAND4B_X2M_A9TL
-recompiling module NOR3BB_X1M_A9TL
-recompiling module NOR3BB_X4M_A9TL
-recompiling module NAND3BB_X0P7M_A9TH
-recompiling module NOR3BB_X0recompiling module ZINT_REBUILD_CRT
-recompiling module AOI222_X1M_A9TR
-recompiling module AOI222_X2M_A9TL
-recompiling module OAI222_X0P7M_A9TL
-recompiling module DFFRPQN_X2M_A9TR
-recompiling module DFFSQ_X3M_A9TL
-recompiling module DFFRPQ_X4M_A9TR
-recompiling module ADDFH_X2M_A9TL
-recompiling module DFFRPQ_X1M_A9TL
-recompiling module DFFSQN_X1M_A9TL
-recompiling module ADDF_X1M_A9TH
-recompiling module DFFRPQ_X2M_A9TH
-recompiling module OAI22BB_X1P4M_A9TR
-recompiling module OAI22BB_X6M_A9TR
-recompiling module AOI22BB_X4M_A9TL
-recompiling module OAI22BB_X3M_A9TL
-recompiling module AO22_X0P5M_A9TR
-recompiling module AOI22_X0P5M_A9TR
-recompiling module AOI22_X2M_A9TR
-recompiling module OAI22_X1M_A9TR
-recompiling module OAI22_X4M_A9TR
-recompiling module AO22_X1M_A9TL
-recompiling module AO22_X4M_A9TL
-recompiling module AOI22_X1M_A9TL
-recompiling module OA22_X0P7M_A9TL
-recompiling module OA22_X3M_A9TL
-recompiling module OAI22_X0P5M_A9TL
-recompiling module OAI22_X2M_A9TL
-recompiling module OAI22_X8M_A9TL
-recompiling module AO22_X0P5M_A9TH
-recompiling module AOI22_X0P7M_A9TH
-recompiling module OAI22_X0P5M_A9TH
-recompiling module AO21A1AI2_X0P7M_A9TR
-recompiling module OA21A1OI2_X0P7M_A9TR
-recompiling module AO21A1AI2_X6M_A9TL
-recompiling module OA21A1OI2_X1P4M_A9TL
-recompiling module OA21A1OI2_X6M_A9TL
-recompiling module XOR3_X2M_A9TL
-recompiling module OA21A1OI2_X0P5M_A9TH
-recompiling module XOR3_X1M_A9TH
-recompiling module AOI31_X6M_A9TL
-recompiling module OAI31_X1P4M_A9TL
-recompiling module OAI31_X6M_A9TL
-recompiling module OAI31_X0P7M_A9TH
-recompiling module CGENI_X1M_A9TR
-recompiling module CGENI_X1M_A9TH
-recompiling module CGEN_X1M_A9TR
-recompiling module MXIT2_X0P7M_A9TR
-recompiling module OAI211_X1M_A9TR
-recompiling module AOI211_X1P4M_A9TL
-recompiling module CGEN_X1M_A9TL
-recompiling module MXIT2_X0P7M_A9TL
-recompiling module MXIT2_X3M_A9TL
-recompiling module OAI211_X1M_A9TL
-recompiling module OAI211_X4M_A9TL
-recompiling module CGEN_X1M_A9TH
-recompiling module OAI211_X1M_A9TH
-recompiling module MXT2_X1P4B_A9TR
-recompiling module MX2_X1B_A9TL
-recompiling module MX2_X4B_A9TL
-recompiling module MXT2_X0P5M_A9TL
-recompiling module MXT2_X2M_A9TL
-recompiling module MXT2_X0P7M_A9TH
-recompiling module AO21B_X0P5M_A9TR
-recompiling module AO21B_X2M_A9TR
-recompiling module AOI21B_X2M_A9TR
-recompiling module OA21B_X1M_A9TR
-recompiling module OAI21B_X3M_A9TR
-recompiling module AO21B_X0P5M_A9TL
-recompiling module AO21B_X2M_A9TL
-recompiling module AOI21B_X0P5M_A9TL
-recompiling module AOI2XB1_X1P4M_A9TL
-recompiling module AOI2XB1_X6M_A9TL
-recompiling module OA21B_X1M_A9TL
-recompiling module OA21B_X4M_A9TL
-recompiling module OAI21B_X3M_A9TL
-recompiling module OAI2XB1_X2M_A9TL
-recompiling module OAI2XB1_X8M_A9TL
-recompiling module AO21B_X1M_A9TH
-recompiling module AO1B2_X3M_A9TR
-recompiling module AO21_X0P7M_A9TR
-recompiling module AOI21_X0P7M_A9TR
-recompiling module NAND4BB_X0P5M_A9TR
-recompiling module NOR4BB_X2M_A9TR
-recompiling module OA1B2_X0P7M_A9TR
-recompiling module OA21_X0P5M_A9TR
-recompiling module OAI21_X1P4M_A9TR
-recompiling module OAI21_X6M_A9TR
-recompiling module AO1B2_X4M_A9TL
-recompiling module AO21_X1M_A9TL
-recompiling module AO21_X4M_A9TL
-recompiling module AOI21_X1M_A9TL
-recompiling module AOI21_X4M_A9TL
-recompiling module NAND4BB_X0P7M_A9TL
-recompiling module NOR4BB_X0P7M_A9TL
-recompiling module NOR4BB_X3M_A9TL
-recompiling module OA1B2_X4M_A9TL
-recompiling module OA21_X0P7M_A9TL
-recompiling module OA21_X3M_A9TL
-recompiling module OAI21_X0P5M_A9TL
-recompiling module OAI21_X2M_A9TL
-recompiling module OAI21_X8M_A9TL
-recompiling module AOI21_X0P7M_A9TH
-recompiling module NAND4BB_X0P7M_A9TH
-recompiling module OA1B2_X1M_A9TH
-recompiling module OAI21_X0P5M_A9TH
-recompiling module OAI21_X6M_A9TH
-recompiling module NAND4B_X1M_A9TR
-recompiling module NOR3BB_X0P5M_A9TR
-recompiling module NOR3BB_X2M_A9TR
-recompiling module NAND3BB_X6M_A9TL
-recompiling module NAND4B_X1M_A9TL
-recompiling module NOR3BB_X2M_A9TL
-recompiling module NOR3BB_X8M_A9TL
-recompiling module NAND4B_X1M_A9TH
-recompiling module AND4_X0P5M_A9TR
-recompiling module NArecompiling module MAKE_FG
-recompiling module ZINT_ADD_MUL_SMALL_SLAVE_NUM4
-recompiling module AOI222_X1P4M_A9TL
-recompiling module DFFRPQ_X3M_A9TR
-recompiling module ADDF_X1M_A9TR
-recompiling module DFFRPQ_X2M_A9TR
-recompiling module ADDFH_X1P4M_A9TL
-recompiling module ADDF_X2M_A9TL
-recompiling module DFFRPQ_X4M_A9TL
-recompiling module DFFSQ_X2M_A9TL
-recompiling module DFFRPQ_X1M_A9TH
-recompiling module OAI22BB_X1M_A9TR
-recompiling module AOI22BB_X0P7M_A9TL
-recompiling module AOI22BB_X3M_A9TL
-recompiling module OAI22BB_X2M_A9TL
-recompiling module OAI22BB_X8M_A9TL
-recompiling module AOI22_X6M_A9TR
-recompiling module OA22_X1M_A9TR
-recompiling module OAI22_X0P7M_A9TR
-recompiling module OAI22_X3M_A9TR
-recompiling module AO22_X0P7M_A9TL
-recompiling module AO22_X3M_A9TL
-recompiling module AOI22_X0P7M_A9TL
-recompiling module AOI22_X3M_A9TL
-recompiling module OA22_X2M_A9TL
-recompiling module OAI22_X1P4M_A9TL
-recompiling module OAI22_X6M_A9TL
-recompiling module AOI22_X0P5M_A9TH
-recompiling module OA22_X1M_A9TH
-recompiling module AO21A1AI2_X0P5M_A9TR
-recompiling module OA21A1OI2_X0P5M_A9TR
-recompiling module AO21A1AI2_X1M_A9TL
-recompiling module AO21A1AI2_X4M_A9TL
-recompiling module OA21A1OI2_X1M_A9TL
-recompiling module XOR3_X1P4M_A9TL
-recompiling module AO21A1AI2_X1M_A9TH
-recompiling module XOR3_X0P7M_A9TH
-recompiling module AOI31_X1M_A9TR
-recompiling module OAI31_X1M_A9TR
-recompiling module AOI31_X1M_A9TL
-recompiling module OAI31_X1M_A9TL
-recompiling module OAI31_X0P5M_A9TH
-recompiling module CGENI_X1M_A9TL
-recompiling module AOI211_X1M_A9TR
-recompiling module MXIT2_X0P5M_A9TR
-recompiling module OAI211_X0P7M_A9TR
-recompiling module AOI211_X1M_A9TL
-recompiling module AOI211_X4M_A9TL
-recompiling module MXIT2_X0P5M_A9TL
-recompiling module MXIT2_X2M_A9TL
-recompiling module OA211_X3M_A9TL
-recompiling module OAI211_X0P7M_A9TL
-recompiling module OAI211_X3M_A9TL
-recompiling module AOI211_X1M_A9TH
-recompiling module OAI211_X0P7M_A9TH
-recompiling module MX2_X1B_A9TR
-recompiling module MXT2_X0P5M_A9TR
-recompiling module MXT2_X1M_A9TR
-recompiling module MX2_X0P7B_A9TL
-recompiling module MX2_X3B_A9TL
-recompiling module MXT2_X1B_A9TL
-recompiling module MXT2_X0P5M_A9TH
-recompiling module ADDH_X2M_A9TR
-recompiling module AO21B_X1P4M_A9TR
-recompiling module AOI2XB1_X1M_A9TR
-recompiling module OAI2XB1_X1P4M_A9TR
-recompiling module OAI2XB1_X6M_A9TR
-recompiling module ADDH_X2M_A9TL
-recompiling module AO21B_X1P4M_A9TL
-recompiling module AO21B_X6M_A9TL
-recompiling module AOI21B_X1P4M_A9TL
-recompiling module AOI21B_X6M_A9TL
-recompiling module AOI2XB1_X1M_A9TL
-recompiling module AOI2XB1_X4M_A9TL
-recompiling module OA21B_X3M_A9TL
-recompiling module OAI21B_X2M_A9TL
-recompiling module OAI2XB1_X1P4M_A9TL
-recompiling module OAI2XB1_X6M_A9TL
-recompiling module AO21B_X0P7M_A9TH
-recompiling module AO1B2_X2M_A9TR
-recompiling module AO21_X0P5M_A9TR
-recompiling module AO21_X2M_A9TR
-recompiling module AOI21_X0P5M_A9TR
-recompiling module OA1B2_X2M_A9TR
-recompiling module OAI21_X1M_A9TR
-recompiling module AO21_X0P7M_A9TL
-recompiling module AO21_X3M_A9TL
-recompiling module AOI21_X0P7M_A9TL
-recompiling module AOI21_X3M_A9TL
-recompiling module NAND4BB_X0P5M_A9TL
-recompiling module NAND4BB_X2M_A9TL
-recompiling module NOR4BB_X0P5M_A9TL
-recompiling module NOR4BB_X2M_A9TL
-recompiling module OA1B2_X0P7M_A9TL
-recompiling module OA1B2_X3M_A9TL
-recompiling module OA21_X2M_A9TL
-recompiling module OA21_X8M_A9TL
-recompiling module OAI21_X1P4M_A9TL
-recompiling module OAI21_X6M_A9TL
-recompiling module AOI21_X0P5M_A9TH
-recompiling module NAND4BB_X0P5M_A9TH
-recompiling module NOR4BB_X1M_A9TH
-recompiling module OA21_X1M_A9TH
-recompiling module OAI21_X1P4M_A9TH
-recompiling module NAND3BB_X1M_A9TR
-recompiling module NAND4B_X0P7M_A9TR
-recompiling module NAND4XXXB_X1M_A9TR
-recompiling module NOR3BB_X1P4M_A9TR
-recompiling module NAND3BB_X1M_A9TL
-recompiling module NAND3BB_X4M_A9TL
-recompiling module NAND4B_X0P7M_A9TL
-recompiling module NAND4XXXB_X1M_A9TL
-recompiling module NOR3BB_X1P4M_A9TL
-recompiling module NOR3BB_X6M_A9TL
-recompiling module NAND3BB_X1M_A9TH
-recompiling module NOR3BB_X1recompiling module PRIMES_0
-recompiling module AOI222_X0P7M_A9TL
-recompiling module AOI222_X3M_A9TL
-recompiling module OAI222_X1M_A9TL
-recompiling module DFFRPQN_X1M_A9TL
-recompiling module ADDFH_X1P4M_A9TR
-recompiling module ADDF_X2M_A9TR
-recompiling module DFFSQN_X2M_A9TR
-recompiling module ADDF_X1M_A9TL
-recompiling module DFFRPQ_X2M_A9TL
-recompiling module DFFSQN_X2M_A9TL
-recompiling module ADDF_X2M_A9TH
-recompiling module DFFSQN_X2M_A9TH
-recompiling module OAI22BB_X2M_A9TR
-recompiling module AOI22BB_X1P4M_A9TL
-recompiling module AOI22BB_X6M_A9TL
-recompiling module OAI22BB_X1M_A9TL
-recompiling module OAI22BB_X4M_A9TL
-recompiling module AO22_X0P7M_A9TR
-recompiling module AOI22_X0P7M_A9TR
-recompiling module OAI22_X1P4M_A9TR
-recompiling module OAI22_X6M_A9TR
-recompiling module AO22_X1P4M_A9TL
-recompiling module AO22_X6M_A9TL
-recompiling module AOI22_X1P4M_A9TL
-recompiling module AOI22_X6M_A9TL
-recompiling module OA22_X1M_A9TL
-recompiling module OA22_X4M_A9TL
-recompiling module OAI22_X0P7M_A9TL
-recompiling module OAI22_X3M_A9TL
-recompiling module AO22_X0P7M_A9TH
-recompiling module AOI22_X1M_A9TH
-recompiling module OAI22_X0P7M_A9TH
-recompiling module AO21A1AI2_X1M_A9TR
-recompiling module OA21A1OI2_X1M_A9TR
-recompiling module AO21A1AI2_X0P5M_A9TL
-recompiling module AO21A1AI2_X2M_A9TL
-recompiling module OA21A1OI2_X2M_A9TL
-recompiling module XNOR3_X2M_A9TL
-recompiling module XOR3_X3M_A9TL
-recompiling module OA21A1OI2_X0P7M_A9TH
-recompiling module OAI31_X0P5M_A9TR
-recompiling module OAI31_X2M_A9TR
-recompiling module AOI31_X0P5M_A9TL
-recompiling module AOI31_X2M_A9TL
-recompiling module OAI31_X0P5M_A9TL
-recompiling module OAI31_X2M_A9TL
-recompiling module AOI31_X0P7M_A9TH
-recompiling module OAI31_X1M_A9TH
-recompiling module CGENI_X2M_A9TL
-recompiling module AOI211_X2M_A9TR
-recompiling module CGEN_X1P4M_A9TR
-recompiling module MXIT2_X1M_A9TR
-recompiling module AOI211_X2M_A9TL
-recompiling module CGEN_X1P4M_A9TL
-recompiling module MXIT2_X1M_A9TL
-recompiling module OAI211_X1P4M_A9TL
-recompiling module AOI211_X0P5M_A9TH
-recompiling module MXIT2_X0P5M_A9TH
-recompiling module MX2_X2B_A9TR
-recompiling module MXT2_X0P7M_A9TR
-recompiling module MXT2_X1P4M_A9TR
-recompiling module MXT2_X1P4B_A9TL
-recompiling module ADDH_X1M_A9TR
-recompiling module AO21B_X0P7M_A9TR
-recompiling module AOI21B_X0P7M_A9TR
-recompiling module AOI2XB1_X2M_A9TR
-recompiling module OAI21B_X1M_A9TR
-recompiling module OAI2XB1_X3M_A9TR
-recompiling module ADDH_X1M_A9TL
-recompiling module AO21B_X0P7M_A9TL
-recompiling module AO21B_X3M_A9TL
-recompiling module AOI21B_X3M_A9TL
-recompiling module AOI2XB1_X2M_A9TL
-recompiling module AOI2XB1_X8M_A9TL
-recompiling module OA21B_X1P4M_A9TL
-recompiling module OA21B_X6M_A9TL
-recompiling module OAI21B_X1M_A9TL
-recompiling module OAI2XB1_X0P7M_A9TL
-recompiling module OAI2XB1_X3M_A9TL
-recompiling module ADDH_X1M_A9TH
-recompiling module AO21B_X2M_A9TH
-recompiling module AO1B2_X4M_A9TR
-recompiling module AO21_X1M_A9TR
-recompiling module AOI21_X1M_A9TR
-recompiling module NAND4BB_X0P7M_A9TR
-recompiling module NOR4BB_X0P7M_A9TR
-recompiling module OA21_X0P7M_A9TR
-recompiling module OAI21_X0P5M_A9TR
-recompiling module OAI21_X2M_A9TR
-recompiling module AO1B2_X1P4M_A9TL
-recompiling module AO1B2_X6M_A9TL
-recompiling module AO21_X1P4M_A9TL
-recompiling module AO21_X6M_A9TL
-recompiling module AOI21_X1P4M_A9TL
-recompiling module AOI21_X6M_A9TL
-recompiling module NAND4BB_X1M_A9TL
-recompiling module NAND4BB_X4M_A9TL
-recompiling module NOR4BB_X1M_A9TL
-recompiling module NOR4BB_X4M_A9TL
-recompiling module OA1B2_X1P4M_A9TL
-recompiling module OA1B2_X6M_A9TL
-recompiling module OA21_X1M_A9TL
-recompiling module OA21_X4M_A9TL
-recompiling module OAI21_X0P7M_A9TL
-recompiling module OAI21_X3M_A9TL
-recompiling module AO21_X0P7M_A9TH
-recompiling module AOI21_X1M_A9TH
-recompiling module NAND4BB_X1M_A9TH
-recompiling module OA21_X0P5M_A9TH
-recompiling module OAI21_X0P7M_A9TH
-recompiling module NAND3BB_X0P5M_A9TR
-recompiling module NOR3BB_X0P7M_A9TR
-recompiling module NAND3BB_X0P5M_A9TL
-recompiling module NAND3BB_X2M_A9TL
-recompiling module NAND4XXXB_X2M_A9TL
-recompilingP7M_A9TH
-recompiling module AND4_X1M_A9TR
-recompiling module NAND3B_X0P7M_A9TR
-recompiling module NAND4_X1M_A9TR
-recompiling module NAND4_X2M_A9TR
-recompiling module XNOR2_X1M_A9TR
-recompiling module XOR2_X1P4M_A9TR
-recompiling module AND4_X0P5M_A9TL
-recompiling module AND4_X2M_A9TL
-recompiling module NAND3XXB_X1P4M_A9TL
-recompiling module NAND4_X0P7M_A9TL
-recompiling module NAND4_X3M_A9TL
-recompiling module XNOR2_X0P5M_A9TL
-recompiling module XNOR2_X2M_A9TL
-recompiling module XOR2_X0P7M_A9TL
-recompiling module XOR2_X3M_A9TL
-recompiling module AND4_X1M_A9TH
-recompiling module NAND4_X1A_A9TH
-recompiling module OR4_X6M_A9TH
-recompiling module XNOR2_X4M_A9TH
-recompiling module AND3_X0P5M_A9TR
-recompiling module NAND2B_X4M_A9TR
-recompiling module NAND2XB_X0P7M_A9TR
-recompiling module NAND2XB_X3M_A9TR
-recompiling module NAND3_X0P5A_A9TR
-recompiling module NAND3_X1A_A9TR
-recompiling module NAND3_X2A_A9TR
-recompiling module NOR2B_X2M_A9TR
-recompiling module NOR3_X0P7A_A9TR
-recompiling module NOR3_X1P4A_A9TR
-recompiling module NOR3_X3A_A9TR
-recompiling module OR3_X0P5M_A9TR
-recompiling module AND3_X1M_A9TL
-recompiling module AND3_X4M_A9TL
-recompiling module NAND2B_X3M_A9TL
-recompiling module NAND2XB_X2M_A9TL
-recompiling module NAND2XB_X8M_A9TL
-recompiling module NAND3_X0P7M_A9TL
-recompiling module NAND3_X1P4M_A9TL
-recompiling module NAND3_X3M_A9TL
-recompiling module NAND3_X6M_A9TL
-recompiling module NOR2B_X1P4M_A9TL
-recompiling module NOR2B_X6M_A9TL
-recompiling module NOR2XB_X1M_A9TL
-recompiling module NOR2XB_X4M_A9TL
-recompiling module NOR3_X1M_A9TL
-recompiling module NOR3_X2M_A9TL
-recompiling module NAND2B_X2M_A9TH
-recompiling module NAND2XB_X2M_A9TH
-recompiling module NAND3_X0P7M_A9TH
-recompiling module NOR2XB_X0P5M_A9TH
-recompiling module NOR3_X0P7A_A9TH
-recompiling module NOR3_X2M_A9TH
-recompiling module AND2_X2B_A9TR
-recompiling module AND2_X4B_A9TR
-recompiling module NAND2_X1P4A_A9TR
-recompiling module NAND2_X2B_A9TR
-recompiling module NOR2_X1A_A9TR
-recompiling module NOR2_X2M_A9TR
-recompiling module NOR2_X6B_A9TR
-recompiling module OR2_X0P7M_A9TR
-recompiling module OR2_X1M_A9TR
-recompiling module AND2_X0P7M_A9TL
-recompiling module AND2_X1M_A9TL
-recompiling module AND2_X2M_A9TL
-recompiling module AND2_X4M_A9TL
-recompiling module NAND2_X1A_A9TL
-recompiling module NAND2_X1P4B_A9TL
-recompiling module NAND2_X2M_A9TL
-recompiling module NAND2_X8M_A9TL
-recompiling module NOR2_X3A_A9TL
-recompiling module NOR2_X4B_A9TL
-recompiling module NOR2_X6M_A9TL
-recompiling module OR2_X1P4B_A9TL
-recompiling module OR2_X3B_A9TL
-recompiling module AND2_X0P5B_A9TH
-recompiling module AND2_X1M_A9TH
-recompiling module AND2_X4M_A9TH
-recompiling module NAND2_X2B_A9TH
-recompiling module NOR2_X0P7M_A9TH
-recompiling module NOR2_X2B_A9TH
-recompiling module OR2_X0P5M_A9TH
-recompiling module OR2_X1P4M_A9TH
-recompiling module BUFH_X1P4M_A9TR
-recompiling module BUFH_X3M_A9TR
-recompiling module BUF_X0P7M_A9TR
-recompiling module BUF_X16M_A9TR
-recompiling module BUF_X2P5M_A9TR
-recompiling module BUF_X3P5M_A9TR
-recompiling module BUF_X5M_A9TR
-recompiling module BUF_X7P5M_A9TR
-recompiling module INV_X0P7M_A9TR
-recompiling module INV_X11M_A9TR
-recompiling module INV_X16M_A9TR
-recompiling module INV_X1P2M_A9TR
-recompiling module INV_X1P7M_A9TR
-recompiling module INV_X2P5M_A9TR
-recompiling module INV_X5M_A9TR
-recompiling module INV_X7P5M_A9TR
-recompiling module BUFH_X1P2M_A9TL
-recompiling module BUFH_X2P5M_A9TL
-recompiling module BUFH_X5M_A9TL
-recompiling module INV_X1P7B_A9TL
-recompiling module INV_X2P5B_A9TL
-recompiling module INV_X3P5B_A9TL
-recompiling module INV_X7P5B_A9TL
-recompiling module BUFH_X1M_A9TH
-recompiling module BUF_X0P8B_A9TH
-recompiling module BUF_X6M_A9TH
-recompiling module INV_X0P6B_A9TH
-recompiling module INV_X13M_A9TH
-recompiling module INV_X1P4M_A9TH
-recompiling module INV_X2P5M_A9TH
-recompiling module INV_X4M_A9TH
-M_A9TH
-recompiling module NAND3B_X1M_A9TR
-recompiling module NAND3XXB_X1M_A9TR
-recompiling module NAND4_X0P7A_A9TR
-recompiling module XNOR2_X1P4M_A9TR
-recompiling module XOR2_X0P5M_A9TR
-recompiling module XOR2_X2M_A9TR
-recompiling module AND4_X0P7M_A9TL
-recompiling module NAND3XXB_X2M_A9TL
-recompiling module NAND4_X0P5A_A9TL
-recompiling module NAND4_X1A_A9TL
-recompiling module NAND4_X2A_A9TL
-recompiling module NAND4_X4A_A9TL
-recompiling module XNOR2_X0P7M_A9TL
-recompiling module XNOR2_X3M_A9TL
-recompiling module XOR2_X1M_A9TL
-recompiling module XOR2_X4M_A9TL
-recompiling module NAND4_X0P5A_A9TH
-recompiling module NAND4_X1M_A9TH
-recompiling module XNOR2_X0P5M_A9TH
-recompiling module XOR2_X0P5M_A9TH
-recompiling module AND3_X0P7M_A9TR
-recompiling module NAND2XB_X1M_A9TR
-recompiling module NAND2XB_X4M_A9TR
-recompiling module NAND3_X0P5M_A9TR
-recompiling module NAND3_X1M_A9TR
-recompiling module NAND3_X2M_A9TR
-recompiling module NOR2B_X0P7M_A9TR
-recompiling module NOR2XB_X2M_A9TR
-recompiling module NOR3_X0P7M_A9TR
-recompiling module NOR3_X1P4M_A9TR
-recompiling module OR3_X0P7M_A9TR
-recompiling module AND3_X1P4M_A9TL
-recompiling module AND3_X6M_A9TL
-recompiling module NAND2B_X4M_A9TL
-recompiling module NAND2XB_X0P7M_A9TL
-recompiling module NAND2XB_X3M_A9TL
-recompiling module NAND3_X0P5A_A9TL
-recompiling module NAND3_X1A_A9TL
-recompiling module NAND3_X2A_A9TL
-recompiling module NAND3_X4A_A9TL
-recompiling module NOR2B_X2M_A9TL
-recompiling module NOR2B_X8M_A9TL
-recompiling module NOR2XB_X1P4M_A9TL
-recompiling module NOR2XB_X6M_A9TL
-recompiling module NOR3_X0P7A_A9TL
-recompiling module NOR3_X3A_A9TL
-recompiling module OR3_X0P5M_A9TL
-recompiling module NAND2XB_X0P5M_A9TH
-recompiling module NAND3_X0P5A_A9TH
-recompiling module NAND3_X1A_A9TH
-recompiling module NOR2XB_X1M_A9TH
-recompiling module NOR3_X0P7M_A9TH
-recompiling module OR3_X0P7M_A9TH
-recompiling module AND2_X0P7M_A9TR
-recompiling module AND2_X1M_A9TR
-recompiling module AND2_X2M_A9TR
-recompiling module AND2_X4M_A9TR
-recompiling module NAND2_X1A_A9TR
-recompiling module NAND2_X1P4B_A9TR
-recompiling module NAND2_X6B_A9TR
-recompiling module NOR2_X3A_A9TR
-recompiling module NOR2_X4B_A9TR
-recompiling module OR2_X1P4B_A9TR
-recompiling module OR2_X3B_A9TR
-recompiling module AND2_X11B_A9TL
-recompiling module AND2_X1P4B_A9TL
-recompiling module AND2_X3B_A9TL
-recompiling module AND2_X6B_A9TL
-recompiling module NAND2_X0P7A_A9TL
-recompiling module NAND2_X6M_A9TL
-recompiling module NOR2_X0P5A_A9TL
-recompiling module NOR2_X1M_A9TL
-recompiling module NOR2_X2A_A9TL
-recompiling module NOR2_X3B_A9TL
-recompiling module NOR2_X4M_A9TL
-recompiling module NOR2_X8A_A9TL
-recompiling module OR2_X0P5M_A9TL
-recompiling module OR2_X11M_A9TL
-recompiling module OR2_X1P4M_A9TL
-recompiling module OR2_X3M_A9TL
-recompiling module OR2_X6M_A9TL
-recompiling module AND2_X0P7B_A9TH
-recompiling module AND2_X1P4M_A9TH
-recompiling module NAND2_X0P5A_A9TH
-recompiling module NAND2_X3B_A9TH
-recompiling module NOR2_X1A_A9TH
-recompiling module NOR2_X2M_A9TH
-recompiling module OR2_X0P7M_A9TH
-recompiling module OR2_X3M_A9TH
-recompiling module BUFH_X1P7M_A9TR
-recompiling module BUFH_X3P5M_A9TR
-recompiling module BUFH_X7P5M_A9TR
-recompiling module BUF_X0P8B_A9TR
-recompiling module BUF_X1B_A9TR
-recompiling module INV_X0P6B_A9TR
-recompiling module INV_X1B_A9TR
-recompiling module INV_X4B_A9TR
-recompiling module BUFH_X13M_A9TL
-recompiling module BUFH_X1P4M_A9TL
-recompiling module BUFH_X3M_A9TL
-recompiling module BUFH_X6M_A9TL
-recompiling module BUF_X16M_A9TL
-recompiling module BUF_X3P5M_A9TL
-recompiling module BUF_X5M_A9TL
-recompiling module BUF_X7P5M_A9TL
-recompiling module INV_X0P7M_A9TL
-recompiling module INV_X11M_A9TL
-recompiling module INV_X16M_A9TL
-recompiling module INV_X1P2M_A9TL
-recompiling module INV_X1P7M_A9TL
-recompiling module INV_X2P5M_A9TL
-recompiling module INV_X3P5M_A9TL
-recompiling module INV_X5M_A9TL
-recompiling module INV_X7P5M_A9TL
-recompiling module BUFH_X3P5M_A9TH
-recompiling module BUF_X1P7B_A9TH
-recompiling module BUF_X7P5M_A9TH
-recompiling module INV_X0P7B_A9TH
-recompiling module INV_X16M_A9TH
-recompiling module INV_X1P7M_A9TH
-recompiling module INV_X3M_A9TH
-recompiling module INV_X5M_A9TH
- module NOR3BB_X0P7M_A9TL
-recompiling module NOR3BB_X3M_A9TL
-recompiling module NAND3BB_X0P5M_A9TH
-recompiling module NAND4XXXB_X1M_A9TH
-recompiling module AND4_X0P7M_A9TR
-recompiling module NAND3XXB_X2M_A9TR
-recompiling module NAND4_X0P5A_A9TR
-recompiling module NAND4_X1A_A9TR
-recompiling module NAND4_X2A_A9TR
-recompiling module XNOR2_X0P7M_A9TR
-recompiling module XNOR2_X3M_A9TR
-recompiling module XOR2_X1M_A9TR
-recompiling module AND4_X1P4M_A9TL
-recompiling module NAND3B_X1M_A9TL
-recompiling module NAND3XXB_X1M_A9TL
-recompiling module NAND4_X0P7A_A9TL
-recompiling module XNOR2_X1P4M_A9TL
-recompiling module XOR2_X0P5M_A9TL
-recompiling module XOR2_X2M_A9TL
-recompiling module AND4_X0P7M_A9TH
-recompiling module NAND4_X0P7M_A9TH
-recompiling module OR4_X1M_A9TH
-recompiling module XNOR2_X1M_A9TH
-recompiling module XOR2_X4M_A9TH
-recompiling module AND3_X1M_A9TR
-recompiling module NAND2B_X3M_A9TR
-recompiling module NAND2XB_X2M_A9TR
-recompiling module NAND3_X0P7M_A9TR
-recompiling module NAND3_X1P4M_A9TR
-recompiling module NOR2XB_X1M_A9TR
-recompiling module NOR2XB_X4M_A9TR
-recompiling module NOR3_X1M_A9TR
-recompiling module NOR3_X2M_A9TR
-recompiling module AND3_X3M_A9TL
-recompiling module NAND2B_X0P5M_A9TL
-recompiling module NAND2B_X2M_A9TL
-recompiling module NAND2B_X8M_A9TL
-recompiling module NAND2XB_X1P4M_A9TL
-recompiling module NAND2XB_X6M_A9TL
-recompiling module NAND3_X0P7A_A9TL
-recompiling module NAND3_X1P4A_A9TL
-recompiling module NAND3_X3A_A9TL
-recompiling module NAND3_X6A_A9TL
-recompiling module NOR2B_X1M_A9TL
-recompiling module NOR2B_X4M_A9TL
-recompiling module NOR2XB_X0P7M_A9TL
-recompiling module NOR2XB_X3M_A9TL
-recompiling module NOR3_X0P5A_A9TL
-recompiling module NOR3_X1A_A9TL
-recompiling module NOR3_X2A_A9TL
-recompiling module NOR3_X4A_A9TL
-recompiling module OR3_X1M_A9TL
-recompiling module AND3_X1M_A9TH
-recompiling module NAND2XB_X1M_A9TH
-recompiling module NAND3_X0P7A_A9TH
-recompiling module NOR2B_X0P7M_A9TH
-recompiling module NOR3_X0P5A_A9TH
-recompiling module NOR3_X1M_A9TH
-recompiling module AND2_X0P5M_A9TR
-recompiling module AND2_X1P4M_A9TR
-recompiling module NAND2_X0P5A_A9TR
-recompiling module NAND2_X3B_A9TR
-recompiling module NOR2_X0P5B_A9TR
-recompiling module NOR2_X0P7M_A9TR
-recompiling module NOR2_X2B_A9TR
-recompiling module NOR2_X3M_A9TR
-recompiling module OR2_X1B_A9TR
-recompiling module OR2_X2B_A9TR
-recompiling module AND2_X1B_A9TL
-recompiling module AND2_X2B_A9TL
-recompiling module AND2_X4B_A9TL
-recompiling module AND2_X8B_A9TL
-recompiling module NAND2_X1P4A_A9TL
-recompiling module NAND2_X3M_A9TL
-recompiling module NOR2_X1A_A9TL
-recompiling module NOR2_X1P4B_A9TL
-recompiling module NOR2_X2M_A9TL
-recompiling module NOR2_X4A_A9TL
-recompiling module NOR2_X6B_A9TL
-recompiling module OR2_X0P7M_A9TL
-recompiling module OR2_X1M_A9TL
-recompiling module OR2_X2M_A9TL
-recompiling module OR2_X4M_A9TL
-recompiling module OR2_X8M_A9TL
-recompiling module AND2_X1B_A9TH
-recompiling module AND2_X2M_A9TH
-recompiling module NAND2_X1A_A9TH
-recompiling module NOR2_X0P5B_A9TH
-recompiling module NOR2_X2A_A9TH
-recompiling module NOR2_X8B_A9TH
-recompiling module OR2_X1M_A9TH
-recompiling module BUFH_X2P5M_A9TR
-recompiling module BUFH_X5M_A9TR
-recompiling module BUF_X1P7B_A9TR
-recompiling module BUF_X2P5B_A9TR
-recompiling module INV_X1P2B_A9TR
-recompiling module INV_X1P7B_A9TR
-recompiling module INV_X2P5B_A9TR
-recompiling module INV_X3P5B_A9TR
-recompiling module INV_X5B_A9TR
-recompiling module BUFH_X0P8M_A9TL
-recompiling module BUFH_X1M_A9TL
-recompiling module BUFH_X2M_A9TL
-recompiling module BUFH_X4M_A9TL
-recompiling module BUFH_X9M_A9TL
-recompiling module BUF_X1M_A9TL
-recompiling module BUF_X2M_A9TL
-recompiling module BUF_X3M_A9TL
-recompiling module BUF_X4M_A9TL
-recompiling module BUF_X6M_A9TL
-recompiling module BUF_X9M_A9TL
-recompiling module INV_X0P6M_A9TL
-recompiling module INV_X0P8M_A9TL
-recompiling module INV_X1M_A9TL
-recompiling module INV_X2M_A9TL
-recompiling module INV_X3M_A9TL
-recompiling module INV_X4M_A9TL
-recompiling module INV_X6M_A9TL
-recompiling module INV_X9M_A9TL
-recompiling module BUFH_X11M_A9TH
-recompiling module BUF_X0P7M_A9TH
-recompiling module BUF_X5M_A9TH
-recompiling module INV_X11M_A9TH
-recompiling module INV_X1M_A9TH
-recompiling module INV_X2P5B_A9TH
-recompiling module INV_X4B_A9TH
-ND4_X0P7M_A9TR
-recompiling module XNOR2_X0P5M_A9TR
-recompiling module XNOR2_X2M_A9TR
-recompiling module XOR2_X0P7M_A9TR
-recompiling module XOR2_X3M_A9TR
-recompiling module AND4_X1M_A9TL
-recompiling module NAND3B_X3M_A9TL
-recompiling module NAND3XXB_X3M_A9TL
-recompiling module NAND4_X1M_A9TL
-recompiling module NAND4_X2M_A9TL
-recompiling module XNOR2_X1M_A9TL
-recompiling module XNOR2_X4M_A9TL
-recompiling module XOR2_X1P4M_A9TL
-recompiling module AND4_X0P5M_A9TH
-recompiling module NAND4_X0P7A_A9TH
-recompiling module NAND4_X3M_A9TH
-recompiling module XNOR2_X0P7M_A9TH
-recompiling module XOR2_X0P7M_A9TH
-recompiling module NAND2B_X0P5M_A9TR
-recompiling module NAND2B_X2M_A9TR
-recompiling module NAND3_X0P7A_A9TR
-recompiling module NOR2B_X1M_A9TR
-recompiling module NOR2XB_X0P7M_A9TR
-recompiling module NOR2XB_X3M_A9TR
-recompiling module NOR3_X0P5A_A9TR
-recompiling module NOR3_X1A_A9TR
-recompiling module NOR3_X2A_A9TR
-recompiling module AND3_X0P7M_A9TL
-recompiling module AND3_X2M_A9TL
-recompiling module NAND2B_X1P4M_A9TL
-recompiling module NAND2B_X6M_A9TL
-recompiling module NAND2XB_X1M_A9TL
-recompiling module NAND3_X0P5M_A9TL
-recompiling module NAND3_X1M_A9TL
-recompiling module NAND3_X2M_A9TL
-recompiling module NAND3_X4M_A9TL
-recompiling module NOR2B_X0P7M_A9TL
-recompiling module NOR2B_X3M_A9TL
-recompiling module NOR2XB_X2M_A9TL
-recompiling module NOR2XB_X8M_A9TL
-recompiling module NOR3_X0P7M_A9TL
-recompiling module NOR3_X1P4M_A9TL
-recompiling module OR3_X0P7M_A9TL
-recompiling module AND3_X0P5M_A9TH
-recompiling module NAND2XB_X0P7M_A9TH
-recompiling module NAND3_X0P5M_A9TH
-recompiling module NAND3_X1M_A9TH
-recompiling module NOR2XB_X2M_A9TH
-recompiling module NOR3_X1A_A9TH
-recompiling module AND2_X11B_A9TR
-recompiling module AND2_X1P4B_A9TR
-recompiling module NAND2_X0P7A_A9TR
-recompiling module NAND2_X1B_A9TR
-recompiling module NAND2_X4B_A9TR
-recompiling module NOR2_X0P5A_A9TR
-recompiling module NOR2_X1M_A9TR
-recompiling module NOR2_X2A_A9TR
-recompiling module NOR2_X4M_A9TR
-recompiling module OR2_X0P5M_A9TR
-recompiling module OR2_X1P4M_A9TR
-recompiling module OR2_X3M_A9TR
-recompiling module OR2_X6M_A9TR
-recompiling module AND2_X0P5M_A9TL
-recompiling module AND2_X1P4M_A9TL
-recompiling module NAND2_X0P5A_A9TL
-recompiling module NAND2_X4M_A9TL
-recompiling module NOR2_X0P5B_A9TL
-recompiling module NOR2_X0P7M_A9TL
-recompiling module NOR2_X2B_A9TL
-recompiling module NOR2_X3M_A9TL
-recompiling module NOR2_X6A_A9TL
-recompiling module NOR2_X8B_A9TL
-recompiling module OR2_X1B_A9TL
-recompiling module OR2_X2B_A9TL
-recompiling module OR2_X4B_A9TL
-recompiling module OR2_X8B_A9TL
-recompiling module AND2_X0P7M_A9TH
-recompiling module AND2_X2B_A9TH
-recompiling module NAND2_X0P7A_A9TH
-recompiling module NOR2_X0P5A_A9TH
-recompiling module NOR2_X1M_A9TH
-recompiling module NOR2_X3A_A9TH
-recompiling module OR2_X1B_A9TH
-recompiling module BUFH_X0P8M_A9TR
-recompiling module BUFH_X1M_A9TR
-recompiling module BUFH_X2M_A9TR
-recompiling module BUF_X1M_A9TR
-recompiling module BUF_X3M_A9TR
-recompiling module BUF_X4M_A9TR
-recompiling module BUF_X6M_A9TR
-recompiling module BUF_X9M_A9TR
-recompiling module INV_X0P6M_A9TR
-recompiling module INV_X13M_A9TR
-recompiling module INV_X1M_A9TR
-recompiling module INV_X2M_A9TR
-recompiling module INV_X3M_A9TR
-recompiling module INV_X4M_A9TR
-recompiling module INV_X6M_A9TR
-recompiling module INV_X9M_A9TR
-recompiling module BUFH_X16M_A9TL
-recompiling module BUFH_X1P7M_A9TL
-recompiling module BUFH_X3P5M_A9TL
-recompiling module BUFH_X7P5M_A9TL
-recompiling module BUF_X1B_A9TL
-recompiling module BUF_X2B_A9TL
-recompiling module INV_X0P6B_A9TL
-recompiling module BUFH_X0P8M_A9TH
-recompiling module BUFH_X4M_A9TH
-recompiling module BUF_X3M_A9TH
-recompiling module BUF_X9M_A9TH
-recompiling module INV_X0P8B_A9TH
-recompiling module INV_X1B_A9TH
-recompiling module INV_X2M_A9TH
-recompiling module INV_X3P5B_A9TH
-recompiling module INV_X6M_A9TH
-	However, due to incremental compilation, only 941 modules need to be compiled. 
+Both modules done.
+	However, due to incremental compilation, only 2 modules need to be compiled. 
 make[1]: Entering directory `/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/03_GATE/csrc' \
 
 rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/a/amcQw_d.o 
+rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib \
--Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/a/amcQw_d.o   _32093_archive_1.so \
-_32160_archive_1.so _32161_archive_1.so _32162_archive_1.so _prev_archive_1.so objs/udps/gSqMj.o \
-objs/udps/AubIW.o objs/udps/D2wHf.o objs/udps/U7Vwg.o objs/udps/CjLsY.o objs/udps/vCfas.o \
-objs/udps/V6gPN.o objs/udps/sk4QJ.o objs/udps/i2VqJ.o objs/udps/exIG1.o objs/udps/WTP7v.o \
-SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o \
+-Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _11479_archive_1.so _11509_archive_1.so \
+_11511_archive_1.so _prev_archive_1.so _cuarc0.so objs/udps/gSqMj.o objs/udps/AubIW.o \
+objs/udps/D2wHf.o objs/udps/U7Vwg.o objs/udps/CjLsY.o objs/udps/vCfas.o objs/udps/V6gPN.o \
+objs/udps/sk4QJ.o objs/udps/i2VqJ.o objs/udps/exIG1.o objs/udps/WTP7v.o  SIM_l.o \
+rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o        \
 -lvirsim -lerrorinf -lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2022.06/share/PLI/VCS/linux64/pli.a \
 -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o \
 -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   \
@@ -4869,37 +3873,3 @@ SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm
 ../simv up to date
 make[1]: Leaving directory `/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/03_GATE/csrc' \
 
-Command: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/03_GATE/./simv +v2k -a vcs.log +define+GATE +define+ARM_WIDTH=0.0 +neg_tchk
-Chronologic VCS simulator copyright 1991-2022
-Contains Synopsys proprietary information.
-Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Feb  4 00:37 2026
-Doing SDF annotation ...... Done
-PASS PATTERN NO.   1
-PASS PATTERN NO.   2
-PASS PATTERN NO.   3
-PASS PATTERN NO.   4
-PASS PATTERN NO.   5
-PASS PATTERN NO.   6
-PASS PATTERN NO.   7
-PASS PATTERN NO.   8
-PASS PATTERN NO.   9
-PASS PATTERN NO.  10
-PASS PATTERN NO.  11
-PASS PATTERN NO.  12
-PASS PATTERN NO.  13
-PASS PATTERN NO.  14
- contention: write B succeeds, read A fails in TESTBED.dut_p.u_RF_CRT_u_RF_2p_CRT_4x256 at 44139000
- contention: write B succeeds, read A fails in TESTBED.dut_p.u_RF_CRT_u_RF_2p_CRT_4x256 at 44139000
- contention: write B succeeds, read A fails in TESTBED.dut_p.u_RF_CRT_u_RF_2p_CRT_4x256 at 44152000
- contention: write B succeeds, read A fails in TESTBED.dut_p.u_RF_CRT_u_RF_2p_CRT_4x256 at 44152000
-***********************************************************
-                          FAIL!                          	 
-         The execution latency are over        6000 cycles        	 
-***********************************************************
-$finish called from file "PATTERN.sv", line 129.
-$finish at simulation time             54516400
-           V C S   S i m u l a t i o n   R e p o r t 
-Time: 54516400 ps
-CPU Time:     80.630 seconds;       Data structure size:  24.6Mb
-Wed Feb  4 00:38:44 2026
-CPU time: 12.812 seconds to compile + 2.134 seconds to elab + .601 seconds to link + 80.676 seconds in simulation

@@ -8,14 +8,18 @@
 #======================================================
 set DESIGN "MAKE_FG"
 MAKE_FG
-# set CYCLE 2.0 
-if {[info exists env(PERIOD)]} {
-    set CYCLE $env(PERIOD)
+if {[info exists WN]} {
+    set WORD_NUM $WN
 } else {
-    set CYCLE 1.55 ;
-    puts "Warning: PERIOD not set, using default $CYCLE"
+    set WORD_NUM 4
 }
-Warning: PERIOD not set, using default 1.55
+4
+if {[info exists PERIOD]} {
+    set CYCLE $PERIOD
+} else {
+    set CYCLE 2
+}
+1.53
 set INPUT_DLY [expr 0*$CYCLE]
 0.0
 set OUTPUT_DLY [expr 0*$CYCLE]
@@ -26,11 +30,11 @@ set OUTPUT_DLY [expr 0*$CYCLE]
 # (B-1) analyze + elaborate
 set hdlin_auto_save_templates TRUE
 TRUE
-analyze -f sverilog {Usertype.sv INF.sv MAKE_FG.sv}
+analyze -f sverilog -define "WN=$WORD_NUM" {Usertype.sv INF.sv MAKE_FG.sv}
 Running PRESTO HDLC
 Compiling source file ../01_RTL/Usertype.sv
-Warning:  ../01_RTL/Usertype.sv:4: The package usertype has already been analyzed. It is being replaced. (VER-26)
-Warning:  ../01_RTL/Usertype.sv:9: Parameter keyword used in local parameter declaration. (VER-329)
+Warning:  ../01_RTL/Usertype.sv:8: The package FALCON_Config has already been analyzed. It is being replaced. (VER-26)
+Warning:  ../01_RTL/Usertype.sv:14: Parameter keyword used in local parameter declaration. (VER-329)
 Compiling source file ../01_RTL/INF.sv
 Information:  ../01_RTL/INF.sv:1: List () of one, unnamed, port is ignored. (VER-988)
 Compiling source file ../01_RTL/MAKE_FG.sv
@@ -44,7 +48,8 @@ Presto compilation completed successfully.
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
-Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db'
+Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'
+Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'
 Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'
 Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb'
 Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/standard.sldb'
@@ -55,24 +60,26 @@ Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb
   Loading link library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c'
   Loading link library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c'
   Loading link library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c'
-  Loading link library 'RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c'
+  Loading link library 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c'
+  Loading link library 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c'
   Loading link library 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c'
   Loading link library 'gtech'
 Running PRESTO HDLC
-Warning:  ../01_RTL/MAKE_FG.sv:117: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/MAKE_FG.sv:174: signed to unsigned conversion occurs. (VER-318)
-Warning:  ../01_RTL/MAKE_FG.sv:176: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/MAKE_FG.sv:125: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/MAKE_FG.sv:182: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/MAKE_FG.sv:184: signed to unsigned conversion occurs. (VER-318)
 
-Statistics for case statements in always block at line 244 in file
+Statistics for case statements in always block at line 242 in file
         '../01_RTL/MAKE_FG.sv'
 ===============================================
 |           Line           |  full/ parallel  |
 ===============================================
-|           245            |    auto/auto     |
+|           243            |    auto/auto     |
 ===============================================
+$display output: WORD_NUM: 4, ADDR_WIDTH: 9
 
 Inferred memory devices in process
-        in routine MAKE_FG line 292 in file
+        in routine MAKE_FG line 295 in file
                 '../01_RTL/MAKE_FG.sv'.
 ===============================================================================
 |    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
@@ -88,7 +95,7 @@ Inferred memory devices in process
 ===============================================================================
 
 Inferred memory devices in process
-        in routine MAKE_FG line 318 in file
+        in routine MAKE_FG line 321 in file
                 '../01_RTL/MAKE_FG.sv'.
 ==================================================================================
 |     Register Name      |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
@@ -96,10 +103,10 @@ Inferred memory devices in process
 |     rf_crt_DB_reg      | Flip-flop |  124  |  Y  | N  | Y  | N  | N  | N  | N  |
 |        logn_reg        | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
 |        xlen_reg        | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
-|     input_ptr_reg      | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     input_ptr_reg      | Flip-flop |  12   |  Y  | N  | Y  | N  | N  | N  | N  |
 | intt_output_buffer_reg | Flip-flop |  124  |  Y  | N  | Y  | N  | N  | N  | N  |
 |    rf_crt_CENB_reg     | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
-|     rf_crt_AB_reg      | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     rf_crt_AB_reg      | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
 ==================================================================================
 Presto compilation completed successfully. (MAKE_FG)
 Elaborated 1 design.
@@ -107,135 +114,168 @@ Current design is now 'MAKE_FG'.
 Information: Building the design 'RF_CRT'. (HDL-193)
 Presto compilation completed successfully. (RF_CRT)
 Information: Building the design 'ZINT_REBUILD_CRT'. (HDL-193)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:294: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:308: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:309: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:312: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:313: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:316: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:317: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:326: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:327: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:330: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:331: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:334: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:335: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:344: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:345: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:348: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:349: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:352: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:353: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:362: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:363: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:366: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:367: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:376: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:377: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:380: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:381: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:390: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:391: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:394: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:395: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:404: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:405: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:408: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:300: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:314: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:315: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:324: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:325: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:328: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:329: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:332: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:333: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:342: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:343: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:346: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:347: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:350: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:351: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:360: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:361: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:364: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:365: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:368: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:369: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:378: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:379: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:382: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:383: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:392: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:393: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:396: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:397: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:409: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:410: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:413: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:414: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:417: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:418: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:419: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:421: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:422: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:423: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:425: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:426: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:427: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:444: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:445: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:448: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:449: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:429: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:430: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:433: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:434: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:451: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:452: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:453: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:462: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:463: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:466: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:455: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:456: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:467: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:470: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:468: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:471: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:472: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:475: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:476: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:479: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:480: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:481: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:483: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:484: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:485: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:488: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:489: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:498: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:499: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:501: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:502: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:503: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:512: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:513: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:516: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:505: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:506: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:517: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:526: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:527: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:530: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:531: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:540: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:518: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:521: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:522: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:533: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:534: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:537: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:538: signed to unsigned assignment occurs. (VER-318)
 Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:541: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:544: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:545: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:548: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:549: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:727: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:542: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:566: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:567: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:570: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:571: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:574: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:575: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:584: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:585: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:588: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:589: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:592: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:593: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:602: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:603: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:606: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:607: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:610: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:611: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:620: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:621: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:624: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:625: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:634: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:635: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:638: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:639: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:648: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:649: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:652: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:653: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:662: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:663: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:666: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:667: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:670: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:671: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:852: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:1141: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:405: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:405: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ../01_RTL/ZINT_REBUILD_CRT.sv:312: 'Case' statement is full and has only one nontrivial branch; it will be inlined. (ELAB-335)
 
-Statistics for case statements in always block at line 273 in file
+Statistics for case statements in always block at line 279 in file
         '../01_RTL/ZINT_REBUILD_CRT.sv'
 ===============================================
 |           Line           |  full/ parallel  |
 ===============================================
-|           274            |    auto/auto     |
+|           280            |    auto/auto     |
 ===============================================
 
-Statistics for case statements in always block at line 303 in file
+Statistics for case statements in always block at line 309 in file
         '../01_RTL/ZINT_REBUILD_CRT.sv'
 ===============================================
 |           Line           |  full/ parallel  |
 ===============================================
-|           305            |    auto/auto     |
-|           306            |    auto/auto     |
-|           324            |    auto/auto     |
-|           342            |    auto/auto     |
-|           360            |    auto/auto     |
-|           374            |    auto/auto     |
-|           388            |    auto/auto     |
-|           402            |    auto/auto     |
-|           416            |    auto/auto     |
-|           441            |    auto/auto     |
-|           442            |    auto/auto     |
-|           460            |    auto/auto     |
-|           478            |    auto/auto     |
-|           496            |    auto/auto     |
-|           510            |    auto/auto     |
-|           524            |    auto/auto     |
-|           538            |    auto/auto     |
+|           311            |    auto/auto     |
+|           322            |    auto/auto     |
+|           340            |    auto/auto     |
+|           358            |    auto/auto     |
+|           376            |    auto/auto     |
+|           390            |    auto/auto     |
+|           449            |    auto/auto     |
+|           465            |    auto/auto     |
+|           563            |    auto/auto     |
+|           564            |    auto/auto     |
+|           582            |    auto/auto     |
+|           600            |    auto/auto     |
+|           618            |    auto/auto     |
+|           632            |    auto/auto     |
+|           646            |    auto/auto     |
+|           660            |    auto/auto     |
 ===============================================
 
-Statistics for case statements in always block at line 779 in file
+Statistics for case statements in always block at line 901 in file
         '../01_RTL/ZINT_REBUILD_CRT.sv'
 ===============================================
 |           Line           |  full/ parallel  |
 ===============================================
-|           781            |    auto/auto     |
+|           903            |    auto/auto     |
 ===============================================
 
-Statistics for case statements in always block at line 803 in file
+Statistics for case statements in always block at line 925 in file
         '../01_RTL/ZINT_REBUILD_CRT.sv'
 ===============================================
 |           Line           |  full/ parallel  |
 ===============================================
-|           805            |    auto/auto     |
+|           927            |    auto/auto     |
 ===============================================
 
 Inferred memory devices in process
-        in routine ZINT_REBUILD_CRT line 1036 in file
+        in routine ZINT_REBUILD_CRT line 1165 in file
                 '../01_RTL/ZINT_REBUILD_CRT.sv'.
 ===============================================================================================
 |            Register Name            |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
@@ -244,7 +284,7 @@ Inferred memory devices in process
 ===============================================================================================
 
 Inferred memory devices in process
-        in routine ZINT_REBUILD_CRT line 1050 in file
+        in routine ZINT_REBUILD_CRT line 1179 in file
                 '../01_RTL/ZINT_REBUILD_CRT.sv'.
 ================================================================================================
 |            Register Name             |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
@@ -253,7 +293,7 @@ Inferred memory devices in process
 ================================================================================================
 
 Inferred memory devices in process
-        in routine ZINT_REBUILD_CRT line 1064 in file
+        in routine ZINT_REBUILD_CRT line 1193 in file
                 '../01_RTL/ZINT_REBUILD_CRT.sv'.
 ==========================================================================================
 |         Register Name          |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
@@ -262,7 +302,7 @@ Inferred memory devices in process
 ==========================================================================================
 
 Inferred memory devices in process
-        in routine ZINT_REBUILD_CRT line 1078 in file
+        in routine ZINT_REBUILD_CRT line 1207 in file
                 '../01_RTL/ZINT_REBUILD_CRT.sv'.
 ===========================================================================================
 |          Register Name          |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
@@ -271,14 +311,14 @@ Inferred memory devices in process
 ===========================================================================================
 
 Inferred memory devices in process
-        in routine ZINT_REBUILD_CRT line 1089 in file
+        in routine ZINT_REBUILD_CRT line 1218 in file
                 '../01_RTL/ZINT_REBUILD_CRT.sv'.
 =====================================================================================================
 |               Register Name               |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
 =====================================================================================================
 |                  tmp_reg                  | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
 |                 state_reg                 | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-|                 num_1_reg                 | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|                 num_1_reg                 | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
 |        mod_small_unsigned_ptr_reg         | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
 |      in_valid_mod_small_unsigned_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
 |        dlen_mod_small_unsigned_reg        | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
@@ -286,8 +326,9 @@ Inferred memory devices in process
 |        p0i_mod_small_unsigned_reg         | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
 |         R2_mod_small_unsigned_reg         | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
 | mod_small_unsigned_output_buffer_full_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-|         mod_small_unsigned_AB_reg         | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
-|      mod_small_unsigned_ptr_reg_reg       | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|         mod_small_unsigned_AB_reg         | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      mod_small_unsigned_ptr_reg_reg       | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    mod_small_unsigned_ptr_reg_reg_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
 |      is_read_mod_small_unsigned_reg       | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
 |     mod_small_unsigned_not_write_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
 |           add_mul_small_ptr_reg           | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
@@ -297,15 +338,15 @@ Inferred memory devices in process
 |            p_add_mul_small_reg            | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
 |           p0i_add_mul_small_reg           | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
 |   add_mul_small_output_buffer_full_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-|           add_mul_small_AB_reg            | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
-|         add_mul_small_ptr_reg_reg         | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
-|           vB_add_mul_small_reg            | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
-|                intt_AB_reg                | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|           add_mul_small_AB_reg            | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+|         add_mul_small_ptr_reg_reg         | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|           vB_add_mul_small_reg            | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
+|                intt_AB_reg                | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
 |          stall_add_mul_small_reg          | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
 |      read_ena_add_mul_small_reg_reg       | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
 |    read_ena_mod_small_unsigned_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
 |              rf_tmp_CENB_reg              | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
-|               rf_tmp_AB_reg               | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|               rf_tmp_AB_reg               | Flip-flop |   9   |  Y  | N  | Y  | N  | N  | N  | N  |
 |               rf_tmp_DB_reg               | Flip-flop |  31   |  Y  | N  | Y  | N  | N  | N  | N  |
 |               tmp_valid_reg               | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
 =====================================================================================================
@@ -422,12 +463,12 @@ Inferred memory devices in process
 Presto compilation completed successfully. (ZINT_ADD_MUL_SMALL_SLAVE_NUM4)
 Information: Building the design 'PRIMES'. (HDL-193)
 
-Statistics for case statements in always block at line 1183 in file
+Statistics for case statements in always block at line 1310 in file
         '../01_RTL/ZINT_REBUILD_CRT.sv'
 ===============================================
 |           Line           |  full/ parallel  |
 ===============================================
-|           1184           |    auto/auto     |
+|           1311           |    auto/auto     |
 ===============================================
 Presto compilation completed successfully. (PRIMES)
 Information: Building the design 'RF_TMP'. (HDL-193)
@@ -436,7 +477,7 @@ Information: Building the design 'MODP_MONTYMUL' instantiated from design 'MODP_
         the parameters "MASTER_NUM=8". (HDL-193)
 
 Inferred memory devices in process
-        in routine MODP_MONTYMUL_MASTER_NUM8 line 259 in file
+        in routine MODP_MONTYMUL_MASTER_NUM8 line 254 in file
                 '../01_RTL/MODP_MONTYMUL_TOP.sv'.
 ===============================================================================
 |    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
@@ -467,7 +508,8 @@ link
   sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db
   sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db
   sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db
-  RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c (library) /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db
+  RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c (library) /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db
+  RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c (library) /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db
   RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c (library) /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db
   dw_foundation.sldb (library) /usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb
 
@@ -513,8 +555,6 @@ Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OP
 Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
-Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
-Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
 Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
@@ -527,7 +567,7 @@ Warning: Design 'MAKE_FG' contains 11 high-fanout nets. A fanout number of 1000 
 Report : clock_skew
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Wed Feb  4 00:39:28 2026
+Date   : Thu Feb 12 18:46:38 2026
 ****************************************
 
                  Rise      Fall  Min Rise  Min fall        Uncertainty
@@ -559,7 +599,7 @@ set_fix_multiple_port_nets -all -buffer_constants
 compile_ultra
 Information: Performing power optimization. (PWR-850)
 Alib files are up-to-date.
-Information: Running optimization using a maximum of 4 cores. (OPT-1500)
+Information: Running optimization using a maximum of 8 cores. (OPT-1500)
 Information: Evaluating DesignWare library utilization. (UISN-27)
 
 ============================================================================
@@ -578,15 +618,15 @@ Information: Evaluating DesignWare library utilization. (UISN-27)
 | Design Information                                      | Value                                  |
 ====================================================================================================
 | Number of Scenarios                                     | 0                                      |
-| Leaf Cell Count                                         | 8637                                   |
+| Leaf Cell Count                                         | 8787                                   |
 | Number of User Hierarchies                              | 20                                     |
-| Sequential Cell Count                                   | 2440                                   |
+| Sequential Cell Count                                   | 2462                                   |
 | Macro Count                                             | 0                                      |
 | Number of Power Domains                                 | 0                                      |
 | Number of Path Groups                                   | 2                                      |
 | Number of VT class                                      | 0                                      |
 | Number of Clocks                                        | 1                                      |
-| Number of Dont Touch cells                              | 2819                                   |
+| Number of Dont Touch cells                              | 2855                                   |
 | Number of Dont Touch nets                               | 11                                     |
 | Number of size only cells                               | 0                                      |
 | Design with UPF Data                                    | false                                  |
@@ -597,7 +637,7 @@ Information: Evaluating DesignWare library utilization. (UISN-27)
 ====================================================================================================
 Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
 
-Information: There are 1920 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+Information: There are 1706 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
 
 Information: Uniquified 2 instances of design 'PRIMES'. (OPT-1056)
 Information: Uniquified 4 instances of design 'MODP_MONTYMUL_MASTER_NUM8'. (OPT-1056)
@@ -605,12 +645,14 @@ Information: Uniquified 4 instances of design 'MODP_ADD'. (OPT-1056)
 Information: Uniquified 4 instances of design 'MODP_SUB'. (OPT-1056)
   Simplifying Design 'MAKE_FG'
 
-  Loading target library 'RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c'
+  Loading target library 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c'
+  Loading target library 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c'
   Loading target library 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c'
 Loaded alib file './alib-52/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
 Loaded alib file './alib-52/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db.alib'
 Loaded alib file './alib-52/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
-Loaded alib file './alib-52/RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db.alib' (placeholder)
+Loaded alib file './alib-52/RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db.alib' (placeholder)
+Loaded alib file './alib-52/RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db.alib' (placeholder)
 Loaded alib file './alib-52/RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db.alib' (placeholder)
   Building model 'DW01_NAND2'
 Information: Ungrouping hierarchy u_RF_CRT before Pass 1 (OPT-776)
@@ -636,6 +678,8 @@ Information: State dependent leakage is now switched from on to off.
  Implement Synthetic for 'PRIMES_1'.
   Processing 'ZINT_REBUILD_CRT'
 Information: Added key list 'DesignWare' to design 'ZINT_REBUILD_CRT'. (DDB-72)
+Information: The register 'intt_AB_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'mod_small_unsigned_AB_reg[8]' is a constant and will be removed. (OPT-1206)
 Information: The register 'p_mod_small_unsigned_reg[10]' is a constant and will be removed. (OPT-1206)
 Information: The register 'p_mod_small_unsigned_reg[9]' is a constant and will be removed. (OPT-1206)
 Information: The register 'p_mod_small_unsigned_reg[8]' is a constant and will be removed. (OPT-1206)
@@ -657,7 +701,6 @@ Information: The register 'p_add_mul_small_reg[3]' is a constant and will be rem
 Information: The register 'p_add_mul_small_reg[2]' is a constant and will be removed. (OPT-1206)
 Information: The register 'p_add_mul_small_reg[1]' is a constant and will be removed. (OPT-1206)
  Implement Synthetic for 'ZINT_REBUILD_CRT'.
-Information: Added key list 'DesignWare' to design 'ZINT_REBUILD_CRT_RSOP_349'. (DDB-72)
   Processing 'MAKE_FG'
  Implement Synthetic for 'MAKE_FG'.
 Information: Added key list 'DesignWare' to design 'MAKE_FG'. (DDB-72)
@@ -760,19 +803,19 @@ Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP 'MODP_MONTYMUL_TOP_MASTER_
   Mapping Optimization (Phase 1)
   Mapping Optimization (Phase 2)
   Mapping Optimization (Phase 3)
-  Mapping Optimization (Phase 4)
+Information: The register 'u_ZINT_REBUILD_CRT/vB_add_mul_small_reg[8]' will be removed. (OPT-1207)
 
                                   TOTAL                                                
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
   --------- --------- --------- --------- --------- ------------------------- ---------
-    0:01:23  294884.2      0.35     154.0      36.8                           11497.8809
-    0:01:24  293367.6      0.36     158.9      36.8                           11421.6357
+    0:01:22  330724.8      0.45     180.4       0.0                           11847.2021
+    0:01:23  329279.0      0.45     187.7       0.0                           11769.5459
 
   Beginning Constant Register Removal
   -----------------------------------
-    0:01:25  293513.9      0.36     150.9      36.8                           11432.6963
-    0:01:26  293406.2      0.36     151.7      36.8                           11426.2432
+    0:01:24  329558.8      0.45     172.5       0.0                           11789.4316
+    0:01:25  329483.3      0.46     172.7       0.0                           11784.4062
 
   Beginning Global Optimizations
   ------------------------------
@@ -809,48 +852,49 @@ Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP 'MODP_MONTYMUL_TOP_MASTER_
   Global Optimization (Phase 29)
   Global Optimization (Phase 30)
   Global Optimization (Phase 31)
-  Mapping 'MAKE_FG_DP_OP_20J7_125_6899_1'
+  Mapping 'MAKE_FG_DP_OP_20J7_122_5124_3'
 
   Beginning Isolate Ports
   -----------------------
 
   Beginning Delay Optimization
   ----------------------------
-    0:01:41  147168.0      0.73     312.6    2837.5                           3807.8125
-    0:01:44  147547.9      0.45     269.4    2837.5                           3863.8079
-    0:01:44  147547.9      0.45     269.4    2837.5                           3863.8079
-    0:01:45  147570.6      0.45     267.7    2837.5                           3867.8452
-    0:01:50  147361.5      0.64     296.0    2837.5                           3859.1921
-    0:01:51  146828.7      1.87     872.8    3518.7                           3834.6909
+    0:01:39  180363.4      0.93     346.4    2844.5                           4004.9287
+    0:01:41  180751.0      0.49     296.9    2844.5                           4058.4810
+    0:01:41  180751.0      0.49     296.9    2844.5                           4058.4810
+    0:01:42  180885.3      0.49     300.8    2844.5                           4066.4082
+    0:01:48  180689.6      0.81     347.2    2844.5                           4058.3420
+    0:01:49  180179.5      0.73     471.6    2844.5                           4036.2144
 
   Beginning WLM Backend Optimization
   --------------------------------------
-    0:01:57  146836.2      1.87     876.9    3508.4                           3818.2312
-    0:01:58  146788.1      1.87     877.9    3508.4                           3799.2690
-    0:01:59  146266.9      1.67     811.6    3488.1                           3761.2754
-    0:02:00  145566.3      0.95     484.2    2782.6                           3711.9541
-    0:02:01  145280.4      0.95     486.9    2782.6                           3690.9873
-    0:02:02  145607.2      0.55     328.8    2782.6                           3720.2656
-    0:02:02  145607.2      0.55     328.8    2782.6                           3720.2656
-    0:02:06  146878.6      0.55     307.8    2727.7                           3595.0293
-    0:02:06  146878.6      0.55     307.8    2727.7                           3595.0293
-    0:02:14  152046.5      0.40     279.0    2727.7                           3895.0413
-    0:02:14  152046.5      0.40     279.0    2727.7                           3895.0413
-    0:02:16  152996.3      0.32     215.6    2727.7                           3976.0278
-    0:02:16  152996.3      0.32     215.6    2727.7                           3976.0278
-    0:02:22  155426.7      0.31     205.9    2755.3                           4117.0928
-    0:02:22  155426.7      0.31     205.9    2755.3                           4117.0928
-    0:02:35  159402.3      0.18     117.6    2762.9                           4395.6514
-    0:02:35  159402.3      0.18     117.6    2762.9                           4395.6514
-    0:02:43  161789.4      0.18     112.5    2762.9                           4532.9858
-    0:02:43  161789.4      0.18     112.5    2762.9                           4532.9858
-    0:02:57  165315.2      0.12      68.5    2809.9                           4781.4790
-    0:02:57  165315.2      0.12      68.5    2809.9                           4781.4790
-    0:03:07  167943.6      0.12      65.3    2824.6                           4934.7061
-    0:03:07  167943.6      0.12      65.3    2824.6                           4934.7061
-    0:03:15  169807.6      0.09      48.2    2841.0                           5061.3696
-    0:03:15  169807.6      0.09      48.2    2841.0                           5061.3696
-    0:03:22  171825.3      0.09      48.5    2841.0                           5174.3208
+    0:01:55  180200.6      0.73     472.0    2755.1                           4021.6650
+    0:01:56  180144.8      0.73     476.5    2755.1                           4003.8953
+    0:01:57  179680.5      0.73     463.9    2727.6                           3973.9585
+    0:01:58  178990.8      0.64     423.6    2635.7                           3926.9600
+    0:01:59  178680.1      0.64     423.8    2635.7                           3905.9602
+    0:02:01  179197.5      0.45     349.3    2635.7                           3957.7607
+    0:02:02  179580.3      0.45     323.7    2631.6                           3987.2188
+    0:02:02  179580.3      0.45     323.7    2631.6                           3987.2188
+    0:02:05  181199.6      0.45     307.7    2520.0                           3862.0020
+    0:02:05  181199.6      0.45     307.7    2520.0                           3862.0020
+    0:02:13  186419.9      0.41     311.4    2520.0                           4174.6641
+    0:02:13  186419.9      0.41     311.4    2520.0                           4174.6641
+    0:02:14  187643.3      0.34     260.1    2520.0                           4271.2593
+    0:02:14  187643.3      0.34     260.1    2520.0                           4271.2593
+    0:02:23  192993.0      0.32     237.5    2527.0                           4581.7192
+    0:02:23  192993.0      0.32     237.5    2527.0                           4581.7192
+    0:02:36  199416.2      0.16     111.1    2541.9                           5029.9365
+    0:02:36  199416.2      0.16     111.1    2541.9                           5029.9365
+    0:02:42  202036.7      0.16     108.7    2541.9                           5187.0957
+    0:02:42  202036.7      0.16     108.7    2541.9                           5187.0957
+    0:02:49  204256.6      0.13      82.6    2554.8                           5342.2529
+    0:02:49  204256.6      0.13      82.6    2554.8                           5342.2529
+    0:02:50  204551.2      0.13      82.7    2554.8                           5358.4048
+    0:02:50  204551.2      0.13      82.7    2554.8                           5358.4048
+    0:02:55  205927.2      0.11      68.1    2573.4                           5448.6660
+    0:02:55  205927.2      0.11      68.1    2573.4                           5448.6660
+    0:02:56  206145.6      0.11      68.4    2573.4                           5461.5576
 
 
   Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
@@ -860,13 +904,13 @@ Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP 'MODP_MONTYMUL_TOP_MASTER_
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
   --------- --------- --------- --------- --------- ------------------------- ---------
-    0:03:22  171825.3      0.09      48.5    2841.0                           5174.3208
+    0:02:56  206145.6      0.11      68.4    2573.4                           5461.5576
   Global Optimization (Phase 32)
   Global Optimization (Phase 33)
   Global Optimization (Phase 34)
-    0:03:23  172012.1      0.09      46.7       0.0 u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5191.8555
-    0:03:23  172034.4      0.09      46.7       0.0                           5193.2241
-    0:03:33  174478.6      0.08      43.5       5.3                           5333.0347
+    0:02:57  206366.3      0.11      67.7       0.0 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5478.0801
+    0:02:57  206469.3      0.11      67.3       0.0                           5485.3398
+    0:03:03  207978.6      0.11      66.2       0.0                           5561.9072
 
 
   Beginning Leakage Power Optimization  (max_leakage_power 0)
@@ -876,7 +920,7 @@ Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP 'MODP_MONTYMUL_TOP_MASTER_
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
   --------- --------- --------- --------- --------- ------------------------- ---------
-    0:03:33  174478.6      0.08      43.5       5.3                           5333.0347
+    0:03:03  207978.6      0.11      66.2       0.0                           5561.9072
   Global Optimization (Phase 35)
   Global Optimization (Phase 36)
   Global Optimization (Phase 37)
@@ -893,26 +937,26 @@ Information: Ungrouping hierarchy u_MODP_MONTYMUL_TOP 'MODP_MONTYMUL_TOP_MASTER_
   Global Optimization (Phase 48)
   Global Optimization (Phase 49)
   Global Optimization (Phase 50)
-Information: Complementing port 'modp_montymul_req[0][b][21]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[0][b][21]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][b][7]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[0][b][7]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][p][25]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[0][p][25]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][p][18]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[0][p][18]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][p][16]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[0][p][16]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][p][30]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[0][p][30]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][p][23]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[0][p][23]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][p][22]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[0][p][22]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][p][21]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[0][p][21]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][p][20]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[0][p][20]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p][15]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p][15]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p][14]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p][14]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][p][13]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[0][p][13]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p][12]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p][12]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p][11]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p][11]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][p][0]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[0][p][0]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p0i][30]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p0i][30]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p0i][29]' in design 'ZINT_REBUILD_CRT'.
@@ -921,6 +965,8 @@ Information: Complementing port 'modp_montymul_req[0][p0i][28]' in design 'ZINT_
          The new name of the port is 'modp_montymul_req[0][p0i][28]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p0i][27]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p0i][27]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][p0i][26]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[0][p0i][26]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p0i][25]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p0i][25]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p0i][22]' in design 'ZINT_REBUILD_CRT'.
@@ -929,6 +975,8 @@ Information: Complementing port 'modp_montymul_req[0][p0i][21]' in design 'ZINT_
          The new name of the port is 'modp_montymul_req[0][p0i][21]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p0i][20]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p0i][20]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][p0i][19]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[0][p0i][19]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p0i][18]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p0i][18]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p0i][17]' in design 'ZINT_REBUILD_CRT'.
@@ -939,40 +987,36 @@ Information: Complementing port 'modp_montymul_req[0][p0i][15]' in design 'ZINT_
          The new name of the port is 'modp_montymul_req[0][p0i][15]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p0i][14]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p0i][14]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][p0i][12]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[0][p0i][12]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][p0i][13]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[0][p0i][13]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][p0i][11]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[0][p0i][11]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p0i][9]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p0i][9]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][p0i][7]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[0][p0i][7]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][p0i][6]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[0][p0i][6]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][p0i][5]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[0][p0i][5]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][p0i][3]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[0][p0i][3]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][p0i][2]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[0][p0i][2]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p0i][1]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[0][p0i][1]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[4][b][25]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[4][b][25]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][b][25]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[0][b][25]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[4][b][24]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[4][b][24]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][b][24]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[0][b][24]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[4][b][15]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[4][b][15]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][b][15]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
          The new name of the port is 'modp_montymul_req[0][b][15]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[4][b][14]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[4][b][14]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][b][14]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[0][b][14]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[4][b][12]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[4][b][12]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][b][12]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[0][b][12]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[4][b][11]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[4][b][11]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][b][11]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
          The new name of the port is 'modp_montymul_req[0][b][11]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[4][b][10]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[4][b][10]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][b][10]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[0][b][10]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[4][b][9]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[4][b][9]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[0][b][9]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[0][b][9]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[4][b][7]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[4][b][7]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][b][7]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
@@ -981,18 +1025,10 @@ Information: Complementing port 'modp_montymul_req[4][b][5]' in design 'ZINT_REB
          The new name of the port is 'modp_montymul_req[4][b][5]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][b][5]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
          The new name of the port is 'modp_montymul_req[0][b][5]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[4][b][2]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[4][b][2]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][b][2]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[0][b][2]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[4][b][1]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[4][b][1]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][b][1]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
          The new name of the port is 'modp_montymul_req[0][b][1]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[4][b][0]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[4][b][0]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[0][b][0]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[0][b][0]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[4][p][30]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[4][p][30]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p][30]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
@@ -1077,14 +1113,62 @@ Information: Complementing port 'modp_montymul_req[4][p][0]' in design 'ZINT_REB
          The new name of the port is 'modp_montymul_req[4][p][0]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[0][p][0]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
          The new name of the port is 'modp_montymul_req[0][p][0]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[5][b][24]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[5][b][24]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[1][b][24]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[1][b][24]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[5][b][20]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[5][b][20]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[1][b][20]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[1][b][20]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[5][b][19]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[5][b][19]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[1][b][19]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[1][b][19]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[5][b][18]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[5][b][18]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[1][b][18]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[1][b][18]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[5][b][13]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[5][b][13]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[1][b][13]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[1][b][13]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[5][b][12]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[5][b][12]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[1][b][12]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[1][b][12]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[5][b][11]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[5][b][11]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[1][b][11]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[1][b][11]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[5][b][10]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[5][b][10]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[1][b][10]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[1][b][10]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[5][b][7]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[5][b][7]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[1][b][7]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[1][b][7]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[5][b][5]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[5][b][5]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[1][b][5]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
          The new name of the port is 'modp_montymul_req[1][b][5]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[5][b][0]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[5][b][0]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[1][b][0]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[1][b][0]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[5][b][3]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[5][b][3]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[1][b][3]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[1][b][3]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[5][b][2]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[5][b][2]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[1][b][2]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[1][b][2]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[6][b][17]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[6][b][17]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[2][b][17]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[2][b][17]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[6][b][14]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[6][b][14]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[2][b][14]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[2][b][14]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[6][b][13]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[6][b][13]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[2][b][13]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
@@ -1093,148 +1177,116 @@ Information: Complementing port 'modp_montymul_req[6][b][9]' in design 'ZINT_REB
          The new name of the port is 'modp_montymul_req[6][b][9]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[2][b][9]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
          The new name of the port is 'modp_montymul_req[2][b][9]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[6][b][8]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[6][b][8]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[2][b][8]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[2][b][8]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[6][b][7]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[6][b][7]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[2][b][7]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[2][b][7]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[6][b][6]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[6][b][6]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[2][b][6]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[2][b][6]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[6][b][5]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[6][b][5]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[2][b][5]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
          The new name of the port is 'modp_montymul_req[2][b][5]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[7][b][17]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[7][b][17]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[3][b][17]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[3][b][17]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[7][b][16]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[7][b][16]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[3][b][16]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[3][b][16]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[7][b][15]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[7][b][15]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[3][b][15]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[3][b][15]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[7][b][12]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[7][b][12]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[3][b][12]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[3][b][12]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[7][b][10]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[7][b][10]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[3][b][10]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[3][b][10]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[6][b][3]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[6][b][3]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[2][b][3]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[2][b][3]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[7][in_valid]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[7][in_valid]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[3][in_valid]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[3][in_valid]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[7][b][26]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[7][b][26]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[3][b][26]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[3][b][26]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[7][b][22]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[7][b][22]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[3][b][22]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[3][b][22]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[7][b][21]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[7][b][21]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[3][b][21]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[3][b][21]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[7][b][19]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[7][b][19]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[3][b][19]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[3][b][19]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[7][b][9]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[7][b][9]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[3][b][9]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
          The new name of the port is 'modp_montymul_req[3][b][9]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[7][b][8]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[7][b][8]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[3][b][8]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[3][b][8]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[7][b][7]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[7][b][7]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[3][b][7]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[3][b][7]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[7][b][5]' in design 'ZINT_REBUILD_CRT'.
-         The new name of the port is 'modp_montymul_req[7][b][5]_BAR'. (OPT-319)
-Information: Complementing port 'modp_montymul_req[3][b][5]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
-         The new name of the port is 'modp_montymul_req[3][b][5]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[7][b][4]' in design 'ZINT_REBUILD_CRT'.
          The new name of the port is 'modp_montymul_req[7][b][4]_BAR'. (OPT-319)
 Information: Complementing port 'modp_montymul_req[3][b][4]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
          The new name of the port is 'modp_montymul_req[3][b][4]_BAR'. (OPT-319)
-    0:03:46  170167.3      0.32     225.6       0.0                           4834.1270
-    0:03:50  172759.7      0.23     154.4      57.3                           4977.7769
-    0:03:50  172759.7      0.23     154.4      57.3                           4977.7769
-    0:03:55  167757.1      0.22     118.5       0.0                           4743.8384
-    0:03:55  167757.1      0.22     118.5       0.0                           4743.8384
-    0:03:56  168391.0      0.21     109.5       0.0                           4782.9111
-    0:03:56  168391.0      0.21     109.5       0.0                           4782.9111
-    0:03:57  168828.3      0.15      63.4       0.0                           4826.1016
-    0:03:57  168828.3      0.15      63.4       0.0                           4826.1016
-    0:04:09  172964.7      0.11      51.8      12.4                           5053.4458
-    0:04:09  172964.7      0.11      51.8      12.4                           5053.4458
-    0:04:20  176831.4      0.04      10.9      93.1                           5323.5947
-    0:04:20  176831.4      0.04      10.9      93.1                           5323.5947
-    0:04:24  177556.0      0.04       9.8     136.1                           5366.0640
-    0:04:24  177556.0      0.04       9.8     136.1                           5366.0640
-    0:04:29  178822.3      0.03       5.0     171.4                           5453.4800
-    0:04:29  178822.3      0.03       5.0     171.4                           5453.4800
-    0:04:31  179325.1      0.02       4.3     200.4                           5480.7642
-    0:04:31  179325.1      0.02       4.3     200.4                           5480.7642
-    0:04:37  180438.7      0.01       1.3     218.7                           5560.7090
-    0:04:37  180438.7      0.01       1.3     218.7                           5560.7090
-    0:04:37  180451.4      0.01       1.3     218.7                           5561.3867
-    0:04:37  180560.5      0.03       1.4     218.7                           5569.8789
+Information: Complementing port 'modp_montymul_req[7][b][3]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[7][b][3]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[3][b][3]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[3][b][3]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[7][b][0]' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[7][b][0]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[3][b][0]' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[3][b][0]_BAR'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[7][in_valid]_BAR' in design 'ZINT_REBUILD_CRT'.
+         The new name of the port is 'modp_montymul_req[7][in_valid]'. (OPT-319)
+Information: Complementing port 'modp_montymul_req[3][in_valid]_BAR' in design 'ZINT_ADD_MUL_SMALL_SLAVE_NUM4'.
+         The new name of the port is 'modp_montymul_req[3][in_valid]'. (OPT-319)
+    0:03:16  203289.3      0.27     181.9       0.0                           5082.6689
+    0:03:29  207900.8      0.19     130.2       0.0                           5337.6284
+    0:03:29  207900.8      0.19     130.2       0.0                           5337.6284
+    0:03:32  204181.3      0.19     104.1       0.0                           5148.4819
+    0:03:33  204181.3      0.19     104.1       0.0                           5148.4819
+    0:03:39  206439.1      0.18      99.4       0.0                           5278.7051
+    0:03:39  206439.1      0.18      99.4       0.0                           5278.7051
+    0:03:39  206618.5      0.16      89.9       0.0                           5294.0278
+    0:03:39  206618.5      0.16      89.9       0.0                           5294.0278
+    0:03:47  208705.3      0.15      79.9       4.2                           5417.0635
+    0:03:47  208705.3      0.15      79.9       4.2                           5417.0635
+    0:03:54  211398.1      0.08      41.8      69.9                           5606.9434
+    0:03:54  211398.1      0.08      41.8      69.9                           5606.9434
+    0:04:02  213534.1      0.08      37.8      58.4                           5726.9829
+    0:04:02  213534.1      0.08      37.8      58.4                           5726.9829
+    0:04:07  215390.4      0.05      21.2     122.5                           5860.0884
+    0:04:07  215390.4      0.05      21.2     122.5                           5860.0884
+    0:04:14  216679.6      0.05      19.8     119.7                           5930.7925
+    0:04:14  216679.6      0.05      19.8     119.7                           5930.7925
+    0:04:18  218543.9      0.03       8.9     208.6                           6060.3242
+    0:04:18  218543.9      0.03       8.9     208.6                           6060.3242
+    0:04:23  219510.5      0.03       8.6     208.6                           6111.3877
+    0:04:24  219628.2      0.03       8.6     208.6                           6122.7046
 
                                   TOTAL                                                
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
   --------- --------- --------- --------- --------- ------------------------- ---------
-    0:04:38  180560.5      0.03       1.4     218.7                           5569.8789
-    0:05:10  166550.8      0.04       5.9      74.0                           4806.4873
-    0:05:12  166921.6      0.02       4.7     119.1 u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4836.8276
-    0:05:13  167241.6      0.02       3.0     125.6 u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4860.3389
-    0:05:13  167298.5      0.02       2.8     125.6                           4864.7300
-    0:05:14  167277.0      0.02       2.8     125.6                           4863.0234
-    0:05:14  167277.0      0.02       2.8     125.6                           4863.0234
-    0:05:19  166035.7      0.02       3.7      21.8                           4687.5000
+    0:04:25  219628.2      0.03       8.6     208.6                           6122.7046
+    0:04:57  205085.5      0.04       9.6      18.9                           5338.9893
+    0:04:58  205145.6      0.03       9.3      18.9                           5343.8115
+    0:04:58  205106.4      0.03       9.3      18.9                           5340.2007
+    0:04:58  205106.4      0.03       9.3      18.9                           5340.2007
+    0:05:02  203918.0      0.04       9.2       0.0                           5206.7593
 
   Beginning Delay Optimization HSVT Pass
   --------------------------------------
-    0:05:20  166035.7      0.02       3.7      21.8                           4687.5000
-    0:05:20  166035.7      0.02       3.7      21.8                           4687.5000
-    0:05:20  166035.7      0.02       3.7      21.8                           4687.5000
-    0:05:26  166636.5      0.02       2.3      21.8                           4721.3838
-    0:05:28  166636.5      0.02       2.3      21.8                           4721.3838
-    0:05:28  166636.5      0.02       2.3      21.8                           4721.3838
-    0:05:28  166636.5      0.02       2.3      21.8                           4721.3838
-    0:05:30  166733.1      0.02       2.3      21.8                           4726.3677
-    0:05:33  166678.3      0.02       2.4      21.2                           4722.7959
-    0:05:34  166560.5      0.02       2.5      21.2                           4715.3057
-    0:05:34  166593.7      0.02       2.6      21.2                           4709.4155
-    0:05:35  166660.8      0.02       2.6      21.2                           4701.9941
-    0:05:36  166773.5      0.01       2.3       0.0 u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4704.7671
-    0:05:36  166910.0      0.01       2.1       0.0 u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4713.5039
-    0:05:37  167021.2      0.01       1.8       0.0 u_MODP_MONTYMUL_TOP/genblk1[2].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4720.6729
-    0:05:38  167102.6      0.01       1.5       0.0 u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4726.7681
-    0:05:38  167174.9      0.01       1.4       0.0 u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4732.2046
-    0:05:39  167256.1      0.01       1.2       0.0 u_MODP_MONTYMUL_TOP/genblk1[2].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4737.8188
-    0:05:39  167299.9      0.01       1.0       0.0 u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4741.1177
-    0:05:40  167369.1      0.01       0.9       0.0 u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4745.2891
-    0:05:40  167426.9      0.01       0.8       0.0 u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4748.9390
-    0:05:41  167526.0      0.01       0.7       0.0 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4755.6724
-    0:05:41  167583.4      0.01       0.6       0.0 u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4758.9824
-    0:05:41  167639.2      0.01       0.5      42.9 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4763.3359
-    0:05:42  167702.0      0.00       0.4      42.9 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4767.6743
-    0:05:42  167751.0      0.00       0.3      42.9 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4770.5488
-    0:05:43  167787.1      0.00       0.3      43.4 u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/xr_reg[2][30]/D 4773.1392
-    0:05:43  167818.1      0.00       0.3      43.4 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4774.9561
-    0:05:44  167887.5      0.00       0.2      43.4 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4778.8467
-    0:05:44  167956.9      0.00       0.1      43.4 u_MODP_MONTYMUL_TOP/genblk1[2].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4783.4233
-    0:05:45  167992.3      0.00       0.1      43.4 u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4785.7627
-    0:05:45  167983.3      0.00       0.1      43.4 u_MODP_MONTYMUL_TOP/genblk1[2].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4784.7319
-    0:05:45  168017.5      0.00       0.0      43.4 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4787.0874
-    0:05:46  168058.1      0.00       0.0      43.4 u_MODP_MONTYMUL_TOP/genblk1[3].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4789.8247
-    0:05:46  168109.8      0.00       0.0      43.4 u_MODP_MONTYMUL_TOP/genblk1[2].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 4793.2510
-    0:05:47  168114.6      0.00       0.0       0.0                           4793.5601
-    0:05:50  168181.3      0.00       0.0       0.0                           4801.0649
-    0:05:50  168181.3      0.00       0.0       0.0                           4801.0649
-    0:05:50  168181.0      0.00       0.0       0.0                           4801.0474
-    0:05:50  168200.1      0.01       0.0       0.0                           4802.5195
-    0:05:51  168230.2      0.00       0.0       0.0                           4804.7026
-    0:05:58  165163.2      0.00       0.0       0.0                           4602.9424
-    0:06:02  163816.3      0.00       0.0       0.0                           4548.0298
+    0:05:03  203918.0      0.04       9.2       0.0                           5206.7593
+    0:05:03  203918.0      0.04       9.2       0.0                           5206.7593
+    0:05:03  203918.0      0.04       9.2       0.0                           5206.7593
+    0:05:05  204162.0      0.03       8.2       0.0                           5221.5264
+    0:05:07  204162.0      0.03       8.2       0.0                           5221.5264
+    0:05:07  204162.0      0.03       8.2       0.0                           5221.5264
+    0:05:07  204162.0      0.03       8.2       0.0                           5221.5264
+    0:05:09  204461.8      0.03       7.9       0.0                           5234.7954
+    0:05:11  204329.8      0.03       8.0       0.0                           5228.3550
+    0:05:13  204167.0      0.03       8.2       0.0                           5218.0293
+    0:05:13  204140.5      0.03       8.1       0.0                           5211.0645
+    0:05:14  204174.5      0.03       8.1       0.0                           5204.3540
+    0:05:14  204186.5      0.03       8.1       0.0                           5199.3105
+    0:05:19  206374.2      0.01       2.1       0.0                           5348.6523
+    0:05:19  206374.2      0.01       2.1       0.0                           5348.6523
+    0:05:19  206348.4      0.01       1.6       0.0                           5348.3247
+    0:05:19  206356.8      0.01       1.6       0.0                           5349.0205
+    0:05:20  206442.7      0.01       1.6       0.0                           5354.9751
+    0:05:26  203107.6      0.01       1.4       0.0                           5128.3530
+    0:05:30  201564.5      0.01       1.5       0.0                           5059.9346
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
-Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db'
+Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'
+Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'
 Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'
 
 
@@ -1244,8 +1296,9 @@ Note: Symbol # after min delay cost means estimated hold TNS across all active s
   Optimization Complete
   ---------------------
 Warning: Design 'MAKE_FG' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
-     Net 'u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/clk': 2360 load(s), 1 driver(s)
-  Loading target library 'RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c'
+     Net 'u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/clk': 2379 load(s), 1 driver(s)
+  Loading target library 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c'
+  Loading target library 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c'
   Loading target library 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c'
 Information: State dependent leakage is now switched from off to on.
 Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
@@ -1264,9 +1317,9 @@ Information: Performing power optimization. (PWR-850)
 | Design Information                                      | Value                                  |
 ====================================================================================================
 | Number of Scenarios                                     | 0                                      |
-| Leaf Cell Count                                         | 62259                                  |
+| Leaf Cell Count                                         | 63339                                  |
 | Number of User Hierarchies                              | 4                                      |
-| Sequential Cell Count                                   | 2358                                   |
+| Sequential Cell Count                                   | 2377                                   |
 | Macro Count                                             | 0                                      |
 | Number of Power Domains                                 | 0                                      |
 | Number of Path Groups                                   | 2                                      |
@@ -1282,7 +1335,7 @@ Information: Performing power optimization. (PWR-850)
 | set_fix_multiple_port_nets                              | -all -buffer_constants                 |
 ====================================================================================================
 
-Information: There are 1056 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+Information: There are 1020 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
 
 
 Information: State dependent leakage is now switched from on to off.
@@ -1310,28 +1363,47 @@ Information: The target library(s) contains cell(s), other than black boxes, tha
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
   --------- --------- --------- --------- --------- ------------------------- --------- -----------
-    0:00:05  163816.3      0.00       0.0       0.0                           4548.0298      0.00  
-    0:00:06  165309.5      0.00       0.0       0.0                           4675.3604      0.00  
-    0:00:07  165306.6      0.00      -0.0      32.3                           4675.4531      0.00  
-    0:00:07  165306.6      0.00      -0.0      32.3                           4675.4497      0.00  
+    0:00:05  201564.5      0.01       1.5       0.0                           5059.9346      0.00  
+    0:00:06  202867.2      0.01       1.3       0.0                           5168.0840      0.00  
+    0:00:07  202865.9      0.01       1.3       0.0                           5168.1191      0.00  
+    0:00:07  202864.0      0.01       1.2       0.0                           5171.2700      0.00  
+    0:00:07  202864.3      0.01       1.2       0.0                           5171.4619      0.00  
 
 
-  Beginning Design Rule Fixing  (min_path)  (max_transition)  (max_capacitance)
+  Beginning Design Rule Fixing  (min_path)
   ----------------------------
 
                                   TOTAL                                                            
    ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
   --------- --------- --------- --------- --------- ------------------------- --------- -----------
-    0:00:07  165306.6      0.00       0.0      32.3                           4675.4497     -3.64  
+    0:00:08  202864.3      0.01       1.2       0.0                           5171.4619     -8.25  
 Information: State dependent leakage is now switched from off to on.
 Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
 Warning: Design has unannotated black box outputs. (PWR-428)
-    0:00:11  165348.5      0.00       0.0      32.3                           4569.1357      0.00  
+    0:00:12  202951.4      0.01       1.2       0.0 u_ZINT_REBUILD_CRT/u_ZINT_MOD_SMALL_UNSIGNED/x0_reg[1][28]/D 5046.5864      0.00  
+    0:00:12  203046.4      0.01       0.9       0.0 u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5052.9219      0.00  
+    0:00:13  203112.2      0.01       0.6       0.0 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5058.1333      0.00  
+    0:00:13  203163.6      0.01       0.5       0.0 u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5061.5918      0.00  
+    0:00:14  203187.2      0.01       0.5       0.0 u_MODP_MONTYMUL_TOP/genblk1[2].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5063.9819      0.00  
+    0:00:14  203244.6      0.00       0.4       0.0 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5068.0713      0.00  
+    0:00:14  203300.6      0.00       0.3       0.0 u_ZINT_REBUILD_CRT/u_ZINT_MOD_SMALL_UNSIGNED/x0_reg[3][6]/D 5072.4263      0.00  
+    0:00:15  203339.2      0.00       0.2       0.0 u_MODP_MONTYMUL_TOP/genblk1[2].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5075.2944      0.00  
+    0:00:15  203360.7      0.00       0.2       0.0 u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5077.2549      0.00  
+    0:00:16  203397.2      0.00       0.1       0.0 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[28]/D 5080.0156      0.00  
+    0:00:16  203429.4      0.00       0.1       0.0 u_MODP_MONTYMUL_TOP/genblk1[0].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5083.0977      0.00  
+    0:00:17  203453.0      0.00       0.1       0.0 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5085.0864      0.00  
+    0:00:17  203487.5      0.00       0.0       0.0 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5086.8506      0.00  
+    0:00:18  203501.3      0.00       0.0       0.0 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[29]/D 5088.1963      0.00  
+    0:00:18  203516.3      0.00       0.0       0.0 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5089.3003      0.00  
+    0:00:18  203527.2      0.00       0.0       0.0 u_MODP_MONTYMUL_TOP/genblk1[1].u_MODP_MONTYMUL/a_b_p0i_reg_reg[30]/D 5090.2446      0.00  
+    0:00:19  203536.5      0.00       0.0       0.0 u_ZINT_REBUILD_CRT/s_add_mul_small_reg[5]/D 5090.9600      0.00  
+    0:00:19  203542.8      0.00       0.0       0.0                           5091.3716      0.00  
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
 Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
-Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db'
+Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'
+Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'
 Loading db file '/home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'
 
 
@@ -1341,7 +1413,7 @@ Note: Symbol # after min delay cost means estimated hold TNS across all active s
   Optimization Complete
   ---------------------
 Warning: Design 'MAKE_FG' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
-     Net 'u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/clk': 2360 load(s), 1 driver(s)
+     Net 'u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/clk': 2379 load(s), 1 driver(s)
 1
 # # uniquify
 # # compile
@@ -1404,7 +1476,7 @@ report_resource
 Report : resources
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Wed Feb  4 00:46:05 2026
+Date   : Thu Feb 12 18:52:51 2026
 ****************************************
 
 
@@ -1412,38 +1484,38 @@ Resource Report for this hierarchy in file ../01_RTL/MAKE_FG.sv
 =============================================================================
 | Cell           | Module         | Parameters | Contained Operations       |
 =============================================================================
-| ash_1          | DW_leftsh      | A_width=9  | sll_117 (MAKE_FG.sv:117)   |
+| ash_1          | DW_leftsh      | A_width=11 | sll_125 (MAKE_FG.sv:125)   |
 |                |                | SH_width=4 |                            |
-| add_x_2        | DW01_inc       | width=10   | add_143 (MAKE_FG.sv:143)   |
-| ash_7          | DW_leftsh      | A_width=17 | sll_173 (MAKE_FG.sv:173)   |
+| add_x_2        | DW01_inc       | width=12   | add_151 (MAKE_FG.sv:151)   |
+| ash_7          | DW_leftsh      | A_width=17 | sll_181 (MAKE_FG.sv:181)   |
 |                |                | SH_width=4 |                            |
-| gte_x_8        | DW_cmp         | width=17   | gte_173 (MAKE_FG.sv:173)   |
-| add_x_10       | DW01_add       | width=10   | add_190 (MAKE_FG.sv:190)   |
-| add_x_16       | DW01_inc       | width=12   | add_261 (MAKE_FG.sv:261)   |
-| add_x_18       | DW01_add       | width=10   | add_267 (MAKE_FG.sv:267)   |
-| DP_OP_46J4_122_9807             |            |                            |
-|                | DP_OP_46J4_122_9807 |       |                            |
+| gte_x_8        | DW_cmp         | width=17   | gte_181 (MAKE_FG.sv:181)   |
+| add_x_10       | DW01_add       | width=11   | add_198 (MAKE_FG.sv:198)   |
+| add_x_16       | DW01_inc       | width=12   | add_259 (MAKE_FG.sv:259)   |
+| add_x_18       | DW01_add       | width=11   | add_269 (MAKE_FG.sv:269)   |
+| DP_OP_49J4_122_6273             |            |                            |
+|                | DP_OP_49J4_122_6273 |       |                            |
 =============================================================================
 
-Datapath Report for DP_OP_46J4_122_9807
+Datapath Report for DP_OP_49J4_122_6273
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_46J4_122_9807  | mult_252 (MAKE_FG.sv:252) sub_252 (MAKE_FG.sv:252)  |
-|                      | eq_252 (MAKE_FG.sv:252)                             |
+| DP_OP_49J4_122_6273  | mult_250 (MAKE_FG.sv:250) sub_250 (MAKE_FG.sv:250)  |
+|                      | eq_250 (MAKE_FG.sv:250)                             |
 ==============================================================================
 
 ==============================================================================
 |       |      | Data     |       |                                          |
 | Var   | Type | Class    | Width | Expression                               |
 ==============================================================================
-| I1    | PI   | Unsigned | 9     |                                          |
+| I1    | PI   | Unsigned | 11    |                                          |
 | I2    | PI   | Unsigned | 9     |                                          |
 | I3    | PI   | Unsigned | 12    |                                          |
-| T13   | IFO  | Unsigned | 18    | I1 * I2 (MAKE_FG.sv:252)                 |
-| T14   | IFO  | Signed   | 19    | T13 - $unsigned(1'b1) (MAKE_FG.sv:252)   |
-| T35   | IFO  | Signed   | 32    | T14                                      |
-| O1    | PO   | Unsigned | 1     | I3 == $unsigned(T35) (MAKE_FG.sv:252)    |
+| T13   | IFO  | Unsigned | 20    | I1 * I2 (MAKE_FG.sv:250)                 |
+| T14   | IFO  | Signed   | 21    | T13 - $unsigned(1'b1) (MAKE_FG.sv:250)   |
+| T36   | IFO  | Signed   | 32    | T14                                      |
+| O1    | PO   | Unsigned | 1     | I3 == $unsigned(T36) (MAKE_FG.sv:250)    |
 ==============================================================================
 
 
@@ -1465,8 +1537,8 @@ Datapath Report for DP_OP_20J7_122_5124
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_20J7_122_5124  | mult_228 (MODP_MONTYMUL_TOP.sv:228)                 |
-|                      | mult_229 (MODP_MONTYMUL_TOP.sv:229)                 |
+| DP_OP_20J7_122_5124  | mult_223 (MODP_MONTYMUL_TOP.sv:223)                 |
+|                      | mult_224 (MODP_MONTYMUL_TOP.sv:224)                 |
 ==============================================================================
 
 ==============================================================================
@@ -1477,17 +1549,17 @@ Datapath Report for DP_OP_20J7_122_5124
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 31    |                                          |
 | T10   | IFO  | Signed   | 31    | O1[30:0]                                 |
-| O1    | PO   | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:228)       |
-| O2    | PO   | Unsigned | 31    | T10 * I3 (MODP_MONTYMUL_TOP.sv:229)      |
+| O1    | PO   | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:223)       |
+| O2    | PO   | Unsigned | 31    | T10 * I3 (MODP_MONTYMUL_TOP.sv:224)      |
 ==============================================================================
 
 Datapath Report for DP_OP_21J7_123_5926
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_21J7_123_5926  | mult_230 (MODP_MONTYMUL_TOP.sv:230)                 |
-|                      | add_233 (MODP_MONTYMUL_TOP.sv:233)                  |
-|                      | sub_238 (MODP_MONTYMUL_TOP.sv:238)                  |
+| DP_OP_21J7_123_5926  | mult_225 (MODP_MONTYMUL_TOP.sv:225)                 |
+|                      | add_228 (MODP_MONTYMUL_TOP.sv:228)                  |
+|                      | sub_233 (MODP_MONTYMUL_TOP.sv:233)                  |
 ==============================================================================
 
 ==============================================================================
@@ -1498,19 +1570,19 @@ Datapath Report for DP_OP_21J7_123_5926
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 47    |                                          |
 | I4    | PI   | Unsigned | 17    |                                          |
-| T2    | IFO  | Unsigned | 47    | I1 * I2 (MODP_MONTYMUL_TOP.sv:230)       |
+| T2    | IFO  | Unsigned | 47    | I1 * I2 (MODP_MONTYMUL_TOP.sv:225)       |
 | T13   | IFO  | Signed   | 17    | O1[32:16]                                |
-| O1    | PO   | Unsigned | 47    | I3 + T2 (MODP_MONTYMUL_TOP.sv:233)       |
-| O2    | PO   | Signed   | 17    | T13 - I4 (MODP_MONTYMUL_TOP.sv:238)      |
+| O1    | PO   | Unsigned | 47    | I3 + T2 (MODP_MONTYMUL_TOP.sv:228)       |
+| O2    | PO   | Signed   | 17    | T13 - I4 (MODP_MONTYMUL_TOP.sv:233)      |
 ==============================================================================
 
 Datapath Report for DP_OP_22J7_124_3060
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_22J7_124_3060  | mult_231 (MODP_MONTYMUL_TOP.sv:231)                 |
-|                      | add_234 (MODP_MONTYMUL_TOP.sv:234)                  |
-|                      | sub_239 (MODP_MONTYMUL_TOP.sv:239)                  |
+| DP_OP_22J7_124_3060  | mult_226 (MODP_MONTYMUL_TOP.sv:226)                 |
+|                      | add_229 (MODP_MONTYMUL_TOP.sv:229)                  |
+|                      | sub_234 (MODP_MONTYMUL_TOP.sv:234)                  |
 ==============================================================================
 
 ==============================================================================
@@ -1520,10 +1592,10 @@ Datapath Report for DP_OP_22J7_124_3060
 | I1    | PI   | Unsigned | 31    |                                          |
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 62    |                                          |
-| T3    | IFO  | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:231)       |
+| T3    | IFO  | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:226)       |
 | T15   | IFO  | Unsigned | 32    | O1[62:31]                                |
-| O1    | PO   | Unsigned | 63    | I3 + T3 (MODP_MONTYMUL_TOP.sv:234)       |
-| O2    | PO   | Signed   | 32    | T15 - I2 (MODP_MONTYMUL_TOP.sv:239)      |
+| O1    | PO   | Unsigned | 63    | I3 + T3 (MODP_MONTYMUL_TOP.sv:229)       |
+| O2    | PO   | Signed   | 32    | T15 - I2 (MODP_MONTYMUL_TOP.sv:234)      |
 ==============================================================================
 
 
@@ -1545,8 +1617,8 @@ Datapath Report for DP_OP_20J8_122_9220
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_20J8_122_9220  | mult_228 (MODP_MONTYMUL_TOP.sv:228)                 |
-|                      | mult_229 (MODP_MONTYMUL_TOP.sv:229)                 |
+| DP_OP_20J8_122_9220  | mult_223 (MODP_MONTYMUL_TOP.sv:223)                 |
+|                      | mult_224 (MODP_MONTYMUL_TOP.sv:224)                 |
 ==============================================================================
 
 ==============================================================================
@@ -1557,17 +1629,17 @@ Datapath Report for DP_OP_20J8_122_9220
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 31    |                                          |
 | T10   | IFO  | Signed   | 31    | O1[30:0]                                 |
-| O1    | PO   | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:228)       |
-| O2    | PO   | Unsigned | 31    | T10 * I3 (MODP_MONTYMUL_TOP.sv:229)      |
+| O1    | PO   | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:223)       |
+| O2    | PO   | Unsigned | 31    | T10 * I3 (MODP_MONTYMUL_TOP.sv:224)      |
 ==============================================================================
 
 Datapath Report for DP_OP_21J8_123_3171
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_21J8_123_3171  | mult_230 (MODP_MONTYMUL_TOP.sv:230)                 |
-|                      | add_233 (MODP_MONTYMUL_TOP.sv:233)                  |
-|                      | sub_238 (MODP_MONTYMUL_TOP.sv:238)                  |
+| DP_OP_21J8_123_3171  | mult_225 (MODP_MONTYMUL_TOP.sv:225)                 |
+|                      | add_228 (MODP_MONTYMUL_TOP.sv:228)                  |
+|                      | sub_233 (MODP_MONTYMUL_TOP.sv:233)                  |
 ==============================================================================
 
 ==============================================================================
@@ -1578,19 +1650,19 @@ Datapath Report for DP_OP_21J8_123_3171
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 47    |                                          |
 | I4    | PI   | Unsigned | 17    |                                          |
-| T2    | IFO  | Unsigned | 47    | I1 * I2 (MODP_MONTYMUL_TOP.sv:230)       |
+| T2    | IFO  | Unsigned | 47    | I1 * I2 (MODP_MONTYMUL_TOP.sv:225)       |
 | T13   | IFO  | Signed   | 17    | O1[32:16]                                |
-| O1    | PO   | Unsigned | 47    | I3 + T2 (MODP_MONTYMUL_TOP.sv:233)       |
-| O2    | PO   | Signed   | 17    | T13 - I4 (MODP_MONTYMUL_TOP.sv:238)      |
+| O1    | PO   | Unsigned | 47    | I3 + T2 (MODP_MONTYMUL_TOP.sv:228)       |
+| O2    | PO   | Signed   | 17    | T13 - I4 (MODP_MONTYMUL_TOP.sv:233)      |
 ==============================================================================
 
 Datapath Report for DP_OP_22J8_124_8931
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_22J8_124_8931  | mult_231 (MODP_MONTYMUL_TOP.sv:231)                 |
-|                      | add_234 (MODP_MONTYMUL_TOP.sv:234)                  |
-|                      | sub_239 (MODP_MONTYMUL_TOP.sv:239)                  |
+| DP_OP_22J8_124_8931  | mult_226 (MODP_MONTYMUL_TOP.sv:226)                 |
+|                      | add_229 (MODP_MONTYMUL_TOP.sv:229)                  |
+|                      | sub_234 (MODP_MONTYMUL_TOP.sv:234)                  |
 ==============================================================================
 
 ==============================================================================
@@ -1600,10 +1672,10 @@ Datapath Report for DP_OP_22J8_124_8931
 | I1    | PI   | Unsigned | 31    |                                          |
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 62    |                                          |
-| T3    | IFO  | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:231)       |
+| T3    | IFO  | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:226)       |
 | T15   | IFO  | Unsigned | 32    | O1[62:31]                                |
-| O1    | PO   | Unsigned | 63    | I3 + T3 (MODP_MONTYMUL_TOP.sv:234)       |
-| O2    | PO   | Signed   | 32    | T15 - I2 (MODP_MONTYMUL_TOP.sv:239)      |
+| O1    | PO   | Unsigned | 63    | I3 + T3 (MODP_MONTYMUL_TOP.sv:229)       |
+| O2    | PO   | Signed   | 32    | T15 - I2 (MODP_MONTYMUL_TOP.sv:234)      |
 ==============================================================================
 
 
@@ -1625,8 +1697,8 @@ Datapath Report for DP_OP_20J7_125_6899
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_20J7_125_6899  | mult_228 (MODP_MONTYMUL_TOP.sv:228)                 |
-|                      | mult_229 (MODP_MONTYMUL_TOP.sv:229)                 |
+| DP_OP_20J7_125_6899  | mult_223 (MODP_MONTYMUL_TOP.sv:223)                 |
+|                      | mult_224 (MODP_MONTYMUL_TOP.sv:224)                 |
 ==============================================================================
 
 ==============================================================================
@@ -1637,17 +1709,17 @@ Datapath Report for DP_OP_20J7_125_6899
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 31    |                                          |
 | T10   | IFO  | Signed   | 31    | O1[30:0]                                 |
-| O1    | PO   | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:228)       |
-| O2    | PO   | Unsigned | 31    | T10 * I3 (MODP_MONTYMUL_TOP.sv:229)      |
+| O1    | PO   | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:223)       |
+| O2    | PO   | Unsigned | 31    | T10 * I3 (MODP_MONTYMUL_TOP.sv:224)      |
 ==============================================================================
 
 Datapath Report for DP_OP_21J7_126_9330
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_21J7_126_9330  | mult_230 (MODP_MONTYMUL_TOP.sv:230)                 |
-|                      | add_233 (MODP_MONTYMUL_TOP.sv:233)                  |
-|                      | sub_238 (MODP_MONTYMUL_TOP.sv:238)                  |
+| DP_OP_21J7_126_9330  | mult_225 (MODP_MONTYMUL_TOP.sv:225)                 |
+|                      | add_228 (MODP_MONTYMUL_TOP.sv:228)                  |
+|                      | sub_233 (MODP_MONTYMUL_TOP.sv:233)                  |
 ==============================================================================
 
 ==============================================================================
@@ -1658,19 +1730,19 @@ Datapath Report for DP_OP_21J7_126_9330
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 47    |                                          |
 | I4    | PI   | Unsigned | 17    |                                          |
-| T2    | IFO  | Unsigned | 47    | I1 * I2 (MODP_MONTYMUL_TOP.sv:230)       |
+| T2    | IFO  | Unsigned | 47    | I1 * I2 (MODP_MONTYMUL_TOP.sv:225)       |
 | T13   | IFO  | Signed   | 17    | O1[32:16]                                |
-| O1    | PO   | Unsigned | 47    | I3 + T2 (MODP_MONTYMUL_TOP.sv:233)       |
-| O2    | PO   | Signed   | 17    | T13 - I4 (MODP_MONTYMUL_TOP.sv:238)      |
+| O1    | PO   | Unsigned | 47    | I3 + T2 (MODP_MONTYMUL_TOP.sv:228)       |
+| O2    | PO   | Signed   | 17    | T13 - I4 (MODP_MONTYMUL_TOP.sv:233)      |
 ==============================================================================
 
 Datapath Report for DP_OP_22J7_127_1285
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_22J7_127_1285  | mult_231 (MODP_MONTYMUL_TOP.sv:231)                 |
-|                      | add_234 (MODP_MONTYMUL_TOP.sv:234)                  |
-|                      | sub_239 (MODP_MONTYMUL_TOP.sv:239)                  |
+| DP_OP_22J7_127_1285  | mult_226 (MODP_MONTYMUL_TOP.sv:226)                 |
+|                      | add_229 (MODP_MONTYMUL_TOP.sv:229)                  |
+|                      | sub_234 (MODP_MONTYMUL_TOP.sv:234)                  |
 ==============================================================================
 
 ==============================================================================
@@ -1680,10 +1752,10 @@ Datapath Report for DP_OP_22J7_127_1285
 | I1    | PI   | Unsigned | 31    |                                          |
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 62    |                                          |
-| T3    | IFO  | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:231)       |
+| T3    | IFO  | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:226)       |
 | T15   | IFO  | Unsigned | 32    | O1[62:31]                                |
-| O1    | PO   | Unsigned | 63    | I3 + T3 (MODP_MONTYMUL_TOP.sv:234)       |
-| O2    | PO   | Signed   | 32    | T15 - I2 (MODP_MONTYMUL_TOP.sv:239)      |
+| O1    | PO   | Unsigned | 63    | I3 + T3 (MODP_MONTYMUL_TOP.sv:229)       |
+| O2    | PO   | Signed   | 32    | T15 - I2 (MODP_MONTYMUL_TOP.sv:234)      |
 ==============================================================================
 
 
@@ -1705,8 +1777,8 @@ Datapath Report for DP_OP_20J8_125_3895
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_20J8_125_3895  | mult_228 (MODP_MONTYMUL_TOP.sv:228)                 |
-|                      | mult_229 (MODP_MONTYMUL_TOP.sv:229)                 |
+| DP_OP_20J8_125_3895  | mult_223 (MODP_MONTYMUL_TOP.sv:223)                 |
+|                      | mult_224 (MODP_MONTYMUL_TOP.sv:224)                 |
 ==============================================================================
 
 ==============================================================================
@@ -1717,17 +1789,17 @@ Datapath Report for DP_OP_20J8_125_3895
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 31    |                                          |
 | T10   | IFO  | Signed   | 31    | O1[30:0]                                 |
-| O1    | PO   | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:228)       |
-| O2    | PO   | Unsigned | 31    | T10 * I3 (MODP_MONTYMUL_TOP.sv:229)      |
+| O1    | PO   | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:223)       |
+| O2    | PO   | Unsigned | 31    | T10 * I3 (MODP_MONTYMUL_TOP.sv:224)      |
 ==============================================================================
 
 Datapath Report for DP_OP_21J8_126_6575
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_21J8_126_6575  | mult_230 (MODP_MONTYMUL_TOP.sv:230)                 |
-|                      | add_233 (MODP_MONTYMUL_TOP.sv:233)                  |
-|                      | sub_238 (MODP_MONTYMUL_TOP.sv:238)                  |
+| DP_OP_21J8_126_6575  | mult_225 (MODP_MONTYMUL_TOP.sv:225)                 |
+|                      | add_228 (MODP_MONTYMUL_TOP.sv:228)                  |
+|                      | sub_233 (MODP_MONTYMUL_TOP.sv:233)                  |
 ==============================================================================
 
 ==============================================================================
@@ -1738,19 +1810,19 @@ Datapath Report for DP_OP_21J8_126_6575
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 47    |                                          |
 | I4    | PI   | Unsigned | 17    |                                          |
-| T2    | IFO  | Unsigned | 47    | I1 * I2 (MODP_MONTYMUL_TOP.sv:230)       |
+| T2    | IFO  | Unsigned | 47    | I1 * I2 (MODP_MONTYMUL_TOP.sv:225)       |
 | T13   | IFO  | Signed   | 17    | O1[32:16]                                |
-| O1    | PO   | Unsigned | 47    | I3 + T2 (MODP_MONTYMUL_TOP.sv:233)       |
-| O2    | PO   | Signed   | 17    | T13 - I4 (MODP_MONTYMUL_TOP.sv:238)      |
+| O1    | PO   | Unsigned | 47    | I3 + T2 (MODP_MONTYMUL_TOP.sv:228)       |
+| O2    | PO   | Signed   | 17    | T13 - I4 (MODP_MONTYMUL_TOP.sv:233)      |
 ==============================================================================
 
 Datapath Report for DP_OP_22J8_127_4289
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_22J8_127_4289  | mult_231 (MODP_MONTYMUL_TOP.sv:231)                 |
-|                      | add_234 (MODP_MONTYMUL_TOP.sv:234)                  |
-|                      | sub_239 (MODP_MONTYMUL_TOP.sv:239)                  |
+| DP_OP_22J8_127_4289  | mult_226 (MODP_MONTYMUL_TOP.sv:226)                 |
+|                      | add_229 (MODP_MONTYMUL_TOP.sv:229)                  |
+|                      | sub_234 (MODP_MONTYMUL_TOP.sv:234)                  |
 ==============================================================================
 
 ==============================================================================
@@ -1760,18 +1832,18 @@ Datapath Report for DP_OP_22J8_127_4289
 | I1    | PI   | Unsigned | 31    |                                          |
 | I2    | PI   | Unsigned | 31    |                                          |
 | I3    | PI   | Unsigned | 62    |                                          |
-| T3    | IFO  | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:231)       |
+| T3    | IFO  | Unsigned | 62    | I1 * I2 (MODP_MONTYMUL_TOP.sv:226)       |
 | T15   | IFO  | Unsigned | 32    | O1[62:31]                                |
-| O1    | PO   | Unsigned | 63    | I3 + T3 (MODP_MONTYMUL_TOP.sv:234)       |
-| O2    | PO   | Signed   | 32    | T15 - I2 (MODP_MONTYMUL_TOP.sv:239)      |
+| O1    | PO   | Unsigned | 63    | I3 + T3 (MODP_MONTYMUL_TOP.sv:229)       |
+| O2    | PO   | Signed   | 32    | T15 - I2 (MODP_MONTYMUL_TOP.sv:234)      |
 ==============================================================================
 
 
 Datapath Extraction Report
 
-Information: Operator associated with resources 'gte_173 (MAKE_FG.sv:173)' in design 'MAKE_FG' breaks the datapath extraction because there is leakage due to truncation on the fanout of its driver 'sll_173 (MAKE_FG.sv:173)'.  (HDL-120)
+Information: Operator associated with resources 'gte_181 (MAKE_FG.sv:181)' in design 'MAKE_FG' breaks the datapath extraction because there is leakage due to truncation on the fanout of its driver 'sll_181 (MAKE_FG.sv:181)'.  (HDL-120)
 
-Information: Operator associated with resources 'add_190 (MAKE_FG.sv:190)' in design 'MAKE_FG' breaks the datapath extraction because there is leakage due to truncation on the fanout of its driver 'sll_117 (MAKE_FG.sv:117)'.  (HDL-120)
+Information: Operator associated with resources 'mult_250 (MAKE_FG.sv:250)' in design 'MAKE_FG' breaks the datapath extraction because there is leakage due to truncation on the fanout of its driver 'sll_125 (MAKE_FG.sv:125)'.  (HDL-120)
 
 
 Implementation Report
@@ -1781,11 +1853,11 @@ Implementation Report
 ===============================================================================
 | ash_1              | DW_leftsh        | astr (area)        |                |
 | add_x_2            | DW01_inc         | apparch (area)     |                |
-| add_x_10           | DW01_add         | apparch (area)     |                |
+| add_x_10           | DW01_add         | pparch (area,speed)                 |
 | add_x_16           | DW01_inc         | apparch (area)     |                |
 | add_x_18           | DW01_add         | pparch (area,speed)                 |
-| DP_OP_46J4_122_9807                   |                    |                |
-|                    | DP_OP_46J4_122_9807 | str (area,speed)                 |
+| DP_OP_49J4_122_6273                   |                    |                |
+|                    | DP_OP_49J4_122_6273 | str (area,speed)                 |
 |                    |                  | mult_arch: benc_radix4              |
 | DP_OP_20J7_122_5124                   |                    |                |
 |                    | DP_OP_20J7_122_5124 | str (speed)     |                |
@@ -1824,34 +1896,34 @@ report_area -hierarchy
 Report : area
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Wed Feb  4 00:46:05 2026
+Date   : Thu Feb 12 18:52:51 2026
 ****************************************
 
 Library(s) Used:
 
-    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
     RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db)
-    RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db)
+    RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db)
 
-Number of ports:                         3173
-Number of nets:                         71586
-Number of cells:                        62615
-Number of combinational cells:          60253
-Number of sequential cells:              2356
+Number of ports:                         3148
+Number of nets:                         72615
+Number of cells:                        63713
+Number of combinational cells:          61332
+Number of sequential cells:              2375
 Number of macros/black boxes:               2
-Number of buf/inv:                       9367
-Number of references:                     583
+Number of buf/inv:                       9686
+Number of references:                     593
 
-Combinational area:             110664.790933
-Buf/Inv area:                    10413.522030
-Noncombinational area:           10857.142353
-Macro/Black Box area:            43826.589844
+Combinational area:             115111.205031
+Buf/Inv area:                    10890.709219
+Noncombinational area:           10946.955151
+Macro/Black Box area:            77484.689453
 Net Interconnect area:               0.000000
 
-Total cell area:                165348.523130
-Total area:                     165348.523130
+Total cell area:                203542.849635
+Total area:                     203542.849635
 
 Hierarchical area distribution
 ------------------------------
@@ -1861,14 +1933,14 @@ Hierarchical area distribution
 Hierarchical cell                 Absolute     Percent  Combi-       Noncombi-   Black-
                                   Total        Total    national     national    boxes       Design
 --------------------------------  -----------  -------  -----------  ----------  ----------  -----------------------------
-MAKE_FG                           165348.5231    100.0   68841.0572   4176.9754  34997.6250  MAKE_FG
-u_ZINT_REBUILD_CRT                 57332.8655     34.7    9098.9891   5088.9382   8828.9648  ZINT_REBUILD_CRT
-u_ZINT_REBUILD_CRT/u_PRIMES_0       4505.8355      2.7    4505.8355      0.0000      0.0000  PRIMES_1
-u_ZINT_REBUILD_CRT/u_PRIMES_1       4380.4151      2.6    4380.4151      0.0000      0.0000  PRIMES_0
+MAKE_FG                           203542.8496    100.0   72811.4181   4203.5110  63896.1211  MAKE_FG
+u_ZINT_REBUILD_CRT                 62631.7994     30.8    9337.1291   5150.1742  13588.5684  ZINT_REBUILD_CRT
+u_ZINT_REBUILD_CRT/u_PRIMES_0       4538.0411      2.2    4538.0411      0.0000      0.0000  PRIMES_1
+u_ZINT_REBUILD_CRT/u_PRIMES_1       4370.4359      2.1    4370.4359      0.0000      0.0000  PRIMES_0
 u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL
-                                   25429.7227     15.4   23838.4940   1591.2288      0.0000  ZINT_ADD_MUL_SMALL_SLAVE_NUM4
+                                   25647.4507     12.6   24054.1808   1593.2700      0.0000  ZINT_ADD_MUL_SMALL_SLAVE_NUM4
 --------------------------------  -----------  -------  -----------  ----------  ----------  -----------------------------
-Total                                                   110664.7909  10857.1424  43826.5898
+Total                                                   115111.2050  10946.9552  77484.6895
 
 1
 report_timing -delay_type min
@@ -1880,7 +1952,7 @@ Report : timing
         -max_paths 1
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Wed Feb  4 00:46:05 2026
+Date   : Thu Feb 12 18:52:51 2026
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -1889,7 +1961,7 @@ Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_s
 Wire Load Model Mode: top
 
   Startpoint: clk (clock source 'clk')
-  Endpoint: u_RF_CRT_u_RF_2p_CRT_4x256
+  Endpoint: u_RF_CRT_GEN_CRT_MEM_4_8_genblk1_0__u_RF_2p_CRT_4x512
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: min
@@ -1902,12 +1974,14 @@ Wire Load Model Mode: top
   --------------------------------------------------------------------------
   clock clk (rise edge)                                   0.00       0.00
   clk (in)                                                0.00 #     0.00 r
-  u_RF_CRT_u_RF_2p_CRT_4x256/CLKB (RF_2p_CRT_4x256)       0.00 #     0.00 r
+  u_RF_CRT_GEN_CRT_MEM_4_8_genblk1_0__u_RF_2p_CRT_4x512/CLKB (RF_2p_CRT_4x512)
+                                                          0.00 #     0.00 r
   data arrival time                                                  0.00
 
   clock clk (rise edge)                                   0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  u_RF_CRT_u_RF_2p_CRT_4x256/CLKA (RF_2p_CRT_4x256)       0.00       0.00 r
+  u_RF_CRT_GEN_CRT_MEM_4_8_genblk1_0__u_RF_2p_CRT_4x512/CLKA (RF_2p_CRT_4x512)
+                                                          0.00       0.00 r
   library hold time                                       0.00       0.00
   data required time                                                 0.00
   --------------------------------------------------------------------------
@@ -1927,7 +2001,7 @@ Report : timing
         -max_paths 1
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Wed Feb  4 00:46:05 2026
+Date   : Thu Feb 12 18:52:51 2026
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -1935,9 +2009,9 @@ Date   : Wed Feb  4 00:46:05 2026
 Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
 Wire Load Model Mode: top
 
-  Startpoint: u_ZINT_REBUILD_CRT/add_mul_small_input_buffer_reg_1__8_
+  Startpoint: u_ZINT_REBUILD_CRT/u_ZINT_MOD_SMALL_UNSIGNED_modp_montymul_req_reg_2__in_valid_
               (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/xr_reg_1__22_
+  Endpoint: u_MODP_MONTYMUL_TOP_genblk1_2__u_MODP_MONTYMUL_a_b_p0i_reg_reg_30_
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
@@ -1950,72 +2024,57 @@ Wire Load Model Mode: top
   --------------------------------------------------------------------------
   clock clk (rise edge)                                   0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  u_ZINT_REBUILD_CRT/add_mul_small_input_buffer_reg_1__8_/CK (DFFRPQ_X2M_A9TH)
+  u_ZINT_REBUILD_CRT/u_ZINT_MOD_SMALL_UNSIGNED_modp_montymul_req_reg_2__in_valid_/CK (DFFRPQ_X4M_A9TL)
                                                           0.00 #     0.00 r
-  u_ZINT_REBUILD_CRT/add_mul_small_input_buffer_reg_1__8_/Q (DFFRPQ_X2M_A9TH)
-                                                          0.18       0.18 r
-  u_ZINT_REBUILD_CRT/U662/Y (BUFH_X3P5M_A9TR)             0.05       0.23 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/x_i[70] (ZINT_ADD_MUL_SMALL_SLAVE_NUM4)
-                                                          0.00       0.23 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U9092/Y (NAND2_X1A_A9TL)
-                                                          0.03       0.26 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U6903/Y (OAI21_X0P7M_A9TR)
-                                                          0.09       0.35 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U8530/Y (AOI21_X1P4M_A9TL)
-                                                          0.06       0.41 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U6652/Y (OAI21_X1P4M_A9TL)
-                                                          0.05       0.46 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U5250/Y (AOI21_X2M_A9TL)
-                                                          0.03       0.49 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U5214/Y (OAI21_X2M_A9TL)
-                                                          0.04       0.53 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U6429/Y (AOI21_X2M_A9TL)
-                                                          0.04       0.56 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U1699/Y (OAI21_X2M_A9TL)
-                                                          0.04       0.60 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U6308/Y (AOI21_X2M_A9TL)
-                                                          0.04       0.64 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U5087/Y (OAI21_X2M_A9TL)
-                                                          0.04       0.68 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U5032/Y (AOI21_X2M_A9TL)
-                                                          0.04       0.72 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U4165/Y (OAI21_X2M_A9TL)
-                                                          0.04       0.76 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U4974/Y (NAND2XB_X3M_A9TL)
-                                                          0.04       0.80 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U7199/Y (NAND2_X8M_A9TL)
-                                                          0.04       0.84 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U2708/Y (NOR2_X2A_A9TL)
-                                                          0.03       0.87 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U9126/S (ADDF_X1M_A9TL)
-                                                          0.12       0.99 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U382/Y (NOR2_X2A_A9TR)
-                                                          0.04       1.03 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U9127/Y (NOR2_X2A_A9TL)
-                                                          0.05       1.08 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U1958/Y (AND2_X2B_A9TR)
-                                                          0.07       1.15 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U7183/Y (NAND2_X2M_A9TL)
-                                                          0.03       1.18 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U4714/Y (NOR2_X3A_A9TL)
-                                                          0.04       1.22 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U2582/Y (OAI2XB1_X0P7M_A9TL)
-                                                          0.08       1.30 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U8078/Y (XNOR2_X0P7M_A9TL)
-                                                          0.09       1.40 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U7202/Y (NAND2_X1A_A9TR)
-                                                          0.06       1.46 f
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/U1631/Y (OAI211_X4M_A9TL)
-                                                          0.04       1.50 r
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/xr_reg_1__22_/D (DFFRPQ_X3M_A9TL)
+  u_ZINT_REBUILD_CRT/u_ZINT_MOD_SMALL_UNSIGNED_modp_montymul_req_reg_2__in_valid_/Q (DFFRPQ_X4M_A9TL)
+                                                          0.11       0.11 r
+  u_ZINT_REBUILD_CRT/modp_montymul_req_2__in_valid_ (ZINT_REBUILD_CRT)
+                                                          0.00       0.11 r
+  U23583/Y (INV_X13M_A9TL)                                0.02       0.13 f
+  U28600/Y (NAND2_X6A_A9TL)                               0.02       0.15 r
+  U19915/Y (INV_X16M_A9TL)                                0.01       0.16 f
+  U19916/Y (INV_X16M_A9TL)                                0.02       0.19 r
+  U6414/Y (BUFH_X13M_A9TL)                                0.03       0.21 r
+  U5637/Y (OA1B2_X8M_A9TL)                                0.04       0.26 r
+  U16530/Y (INV_X16B_A9TL)                                0.03       0.28 f
+  U23199/Y (XNOR2_X4M_A9TL)                               0.05       0.33 f
+  U4773/Y (NOR2_X4M_A9TR)                                 0.04       0.38 r
+  U5633/Y (AOI21_X6M_A9TL)                                0.03       0.41 f
+  U5631/Y (XOR2_X4M_A9TL)                                 0.04       0.44 f
+  U25274/Y (XOR2_X4M_A9TL)                                0.03       0.48 f
+  U23900/S (ADDF_X2M_A9TL)                                0.13       0.60 r
+  U17783/Y (XOR2_X4M_A9TL)                                0.06       0.66 r
+  U18108/Y (XOR2_X4M_A9TL)                                0.04       0.70 r
+  U17903/Y (XOR2_X4M_A9TL)                                0.07       0.77 r
+  U3441/Y (BUFH_X6M_A9TL)                                 0.04       0.80 r
+  U3197/Y (INV_X5M_A9TL)                                  0.01       0.82 f
+  U16537/Y (NAND2_X4A_A9TL)                               0.02       0.84 r
+  U22425/Y (XOR2_X4M_A9TL)                                0.05       0.89 r
+  U23904/Y (XOR2_X4M_A9TL)                                0.04       0.93 r
+  U5296/Y (AND2_X11B_A9TL)                                0.05       0.98 r
+  U22975/Y (INV_X16M_A9TL)                                0.02       0.99 f
+  U16864/Y (OAI22_X8M_A9TL)                               0.03       1.02 r
+  U5277/Y (NOR2_X6M_A9TL)                                 0.03       1.05 f
+  U1278/Y (OAI2XB1_X4M_A9TL)                              0.03       1.08 r
+  U23067/S (ADDF_X2M_A9TL)                                0.12       1.20 f
+  U6045/Y (NAND2_X6M_A9TL)                                0.03       1.22 r
+  U6044/Y (NAND2_X8M_A9TL)                                0.02       1.24 f
+  U19276/Y (XOR2_X4M_A9TL)                                0.03       1.27 f
+  U19081/Y (XNOR2_X4M_A9TL)                               0.05       1.32 f
+  U796/Y (INV_X2P5B_A9TL)                                 0.03       1.35 r
+  U724/Y (OAI21_X3M_A9TL)                                 0.03       1.37 f
+  U25266/Y (NAND2_X2B_A9TL)                               0.03       1.40 r
+  U21995/Y (XOR2_X4M_A9TL)                                0.05       1.45 r
+  U23191/Y (XOR2_X4M_A9TL)                                0.05       1.50 r
+  u_MODP_MONTYMUL_TOP_genblk1_2__u_MODP_MONTYMUL_a_b_p0i_reg_reg_30_/D (DFFRPQ_X2M_A9TL)
                                                           0.00       1.50 r
   data arrival time                                                  1.50
 
-  clock clk (rise edge)                                   1.55       1.55
-  clock network delay (ideal)                             0.00       1.55
-  u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL/xr_reg_1__22_/CK (DFFRPQ_X3M_A9TL)
-                                                          0.00       1.55 r
-  library setup time                                     -0.05       1.50
+  clock clk (rise edge)                                   1.53       1.53
+  clock network delay (ideal)                             0.00       1.53
+  u_MODP_MONTYMUL_TOP_genblk1_2__u_MODP_MONTYMUL_a_b_p0i_reg_reg_30_/CK (DFFRPQ_X2M_A9TL)
+                                                          0.00       1.53 r
+  library setup time                                     -0.03       1.50
   data required time                                                 1.50
   --------------------------------------------------------------------------
   data required time                                                 1.50
@@ -2027,10 +2086,10 @@ Wire Load Model Mode: top
 1
 exit
 
-Memory usage for this session 1011 Mbytes.
-Memory usage for this session including child processes 1683 Mbytes.
-CPU usage for this session 998 seconds ( 0.28 hours ).
-Elapsed time for this session 403 seconds ( 0.11 hours ).
+Memory usage for this session 1057 Mbytes.
+Memory usage for this session including child processes 1542 Mbytes.
+CPU usage for this session 1522 seconds ( 0.42 hours ).
+Elapsed time for this session 380 seconds ( 0.11 hours ).
 
 Thank you...
 

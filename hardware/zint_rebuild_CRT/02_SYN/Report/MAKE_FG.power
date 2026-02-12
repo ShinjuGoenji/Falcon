@@ -4,17 +4,17 @@ Report : power
         -analysis_effort low
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Wed Feb  4 01:02:17 2026
+Date   : Thu Feb 12 18:52:49 2026
 ****************************************
 
 
 Library(s) Used:
 
-    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
     RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db)
-    RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db)
+    RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db)
 
 
 Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
@@ -39,24 +39,24 @@ Attributes
 i - Including register clock pin internal power
 
 
-  Cell Internal Power  =   7.0435 mW   (82%)
-  Net Switching Power  =   1.5011 mW   (18%)
+  Cell Internal Power  =   7.9319 mW   (85%)
+  Net Switching Power  =   1.4329 mW   (15%)
                          ---------
-Total Dynamic Power    =   8.5445 mW  (100%)
+Total Dynamic Power    =   9.3648 mW  (100%)
 
-Cell Leakage Power     =   4.5691 mW
+Cell Leakage Power     =   5.0913 mW
 
 
                  Internal         Switching           Leakage            Total
 Power Group      Power            Power               Power              Power   (   %    )  Attrs
 --------------------------------------------------------------------------------------------------
 io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
-memory             1.4752        1.4214e-02          842.2030            2.3316  (  17.78%)
+memory             2.3120        1.5145e-02        1.1142e+03            3.4413  (  23.81%)
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
-clock_network      4.5944            0.0000            0.0000            0.0000  (   0.00%)  i
-register       8.5738e-02        7.1724e-02          129.4031            4.8813  (  37.22%)
+clock_network      4.6936            0.0000            0.0000            0.0000  (   0.00%)  i
+register       8.9081e-02        7.0577e-02          136.4777            4.9897  (  34.52%)
 sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational      0.8881            1.4151        3.5975e+03            5.9008  (  45.00%)
+combinational      0.8372            1.3472        3.8406e+03            6.0251  (  41.68%)
 --------------------------------------------------------------------------------------------------
-Total              7.0435 mW         1.5011 mW     4.5691e+03 uW        13.1137 mW
+Total              7.9318 mW         1.4329 mW     5.0913e+03 uW        14.4561 mW
 1
