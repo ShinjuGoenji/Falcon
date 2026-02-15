@@ -24,8 +24,8 @@ TOP_INF inf();
 //================================================================
 initial begin
     `ifdef RTL
-        // $fsdbDumpfile("MAKE_FG.fsdb");
-        // $fsdbDumpvars(0,"+all");
+        $fsdbDumpfile("MAKE_FG.fsdb");
+        $fsdbDumpvars(0,"+all");
     `elsif GATE
         $sdf_annotate("MAKE_FG_SYN.sdf", dut_p);
         // $fsdbDumpfile("MAKE_FG_SYN.fsdb");
