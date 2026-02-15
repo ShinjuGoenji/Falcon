@@ -57,6 +57,8 @@ In this module, `WORD_NUM` can be set for different extent of parallelism. **_2_
 <!-- ![](./01_RTL/zint_mod_small_unsigned.png) -->
 
 ## Performance
+> [!NOTE]  
+> **Cycle** is the average cycle for the pattern which is the total usage of `zint_rebuild_crt` executing 12 times FALCON-1024.
 
 |    `WORD_NUM`    |          2          |         4          |           8           |
 | :--------------: | :-----------------: | :----------------: | :-------------------: |
