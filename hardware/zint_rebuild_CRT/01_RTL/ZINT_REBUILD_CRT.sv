@@ -193,10 +193,10 @@ uint31_t               rf_tmp_DB, rf_tmp_DB_comb;
 /*
  * PRIMES
  */
-logic [XLEN_WIDTH-1:0] prime_idx_0, prime_idx_1; // TODO: parameterize
-small_prime prime_0, prime_1;
-logic mod_small_unsigned_round;
-logic mul_small_round;
+logic [XLEN_WIDTH-1:0] prime_idx;
+small_prime prime_comb;
+logic mod_small_unsigned_prime_valid, add_mul_small_prime_valid;
+logic mod_small_unsigned_round, add_mul_small_round;
 //---------------------------------------------------------------------
 //   Submodule
 //---------------------------------------------------------------------
@@ -258,8 +258,7 @@ ZINT_ADD_MUL_SMALL #(.SLAVE_NUM(WORD_NUM)) u_ZINT_ADD_MUL_SMALL (
     .modp_montymul_resp(modp_montymul_resp[WORD_NUM:WORD_NUM*2-1])
 );
 
-PRIMES u_PRIMES_0 (.idx(prime_idx_0), .prime(prime_0));
-PRIMES u_PRIMES_1 (.idx(prime_idx_1), .prime(prime_1));
+PRIMES u_PRIMES (.idx(prime_idx), .prime(prime_comb));
 
 RF_TMP u_RF_TMP (
     .clk(clk),
@@ -756,31 +755,6 @@ end
 
 assign is_read_mod_small_unsigned_comb = is_read || read_ena_add_mul_small_comb;
 
-// prime
-assign mod_small_unsigned_round = (mod_small_unsigned_ptr & num_1) == 0 && mod_small_unsigned_ptr != 0;
-
-always_comb begin
-    if (state == S_IDLE && len_valid)
-        prime_idx_0 = 1;
-    else if (state == S_EXE && mod_small_unsigned_round && out_valid_mod_small_unsigned)
-        prime_idx_0 = u_mod_small_unsigned + 1;
-    else
-        prime_idx_0 = 0;
-end
-
-always_comb begin
-    if ((state == S_IDLE && in_valid) || (mod_small_unsigned_round && out_valid_mod_small_unsigned)) begin
-        p_mod_small_unsigned_comb = prime_0.p;
-        p0i_mod_small_unsigned_comb = prime_0.p0i;
-        R2_mod_small_unsigned_comb = prime_0.R2;
-    end
-    else begin
-        p_mod_small_unsigned_comb = p_mod_small_unsigned;
-        p0i_mod_small_unsigned_comb = p0i_mod_small_unsigned;
-        R2_mod_small_unsigned_comb = R2_mod_small_unsigned;
-    end
-end
-
 // dlen
 assign dlen_mod_small_unsigned_comb = u_mod_small_unsigned_comb; 
 assign dlen_tmp_mod_small_unsigned = u_mod_small_unsigned_comb; 
@@ -946,36 +920,6 @@ always_comb begin
         read_ena_add_mul_small_comb = 0;
 end
 
-// prime
-assign mul_small_round = ({2'b0, vB_add_mul_small} & num_1) == num_1;
-
-always_comb begin
-    if (state == S_IDLE && len_valid)
-        prime_idx_1 = 1;
-    else if (prime_ena_add_mul_small && mul_small_round)
-        prime_idx_1 = u_add_mul_small;
-    else
-        prime_idx_1 = 0;
-end
-
-always_comb begin
-    if (state == S_IDLE && len_valid) begin
-        s_add_mul_small_comb = prime_1.s;
-        p_add_mul_small_comb = prime_1.p;
-        p0i_add_mul_small_comb = prime_1.p0i;
-    end
-    else if (prime_ena_add_mul_small && mul_small_round) begin
-        s_add_mul_small_comb = prime_1.s;
-        p_add_mul_small_comb = prime_1.p;
-        p0i_add_mul_small_comb = prime_1.p0i;
-    end
-    else begin
-        s_add_mul_small_comb = s_add_mul_small;
-        p_add_mul_small_comb = p_add_mul_small;
-        p0i_add_mul_small_comb = p0i_add_mul_small;
-    end
-end
-
 // len
 assign len_i_add_mul_small_comb = u_add_mul_small_comb;
 
@@ -1046,11 +990,57 @@ always_comb begin
 end
 
 /*
+ * prime
+ */
+assign mod_small_unsigned_round = (mod_small_unsigned_ptr & num_1) == 0 && mod_small_unsigned_ptr != 0;
+assign add_mul_small_round = ({2'b0, vB_add_mul_small} & num_1) == num_1;
+
+assign mod_small_unsigned_prime_valid = (state == S_IDLE && in_valid) || (mod_small_unsigned_round && out_valid_mod_small_unsigned);
+assign add_mul_small_prime_valid = (state == S_IDLE && len_valid) || (prime_ena_add_mul_small && add_mul_small_round);
+
+always_comb begin // TODO: may have race condition for MOD_SMALL_UNSIGNED & ADD_MUL_SMALL
+    if (state == S_IDLE && len_valid)
+        prime_idx = 1;
+    else if (prime_ena_add_mul_small && add_mul_small_round)
+        prime_idx = u_add_mul_small;
+    else if (state == S_EXE && mod_small_unsigned_round && out_valid_mod_small_unsigned)
+        prime_idx = u_mod_small_unsigned + 1;
+    else
+        prime_idx = 0;
+end
+
+always_comb begin
+    if (add_mul_small_prime_valid) begin
+        s_add_mul_small_comb = prime_comb.s;
+        p_add_mul_small_comb = prime_comb.p;
+        p0i_add_mul_small_comb = prime_comb.p0i;
+    end
+    else begin
+        s_add_mul_small_comb = s_add_mul_small;
+        p_add_mul_small_comb = p_add_mul_small;
+        p0i_add_mul_small_comb = p0i_add_mul_small;
+    end
+end
+
+always_comb begin
+    if (mod_small_unsigned_prime_valid) begin
+        p_mod_small_unsigned_comb = prime_comb.p;
+        p0i_mod_small_unsigned_comb = prime_comb.p0i;
+        R2_mod_small_unsigned_comb = prime_comb.R2;
+    end
+    else begin
+        p_mod_small_unsigned_comb = p_mod_small_unsigned;
+        p0i_mod_small_unsigned_comb = p0i_mod_small_unsigned;
+        R2_mod_small_unsigned_comb = R2_mod_small_unsigned;
+    end
+end
+
+/*
  * tmp
  */
 // read
 always_comb begin
-    if (mul_small_round && len_add_mul_small == 1 && (num / WORD_NUM) > 1)
+    if (add_mul_small_round && len_add_mul_small == 1 && (num / WORD_NUM) > 1)
         if (out_valid_add_mul_small && uB_add_mul_small == 1 && !stall_add_mul_small)
             tmp_comb = tmp_o;
         else
@@ -1062,7 +1052,7 @@ always_comb begin
 end
 
 always_comb begin
-    if (mul_small_round && len_add_mul_small == 1 && uA_add_mul_small == 1 && (num / WORD_NUM) > 1)
+    if (add_mul_small_round && len_add_mul_small == 1 && uA_add_mul_small == 1 && (num / WORD_NUM) > 1)
         tmp_valid_comb = 0;
     else if (state == S_EXE && read_ena_add_mul_small && r_state_add_mul_small == READ_X)
         tmp_valid_comb = !is_read;
@@ -1080,7 +1070,7 @@ assign rf_tmp_AA = uA_add_mul_small;
 always_comb begin
     if (len_valid)
         rf_tmp_CENB_comb = 0;
-    else if (mul_small_round && out_valid_add_mul_small)
+    else if (add_mul_small_round && out_valid_add_mul_small)
         rf_tmp_CENB_comb = 0;
     else
         rf_tmp_CENB_comb = 1;
@@ -1089,7 +1079,7 @@ end
 always_comb begin
     if (len_valid)
         rf_tmp_AB_comb = 1;
-    else if (mul_small_round && out_valid_add_mul_small)
+    else if (add_mul_small_round && out_valid_add_mul_small)
         rf_tmp_AB_comb = uB_add_mul_small;
     else 
         rf_tmp_AB_comb = 0;
@@ -1098,7 +1088,7 @@ end
 always_comb begin
     if (len_valid)
         rf_tmp_DB_comb = 2147473409;
-    else if (mul_small_round && out_valid_add_mul_small)
+    else if (add_mul_small_round && out_valid_add_mul_small)
         rf_tmp_DB_comb = tmp_o;
     else 
         rf_tmp_DB_comb = 0;
