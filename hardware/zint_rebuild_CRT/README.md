@@ -63,14 +63,11 @@ In this module, `WORD_NUM` can be set for different extent of parallelism. **_2_
 |    `WORD_NUM`    |          2          |         4          |           8           |
 | :--------------: | :-----------------: | :----------------: | :-------------------: |
 |    **Period**    |       1.48ns        |       1.55ns       |        1.65ns         |
-|    **#GATE**     |       225975        |       299151       |        513374         |
+|    **#GATE**     |       224065        |       290871       |        511009         |
 |    **Memory**    | 2x1024<br>(7.936kb) | 4x512<br>(7.936kb) | 4x512x2<br>(15.872kb) |
 | **Memory #GATE** |       113880        |       113880       |        207790         |
 |    **Cycle**     |       16.74M        |       12.57M       |        11.48M         |
 
-For `WORD_NUM`=2, 
-
 ## Future Optimization
 
 1. Maybe 1st round `ZINT_MOD_SMALL_UNSIGNED` can skip.
-2. `PRIME` LUT instance can be merged.
