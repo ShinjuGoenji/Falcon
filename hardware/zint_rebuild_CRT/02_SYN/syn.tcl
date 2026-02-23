@@ -8,12 +8,16 @@
 # (A) Global Parameters
 #======================================================
 set DESIGN "MAKE_FG"
-# set CYCLE 2.0 
-if {[info exists env(PERIOD)]} {
-    set CYCLE $env(PERIOD)
+if {[info exists WN]} {
+    set WORD_NUM $WN
 } else {
-    set CYCLE 1.55 ;
-    puts "Warning: PERIOD not set, using default $CYCLE"
+    set WORD_NUM 4
+}
+
+if {[info exists PERIOD]} {
+    set CYCLE $PERIOD
+} else {
+    set CYCLE 2
 }
 
 set INPUT_DLY [expr 0*$CYCLE]
@@ -24,7 +28,7 @@ set OUTPUT_DLY [expr 0*$CYCLE]
 #======================================================
 # (B-1) analyze + elaborate
 set hdlin_auto_save_templates TRUE
-analyze -f sverilog {Usertype.sv INF.sv MAKE_FG.sv}
+analyze -f sverilog -define "WN=$WORD_NUM" {Usertype.sv INF.sv MAKE_FG.sv}
 elaborate $DESIGN 
 
 # (B-2) set current design

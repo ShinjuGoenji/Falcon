@@ -36,3 +36,7 @@ filenames*
 
 # 03_GATE
 check.log
+
+# 07_LINT
+spyglass_run/
+*.prj

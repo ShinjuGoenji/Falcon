@@ -1,0 +1,9 @@
+gui_select_message -rule W486 -msg {Rhs width '62' with shift (Expr: '(z_tmp >> 31)') is more than lhs width '31' (Expr: 'cc_tmp_comb'), this may cause overflow [Hierarchy: ':MAKE_FG:u_ZINT_REBUILD_CRT@ZINT_REBUILD_CRT:u_ZINT_ADD_MUL_SMALL@ZINT_ADD_MUL_SMALL']}
+# Started at 14:36:38, Completed at 14:36:38 (Elapsed time = 00:00:00.000)
+
+gui_select_message -rule W528 -msg {Variable 'prime_1.R2[30:0]' set but not read.[Hierarchy: ':MAKE_FG:u_ZINT_REBUILD_CRT@ZINT_REBUILD_CRT']}
+# Started at 14:36:46, Completed at 14:36:46 (Elapsed time = 00:00:00.000)
+
+gui_select_message -rule W486 -msg {Rhs width '32' with shift (Expr: '(((add_mul_small_ptr & (~num_1)) * WORD_NUM) >> logn)') is more than lhs width '9' (Expr: 'u_add_mul_small'), this may cause overflow [Hierarchy: ':MAKE_FG:u_ZINT_REBUILD_CRT@ZINT_REBUILD_CRT']}
+# Started at 14:36:49, Completed at 14:36:49 (Elapsed time = 00:00:00.000)
+

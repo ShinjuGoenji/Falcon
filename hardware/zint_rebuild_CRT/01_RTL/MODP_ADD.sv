@@ -9,7 +9,7 @@ module MODP_ADD (
     // Output signals
     d
 );
-import usertype::*;
+import FALCON_Config::*;
 
 //---------------------------------------------------------------------
 //   Input & Output

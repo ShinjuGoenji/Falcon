@@ -3,50 +3,49 @@
 Report : area
 Design : MAKE_FG
 Version: T-2022.03
-Date   : Wed Feb  4 01:02:13 2026
+Date   : Sun Feb 15 22:17:30 2026
 ****************************************
 
 Library(s) Used:
 
-    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
     RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db)
-    RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x256_nldm_ss_0p81v_0p81v_125c.db)
+    RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c (File: /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/04_MEM/RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db)
 
-Number of ports:                         3173
-Number of nets:                         71586
-Number of cells:                        62615
-Number of combinational cells:          60253
-Number of sequential cells:              2356
-Number of macros/black boxes:               2
-Number of buf/inv:                       9367
-Number of references:                     583
+Number of ports:                         5543
+Number of nets:                        124321
+Number of cells:                       106951
+Number of combinational cells:         102738
+Number of sequential cells:              4207
+Number of macros/black boxes:               3
+Number of buf/inv:                      15042
+Number of references:                     653
 
-Combinational area:             110664.790933
-Buf/Inv area:                    10413.522030
-Noncombinational area:           10857.142353
-Macro/Black Box area:            43826.589844
+Combinational area:             186741.221000
+Buf/Inv area:                    16240.467592
+Noncombinational area:           19568.530192
+Macro/Black Box area:           141380.810547
 Net Interconnect area:               0.000000
 
-Total cell area:                165348.523130
-Total area:                     165348.523130
+Total cell area:                347690.561740
+Total area:                     347690.561740
 
 Hierarchical area distribution
 ------------------------------
 
                                   Global cell area                Local cell area
-                                  --------------------  ----------------------------------- 
+                                  --------------------  ------------------------------------ 
 Hierarchical cell                 Absolute     Percent  Combi-       Noncombi-   Black-
-                                  Total        Total    national     national    boxes       Design
---------------------------------  -----------  -------  -----------  ----------  ----------  -----------------------------
-MAKE_FG                           165348.5231    100.0   68841.0572   4176.9754  34997.6250  MAKE_FG
-u_ZINT_REBUILD_CRT                 57332.8655     34.7    9098.9891   5088.9382   8828.9648  ZINT_REBUILD_CRT
-u_ZINT_REBUILD_CRT/u_PRIMES_0       4505.8355      2.7    4505.8355      0.0000      0.0000  PRIMES_1
-u_ZINT_REBUILD_CRT/u_PRIMES_1       4380.4151      2.6    4380.4151      0.0000      0.0000  PRIMES_0
+                                  Total        Total    national     national    boxes        Design
+--------------------------------  -----------  -------  -----------  ----------  -----------  -----------------------------
+MAKE_FG                           347690.5617    100.0  119875.8192   8231.4789  127792.2422  MAKE_FG
+u_ZINT_REBUILD_CRT                 91791.0214     26.4   15191.5175   8649.0178   13588.5684  ZINT_REBUILD_CRT
+u_ZINT_REBUILD_CRT/u_PRIMES         7079.5619      2.0    7079.5619      0.0000       0.0000  PRIMES
 u_ZINT_REBUILD_CRT/u_ZINT_ADD_MUL_SMALL
-                                   25429.7227     15.4   23838.4940   1591.2288      0.0000  ZINT_ADD_MUL_SMALL_SLAVE_NUM4
---------------------------------  -----------  -------  -----------  ----------  ----------  -----------------------------
-Total                                                   110664.7909  10857.1424  43826.5898
+                                   47282.3559     13.6   44594.3224   2688.0335       0.0000  ZINT_ADD_MUL_SMALL_SLAVE_NUM8
+--------------------------------  -----------  -------  -----------  ----------  -----------  -----------------------------
+Total                                                   186741.2210  19568.5302  141380.8105
 
 1

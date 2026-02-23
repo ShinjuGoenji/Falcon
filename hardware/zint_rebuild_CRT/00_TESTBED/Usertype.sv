@@ -1,19 +1,30 @@
-`ifndef USERTYPE
-`define USERTYPE
+`ifndef FALCON_CONFIG_H__
+`define FALCON_CONFIG_H__
 
-package usertype;
+`ifndef WN
+    `define WN 2
+`endif
+
+package FALCON_Config;
 
 /*
- * 31-bit integer
+ * Paramters
  */
+// 31-bit type
+parameter Q_WIDTH = 16;
 parameter P_WIDTH = 31;
 typedef logic [P_WIDTH-1:0] uint31_t;
 
-parameter LOGN_WIDTH = 4;
-parameter NUM_WIDTH = 9;
-parameter XLEN_WIDTH = 9;
+// len bit width
+parameter LOGN_WIDTH = 4;               // max logn = 10
+parameter NUM_WIDTH = $clog2(1024)+1;   // max num  = 1024
+parameter XLEN_WIDTH = 9;               // max xlen = 308
 
-parameter WORD_NUM = 4;
+/*
+ * Configurables
+ */
+parameter WORD_NUM = `WN;
+parameter RF_CRT_ADDR_WIDTH = (WORD_NUM == 2) ? 10 : 9;
 
 typedef enum logic { 
     UNKNOWN	= 1'dx,
@@ -21,6 +32,9 @@ typedef enum logic {
     FALCON_1024 = 1'd1
 } FALCON_MODE;
 
+/*
+ * Structures
+ */
 typedef struct packed {
     uint31_t p; 
     uint31_t p0i;

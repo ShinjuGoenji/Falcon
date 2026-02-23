@@ -1,1 +1,1 @@
-make syn
+make syn period=${1:-2} word_num=${2:-4}

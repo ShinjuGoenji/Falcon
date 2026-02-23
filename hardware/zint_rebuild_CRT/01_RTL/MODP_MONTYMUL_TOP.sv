@@ -10,7 +10,7 @@ module MODP_MONTYMUL_TOP #(
     in_bus,
     out_bus
 );
-import usertype::*;
+import FALCON_Config::*;
 
 //---------------------------------------------------------------------
 //   Input & Output
@@ -180,12 +180,7 @@ module MODP_MONTYMUL #(
     d,
     o_bus
 );
-
-//---------------------------------------------------------------------
-//   Parameter & Integer
-//---------------------------------------------------------------------
-localparam P_WIDTH = 31;
-localparam Q_WIDTH = 16;
+import FALCON_Config::*;
 
 //---------------------------------------------------------------------
 //   Input & Output

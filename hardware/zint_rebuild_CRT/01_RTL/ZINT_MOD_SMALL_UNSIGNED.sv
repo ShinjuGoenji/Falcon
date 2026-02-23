@@ -35,7 +35,7 @@ module ZINT_MOD_SMALL_UNSIGNED #(parameter SLAVE_NUM)
     modp_montymul_req,
     modp_montymul_resp
 );
-import usertype::*;
+import FALCON_Config::*;
 
 //---------------------------------------------------------------------
 //   Parameter & Integer
