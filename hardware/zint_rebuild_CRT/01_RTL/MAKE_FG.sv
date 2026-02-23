@@ -6,7 +6,7 @@ module MAKE_FG (
     rst_n,
     inf
 );
-import usertype::*;
+import FALCON_Config::*;
 
 //---------------------------------------------------------------------
 //   Input & Output
@@ -23,19 +23,19 @@ logic [LOGN_WIDTH-1:0] logn, logn_comb;
 logic [XLEN_WIDTH-1:0] xlen, xlen_comb;
 
 uint31_t intt_output_buffer [0:WORD_NUM-1], intt_output_buffer_comb [0:WORD_NUM-1];
-logic [9:0] input_ptr, input_ptr_comb;
+logic [NUM_WIDTH:0] input_ptr, input_ptr_comb; // max value / WORD_NUM : 2048 / 2, 2048 / 4, 2064 (8*308) / 8
 logic intt_write;
 
 /*
  * RF_CRT
  */
-logic         rf_crt_CENA;
-logic [7:0]   rf_crt_AA;
-logic [123:0] rf_crt_QA;
+logic                         rf_crt_CENA;
+logic [RF_CRT_ADDR_WIDTH-1:0] rf_crt_AA;
+logic [P_WIDTH*WORD_NUM-1:0]  rf_crt_QA;
 
-logic         rf_crt_CENB, rf_crt_CENB_comb;
-logic [7:0]   rf_crt_AB, rf_crt_AB_comb;
-logic [123:0] rf_crt_DB, rf_crt_DB_comb;
+logic                         rf_crt_CENB, rf_crt_CENB_comb;
+logic [RF_CRT_ADDR_WIDTH-1:0] rf_crt_AB, rf_crt_AB_comb;
+logic [P_WIDTH*WORD_NUM-1:0]  rf_crt_DB, rf_crt_DB_comb;
 
 /*
  * MODP_MONTYMUL_TOP
@@ -46,14 +46,23 @@ MODP_MONTYMUL_SLAVE  modp_montymul_resp [0:WORD_NUM*2-1];
 /*
  * ZINT_REBUILD_CRT
  */
-logic         zint_rebuild_crt_CENB_comb;
-logic [7:0]   zint_rebuild_crt_AB_comb;
-logic [123:0] zint_rebuild_crt_DB_comb;
-logic         is_read; // TODO: may not be necessary
-logic         zint_rebuild_crt_CENA;
-logic [7:0]   zint_rebuild_crt_AA;
-uint31_t      zint_rebuild_crt_QA [0:WORD_NUM-1];
-logic         zint_rebuild_out_valid;
+logic                         zint_rebuild_crt_CENB_comb;
+logic [RF_CRT_ADDR_WIDTH-1:0] zint_rebuild_crt_AB_comb;
+logic [P_WIDTH*WORD_NUM-1:0]  zint_rebuild_crt_DB_comb;
+logic                         is_read; // TODO: may not be necessary
+logic                         zint_rebuild_crt_CENA;
+logic [RF_CRT_ADDR_WIDTH-1:0] zint_rebuild_crt_AA;
+uint31_t                      zint_rebuild_crt_QA [0:WORD_NUM-1];
+logic                         zint_rebuild_out_valid;
+
+// TODO: debug
+logic debug_state, next_debug_state;
+logic [NUM_WIDTH:0] debug_cnt, debug_cnt_comb; // TODO: parameterize
+logic debug_CENA, debug_CENA_reg;
+logic [RF_CRT_ADDR_WIDTH-1:0] debug_AA;
+uint31_t debug_QA [0:WORD_NUM-1], debug_QA_comb [0:WORD_NUM-1];
+logic out_valid_reg1, out_valid_reg2;
+uint31_t out_data_comb;
 
 //---------------------------------------------------------------------
 //   Submodule
@@ -76,7 +85,6 @@ ZINT_REBUILD_CRT u_ZINT_REBUILD_CRT (
     .in_valid(inf.in_valid),
     .len_valid(inf.len_valid),
     .mode(inf.mode),
-    .x_i(inf.in_data),
     .inf_logn(inf.logn),
     .logn(logn),
     .num(num),
@@ -99,7 +107,7 @@ ZINT_REBUILD_CRT u_ZINT_REBUILD_CRT (
     .QA(zint_rebuild_crt_QA)
 );
 
-MODP_MONTYMUL_TOP #(.MASTER_NUM(WORD_NUM*2), .MUL_NUM(4)) 
+MODP_MONTYMUL_TOP #(.MASTER_NUM(WORD_NUM*2), .MUL_NUM(WORD_NUM)) 
 u_MODP_MONTYMUL_TOP (
     .clk(clk),
     .rst_n(rst_n),
@@ -207,13 +215,6 @@ end
 // read
 assign is_read = 0;
 
-logic debug_state, next_debug_state;
-logic [11:0] debug_cnt, debug_cnt_comb;
-
-logic debug_CENA, debug_CENA_reg;
-logic [7:0] debug_AA;
-uint31_t debug_QA [0:WORD_NUM-1], debug_QA_comb [0:WORD_NUM-1];
-
 // enable
 always_comb begin
     if (is_read || !debug_CENA || !zint_rebuild_crt_CENA)
@@ -238,9 +239,6 @@ assign {>> {zint_rebuild_crt_QA}} = rf_crt_QA;
 /*
  * TODO: debug
  */
-logic out_valid_reg1, out_valid_reg2;
-uint31_t out_data_comb;
-
 always_comb begin
     case (debug_state)
         0: 
@@ -264,7 +262,12 @@ always_comb begin
 end
 
 assign debug_CENA = !(debug_state && debug_cnt % WORD_NUM == 0);
-assign debug_AA = (debug_cnt + num) / WORD_NUM;
+always_comb begin
+    if (logn == 10)
+        debug_AA = (debug_cnt) / WORD_NUM;
+    else 
+        debug_AA = (debug_cnt + num) / WORD_NUM;
+end
 
 genvar i;
 generate
@@ -325,6 +328,7 @@ always_ff @(posedge clk or negedge rst_n) begin
         rf_crt_CENB <= 1;
         rf_crt_AB <= 0;
         rf_crt_DB <= 0;
+        $display("WORD_NUM: %d, ADDR_WIDTH: %d", WORD_NUM, RF_CRT_ADDR_WIDTH);
     end
     else begin
         logn <= logn_comb;
@@ -349,59 +353,86 @@ module RF_CRT (
     AB,
     DB
 );
-import usertype::*;
+import FALCON_Config::*;
 
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
-input          clk;
-input          CENA;
-input  [7:0]   AA;
-output [123:0] QA;
-input          CENB;
-input  [7:0]   AB;
-input  [123:0] DB;
-
-//---------------------------------------------------------------------
-//   Logic
-//---------------------------------------------------------------------
-// Redundent
-logic         CENYA;
-logic [7:0]   AYA;
-logic         CENYB;
-logic [7:0]   AYB;
-logic [123:0] DYB;
+input                          clk;
+input                          CENA;
+input  [RF_CRT_ADDR_WIDTH-1:0] AA;
+output [P_WIDTH*WORD_NUM-1:0]  QA;
+input                          CENB;
+input  [RF_CRT_ADDR_WIDTH-1:0] AB;
+input  [P_WIDTH*WORD_NUM-1:0]  DB;
 
 //---------------------------------------------------------------------
 //   SRAM
 //---------------------------------------------------------------------
 
-RF_2p_CRT_4x256 u_RF_2p_CRT_4x256 (
-	.CENYA(CENYA), 
-	.AYA(AYA),     
-	.CENYB(CENYB), 
-	.AYB(AYB),     
-	.DYB(DYB),     
-    .QA(QA),
-    .CLKA(clk),
-    .CENA(CENA),
-    .AA(AA),
-    .CLKB(clk),
-    .CENB(CENB),
-    .AB(AB),
-    .DB(DB),
-	// Extra margin adjustment pins input
-	.EMAA(3'b000), .EMASA(1'b0),  .STOVA(1'b0),
-	.EMAB(3'b000), .EMAWB(2'b00), .STOVB(1'b0),
-	// Test mode pins (Redundent), active low 
-	.TENA(1'b1), .BENA(1'b1),
-	.TENB(1'b1),
-	.TCENA(1'b1), .TAA(8'b0), .TQA(124'b0), 
-	.TCENB(1'b1), .TAB(8'b0), .TDB(124'b0),
-	// Retention mode (power down) (active low)
-	.RET1N(1'b1),
-	// Additional support pins input
-	.COLLDISN(1'b1)
-);
+generate
+    if (WORD_NUM == 2) begin : GEN_CRT_MEM_2
+        RF_2p_CRT_2x1024 u_RF_2p_CRT_2x1024 (
+            .CLKA(clk),
+            .QA(QA),
+            .CENA(CENA),
+            .AA(AA),
+            .CLKB(clk),
+            .CENB(CENB),
+            .AB(AB),
+            .DB(DB),
+            // Extra margin adjustment pins input
+            .EMAA(3'b000), .EMASA(1'b0),  .STOVA(1'b0),
+            .EMAB(3'b000), .EMAWB(2'b00), .STOVB(1'b0),
+            // Test mode pins (Redundent), active low 
+            .TENA(1'b1), .BENA(1'b1), .TENB(1'b1),
+            .TCENA(1'b1), .TAA({RF_CRT_ADDR_WIDTH{1'b0}}), .TQA({(P_WIDTH*2){1'b0}}), 
+            .TCENB(1'b1), .TAB({RF_CRT_ADDR_WIDTH{1'b0}}), .TDB({(P_WIDTH*2){1'b0}}),
+            // Retention mode (power down) (active low)
+            .RET1N(1'b1),
+            // Additional support pins input
+            .COLLDISN(1'b1),
+            // Redundent
+            .CENYA(), 
+            .AYA(),     
+            .CENYB(), 
+            .AYB(),     
+            .DYB()  
+        );
+    end
+    else begin : GEN_CRT_MEM_4_8
+        // WORD_NUM=4 or 8, Use (WORD_NUM/4)x RF_2p_CRT_4x512
+        genvar RF_CRT_idx;
+        for (RF_CRT_idx=0; RF_CRT_idx < WORD_NUM/4; RF_CRT_idx=RF_CRT_idx+1) begin
+            RF_2p_CRT_4x512 u_RF_2p_CRT_4x512 (
+                .CLKA(clk),
+                .QA(QA[(RF_CRT_idx+1)*124-1 : RF_CRT_idx*124]),
+                .CENA(CENA),
+                .AA(AA),
+                .CLKB(clk),
+                .CENB(CENB),
+                .AB(AB),
+                .DB(DB[(RF_CRT_idx+1)*124-1 : RF_CRT_idx*124]),
+	            // Extra margin adjustment pins input
+                .EMAA(3'b000), .EMASA(1'b0),  .STOVA(1'b0),
+                .EMAB(3'b000), .EMAWB(2'b00), .STOVB(1'b0),
+	            // Test mode pins (Redundent), active low 
+                .TENA(1'b1), .BENA(1'b1), .TENB(1'b1),
+                .TCENA(1'b1), .TAA(9'b0), .TQA(124'b0), 
+                .TCENB(1'b1), .TAB(9'b0), .TDB(124'b0),
+	            // Retention mode (power down) (active low)
+                .RET1N(1'b1),
+	            // Additional support pins input
+                .COLLDISN(1'b1),
+                // Redundent
+                .CENYA(), 
+                .AYA(),     
+                .CENYB(), 
+                .AYB(),     
+                .DYB()  
+            );
+        end
+    end
+endgenerate
 
 endmodule
