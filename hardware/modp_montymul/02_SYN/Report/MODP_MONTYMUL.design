@@ -1,10 +1,11 @@
 Information: Updating design information... (UID-85)
+Warning: Design 'MODP_MONTYMUL' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
  
 ****************************************
 Report : design
 Design : MODP_MONTYMUL
 Version: T-2022.03
-Date   : Thu Oct 23 11:02:08 2025
+Date   : Tue Apr 21 16:07:04 2026
 ****************************************
 
 Design allows ideal nets on clock nets.

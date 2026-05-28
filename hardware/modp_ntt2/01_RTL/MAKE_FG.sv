@@ -1,4 +1,4 @@
-// `include "ZINT_REBUILD_CRT.sv"
+`include "MODP_NTT2_1.sv"
 // `include "MODP_MONTYMUL_TOP.sv"
 
 module MAKE_FG (
@@ -26,7 +26,7 @@ input inf_len_valid;
 input uint31_t inf_in_data;
 input [LOGN_WIDTH-1:0] inf_logn;
 
-output inf_out_valid;
+output logic inf_out_valid;
 output uint31_t inf_out_data;
 
 //---------------------------------------------------------------------
@@ -35,14 +35,9 @@ output uint31_t inf_out_data;
 logic [NUM_WIDTH-1:0]  num;
 logic [LOGN_WIDTH-1:0] logn, logn_comb;
 
-uint31_t intt_output_buffer [0:WORD_NUM-1], intt_output_buffer_comb [0:WORD_NUM-1];
-logic [NUM_WIDTH:0] input_ptr, input_ptr_comb; // max value / WORD_NUM : 2048 / 2, 2048 / 4, 2064 (8*308) / 8
-logic intt_write;
-
-/* 
- * TODO: debug
- */
-logic state, next_state;
+uint31_t input_buffer [0:WORD_NUM-1], input_buffer_comb [0:WORD_NUM-1];
+logic [NUM_WIDTH:0] input_ptr, input_ptr_comb;
+logic input_write;
 
 /*
  * RF_CRT
@@ -86,22 +81,22 @@ RF_CRT u_RF_CRT(
     .DB(rf_crt_DB)
 );
 
-// MODP_NTT2 u_MODP_NTT2 (
-//     // Input signals
-//    .clk(),
-//    .rst_n(),
-//    .in_valid(),
-//    .a_i(),
-//    .logn(),
-//    .p(),
-//    .p0i(),
-//    .isMQ(),
-//    .s_bus(),
-//    // Output signals
-//    .out_valid(),
-//    .a_o(),
-//    .tw_idx_bus()
-// );
+MODP_NTT2 u_MODP_NTT2 (
+    // Input signals
+   .clk(),
+   .rst_n(),
+   .in_valid(),
+   .a_i(),
+   .logn(),
+   .p(),
+   .p0i(),
+   .isMQ(),
+   .s_bus(),
+   // Output signals
+   .out_valid(),
+   .a_o(),
+   .tw_idx_bus()
+);
 
 // ZINT_REBUILD_CRT u_ZINT_REBUILD_CRT (
 //     // Main channel
@@ -116,14 +111,14 @@ RF_CRT u_RF_CRT(
 //     .num(num),
 //     .xlen(xlen),
 //     .input_ptr(input_ptr),
-//     .intt_output_buffer_comb(intt_output_buffer_comb),
+//     .input_buffer_comb(input_buffer_comb),
 //     // Output signals
 //     .out_valid(zint_rebuild_out_valid),
 //     // MODP_MONTYMUL_TOP
 //     .modp_montymul_req(modp_montymul_req),
 //     .modp_montymul_resp(modp_montymul_resp),
 //     // RF_CRT
-//     .is_write(intt_write),
+//     .is_write(input_write),
 //     .is_read(is_read),
 //     .CENB_comb(zint_rebuild_crt_CENB_comb),
 //     .AB_comb(zint_rebuild_crt_AB_comb),
@@ -144,19 +139,11 @@ RF_CRT u_RF_CRT(
 //---------------------------------------------------------------------
 //   Combinational Logic
 //---------------------------------------------------------------------
-// always_comb begin
-//     case (state)
-//         0: 
-//             if  
-//         default: 
-//     endcase
-// end
-
 /*
  * input
  */
 // num
-assign num = 1 << logn;
+// assign num = 1 << logn;
 
 // logn
 always_comb begin
@@ -167,7 +154,7 @@ always_comb begin
 end
 
 /*
- * input data
+ * TODO: input data (debug)
  */
 // input pointer
 always_comb begin
@@ -180,34 +167,34 @@ always_comb begin
 end
 
 // input data
-genvar intt_output_buffer_comb_idx;
+genvar input_buffer_comb_idx;
 generate
-    for (intt_output_buffer_comb_idx=0; intt_output_buffer_comb_idx<WORD_NUM-1; intt_output_buffer_comb_idx=intt_output_buffer_comb_idx+1) begin
+    for (input_buffer_comb_idx=0; input_buffer_comb_idx<WORD_NUM-1; input_buffer_comb_idx=input_buffer_comb_idx+1) begin
         always_comb begin
             if (inf_in_valid)
-                intt_output_buffer_comb[intt_output_buffer_comb_idx] = intt_output_buffer[intt_output_buffer_comb_idx+1];
+                input_buffer_comb[input_buffer_comb_idx] = input_buffer[input_buffer_comb_idx+1];
             else
-                intt_output_buffer_comb[intt_output_buffer_comb_idx] = intt_output_buffer[intt_output_buffer_comb_idx];
+                input_buffer_comb[input_buffer_comb_idx] = input_buffer[input_buffer_comb_idx];
         end
     end
 endgenerate
 
 always_comb begin
     if (inf_in_valid)
-        intt_output_buffer_comb[WORD_NUM-1] = inf_in_data;
+        input_buffer_comb[WORD_NUM-1] = inf_in_data;
     else
-        intt_output_buffer_comb[WORD_NUM-1] = intt_output_buffer[WORD_NUM-1];
+        input_buffer_comb[WORD_NUM-1] = input_buffer[WORD_NUM-1];
 end
 
 /*
  * CRT Register File
  */
 // write
-assign intt_write = inf_in_valid && input_ptr % WORD_NUM == (WORD_NUM - 1);
+assign input_write = inf_in_valid && input_ptr % WORD_NUM == (WORD_NUM - 1);
 
 // enable
 always_comb begin
-    if (intt_write)
+    if (input_write)
         rf_crt_CENB_comb = 0;
     else
         rf_crt_CENB_comb = 1;
@@ -215,20 +202,16 @@ end
 
 // address
 always_comb begin
-    if (intt_write)
+    if (input_write)
         rf_crt_AB_comb = input_ptr / WORD_NUM;
-    // else if (!zint_rebuild_crt_CENB_comb)
-    //     rf_crt_AB_comb = zint_rebuild_crt_AB_comb;
     else
         rf_crt_AB_comb = 0;
 end
 
 // data
 always_comb begin
-    if (intt_write)
-        rf_crt_DB_comb = {>> {intt_output_buffer_comb}};
-    // else if (!zint_rebuild_crt_CENB_comb)
-    //     rf_crt_DB_comb = {>> {zint_rebuild_crt_DB_comb}};
+    if (input_write)
+        rf_crt_DB_comb = {>> {input_buffer_comb}};
     else
         rf_crt_DB_comb = 0;
 end
@@ -262,7 +245,7 @@ always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         logn <= 0;
         input_ptr <= 0;
-        intt_output_buffer <= '{default: '0};
+        input_buffer <= '{default: '0};
         // RF_CRT
         rf_crt_CENB <= 1;
         rf_crt_AB <= 0;
@@ -274,7 +257,7 @@ always_ff @(posedge clk or negedge rst_n) begin
     else begin
         logn <= logn_comb;
         input_ptr <= input_ptr_comb;
-        intt_output_buffer <= intt_output_buffer_comb;
+        input_buffer <= input_buffer_comb;
         // RF_CRT
         rf_crt_CENB <= rf_crt_CENB_comb;
         rf_crt_AB <= rf_crt_AB_comb;

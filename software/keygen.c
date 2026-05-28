@@ -624,6 +624,121 @@ static const small_prime PRIMES[] = {
 	{2135955457, 538755304, 1688831340},
 	{0, 0, 0}};
 
+typedef struct
+{
+	uint64_t p;
+	uint64_t g;
+	uint64_t s;
+} small_prime_64;
+
+static const small_prime_64 PRIMES_64[] = {
+	{4611686018427365377ULL, 4212532896709519725ULL, 22527ULL},
+	{4611686018427322369ULL, 1081429490340816422ULL, 3513772766411944912ULL},
+	{4611686018427289601ULL, 2004720038251873503ULL, 498560652498071220ULL},
+	{4611686018427277313ULL, 2391892388609453708ULL, 4393939039403673816ULL},
+	{4611686018427246593ULL, 3284447678536686704ULL, 3475952849333426924ULL},
+	{4611686018427228161ULL, 2359632423288169744ULL, 3748588665103069633ULL},
+	{4611686018427215873ULL, 2882823372662244108ULL, 359733386502460385ULL},
+	{4611686018427199489ULL, 124765609409630270ULL, 4090592846140118490ULL},
+	{4611686018427185153ULL, 4292581507851818587ULL, 396930150681209922ULL},
+	{4611686018427156481ULL, 2762412690172434388ULL, 126091159747337074ULL},
+	{4611686018427136001ULL, 576562540553043323ULL, 4117716371230520856ULL},
+	{4611686018427045889ULL, 3183300842938776597ULL, 1917855950785817699ULL},
+	{4611686018427013121ULL, 2380146095219949173ULL, 2823361620202305699ULL},
+	{4611686018426963969ULL, 1373042170158685080ULL, 3209380961952107072ULL},
+	{4611686018426953729ULL, 3072604433975136719ULL, 4495846788637282154ULL},
+	{4611686018426933249ULL, 69969969752467038ULL, 2680832281925306465ULL},
+	{4611686018426884097ULL, 3655497111871623074ULL, 3369819907849355263ULL},
+	{4611686018426877953ULL, 2010815759568501253ULL, 753883860667324547ULL},
+	{4611686018426800129ULL, 2805776673470001647ULL, 2168742657841061038ULL},
+	{4611686018426767361ULL, 3681741829090766049ULL, 343028325857061478ULL},
+	{4611686018426705921ULL, 4428960642870212865ULL, 978426621929551612ULL},
+	{4611686018426689537ULL, 4248827376533702356ULL, 1705359076919028731ULL},
+	{4611686018426687489ULL, 941095069452950265ULL, 3694314320173596628ULL},
+	{4611686018426669057ULL, 3697703679869237992ULL, 744871295193031213ULL},
+	{4611686018426658817ULL, 2512040787866431933ULL, 1187584319665489721ULL},
+	{4611686018426656769ULL, 1645232241031274383ULL, 2015681111169468692ULL},
+	{4611686018426533889ULL, 2500389555136432498ULL, 384843376899189993ULL},
+	{4611686018426529793ULL, 926317560136119127ULL, 3841422876070203719ULL},
+	{4611686018426460161ULL, 1736498493277036532ULL, 812450377469063019ULL},
+	{4611686018426454017ULL, 1017904115587170732ULL, 1669667114784650321ULL},
+	{4611686018426324993ULL, 3462095287039102706ULL, 2299865752279021924ULL},
+	{4611686018426300417ULL, 651046535427517964ULL, 3287743543065783167ULL},
+	{4611686018426294273ULL, 2187579563502643106ULL, 250547887927060523ULL},
+	{4611686018426265601ULL, 1792852460884765141ULL, 3293109832294416503ULL},
+	{4611686018426257409ULL, 1250100081468763395ULL, 2332207282242060076ULL},
+	{4611686018426232833ULL, 586192983685110644ULL, 3930168225765213444ULL},
+	{4611686018426032129ULL, 1734507150641113349ULL, 1719345751732142313ULL},
+	{4611686018425989121ULL, 1321705056792060198ULL, 1584378977556857451ULL},
+	{4611686018425921537ULL, 3311556001134665203ULL, 1803851023197212006ULL},
+	{4611686018425901057ULL, 657869620416566789ULL, 300358920208748753ULL},
+	{4611686018425853953ULL, 2303336464902089916ULL, 3482053479260350817ULL},
+	{4611686018425845761ULL, 2744985242831783133ULL, 2157847919121035450ULL},
+	{4611686018425815041ULL, 2509155108457824739ULL, 1551633467425259009ULL},
+	{4611686018425753601ULL, 35412753153534894ULL, 101501518425280950ULL},
+	{4611686018425741313ULL, 4132582814360799417ULL, 3383349934910405775ULL},
+	{4611686018425737217ULL, 1995109611312138510ULL, 4210699182392456146ULL},
+	{4611686018425630721ULL, 1938512481628765078ULL, 1904145484014041796ULL},
+	{4611686018425608193ULL, 4411689639489722312ULL, 2477657217912062556ULL},
+	{4611686018425581569ULL, 2590578012902515384ULL, 4399307737722464042ULL},
+	{4611686018425540609ULL, 3410781065057613717ULL, 205051199057751431ULL},
+	{4611686018425436161ULL, 3626889676743350650ULL, 4221007588763272365ULL},
+	{4611686018425430017ULL, 3449465518167857580ULL, 3748481476074281219ULL},
+	{4611686018425399297ULL, 2122025929732910968ULL, 2264653441896896520ULL},
+	{4611686018425378817ULL, 2217605466061693046ULL, 1944373919404756339ULL},
+	{4611686018425362433ULL, 1873774467481312059ULL, 248133237821801355ULL},
+	{4611686018425337857ULL, 2195165559834014274ULL, 931263194390551105ULL},
+	{4611686018425292801ULL, 2921478532606897589ULL, 2729197115516845375ULL},
+	{4611686018425280513ULL, 113985700614728138ULL, 824016477580124958ULL},
+	{4611686018425171969ULL, 2710138090763476303ULL, 1585336077492242742ULL},
+	{4611686018425085953ULL, 942411404453223635ULL, 348240702600159685ULL},
+	{4611686018425071617ULL, 2977263023541059332ULL, 4309169102898760600ULL},
+	{4611686018424975361ULL, 2633356051537096023ULL, 3744977496489842548ULL},
+	{4611686018424881153ULL, 3147860557114381843ULL, 861660206483656651ULL},
+	{4611686018424795137ULL, 4346189534331865744ULL, 535518758499148870ULL},
+	{4611686018424778753ULL, 334095178626889996ULL, 3965458053837219073ULL},
+	{4611686018424733697ULL, 2525085720426068897ULL, 3657678420446783132ULL},
+	{4611686018424631297ULL, 1207235911280616809ULL, 1155115945779655897ULL},
+	{4611686018424588289ULL, 1726709423872179098ULL, 4528037888562179442ULL},
+	{4611686018424549377ULL, 2727080411134151484ULL, 3683717140151383256ULL},
+	{4611686018424475649ULL, 3125624484771471151ULL, 419705426223923659ULL},
+	{4611686018424444929ULL, 3650768117165933985ULL, 1394957889216427141ULL},
+	{4611686018424434689ULL, 394243063588177487ULL, 2928514475365558296ULL},
+	{4611686018424422401ULL, 6352580944297962ULL, 415569024216128493ULL},
+	{4611686018424410113ULL, 342093574109022603ULL, 3327739968636484968ULL},
+	{4611686018424383489ULL, 502377203026389824ULL, 2810991447520177424ULL},
+	{4611686018424334337ULL, 2363205256477227175ULL, 2902738747240433277ULL},
+	{4611686018424281089ULL, 3665680749935622049ULL, 4604842998199488965ULL},
+	{4611686018424238081ULL, 3101292801645163311ULL, 929038345892846341ULL},
+	{4611686018424219649ULL, 4012473757341077900ULL, 245314183491328327ULL},
+	{4611686018424180737ULL, 2015410375673894048ULL, 4269639747752316881ULL},
+	{4611686018424158209ULL, 4205302112124909753ULL, 3365380928339899515ULL},
+	{4611686018424016897ULL, 3181627331464322681ULL, 3695322217875879640ULL},
+	{4611686018424010753ULL, 2013376547361629735ULL, 4068603634216526021ULL},
+	{4611686018423881729ULL, 2895661982509345425ULL, 3687644568528684615ULL},
+	{4611686018423861249ULL, 1742508893642278240ULL, 794041471664234522ULL},
+	{4611686018423830529ULL, 2416510396311893758ULL, 3982215828528766137ULL},
+	{4611686018423801857ULL, 3326699781963653470ULL, 3769193852427666999ULL},
+	{4611686018423758849ULL, 4053806833703821521ULL, 2089110094074879890ULL},
+	{4611686018423713793ULL, 815770769186284294ULL, 794524661718601452ULL},
+	{4611686018423709697ULL, 3377300313494420981ULL, 1905425869382026093ULL},
+	{4611686018423695361ULL, 214915922065505313ULL, 1059727654441874891ULL},
+	{4611686018423689217ULL, 113306889870579748ULL, 1556415354646753781ULL},
+	{4611686018423678977ULL, 1224373330304059247ULL, 4105882123204556940ULL},
+	{4611686018423658497ULL, 856907393686977970ULL, 4439405616729001775ULL},
+	{4611686018423529473ULL, 2353776557191309147ULL, 3406721148725411011ULL},
+	{4611686018423470081ULL, 2496783860439840599ULL, 2581802883911617584ULL},
+	{4611686018423390209ULL, 3507504656239806201ULL, 359574983055700027ULL},
+	{4611686018423388161ULL, 2331787069471078913ULL, 3767579026119504430ULL},
+	{4611686018423273473ULL, 3984043106555599759ULL, 1881902636074140702ULL},
+	{4611686018423234561ULL, 1671765926867974465ULL, 529756394629200139ULL},
+	{4611686018423222273ULL, 297379573205389581ULL, 3463485641339262924ULL},
+	{4611686018423216129ULL, 2634073052729705162ULL, 3278243000768748457ULL},
+	{4611686018423212033ULL, 3458768910572658980ULL, 4292906587971104205ULL},
+	{4611686018423173121ULL, 1513695556313360529ULL, 2792344438406618925ULL},
+	{4611686018423126017ULL, 2513622146942973855ULL, 1441773539664422102ULL},
+	{0ULL, 0ULL, 0ULL}};
+
 /*
  * Reduce a small signed integer modulo a small prime. The source
  * value x MUST be such that -p < x < p.
@@ -637,6 +752,15 @@ modp_set(int32_t x, uint32_t p)
 	w += p & -(w >> 31);
 	return w;
 }
+static inline uint64_t
+modp_set_64(int64_t x, uint64_t p)
+{
+	uint64_t w;
+
+	w = (uint64_t)x;
+	w += p & -(w >> 63);
+	return w;
+}
 
 /*
  * Normalize a modular integer around 0.
@@ -645,6 +769,11 @@ static inline int32_t
 modp_norm(uint32_t x, uint32_t p)
 {
 	return (int32_t)(x - (p & (((x - ((p + 1) >> 1)) >> 31) - 1)));
+}
+static inline int64_t
+modp_norm_64(uint64_t x, uint64_t p)
+{
+	return (int64_t)(x - (p & (((x - ((p + 1) >> 1)) >> 63) - 1)));
 }
 
 /*
@@ -663,6 +792,19 @@ modp_ninv31(uint32_t p)
 	y *= 2 - p * y;
 	return (uint32_t)0x7FFFFFFF & -y;
 }
+static uint64_t
+modp_ninv62(uint64_t p)
+{
+	uint64_t y;
+
+	y = 2 - p;
+	y *= 2 - p * y;
+	y *= 2 - p * y;
+	y *= 2 - p * y;
+	y *= 2 - p * y;
+	y *= 2 - p * y; // 6th iteration for >32 bit precision
+	return 0x3FFFFFFFFFFFFFFFULL & -y;
+}
 
 /*
  * Compute R = 2^31 mod p.
@@ -675,6 +817,11 @@ modp_R(uint32_t p)
 	 * 2^31 - p.
 	 */
 	return ((uint32_t)1 << 31) - p;
+}
+static inline uint64_t
+modp_R_64(uint64_t p)
+{
+	return ((uint64_t)1 << 62) - p;
 }
 
 /*
@@ -689,6 +836,15 @@ modp_add(uint32_t a, uint32_t b, uint32_t p)
 	d += p & -(d >> 31);
 	return d;
 }
+static inline uint64_t
+modp_add_64(uint64_t a, uint64_t b, uint64_t p)
+{
+	uint64_t d;
+
+	d = a + b - p;
+	d += p & -(d >> 63);
+	return d;
+}
 
 /*
  * Subtraction modulo p.
@@ -700,6 +856,15 @@ modp_sub(uint32_t a, uint32_t b, uint32_t p)
 
 	d = a - b;
 	d += p & -(d >> 31);
+	return d;
+}
+static inline uint64_t
+modp_sub_64(uint64_t a, uint64_t b, uint64_t p)
+{
+	uint64_t d;
+
+	d = a - b;
+	d += p & -(d >> 63);
 	return d;
 }
 
@@ -729,6 +894,18 @@ modp_montymul(uint32_t a, uint32_t b, uint32_t p, uint32_t p0i)
 	w = ((z * p0i) & (uint64_t)0x7FFFFFFF) * p;
 	d = (uint32_t)((z + w) >> 31) - p;
 	d += p & -(d >> 31);
+	return d;
+}
+static inline uint64_t
+modp_montymul_64(uint64_t a, uint64_t b, uint64_t p, uint64_t p0i)
+{
+	unsigned __int128 z;
+	uint64_t w, d;
+
+	z = (unsigned __int128)a * b;
+	w = ((uint64_t)z * p0i) & 0x3FFFFFFFFFFFFFFFULL;
+	d = (uint64_t)((z + (unsigned __int128)w * p) >> 62) - p;
+	d += p & -(d >> 63);
 	return d;
 }
 
@@ -763,6 +940,35 @@ modp_R2(uint32_t p, uint32_t p0i)
 	z = (z + (p & -(z & 1))) >> 1;
 	return z;
 }
+static uint64_t
+modp_R2_64(uint64_t p, uint64_t p0i)
+{
+	uint64_t z;
+
+	/*
+	 * Compute z = 2^62 mod p, then multiply by 4 to get 2^64 mod p
+	 */
+	z = modp_R_64(p);
+	z = modp_add_64(z, z, p); // 2^63 mod p
+	z = modp_add_64(z, z, p); // 2^64 mod p
+
+	/*
+	 * Square it 5 times:
+	 * 2^64 -> 2^66 -> 2^70 -> 2^78 -> 2^94 -> 2^126 (Montgomery representation sizes)
+	 */
+	z = modp_montymul_64(z, z, p, p0i);
+	z = modp_montymul_64(z, z, p, p0i);
+	z = modp_montymul_64(z, z, p, p0i);
+	z = modp_montymul_64(z, z, p, p0i);
+	z = modp_montymul_64(z, z, p, p0i);
+
+	/*
+	 * Halve the value mod p twice to drop from 2^126 to 2^124.
+	 */
+	z = (z + (p & -(z & 1))) >> 1;
+	z = (z + (p & -(z & 1))) >> 1;
+	return z;
+}
 
 /*
  * Compute 2^(31*x) modulo p. This works for integers x up to 2^11.
@@ -790,6 +996,25 @@ modp_Rx(unsigned x, uint32_t p, uint32_t p0i, uint32_t R2)
 			z = modp_montymul(z, r, p, p0i);
 		}
 		r = modp_montymul(r, r, p, p0i);
+	}
+	return z;
+}
+static inline uint64_t
+modp_Rx_64(unsigned x, uint64_t p, uint64_t p0i, uint64_t R2)
+{
+	int i;
+	uint64_t r, z;
+
+	x--;
+	r = R2;
+	z = modp_R_64(p);
+	for (i = 0; (1U << i) <= x; i++)
+	{
+		if ((x & (1U << i)) != 0)
+		{
+			z = modp_montymul_64(z, r, p, p0i);
+		}
+		r = modp_montymul_64(r, r, p, p0i);
 	}
 	return z;
 }
@@ -834,6 +1059,28 @@ modp_div(uint32_t a, uint32_t b, uint32_t p, uint32_t p0i, uint32_t R)
 	 */
 	z = modp_montymul(z, 1, p, p0i);
 	return modp_montymul(a, z, p, p0i);
+}
+static uint64_t
+modp_div_64(uint64_t a, uint64_t b, uint64_t p, uint64_t p0i, uint64_t R)
+{
+	uint64_t z, e;
+	int i;
+
+	e = p - 2;
+	z = R;
+
+	// 62 bits scan since p < 2^62
+	for (i = 61; i >= 0; i--)
+	{
+		uint64_t z2;
+
+		z = modp_montymul_64(z, z, p, p0i);
+		z2 = modp_montymul_64(z, b, p, p0i);
+		z ^= (z ^ z2) & -(uint64_t)((e >> i) & 1);
+	}
+
+	z = modp_montymul_64(z, 1, p, p0i);
+	return modp_montymul_64(a, z, p, p0i);
 }
 
 /*
@@ -976,6 +1223,42 @@ modp_mkgm2(uint32_t *restrict gm, uint32_t *restrict igm, unsigned logn,
 	}
 }
 
+static void
+modp_mkgm2_64(uint64_t *restrict gm, uint64_t *restrict igm, unsigned logn,
+			  uint64_t g, uint64_t p, uint64_t p0i)
+{
+	size_t u, n;
+	unsigned k;
+	uint64_t ig, x1, x2, R2;
+
+	n = (size_t)1 << logn;
+
+	/*
+	 * We want g such that g^(2N) = 1 mod p, but the provided
+	 * generator has order 2048. We must square it a few times.
+	 */
+	R2 = modp_R2_64(p, p0i);
+	g = modp_montymul_64(g, R2, p, p0i);
+	for (k = logn; k < 10; k++)
+	{
+		g = modp_montymul_64(g, g, p, p0i);
+	}
+
+	ig = modp_div_64(R2, g, p, p0i, modp_R_64(p));
+	k = 10 - logn;
+	x1 = x2 = modp_R_64(p);
+	for (u = 0; u < n; u++)
+	{
+		size_t v;
+
+		v = REV10[u << k];
+		gm[v] = x1;
+		igm[v] = x2;
+		x1 = modp_montymul_64(x1, g, p, p0i);
+		x2 = modp_montymul_64(x2, ig, p, p0i);
+	}
+}
+
 /*
  * Compute the NTT over a polynomial (binary case). Polynomial elements
  * are a[0], a[stride], a[2 * stride]...
@@ -1014,6 +1297,46 @@ modp_NTT2_ext(uint32_t *a, size_t stride, const uint32_t *gm, unsigned logn,
 				y = modp_montymul(*r2, s, p, p0i);
 				*r1 = modp_add(x, y, p);
 				*r2 = modp_sub(x, y, p);
+			}
+		}
+		t = ht;
+	}
+}
+
+static void
+modp_NTT2_ext_64(uint64_t *a, size_t stride, const uint64_t *gm, unsigned logn,
+				 uint64_t p, uint64_t p0i)
+{
+	size_t t, m, n;
+
+	if (logn == 0)
+	{
+		return;
+	}
+	n = (size_t)1 << logn;
+	t = n;
+	for (m = 1; m < n; m <<= 1)
+	{
+		size_t ht, u, v1;
+
+		ht = t >> 1;
+		for (u = 0, v1 = 0; u < m; u++, v1 += t)
+		{
+			uint64_t s;
+			size_t v;
+			uint64_t *r1, *r2;
+
+			s = gm[m + u];
+			r1 = a + v1 * stride;
+			r2 = r1 + ht * stride;
+			for (v = 0; v < ht; v++, r1 += stride, r2 += stride)
+			{
+				uint64_t x, y;
+
+				x = *r1;
+				y = modp_montymul_64(*r2, s, p, p0i);
+				*r1 = modp_add_64(x, y, p);
+				*r2 = modp_sub_64(x, y, p);
 			}
 		}
 		t = ht;
@@ -1079,6 +1402,62 @@ modp_iNTT2_ext(uint32_t *a, size_t stride, const uint32_t *igm, unsigned logn,
 	}
 }
 
+static void
+modp_iNTT2_ext_64(uint64_t *a, size_t stride, const uint64_t *igm, unsigned logn,
+				  uint64_t p, uint64_t p0i)
+{
+	size_t t, m, n, k;
+	uint64_t ni;
+	uint64_t *r;
+
+	if (logn == 0)
+	{
+		return;
+	}
+	n = (size_t)1 << logn;
+	t = 1;
+	for (m = n; m > 1; m >>= 1)
+	{
+		size_t hm, dt, u, v1;
+
+		hm = m >> 1;
+		dt = t << 1;
+		for (u = 0, v1 = 0; u < hm; u++, v1 += dt)
+		{
+			uint64_t s;
+			size_t v;
+			uint64_t *r1, *r2;
+
+			s = igm[hm + u];
+			r1 = a + v1 * stride;
+			r2 = r1 + t * stride;
+			for (v = 0; v < t; v++, r1 += stride, r2 += stride)
+			{
+				uint64_t x, y;
+
+				x = *r1;
+				y = *r2;
+				*r1 = modp_add_64(x, y, p);
+				*r2 = modp_montymul_64(
+					modp_sub_64(x, y, p), s, p, p0i);
+				;
+			}
+		}
+		t = dt;
+	}
+
+	/*
+	 * We need 1/n in Montgomery representation, i.e. R/n. Since
+	 * 1 <= logn <= 10, R/n is an integer; morever, R/n <= 2^30 < p,
+	 * thus a simple shift will do.
+	 */
+	ni = (uint64_t)1 << (62 - logn);
+	for (k = 0, r = a; k < n; k++, r += stride)
+	{
+		*r = modp_montymul_64(*r, ni, p, p0i);
+	}
+}
+
 /*
  * Simplified macros for NTT and iNTT (binary case) when the elements
  * are consecutive in RAM.
@@ -1086,6 +1465,8 @@ modp_iNTT2_ext(uint32_t *a, size_t stride, const uint32_t *igm, unsigned logn,
 #define modp_NTT2(a, gm, logn, p, p0i) modp_NTT2_ext(a, 1, gm, logn, p, p0i)
 #define modp_iNTT2(a, igm, logn, p, p0i) modp_iNTT2_ext(a, 1, igm, logn, p, p0i)
 
+#define modp_NTT2_64(a, gm, logn, p, p0i) modp_NTT2_ext_64(a, 1, gm, logn, p, p0i)
+#define modp_iNTT2_64(a, igm, logn, p, p0i) modp_iNTT2_ext_64(a, 1, igm, logn, p, p0i)
 /*
  * Given polynomial f in NTT representation modulo p, compute f' of degree
  * less than N/2 such that f' = f0^2 - X*f1^2, where f0 and f1 are
@@ -1180,6 +1561,27 @@ zint_sub(uint32_t *restrict a, const uint32_t *restrict b, size_t len,
 	return cc;
 }
 
+static uint64_t
+zint_sub_64(uint64_t *restrict a, const uint64_t *restrict b, size_t len,
+			uint64_t ctl)
+{
+	size_t u;
+	uint64_t cc, m;
+
+	cc = 0;
+	m = -ctl;
+	for (u = 0; u < len; u++)
+	{
+		uint64_t aw, w;
+
+		aw = a[u];
+		w = aw - b[u] - cc;
+		cc = w >> 63;
+		aw ^= ((w & 0x3FFFFFFFFFFFFFFFULL) ^ aw) & m;
+		a[u] = aw;
+	}
+	return cc;
+}
 /*
  * Mutiply the provided big integer m with a small value x.
  * This function assumes that x < 2^31. The carry word is returned.
@@ -1198,6 +1600,24 @@ zint_mul_small(uint32_t *m, size_t mlen, uint32_t x)
 		z = (uint64_t)m[u] * (uint64_t)x + cc;
 		m[u] = (uint32_t)z & 0x7FFFFFFF;
 		cc = (uint32_t)(z >> 31);
+	}
+	return cc;
+}
+
+static uint64_t
+zint_mul_small_64(uint64_t *m, size_t mlen, uint64_t x)
+{
+	size_t u;
+	uint64_t cc;
+
+	cc = 0;
+	for (u = 0; u < mlen; u++)
+	{
+		unsigned __int128 z;
+
+		z = (unsigned __int128)m[u] * x + cc;
+		m[u] = (uint64_t)z & 0x3FFFFFFFFFFFFFFFULL;
+		cc = (uint64_t)(z >> 62);
 	}
 	return cc;
 }
@@ -1238,6 +1658,33 @@ zint_mod_small_unsigned(const uint32_t *d, size_t dlen,
 	return x;
 }
 
+static uint64_t
+zint_mod_small_unsigned_64(const uint64_t *d, size_t dlen,
+						   uint64_t p, uint64_t p0i, uint64_t R2)
+{
+	uint64_t x;
+	size_t u;
+
+	/*
+	 * Algorithm: we inject words one by one, starting with the high
+	 * word. Each step is:
+	 *  - multiply x by 2^31
+	 *  - add new word
+	 */
+	x = 0;
+	u = dlen;
+	while (u-- > 0)
+	{
+		uint64_t w;
+
+		x = modp_montymul_64(x, R2, p, p0i);
+		w = d[u] - p;
+		w += p & -(w >> 63);
+		x = modp_add_64(x, w, p);
+	}
+	return x;
+}
+
 /*
  * Similar to zint_mod_small_unsigned(), except that d may be signed.
  * Extra parameter is Rx = 2^(31*dlen) mod p.
@@ -1257,6 +1704,19 @@ zint_mod_small_signed(const uint32_t *d, size_t dlen,
 	return z;
 }
 
+static uint64_t
+zint_mod_small_signed_64(const uint64_t *d, size_t dlen,
+						 uint64_t p, uint64_t p0i, uint64_t R2, uint64_t Rx)
+{
+	uint64_t z;
+	if (dlen == 0)
+	{
+		return 0;
+	}
+	z = zint_mod_small_unsigned_64(d, dlen, p, p0i, R2);
+	z = modp_sub_64(z, Rx & -(d[dlen - 1] >> 61), p);
+	return z;
+}
 /*
  * Add y*s to x. x and y initially have length 'len' words; the new x
  * has length 'len+1' words. 's' must fit on 31 bits. x[] and y[] must
@@ -1280,6 +1740,28 @@ zint_add_mul_small(uint32_t *restrict x,
 		z = (uint64_t)yw * (uint64_t)s + (uint64_t)xw + (uint64_t)cc;
 		x[u] = (uint32_t)z & 0x7FFFFFFF;
 		cc = (uint32_t)(z >> 31);
+	}
+	x[len] = cc;
+}
+
+static void
+zint_add_mul_small_64(uint64_t *restrict x,
+					  const uint64_t *restrict y, size_t len, uint64_t s)
+{
+	size_t u;
+	uint64_t cc;
+
+	cc = 0;
+	for (u = 0; u < len; u++)
+	{
+		uint64_t xw, yw;
+		unsigned __int128 z;
+
+		xw = x[u];
+		yw = y[u];
+		z = (unsigned __int128)yw * s + xw + cc;
+		x[u] = (uint64_t)z & 0x3FFFFFFFFFFFFFFFULL;
+		cc = (uint64_t)(z >> 62);
 	}
 	x[len] = cc;
 }
@@ -1337,6 +1819,53 @@ zint_norm_zero(uint32_t *restrict x, const uint32_t *restrict p, size_t len)
 	zint_sub(x, p, len, r >> 31);
 }
 
+static void
+zint_norm_zero_64(uint64_t *restrict x, const uint64_t *restrict p, size_t len)
+{
+	size_t u;
+	uint64_t r, bb;
+
+	/*
+	 * Compare x with p/2. We use the shifted version of p, and p
+	 * is odd, so we really compare with (p-1)/2; we want to perform
+	 * the subtraction if and only if x > (p-1)/2.
+	 */
+	r = 0;
+	bb = 0;
+	u = len;
+	while (u-- > 0)
+	{
+		uint64_t wx, wp, cc;
+
+		/*
+		 * Get the two words to compare in wx and wp (both over
+		 * 31 bits exactly).
+		 */
+		wx = x[u];
+		wp = (p[u] >> 1) | (bb << 61);
+		bb = p[u] & 1;
+
+		/*
+		 * We set cc to -1, 0 or 1, depending on whether wp is
+		 * lower than, equal to, or greater than wx.
+		 */
+		cc = wp - wx;
+		cc = ((-cc) >> 63) | -(cc >> 63);
+
+		/*
+		 * If r != 0 then it is either 1 or -1, and we keep its
+		 * value. Otherwise, if r = 0, then we replace it with cc.
+		 */
+		r |= cc & ((r & 1) - 1);
+	}
+
+	/*
+	 * At this point, r = -1, 0 or 1, depending on whether (p-1)/2
+	 * is lower than, equal to, or greater than x. We thus want to
+	 * do the subtraction only if r = -1.
+	 */
+	zint_sub_64(x, p, len, r >> 63);
+}
 /*
  * Rebuild integers from their RNS representation. There are 'num'
  * integers, and each consists in 'xlen' words. 'xx' points at that
@@ -1415,6 +1944,69 @@ zint_rebuild_CRT(uint32_t *restrict xx, size_t xlen, size_t xstride,
 	}
 }
 
+static void
+zint_rebuild_CRT_64(uint64_t *restrict xx, size_t xlen, size_t xstride,
+					size_t num, const small_prime_64 *primes, int normalize_signed,
+					uint64_t *restrict tmp)
+{
+	size_t u;
+	uint64_t *x;
+
+	tmp[0] = primes[0].p;
+	for (u = 1; u < xlen; u++)
+	{
+		/*
+		 * At the entry of each loop iteration:
+		 *  - the first u words of each array have been
+		 *    reassembled;
+		 *  - the first u words of tmp[] contains the
+		 * product of the prime moduli processed so far.
+		 *
+		 * We call 'q' the product of all previous primes.
+		 */
+		uint64_t p, p0i, s, R2;
+		size_t v;
+
+		p = primes[u].p;
+		s = primes[u].s;
+		p0i = modp_ninv62(p);
+		R2 = modp_R2_64(p, p0i);
+
+		for (v = 0, x = xx; v < num; v++, x += xstride)
+		{
+			uint64_t xp, xq, xr;
+			/*
+			 * xp = the integer x modulo the prime p for this
+			 *      iteration
+			 * xq = (x mod q) mod p
+			 */
+			xp = x[u];
+			xq = zint_mod_small_unsigned_64(x, u, p, p0i, R2);
+
+			/*
+			 * New value is (x mod q) + q * (s * (xp - xq) mod p)
+			 */
+			xr = modp_montymul_64(s, modp_sub_64(xp, xq, p), p, p0i);
+			zint_add_mul_small_64(x, tmp, u, xr);
+		}
+
+		/*
+		 * Update product of primes in tmp[].
+		 */
+		tmp[u] = zint_mul_small_64(tmp, u, p);
+	}
+
+	/*
+	 * Normalize the reconstructed values around 0.
+	 */
+	if (normalize_signed)
+	{
+		for (u = 0, x = xx; u < num; u++, x += xstride)
+		{
+			zint_norm_zero_64(x, tmp, xlen);
+		}
+	}
+}
 /*
  * Negate a big integer conditionally: value a is replaced with -a if
  * and only if ctl = 1. Control value ctl must be 0 or 1.
@@ -2463,6 +3055,12 @@ static const size_t MAX_BL_SMALL[] = {
 static const size_t MAX_BL_LARGE[] = {
 	2, 2, 5, 7, 12, 21, 40, 78, 157, 308};
 
+static const size_t MAX_BL_SMALL_64[] = {
+	1, 1, 1, 1, 2, 4, 7, 14, 27, 53, 105};
+
+static const size_t MAX_BL_LARGE_64[] = {
+	1, 1, 3, 4, 6, 11, 20, 39, 79, 154};
+
 /*
  * Average and standard deviation for the maximum size (in bits) of
  * coefficients of (f,g), depending on depth. These values are used
@@ -2732,6 +3330,156 @@ make_fg_step(uint32_t *data, unsigned logn, unsigned depth,
 	}
 }
 
+static void
+make_fg_step_64(uint64_t *data, unsigned logn, unsigned depth,
+				int in_ntt, int out_ntt)
+{
+	size_t n, hn, u;
+	size_t slen, tlen;
+	uint64_t *fd, *gd, *fs, *gs, *gm, *igm, *t1;
+	const small_prime_64 *primes;
+
+	n = (size_t)1 << logn;
+	hn = n >> 1;
+	slen = MAX_BL_SMALL_64[depth];
+	tlen = MAX_BL_SMALL_64[depth + 1];
+	primes = PRIMES_64;
+
+	/*
+	 * Prepare room for the result.
+	 */
+	fd = data;
+	gd = fd + hn * tlen;
+	fs = gd + hn * tlen;
+	gs = fs + n * slen;
+	gm = gs + n * slen;
+	igm = gm + n;
+	t1 = igm + n;
+	memmove(fs, data, 2 * n * slen * sizeof(uint64_t));
+
+	/*
+	 * First slen words: we use the input values directly, and apply
+	 * inverse NTT as we go.
+	 */
+	for (u = 0; u < slen; u++)
+	{
+		uint64_t p, p0i, R2;
+		size_t v;
+		uint64_t *x;
+
+		p = primes[u].p;
+		p0i = modp_ninv62(p);
+		R2 = modp_R2_64(p, p0i);
+		modp_mkgm2_64(gm, igm, logn, primes[u].g, p, p0i);
+
+		for (v = 0, x = fs + u; v < n; v++, x += slen)
+		{
+			t1[v] = *x;
+		}
+		if (!in_ntt)
+		{
+			modp_NTT2_64(t1, gm, logn, p, p0i);
+		}
+		for (v = 0, x = fd + u; v < hn; v++, x += tlen)
+		{
+			uint64_t w0, w1;
+
+			w0 = t1[(v << 1) + 0];
+			w1 = t1[(v << 1) + 1];
+			*x = modp_montymul_64(
+				modp_montymul_64(w0, w1, p, p0i), R2, p, p0i);
+		}
+		if (in_ntt)
+		{
+			modp_iNTT2_ext_64(fs + u, slen, igm, logn, p, p0i);
+		}
+
+		for (v = 0, x = gs + u; v < n; v++, x += slen)
+		{
+			t1[v] = *x;
+		}
+		if (!in_ntt)
+		{
+			modp_NTT2_64(t1, gm, logn, p, p0i);
+		}
+		for (v = 0, x = gd + u; v < hn; v++, x += tlen)
+		{
+			uint64_t w0, w1;
+
+			w0 = t1[(v << 1) + 0];
+			w1 = t1[(v << 1) + 1];
+			*x = modp_montymul_64(
+				modp_montymul_64(w0, w1, p, p0i), R2, p, p0i);
+		}
+		if (in_ntt)
+		{
+			modp_iNTT2_ext_64(gs + u, slen, igm, logn, p, p0i);
+		}
+
+		if (!out_ntt)
+		{
+			modp_iNTT2_ext_64(fd + u, tlen, igm, logn - 1, p, p0i);
+			modp_iNTT2_ext_64(gd + u, tlen, igm, logn - 1, p, p0i);
+		}
+	}
+
+	/*
+	 * Since the fs and gs words have been de-NTTized, we can use the
+	 * CRT to rebuild the values.
+	 */
+	zint_rebuild_CRT_64(fs, slen, slen, n, primes, 1, gm);
+	zint_rebuild_CRT_64(gs, slen, slen, n, primes, 1, gm);
+
+	/*
+	 * Remaining words: use modular reductions to extract the values.
+	 */
+	for (u = slen; u < tlen; u++)
+	{
+		uint64_t p, p0i, R2, Rx;
+		size_t v;
+		uint64_t *x;
+
+		p = primes[u].p;
+		p0i = modp_ninv62(p);
+		R2 = modp_R2_64(p, p0i);
+		Rx = modp_Rx_64((unsigned)slen, p, p0i, R2);
+		modp_mkgm2_64(gm, igm, logn, primes[u].g, p, p0i);
+		for (v = 0, x = fs; v < n; v++, x += slen)
+		{
+			t1[v] = zint_mod_small_signed_64(x, slen, p, p0i, R2, Rx);
+		}
+		modp_NTT2_64(t1, gm, logn, p, p0i);
+		for (v = 0, x = fd + u; v < hn; v++, x += tlen)
+		{
+			uint64_t w0, w1;
+
+			w0 = t1[(v << 1) + 0];
+			w1 = t1[(v << 1) + 1];
+			*x = modp_montymul_64(
+				modp_montymul_64(w0, w1, p, p0i), R2, p, p0i);
+		}
+		for (v = 0, x = gs; v < n; v++, x += slen)
+		{
+			t1[v] = zint_mod_small_signed_64(x, slen, p, p0i, R2, Rx);
+		}
+		modp_NTT2_64(t1, gm, logn, p, p0i);
+		for (v = 0, x = gd + u; v < hn; v++, x += tlen)
+		{
+			uint64_t w0, w1;
+
+			w0 = t1[(v << 1) + 0];
+			w1 = t1[(v << 1) + 1];
+			*x = modp_montymul_64(
+				modp_montymul_64(w0, w1, p, p0i), R2, p, p0i);
+		}
+
+		if (!out_ntt)
+		{
+			modp_iNTT2_ext_64(fd + u, tlen, igm, logn - 1, p, p0i);
+			modp_iNTT2_ext_64(gd + u, tlen, igm, logn - 1, p, p0i);
+		}
+	}
+}
 /*
  * Compute f and g at a specific depth, in RNS notation.
  *
@@ -2785,6 +3533,64 @@ make_fg(uint32_t *data, const int8_t *f, const int8_t *g,
 	}
 }
 
+static void
+make_fg_64(uint64_t *data, const int8_t *f, const int8_t *g,
+		   unsigned logn, unsigned depth, int out_ntt)
+{
+	size_t n, u;
+	uint64_t *ft, *gt, p0;
+	unsigned d;
+	const small_prime_64 *primes;
+
+	n = MKN(logn);
+	ft = data;
+	gt = ft + n;
+	primes = PRIMES_64;
+	p0 = primes[0].p;
+	for (u = 0; u < n; u++)
+	{
+		ft[u] = modp_set_64(f[u], p0);
+		gt[u] = modp_set_64(g[u], p0);
+	}
+
+	if (depth == 0 && out_ntt)
+	{
+		uint64_t *gm, *igm;
+		uint64_t p, p0i;
+
+		p = primes[0].p;
+		p0i = modp_ninv62(p);
+		gm = gt + n;
+		igm = gm + MKN(logn);
+		modp_mkgm2_64(gm, igm, logn, primes[0].g, p, p0i);
+		modp_NTT2_64(ft, gm, logn, p, p0i);
+		modp_NTT2_64(gt, gm, logn, p, p0i);
+		return;
+	}
+
+	for (d = 0; d < depth; d++)
+	{
+		make_fg_step_64(data, logn - d, d,
+						d != 0, (d + 1) < depth || out_ntt);
+	}
+}
+
+static void convert_62_to_31(const uint64_t *src_64, uint32_t *dst_31, size_t num_64, size_t num_31)
+{
+	size_t u;
+	for (u = 0; u < num_64; u++)
+	{
+		uint64_t val = src_64[u];
+		if (u * 2 < num_31)
+			dst_31[u * 2] = (uint32_t)(val & 0x7FFFFFFF);
+		if (u * 2 + 1 < num_31)
+			dst_31[u * 2 + 1] = (uint32_t)((val >> 31) & 0x7FFFFFFF);
+	}
+	for (u = num_64 * 2; u < num_31; u++)
+	{
+		dst_31[u] = 0;
+	}
+}
 /*
  * Solving the NTRU equation, deepest level: compute the resultants of
  * f and g with X^N+1, and use binary GCD. The F and G values are
@@ -2817,6 +3623,43 @@ solve_NTRU_deepest(unsigned logn_top,
 	 * nonnegative.
 	 */
 	zint_rebuild_CRT(fp, len, len, 2, primes, 0, t1);
+
+	// =====================================================================
+	// 62-bit Dual-Execution verification
+	// =====================================================================
+	size_t len_64 = MAX_BL_SMALL_64[logn_top];
+	uint64_t *data_64 = (uint64_t *)malloc(16384 * sizeof(uint64_t));
+
+	make_fg_64(data_64, f, g, logn_top, logn_top, 0);
+
+	uint64_t *tmp_64 = (uint64_t *)malloc(2 * len_64 * sizeof(uint64_t));
+	zint_rebuild_CRT_64(data_64, len_64, len_64, 2, PRIMES_64, 0, tmp_64);
+
+	uint32_t *fp_converted = (uint32_t *)malloc(2 * len * sizeof(uint32_t));
+
+	convert_62_to_31(data_64, fp_converted, len_64, len);
+	convert_62_to_31(data_64 + len_64, fp_converted + len, len_64, len);
+
+	int mismatch = 0;
+	for (size_t i = 0; i < 2 * len; i++)
+	{
+		if (fp[i] != fp_converted[i])
+		{
+			printf("[ERROR] Mismatch at offset %zu! Expected: %08X, Got: %08X\n", i, fp[i], fp_converted[i]);
+			mismatch = 1;
+			break;
+		}
+	}
+
+	if (!mismatch)
+	{
+		printf("[SUCCESS] 62-bit CRT Rebuild is Bit-Accurate with Original 31-bit!\n");
+	}
+
+	free(data_64);
+	free(tmp_64);
+	free(fp_converted);
+	// =====================================================================
 
 	/*
 	 * Apply the binary GCD. The zint_bezout() function works only

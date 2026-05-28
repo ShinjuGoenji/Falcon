@@ -4,19 +4,20 @@
 # Set your desired file names
 ######################################
 top_design=MAKE_FG
-define=FALCON512
-source_file="filelist.f"	# Name of your source file
-output_file="simv"      	# Desired output simulation file name
-log_file="vcs.log"      	# Desired log file name
-syn_tcl="syn.tcl"       	# Name of your synthesis tcl file
-syn_log="syn.log"       	# Name of your synthesis log file
-pt_tcl="pt.tcl"       	# Name of your synthesis tcl file
-pt_log="pt.log"       	# Name of your synthesis log file
+period=1.55 # word_num / period: 2 / 1.48, 4 / 1.55, 8 / NA
+word_num=4
+source_file="filelist.f"
+output_file="simv"
+log_file="vcs.log"
+syn_tcl="syn.tcl"
+syn_log="syn.log"
+pt_tcl="pt.tcl"
+pt_log="pt.log"
 
 ######################################
 # Default Setting
 ######################################
-num_CPU_cores=4               # Maximum Number of CPU that used for simulation/synthesis
+num_CPU_cores=8
 TIMESCALE=-timescale=1ns/1fs
 TIMESCALE1=-timescale 1ns/1fs
 VERDI=/usr/cad/synopsys/verdi/2022.06
@@ -47,14 +48,15 @@ VCS_RTL_SIM = vcs ${TIMESCALE} \
     -R \
     -debug_access+all \
     -y ${DW_SIM} \
-    +libext+.v \
+    +libext+.sv \
     -f ${source_file} \
     -o ${output_file} \
     -l ${log_file} \
     -P ${VERDI}/share/PLI/VCS/linux64/novas.tab \
        ${VERDI}/share/PLI/VCS/linux64/pli.a \
     +define+RTL \
-	+define+${define} \
+	+define+CYCLE_TIME=${period} \
+	+define+WN=$(word_num) \
     +notimingchecks 
 
 
@@ -66,6 +68,7 @@ VCS_GATE_SIM = vcs ${TIMESCALE} \
     -Mupdate \
     -R \
     -debug_access+all \
+    -debug_pp \
     -f ${source_file} \
     -o ${output_file} \
     -l ${log_file} \
@@ -78,7 +81,10 @@ VCS_GATE_SIM = vcs ${TIMESCALE} \
 	   ${TSMC40_UDP_RVT} \
 	   ${TSMC40_UDP_LVT} \
     +define+GATE \
-	+neg_tchk 
+	+define+CYCLE_TIME=${period} \
+	+define+WN=$(word_num) \
+    +define+ARM_WIDTH=0.0 \
+	+neg_tchk
 
 VCS_POST_SIM = vcs ${TIMESCALE} \
     -j${num_CPU_cores} \
@@ -103,6 +109,7 @@ VCS_POST_SIM = vcs ${TIMESCALE} \
 	   ${TSMC40_UDP_RVT} \
 	   ${TSMC40_UDP_LVT} \
     +define+POST \
+	+define+CYCLE_TIME=${period} \
     +neg_tchk
 
 # =====================================
@@ -126,19 +133,25 @@ VERDI_GATE_ON = verdi -ssf *.fsdb \
 	+v2k \
 	-autoalias
 
+
+# =====================================
+# ============= SpyGlass ==============
+# =====================================
+SPYGLASS_RTL_ON = spyglass -tcl lint.tcl
+
 # =====================================
 # ========== Design Compiler ==========
 # =====================================
 DC_shell = dcnxt_shell -f ${syn_tcl} \
-	-x "set_host_options -max_cores ${num_CPU_cores}" \
+	-x "set_host_options -max_cores ${num_CPU_cores}; set WN ${word_num}; set PERIOD ${period}" \
     -output_log_file ${syn_log}
 
 DC_shell_gui = dcnxt_shell -f ${syn_tcl} \
-	-x "set_host_options -max_cores ${num_CPU_cores}" \
+	-x "set_host_options -max_cores ${num_CPU_cores}; set WN ${word_num}; set PERIOD ${period}" \
     -output_log_file ${syn_log} \
 	-gui
 
-Read_DC_shell_gui = dcnxt_shell -x 'read_sverilog ${top_design}.v' -gui
+Read_DC_shell_gui = dcnxt_shell -x 'read_sverilog ${top_design}.sv' -gui
 Read_DDC_shell_gui = dcnxt_shell -x "read_ddc ${top_design}_SYN.ddc" -gui
 
 # =====================================
@@ -230,6 +243,9 @@ verdi_rtl:
 
 verdi_gate:
 	${VERDI_GATE_ON}
+
+spyglass_rtl:
+	${SPYGLASS_RTL_ON}
 
 apr_init:
 	${INNOVUS_INIT}

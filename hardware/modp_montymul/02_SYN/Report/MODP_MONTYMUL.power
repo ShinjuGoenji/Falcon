@@ -4,7 +4,7 @@ Report : power
         -analysis_effort low
 Design : MODP_MONTYMUL
 Version: T-2022.03
-Date   : Thu Oct 23 11:02:08 2025
+Date   : Tue Apr 21 16:07:04 2026
 ****************************************
 
 
@@ -37,12 +37,12 @@ Attributes
 i - Including register clock pin internal power
 
 
-  Cell Internal Power  =   6.1990 mW   (46%)
-  Net Switching Power  =   7.3244 mW   (54%)
+  Cell Internal Power  =  18.1438 mW   (55%)
+  Net Switching Power  =  14.8572 mW   (45%)
                          ---------
-Total Dynamic Power    =  13.5235 mW  (100%)
+Total Dynamic Power    =  33.0010 mW  (100%)
 
-Cell Leakage Power     =   1.4161 mW
+Cell Leakage Power     =   2.2575 mW
 
 
                  Internal         Switching           Leakage            Total
@@ -51,10 +51,10 @@ Power Group      Power            Power               Power              Power  
 io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
-clock_network  3.8912e-02            0.0000            0.0000            0.0000  (   0.00%)  i
-register       1.6659e-02        5.4564e-02            3.1271            0.1133  (   0.76%)
+clock_network      6.0336            0.0000            0.0000            0.0000  (   0.00%)  i
+register           1.4961            0.9836          200.0468            8.7132  (  24.71%)
 sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational      6.1435            7.2698        1.4129e+03           14.8262  (  99.24%)
+combinational     10.6143           13.8737        2.0575e+03           26.5453  (  75.29%)
 --------------------------------------------------------------------------------------------------
-Total              6.1991 mW         7.3244 mW     1.4161e+03 uW        14.9395 mW
+Total             18.1439 mW        14.8572 mW     2.2575e+03 uW        35.2586 mW
 1

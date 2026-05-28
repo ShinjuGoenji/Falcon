@@ -56,7 +56,7 @@ OBJ = codec.o common.o falcon.o fft.o fpr.o keygen.o rng.o shake.o sign.o vrfy.o
 all: test_falcon speed
 
 clean:
-	-del -f $(OBJ) test_falcon test_falcon.o speed speed.o
+	-rm -f $(OBJ) test_falcon test_falcon.o speed speed.o
 
 test_falcon: test_falcon.o $(OBJ)
 	$(LD) $(LDFLAGS) -o test_falcon test_falcon.o $(OBJ) $(LIBS)

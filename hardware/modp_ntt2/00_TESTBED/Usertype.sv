@@ -20,6 +20,9 @@ parameter LOGN_WIDTH = 4;               // max logn = 10
 parameter NUM_WIDTH = $clog2(1024)+1;   // max num  = 1024
 parameter XLEN_WIDTH = 9;               // max xlen = 308
 
+parameter MAX_LOGN = 10;
+parameter MAX_N = 1 << MAX_LOGN;
+
 /*
  * Configurables
  */

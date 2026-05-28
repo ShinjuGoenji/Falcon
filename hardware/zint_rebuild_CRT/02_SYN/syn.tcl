@@ -72,8 +72,8 @@ compile_ultra
 set_fix_hold [all_clocks]
 compile -incremental_mapping -only_hold_time
 
-# # uniquify
-# # compile
+# uniquify
+# compile
 
 #======================================================
 #  (F) Output Reports 

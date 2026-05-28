@@ -1,6 +1,7 @@
 `timescale 1ns/10ps
-`include "PATTERN.sv"
 
+`include "Usertype.sv"
+`include "PATTERN.sv"
 `ifdef RTL
     `include "MAKE_FG.sv"
 `elsif GATE

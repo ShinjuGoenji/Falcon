@@ -62,12 +62,12 @@ integer fscanf_int;
 //   REG & WIRE DECLARATION
 //---------------------------------------------------------------------
 // reg [P_WIDTH-1:0]          a        [0:MAX_N-1];
-// reg [P_WIDTH-1:0]          golden_a [0:MAX_N-1];
-// reg [LOGN_WIDTH-1:0]       logn_gold;
+reg [P_WIDTH-1:0]          golden_a [0:MAX_N-1];
+reg [LOGN_WIDTH-1:0]       logn_gold;
 // wire [MAX_LOGN:0]          n;
-// reg [P_WIDTH-1:0]          p_gold;
-// reg [P_WIDTH-1:0]          p0i_gold;
-// reg                        isMQ_gold;
+reg [P_WIDTH-1:0]          p_gold;
+reg [P_WIDTH-1:0]          p0i_gold;
+reg                        isMQ_gold;
 
 // reg [P_WIDTH-1:0]          s        [0:MAX_LOGN-1];
 // reg [$clog2(LUT_SIZE)-1:0] tw_idx   [0:MAX_LOGN-1];
@@ -128,7 +128,7 @@ initial begin
 	repeat(4) @(posedge clk);
 	for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1) begin
         input_task;
-        for (i_out_deg = 0; i_out_deg < n; i_out_deg = i_out_deg + 1) begin
+        for (i_out_deg = 0; i_out_deg < (1 << logn_gold); i_out_deg = i_out_deg + 1) begin
         	wait_out_task;
             check_ans_task;
         	pattern_latency = pattern_latency + out_latency;			
@@ -179,7 +179,7 @@ end endtask
 task input_task; begin
 	inf_in_valid = 'b1;
     fscanf_int = $fscanf(file_in, "%d %d %d", logn_gold, p_gold, p0i_gold);
-	for (i_in_deg = 0; i_in_deg<n; i_in_deg = i_in_deg+1) begin
+	for (i_in_deg = 0; i_in_deg < (1 << logn_gold); i_in_deg = i_in_deg+1) begin
 		fscanf_int = $fscanf(file_in, "%d", inf_in_data);
         @(posedge clk);		
     end

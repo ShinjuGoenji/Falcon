@@ -16,7 +16,7 @@ pt_log="pt.log"       	# Name of your synthesis log file
 ######################################
 # Default Setting
 ######################################
-num_CPU_cores=4               # Maximum Number of CPU that used for simulation/synthesis
+num_CPU_cores=8
 TIMESCALE=-timescale=1ns/1fs
 TIMESCALE1=-timescale 1ns/1fs
 VERDI=/usr/cad/synopsys/verdi/2022.06
@@ -47,7 +47,7 @@ VCS_RTL_SIM = vcs ${TIMESCALE} \
     -R \
     -debug_access+all \
     -y ${DW_SIM} \
-    +libext+.v \
+    +libext+.sv \
     -f ${source_file} \
     -o ${output_file} \
     -l ${log_file} \
@@ -66,6 +66,7 @@ VCS_GATE_SIM = vcs ${TIMESCALE} \
     -Mupdate \
     -R \
     -debug_access+all \
+    -debug_pp \
     -f ${source_file} \
     -o ${output_file} \
     -l ${log_file} \
@@ -78,6 +79,7 @@ VCS_GATE_SIM = vcs ${TIMESCALE} \
 	   ${TSMC40_UDP_RVT} \
 	   ${TSMC40_UDP_LVT} \
     +define+GATE \
+    +define+ARM_WIDTH=0.0 \
 	+neg_tchk 
 
 VCS_POST_SIM = vcs ${TIMESCALE} \
