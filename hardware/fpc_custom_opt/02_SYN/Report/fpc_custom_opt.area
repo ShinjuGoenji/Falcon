@@ -1,0 +1,33 @@
+ 
+****************************************
+Report : area
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Thu May 28 13:53:16 2026
+****************************************
+
+Library(s) Used:
+
+    gtech (File: /usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db)
+
+Number of ports:                         5606
+Number of nets:                          8619
+Number of cells:                         1501
+Number of combinational cells:           1039
+Number of sequential cells:               339
+Number of macros/black boxes:               0
+Number of buf/inv:                        170
+Number of references:                      10
+
+Combinational area:                  0.000000
+Buf/Inv area:                        0.000000
+Noncombinational area:               0.000000
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                     0.000000
+Total area:                          0.000000
+
+Information: This design contains unmapped logic. (RPT-7)
+Information: This design contains black box (unknown) components. (RPT-8)
+1

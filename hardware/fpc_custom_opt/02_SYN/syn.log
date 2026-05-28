@@ -1,0 +1,995 @@
+#======================================================
+#
+# Synopsys Synthesis Scripts (Design Vision dctcl mode)
+#
+#======================================================
+#======================================================
+# (A) Global Parameters
+#======================================================
+set DESIGN "FPC_TOP"
+FPC_TOP
+if {[info exists WN]} {
+    set WORD_NUM $WN
+} else {
+    set WORD_NUM 4
+}
+4
+if {[info exists PERIOD]} {
+    set CYCLE $PERIOD
+} else {
+    set CYCLE 2
+}
+1.55
+set INPUT_DLY [expr 0*$CYCLE]
+0.0
+set OUTPUT_DLY [expr 0*$CYCLE]
+0.0
+#======================================================
+# (B) Read RTL Code
+#======================================================
+# (B-1) analyze + elaborate
+set hdlin_auto_save_templates TRUE
+TRUE
+analyze -f sverilog ../01_RTL/fpc_custom_opt.sv
+Running PRESTO HDLC
+Compiling source file ../01_RTL/fpc_custom_opt.sv
+Presto compilation completed successfully.
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/standard.sldb'
+1
+elaborate $DESIGN 
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db'
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb'
+  Loading link library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c'
+  Loading link library 'gtech'
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Running PRESTO HDLC
+
+Inferred memory devices in process
+        in routine FPC_TOP line 213 in file
+                '../01_RTL/fpc_dw.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   in_valid_r_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (FPC_TOP)
+Elaborated 1 design.
+Current design is now 'FPC_TOP'.
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Building the design 'FPC_ADD'. (HDL-193)
+Presto compilation completed successfully. (FPC_ADD)
+Information: Building the design 'FPC_SUB'. (HDL-193)
+Presto compilation completed successfully. (FPC_SUB)
+Information: Building the design 'FPC_MUL'. (HDL-193)
+
+Inferred memory devices in process
+        in routine FPC_MUL line 168 in file
+                '../01_RTL/fpc_dw.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| a_im_x_b_re_reg_reg | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   mult_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+| a_re_x_b_re_reg_reg | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+| a_im_x_b_im_reg_reg | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+| a_re_x_b_im_reg_reg | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (FPC_MUL)
+1
+# (B-2) set current design
+current_design $DESIGN
+Current design is 'FPC_TOP'.
+{FPC_TOP}
+link
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+
+  Linking design 'FPC_TOP'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (4 designs)               /home/daniel_kuo/Falcon/hardware/fpc_custom_opt/02_SYN/FPC_TOP.db, etc
+  sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db
+  dw_foundation.sldb (library) /usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb
+
+1
+#======================================================
+#  (C) Global Setting
+#======================================================
+set_wire_load_mode top
+1
+#======================================================
+#  (D) Set Design Constraints
+#======================================================
+# (D-1) Setting Clock Constraints
+create_clock -name clk -period $CYCLE [get_ports clk] 
+1
+set_dont_touch_network             [get_clocks clk]
+1
+# (D-2) Setting in/out Constraints
+set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
+1
+set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
+1
+set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time check 
+1
+set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
+1
+set_input_delay 0 -clock clk clk
+1
+set_input_delay 0 -clock clk rst_n
+1
+# (D-3) Setting Design Environment
+set_load 0.05 [all_outputs]
+1
+# (D-4) Report Clock skew
+report_clock -skew clk
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Error: Could not read the following target libraries:
+RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db 
+ (UIO-3)
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+  Allocating blocks in 'DW_fp_add_sig_width52_exp_width11_ieee_compliance0'
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+  Allocating blocks in 'DW_fp_addsub_sig_width52_exp_width11_ieee_compliance0'
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+  Allocating blocks in 'DW_lzd_a_width56'
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+  Allocating blocks in 'DW_lzod_a_width56_detect_10'
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Dont_touch on net '*cell*6/*Logic0*' may be overridden by compile because it
+        is connected to generic logic. Use all_connected to see net
+        connections. (OPT-461)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+  Allocating blocks in 'DW_fp_addsub_sig_width52_exp_width11_ieee_compliance0'
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+  Allocating blocks in 'DW_lzd_a_width56'
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+  Allocating blocks in 'DW_fp_sub_sig_width52_exp_width11_ieee_compliance0'
+Warning: Dont_touch on net '*cell*6/*Logic0*' may be overridden by compile because it
+        is connected to generic logic. Use all_connected to see net
+        connections. (OPT-461)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+  Allocating blocks in 'DW_fp_mult_sig_width52_exp_width11_ieee_compliance0'
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+  Allocating blocks in 'DW_lzd_a_width53'
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+  Allocating blocks in 'DW_lzod_a_width53_detect_10'
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Updating design information... (UID-85)
+Warning: Design 'FPC_TOP' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : clock_skew
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Thu May 28 13:53:16 2026
+****************************************
+
+                 Rise      Fall  Min Rise  Min fall        Uncertainty
+Object          Delay     Delay     Delay     Delay     Plus      Minus
+--------------------------------------------------------------------------------
+1
+check_timing
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+#======================================================
+#  (E) Optimization
+#======================================================
+check_design > Report/fpc_custom_opt\.check
+set_fix_multiple_port_nets -all -buffer_constants
+1
+compile_ultra
+Warning: Can't read link_library file 'RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Warning: Can't read link_library file 'RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db'. (UID-3)
+Information: Performing power optimization. (PWR-850)
+Error: Could not read the following target libraries:
+RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db 
+ (UIO-3)
+Error: Could not read the following target libraries:
+RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db 
+ (UIO-3)
+Error: No target library found. (OPT-1312)
+0
+set_fix_hold [all_clocks]
+1
+compile -incremental_mapping -only_hold_time
+Information: Performing power optimization. (PWR-850)
+Error: Could not read the following target libraries:
+RF_2p_CRT_4x512_nldm_ss_0p81v_0p81v_125c.db RF_2p_CRT_2x1024_nldm_ss_0p81v_0p81v_125c.db RF_2p_CRT_TMP_nldm_ss_0p81v_0p81v_125c.db 
+ (UIO-3)
+0
+# # uniquify
+# # compile
+#======================================================
+#  (F) Output Reports
+#======================================================
+report_design  >  Report/fpc_custom_opt\.design
+report_resource >  Report/fpc_custom_opt\.resource
+report_timing -max_paths 3 >  Report/fpc_custom_opt\.timing
+report_timing -delay_type min >  Report/fpc_custom_opt\_hold.timing
+report_area >  Report/fpc_custom_opt\.area
+report_area -hierarchy >  Report/fpc_custom_opt\_hier.area
+report_power > Report/fpc_custom_opt\.power
+report_clock > Report/fpc_custom_opt\.clock
+report_port >  Report/fpc_custom_opt\.port
+report_power >  Report/fpc_custom_opt\.power
+#======================================================
+#  (G) Change Naming Rule
+#======================================================
+set bus_inference_style "%s\[%d\]"
+%s[%d]
+set bus_naming_style "%s\[%d\]"
+%s[%d]
+set hdlout_internal_busses true
+true
+change_names -hierarchy -rule verilog
+Warning: The specified replacement character (_) is conflicting with the specified allowed or restricted character.   (UCN-4)
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
+1
+define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+1
+define_name_rules name_rule -case_insensitive
+1
+change_names -hierarchy -rules name_rule
+1
+#======================================================
+#  (H) Output Results
+#======================================================
+set verilogout_higher_designs_first true
+true
+write -format verilog -output Netlist/fpc_custom_opt_SYN.v -hierarchy
+Writing verilog file '/home/daniel_kuo/Falcon/hardware/fpc_custom_opt/02_SYN/Netlist/fpc_custom_opt_SYN.v'.
+Warning: Module FPC_TOP contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
+1
+write -format ddc     -hierarchy -output fpc_custom_opt_SYN.ddc
+Writing ddc file 'fpc_custom_opt_SYN.ddc'.
+1
+write_sdf -version 3.0 -context verilog -load_delay cell Netlist/fpc_custom_opt_SYN.sdf -significant_digits 6
+Information: Writing timing information to file '/home/daniel_kuo/Falcon/hardware/fpc_custom_opt/02_SYN/Netlist/fpc_custom_opt_SYN.sdf'. (WT-3)
+Warning: Design contains black-box components.  These cells will have no timing information. (WT-7)
+1
+write_sdc Netlist/fpc_custom_opt_SYN.sdc
+1
+#======================================================
+#  (I) Finish and Quit
+#======================================================
+report_resource
+ 
+****************************************
+Report : resources
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Thu May 28 13:53:16 2026
+****************************************
+
+
+Resource sharing reports are created during the compile command,
+so the design must be compiled before resource sharing can be reported.
+
+No implementations to report
+1
+report_area -hierarchy
+ 
+****************************************
+Report : area
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Thu May 28 13:53:16 2026
+****************************************
+
+Information: Updating design information... (UID-85)
+Warning: Design 'FPC_TOP' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Library(s) Used:
+
+    gtech (File: /usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db)
+
+Number of ports:                         5606
+Number of nets:                          8619
+Number of cells:                         1501
+Number of combinational cells:           1039
+Number of sequential cells:               339
+Number of macros/black boxes:               0
+Number of buf/inv:                        170
+Number of references:                      10
+
+Combinational area:                  0.000000
+Buf/Inv area:                        0.000000
+Noncombinational area:               0.000000
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                     0.000000
+Total area:                          0.000000
+
+Information: This design contains unmapped logic. (RPT-7)
+Information: This design contains black box (unknown) components. (RPT-8)
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area          Local cell area
+                                  ------------------  --------------------------- 
+Hierarchical cell                 Absolute   Percent  Combi-    Noncombi-  Black-
+                                  Total      Total    national  national   boxes   Design
+--------------------------------  ---------  -------  --------  ---------  ------  ---------------------------------------------------
+FPC_TOP                              0.0000      0.0    0.0000     0.0000  0.0000  FPC_TOP
+u_add                                0.0000      0.0    0.0000     0.0000  0.0000  FPC_ADD
+u_add/u_FPR_ADD_0                    0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_add_param_1
+u_add/u_FPR_ADD_0/*cell*440          0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_add_sig_width52_exp_width11_ieee_compliance0
+u_add/u_FPR_ADD_1                    0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_add_param_1
+u_add/u_FPR_ADD_1/*cell*443          0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_add_sig_width52_exp_width11_ieee_compliance0
+u_mul                                0.0000      0.0    0.0000     0.0000  0.0000  FPC_MUL
+u_mul/u_FPR_ADD                      0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_add_param_1
+u_mul/u_FPR_ADD/*cell*637            0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_add_sig_width52_exp_width11_ieee_compliance0
+u_mul/u_FPR_MUL_0                    0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_mult_param_1
+u_mul/u_FPR_MUL_0/*cell*475          0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_mult_sig_width52_exp_width11_ieee_compliance0
+u_mul/u_FPR_MUL_1                    0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_mult_param_1
+u_mul/u_FPR_MUL_1/*cell*520          0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_mult_sig_width52_exp_width11_ieee_compliance0
+u_mul/u_FPR_MUL_2                    0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_mult_param_1
+u_mul/u_FPR_MUL_2/*cell*565          0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_mult_sig_width52_exp_width11_ieee_compliance0
+u_mul/u_FPR_MUL_3                    0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_mult_param_1
+u_mul/u_FPR_MUL_3/*cell*610          0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_mult_sig_width52_exp_width11_ieee_compliance0
+u_mul/u_FPR_SUB                      0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_sub_param_1
+u_mul/u_FPR_SUB/*cell*634            0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_sub_sig_width52_exp_width11_ieee_compliance0
+u_sub                                0.0000      0.0    0.0000     0.0000  0.0000  FPC_SUB
+u_sub/u_FPR_SUB_0                    0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_sub_param_1
+u_sub/u_FPR_SUB_0/*cell*447          0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_sub_sig_width52_exp_width11_ieee_compliance0
+u_sub/u_FPR_SUB_1                    0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_sub_param_1
+u_sub/u_FPR_SUB_1/*cell*450          0.0000      0.0    0.0000     0.0000  0.0000  DW_fp_sub_sig_width52_exp_width11_ieee_compliance0
+--------------------------------  ---------  -------  --------  ---------  ------  ---------------------------------------------------
+Total                                                   0.0000     0.0000  0.0000
+
+1
+report_timing -delay_type min
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 1
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Thu May 28 13:53:17 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: in_valid (input port clocked by clk)
+  Endpoint: in_valid_r_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FPC_TOP            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.00       0.00 r
+  in_valid (in)                                           0.00       0.00 r
+  in_valid_r_reg/next_state (**SEQGEN**)                  0.00       0.00 r
+  data arrival time                                                  0.00
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  in_valid_r_reg/clocked_on (**SEQGEN**)                  0.00       0.00 r
+  library hold time                                       0.00       0.00
+  data required time                                                 0.00
+  --------------------------------------------------------------------------
+  data required time                                                 0.00
+  data arrival time                                                  0.00
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1
+report_timing 
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Thu May 28 13:53:17 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: a_im[61] (input port clocked by clk)
+  Endpoint: u_mul/a_im_x_b_im_reg_reg_52_
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FPC_TOP            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.00       0.00 f
+  a_im[61] (in)                                           0.00       0.00 f
+  u_mul/a_im[61] (FPC_MUL)                                0.00       0.00 f
+  u_mul/u_FPR_MUL_1/a_61 (DW_fp_mult_param_1)             0.00       0.00 f
+  u_mul/u_FPR_MUL_1/*cell*520/a[61] (DW_fp_mult_sig_width52_exp_width11_ieee_compliance0)
+                                                          0.00       0.00 f
+  ...
+  u_mul/u_FPR_MUL_1/*cell*520/z[52] (DW_fp_mult_sig_width52_exp_width11_ieee_compliance0)
+                                                          0.00       0.00 r
+  u_mul/u_FPR_MUL_1/z_52 (DW_fp_mult_param_1)             0.00       0.00 r
+  u_mul/a_im_x_b_im_reg_reg_52_/next_state (**SEQGEN**)
+                                                          0.00       0.00 r
+  data arrival time                                                  0.00
+
+  clock clk (rise edge)                                   1.55       1.55
+  clock network delay (ideal)                             0.00       1.55
+  u_mul/a_im_x_b_im_reg_reg_52_/clocked_on (**SEQGEN**)
+                                                          0.00       1.55 r
+  library setup time                                      0.00       1.55
+  data required time                                                 1.55
+  --------------------------------------------------------------------------
+  data required time                                                 1.55
+  data arrival time                                                  0.00
+  --------------------------------------------------------------------------
+  slack (MET)                                                        1.55
+
+
+1
+exit
+
+Memory usage for this session 560 Mbytes.
+Memory usage for this session including child processes 560 Mbytes.
+CPU usage for this session 7 seconds ( 0.00 hours ).
+Elapsed time for this session 10 seconds ( 0.00 hours ).
+
+Thank you...
+

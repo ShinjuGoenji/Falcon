@@ -1,0 +1,142 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'FPC_TOP' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 3
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Thu May 28 13:53:16 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: a_im[61] (input port clocked by clk)
+  Endpoint: u_mul/a_im_x_b_im_reg_reg[54]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FPC_TOP            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.00       0.00 f
+  a_im[61] (in)                                           0.00       0.00 f
+  u_mul/a_im[61] (FPC_MUL)                                0.00       0.00 f
+  u_mul/u_FPR_MUL_1/a_61 (DW_fp_mult_param_1)             0.00       0.00 f
+  u_mul/u_FPR_MUL_1/*cell*318/a[61] (DW_fp_mult_sig_width52_exp_width11_ieee_compliance0)
+                                                          0.00       0.00 f
+  ...
+  u_mul/u_FPR_MUL_1/*cell*318/z[54] (DW_fp_mult_sig_width52_exp_width11_ieee_compliance0)
+                                                          0.00       0.00 r
+  u_mul/u_FPR_MUL_1/z_54 (DW_fp_mult_param_1)             0.00       0.00 r
+  u_mul/a_im_x_b_im_reg_reg[54]/next_state (**SEQGEN**)
+                                                          0.00       0.00 r
+  data arrival time                                                  0.00
+
+  clock clk (rise edge)                                   1.55       1.55
+  clock network delay (ideal)                             0.00       1.55
+  u_mul/a_im_x_b_im_reg_reg[54]/clocked_on (**SEQGEN**)
+                                                          0.00       1.55 r
+  library setup time                                      0.00       1.55
+  data required time                                                 1.55
+  --------------------------------------------------------------------------
+  data required time                                                 1.55
+  data arrival time                                                  0.00
+  --------------------------------------------------------------------------
+  slack (MET)                                                        1.55
+
+
+  Startpoint: a_im[61] (input port clocked by clk)
+  Endpoint: u_mul/a_im_x_b_im_reg_reg[53]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FPC_TOP            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.00       0.00 f
+  a_im[61] (in)                                           0.00       0.00 f
+  u_mul/a_im[61] (FPC_MUL)                                0.00       0.00 f
+  u_mul/u_FPR_MUL_1/a_61 (DW_fp_mult_param_1)             0.00       0.00 f
+  u_mul/u_FPR_MUL_1/*cell*318/a[61] (DW_fp_mult_sig_width52_exp_width11_ieee_compliance0)
+                                                          0.00       0.00 f
+  ...
+  u_mul/u_FPR_MUL_1/*cell*318/z[53] (DW_fp_mult_sig_width52_exp_width11_ieee_compliance0)
+                                                          0.00       0.00 r
+  u_mul/u_FPR_MUL_1/z_53 (DW_fp_mult_param_1)             0.00       0.00 r
+  u_mul/a_im_x_b_im_reg_reg[53]/next_state (**SEQGEN**)
+                                                          0.00       0.00 r
+  data arrival time                                                  0.00
+
+  clock clk (rise edge)                                   1.55       1.55
+  clock network delay (ideal)                             0.00       1.55
+  u_mul/a_im_x_b_im_reg_reg[53]/clocked_on (**SEQGEN**)
+                                                          0.00       1.55 r
+  library setup time                                      0.00       1.55
+  data required time                                                 1.55
+  --------------------------------------------------------------------------
+  data required time                                                 1.55
+  data arrival time                                                  0.00
+  --------------------------------------------------------------------------
+  slack (MET)                                                        1.55
+
+
+  Startpoint: a_im[61] (input port clocked by clk)
+  Endpoint: u_mul/a_im_x_b_im_reg_reg[52]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FPC_TOP            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.00       0.00 f
+  a_im[61] (in)                                           0.00       0.00 f
+  u_mul/a_im[61] (FPC_MUL)                                0.00       0.00 f
+  u_mul/u_FPR_MUL_1/a_61 (DW_fp_mult_param_1)             0.00       0.00 f
+  u_mul/u_FPR_MUL_1/*cell*318/a[61] (DW_fp_mult_sig_width52_exp_width11_ieee_compliance0)
+                                                          0.00       0.00 f
+  ...
+  u_mul/u_FPR_MUL_1/*cell*318/z[52] (DW_fp_mult_sig_width52_exp_width11_ieee_compliance0)
+                                                          0.00       0.00 r
+  u_mul/u_FPR_MUL_1/z_52 (DW_fp_mult_param_1)             0.00       0.00 r
+  u_mul/a_im_x_b_im_reg_reg[52]/next_state (**SEQGEN**)
+                                                          0.00       0.00 r
+  data arrival time                                                  0.00
+
+  clock clk (rise edge)                                   1.55       1.55
+  clock network delay (ideal)                             0.00       1.55
+  u_mul/a_im_x_b_im_reg_reg[52]/clocked_on (**SEQGEN**)
+                                                          0.00       1.55 r
+  library setup time                                      0.00       1.55
+  data required time                                                 1.55
+  --------------------------------------------------------------------------
+  data required time                                                 1.55
+  data arrival time                                                  0.00
+  --------------------------------------------------------------------------
+  slack (MET)                                                        1.55
+
+
+1
