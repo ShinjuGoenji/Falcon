@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# ==============================================================================
+# Parameters
+# ==============================================================================
+PERIOD="1.6"
+USE_DW="0"
+
+# ==============================================================================
+# Usage
+# ==============================================================================
+usage() {
+    echo "Usage: $0 [options]"
+    echo "Options:"
+    echo "  -p <PERIOD>    Set cycle time (default: $PERIOD ns)"
+    echo "  -d <0|1>       Select implementation: 0=custom, 1=DW (default: 0)"
+    echo "  -h             Help message"
+    exit 1
+}
+
+# ==============================================================================
+# Flag settings
+# ==============================================================================
+while getopts "p:w:d:h" opt; do
+    case ${opt} in
+        p)
+            PERIOD=$OPTARG
+            ;;
+        d)
+            USE_DW=$OPTARG
+            ;;
+        h)
+            usage
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            usage
+            ;;
+    esac
+done
+
+make vcs_rtl period=$PERIOD use_dw=$USE_DW
