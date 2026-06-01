@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version T-2022.03 for linux64 -- Feb 22, 2022
-#@ # Date:   Tue Apr 21 16:02:03 2026
+#@ # Date:   Thu Oct 23 10:58:35 2025
 #@ # Run by: daniel_kuo@eda_root
 #@ 
 
@@ -8614,7 +8614,7 @@ source /home/daniel_kuo/Falcon/hardware/modp_montymul/02_SYN/.synopsys_dc.setup
 #@ alias h history
 #@ # -- End source /home/daniel_kuo/Falcon/hardware/modp_montymul/02_SYN/.synopsys_dc.setup
 
-set_host_options -max_cores 8
+set_host_options -max_cores 4               
 source -echo -verbose /home/daniel_kuo/Falcon/hardware/modp_montymul/02_SYN/syn.tcl
 #@ # -- Starting source /home/daniel_kuo/Falcon/hardware/modp_montymul/02_SYN/syn.tcl
 
@@ -8628,20 +8628,22 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/modp_montymul/02_SYN/syn.
 #@ # (A) Global Parameters
 #@ #======================================================
 #@ set DESIGN "MODP_MONTYMUL"
-#@ set CYCLE 1.25
+#@ set CYCLE 2.6 
 #@ set INPUT_DLY [expr 0*$CYCLE]
 #@ set OUTPUT_DLY [expr 0*$CYCLE]
-#@ set_svf Netlist/$DESIGN.svf
 #@ 
 #@ #======================================================
 #@ # (B) Read RTL Code
 #@ #======================================================
 #@ # (B-1) analyze + elaborate
 #@ set hdlin_auto_save_templates TRUE
-#@ analyze -f sverilog {Usertype.sv MODP_MONTYMUL.sv}
+#@ analyze -f sverilog $DESIGN\.v 
 #@ elaborate $DESIGN  
 #@ 
-#@ # (B-2) set current design
+#@ # (B-2) read_sverilog
+#@ # read_sverilog $DESIGN\.v
+#@ 
+#@ # (B-3) set current design
 #@ current_design $DESIGN
 #@ link
 #@ 
@@ -8649,6 +8651,8 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/modp_montymul/02_SYN/syn.
 #@ #  (C) Global Setting
 #@ #======================================================
 #@ set_wire_load_mode top
+#@ # set_operating_conditions -max WCCOM -min BCCOM
+#@ # set_wire_load_model -name umc18_wl10 -library slow
 #@ 
 #@ #======================================================
 #@ #  (D) Set Design Constraints
@@ -8671,11 +8675,25 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/modp_montymul/02_SYN/syn.
 #@ set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
 #@ set_input_delay 0 -clock clk clk
 #@ set_input_delay 0 -clock clk rst_n
+#@ #set_max_delay $CYCLE -from [all_inputs] -to [all_outputs]
 #@ 
 #@ # (D-3) Setting Design Environment
+#@ # set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [get_ports clk]
+#@ # set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [remove_from_collection [all_inputs] [get_ports clk]]
+#@ # set_load  [load_of "umc18io3v5v_slow/P8C/A"]       [all_outputs] ; # ~= 0.038
 #@ set_load 0.05 [all_outputs]
 #@ 
-#@ # (D-4) Report Clock skew
+#@ # (D-4) Setting DRC Constraint
+#@ #set_max_delay           0     ; # Optimize delay max effort                 
+#@ #set_max_area            0      ; # Optimize area max effort           
+#@ set_max_transition      3       [all_inputs]   ; # U18 LUT Max Transition Value  
+#@ set_max_capacitance     0.15    [all_inputs]   ; # U18 LUT Max Capacitance Value
+#@ set_max_fanout          10      [all_inputs]
+#@ # set_dont_use slow/JKFF*
+#@ #set_dont_touch [get_cells core_reg_macro]
+#@ #set hdlin_ff_always_sync_set_reset true
+#@ 
+#@ # (D-5) Report Clock skew
 #@ report_clock -skew clk
 #@ check_timing
 #@ 
@@ -8685,13 +8703,9 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/modp_montymul/02_SYN/syn.
 #@ check_design > Report/$DESIGN\.check
 #@ set_fix_multiple_port_nets -all -buffer_constants [get_designs *]
 #@ set_fix_hold [all_clocks]
-#@ # compile_ultra
-#@ 
-#@ set_optimize_registers true -design [current_design]
-#@ compile_ultra -retime
-#@ 
-#@ # uniquify
-#@ # compile
+#@ compile_ultra
+#@ #uniquify
+#@ #compile
 #@ 
 #@ #======================================================
 #@ #  (F) Output Reports 
@@ -8699,13 +8713,12 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/modp_montymul/02_SYN/syn.
 #@ report_design  >  Report/$DESIGN\.design
 #@ report_resource >  Report/$DESIGN\.resource
 #@ report_timing -max_paths 3 >  Report/$DESIGN\.timing
-#@ report_timing -delay_type min >  Report/$DESIGN\_hold.timing
 #@ report_area >  Report/$DESIGN\.area
-#@ report_area -hierarchy >  Report/$DESIGN\_hier.area
 #@ report_power > Report/$DESIGN\.power
 #@ report_clock > Report/$DESIGN\.clock
 #@ report_port >  Report/$DESIGN\.port
 #@ report_power >  Report/$DESIGN\.power
+#@ #report_reference > Report/$DESIGN\.reference
 #@ 
 #@ #======================================================
 #@ #  (G) Change Naming Rule
@@ -8733,10 +8746,7 @@ source -echo -verbose /home/daniel_kuo/Falcon/hardware/modp_montymul/02_SYN/syn.
 #@ #======================================================
 #@ #  (I) Finish and Quit
 #@ #======================================================
-#@ report_resource
-#@ report_area -hierarchy
-#@ report_timing -delay_type min
-#@ report_timing 
 #@ 
-#@ set_svf -off
+#@ report_area
+#@ report_timing 
 #@ exit

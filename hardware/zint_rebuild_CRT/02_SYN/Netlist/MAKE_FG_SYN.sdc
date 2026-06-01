@@ -1,6 +1,6 @@
 ###################################################################
 
-# Created by write_sdc on Thu Mar  5 00:48:54 2026
+# Created by write_sdc on Sun Feb 15 22:17:41 2026
 
 ###################################################################
 set sdc_version 2.1
@@ -41,7 +41,7 @@ set_load -pin_load 0.05 [get_ports {inf_out_data[3]}]
 set_load -pin_load 0.05 [get_ports {inf_out_data[2]}]
 set_load -pin_load 0.05 [get_ports {inf_out_data[1]}]
 set_load -pin_load 0.05 [get_ports {inf_out_data[0]}]
-create_clock [get_ports clk]  -period 1.55  -waveform {0 0.775}
+create_clock [get_ports clk]  -period 1.65  -waveform {0 0.825}
 set_input_delay -clock clk  0  [get_ports clk]
 set_input_delay -clock clk  0  [get_ports rst_n]
 set_input_delay -clock clk  0  [get_ports inf_in_valid]
