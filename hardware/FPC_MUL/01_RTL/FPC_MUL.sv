@@ -2,9 +2,13 @@
  * Addition of two complex numbers (d = a + b).
  */
 module FPC_ADD #(
-    parameter FLOAT_PRECISION = 64
+    parameter FLOAT_PRECISION = 64,
+    parameter PIPELINE_STAGES = 2
 )(
     // Input signals
+    clk,
+    rst_n,
+    // in_valid,
     a_re, a_im,
     b_re, b_im,
     // Output signals
@@ -14,6 +18,9 @@ module FPC_ADD #(
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
+input  clk;
+input  rst_n;
+// input  in_valid;
 input  [FLOAT_PRECISION-1:0] a_re;
 input  [FLOAT_PRECISION-1:0] a_im;
 input  [FLOAT_PRECISION-1:0] b_re;
@@ -23,10 +30,50 @@ output [FLOAT_PRECISION-1:0] d_re;
 output [FLOAT_PRECISION-1:0] d_im;
 
 //---------------------------------------------------------------------
+//   Reg & Wire
+//---------------------------------------------------------------------
+wire [FLOAT_PRECISION-1:0] comb_d_re, comb_d_im;
+reg  [FLOAT_PRECISION-1:0] pipe_re [0:PIPELINE_STAGES-1];
+reg  [FLOAT_PRECISION-1:0] pipe_im [0:PIPELINE_STAGES-1];
+
+//---------------------------------------------------------------------
 //   Submodule
 //---------------------------------------------------------------------
-fpr_add u_FPR_ADD_0 (.x(a_re), .y(b_re), .z(d_re));
-fpr_add u_FPR_ADD_1 (.x(a_im), .y(b_im), .z(d_im));
+fpr_add u_FPR_ADD_0 (.x(a_re), .y(b_re), .z(comb_d_re));
+fpr_add u_FPR_ADD_1 (.x(a_im), .y(b_im), .z(comb_d_im));
+
+//---------------------------------------------------------------------
+//   Sequential Logic
+//---------------------------------------------------------------------
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        pipe_re[0] <= 0;
+        pipe_im[0] <= 0;
+    end
+    else begin
+        pipe_re[0] <= comb_d_re;
+        pipe_im[0] <= comb_d_im;
+    end
+end
+
+genvar idx;
+generate
+    for (idx = 1; idx < PIPELINE_STAGES; idx = idx + 1) begin
+        always @(posedge clk or negedge rst_n) begin
+            if (!rst_n) begin
+                pipe_re[idx] <= 0;
+                pipe_im[idx] <= 0;
+            end
+            else begin
+                pipe_re[idx] <= pipe_re[idx-1];
+                pipe_im[idx] <= pipe_im[idx-1];
+            end
+        end
+    end
+endgenerate
+
+assign d_re = pipe_re[PIPELINE_STAGES-1];
+assign d_im = pipe_im[PIPELINE_STAGES-1];
 
 endmodule
 
@@ -34,9 +81,13 @@ endmodule
  * Subtraction of two complex numbers (d = a - b).
  */
 module FPC_SUB #(
-    parameter FLOAT_PRECISION = 64
+    parameter FLOAT_PRECISION = 64,
+    parameter PIPELINE_STAGES = 2
 )(
     // Input signals
+    clk,          
+    rst_n,          
+    // in_valid,       
     a_re, a_im,
     b_re, b_im,
     // Output signals
@@ -46,6 +97,8 @@ module FPC_SUB #(
 //---------------------------------------------------------------------
 //   Input & Output
 //---------------------------------------------------------------------
+input  clk;
+input  rst_n;
 input  [FLOAT_PRECISION-1:0] a_re;
 input  [FLOAT_PRECISION-1:0] a_im;
 input  [FLOAT_PRECISION-1:0] b_re;
@@ -62,11 +115,48 @@ wire [FLOAT_PRECISION-1:0] b_im_neg;
 assign b_re_neg = {~b_re[63], b_re[62:0]};
 assign b_im_neg = {~b_im[63], b_im[62:0]};
 
+wire [FLOAT_PRECISION-1:0] comb_d_re, comb_d_im;
+reg [FLOAT_PRECISION-1:0] pipe_re [0:PIPELINE_STAGES-1];
+reg [FLOAT_PRECISION-1:0] pipe_im [0:PIPELINE_STAGES-1];
+
 //---------------------------------------------------------------------
 //   Submodule
 //---------------------------------------------------------------------
-fpr_add u_FPR_SUB_0 (.x(a_re), .y(b_re_neg), .z(d_re));
-fpr_add u_FPR_SUB_1 (.x(a_im), .y(b_im_neg), .z(d_im));
+fpr_add u_FPR_SUB_0 (.x(a_re), .y(b_re_neg), .z(comb_d_re));
+fpr_add u_FPR_SUB_1 (.x(a_im), .y(b_im_neg), .z(comb_d_im));
+
+//---------------------------------------------------------------------
+//   Sequential Logic
+//---------------------------------------------------------------------
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        pipe_re[0] <= 0;
+        pipe_im[0] <= 0;
+    end
+    else begin
+        pipe_re[0] <= comb_d_re;
+        pipe_im[0] <= comb_d_im;
+    end
+end
+
+genvar idx;
+generate
+    for (idx = 1; idx < PIPELINE_STAGES; idx = idx + 1) begin
+        always @(posedge clk or negedge rst_n) begin
+            if (!rst_n) begin
+                pipe_re[idx] <= 0;
+                pipe_im[idx] <= 0;
+            end
+            else begin
+                pipe_re[idx] <= pipe_re[idx-1];
+                pipe_im[idx] <= pipe_im[idx-1];
+            end
+        end
+    end
+endgenerate
+
+assign d_re = pipe_re[PIPELINE_STAGES-1];
+assign d_im = pipe_im[PIPELINE_STAGES-1];
 
 endmodule
 
