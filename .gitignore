@@ -1,3 +1,6 @@
+.claude/
+template/
+
 # software
 *.o
 test_falcon
@@ -12,31 +15,77 @@ __pycache__/
 *trace*
 correlations/
 
-# 01_RTL
-csrc/
-simv.daidir/
-verdiLog/
-simv
-*.fsdb*
-novas*
-*.key
-*.exp
+# 01_RTL simulation - compilation products (auto-generated)
+hardware/*/01_RTL/csrc/
+hardware/*/01_RTL/simv.daidir/
+hardware/*/01_RTL/verdiLog/
+hardware/*/01_RTL/nWaveLog/
+hardware/*/01_RTL/simv
+hardware/*/01_RTL/simv.vdb
+hardware/*/01_RTL/*.fsdb.bak
+hardware/*/01_RTL/*.fsdb.X
+hardware/*/01_RTL/novas*
+hardware/*/01_RTL/*.key
+hardware/*/01_RTL/*.exp
+hardware/*/03_GATE/csrc/
+hardware/*/03_GATE/simv.daidir/
+hardware/*/03_GATE/verdiLog/
+hardware/*/03_GATE/nWaveLog/
+hardware/*/03_GATE/simv
+hardware/*/03_GATE/simv.vdb
+hardware/*/03_GATE/*.fsdb.bak
+hardware/*/03_GATE/*.fsdb.X
+hardware/*/03_GATE/novas*
+hardware/*/03_GATE/*.key
+
+# VCS/Xcelium work directories
+INCA_libs/
+xcelium.d/
+*.history
+
+# Tool configuration & temporaries
 *.json
+*.rc
+*.conf
+*.swp
+*.swo
+*~
 
-# 02_SYN
-alib-52/
-*.ddc
-*.pvl
-*.pvk
-*.syn
-*.svf
-*.mr
-*.sdf
-filenames*
+# 02_SYN - DC work products (auto-generated)
+hardware/*/02_SYN/alib-52/
+hardware/*/02_SYN/dwsvf*
+hardware/*/02_SYN/*.ddc
+hardware/*/02_SYN/*.pvl
+hardware/*/02_SYN/*.pvk
+hardware/*/02_SYN/*.syn
+hardware/*/02_SYN/*.svf
+hardware/*/02_SYN/*.mr
+hardware/*/02_SYN/*.sdf
+hardware/*/02_SYN/filenames*
+hardware/*/02_SYN/*.db
+hardware/*/02_SYN/syn.tcl.bak
 
-# 03_GATE
-check.log
+# 03_GATE - check logs
+hardware/*/03_GATE/check.log
 
 # 07_LINT
 spyglass_run/
 *.prj
+
+# Common build artifacts
+*.a
+*.so
+build/
+dist/
+*.egg-info/
+
+# IDE & Editor
+.idea/
+
+# KEEP these in version control:
+# - hardware/*/00_TESTBED/*.txt (test vectors)
+# - hardware/*/01_RTL/*.log (simulation logs)
+# - hardware/*/02_SYN/Report/* (synthesis reports)
+# - hardware/*/02_SYN/Netlist/* (netlists)
+# - hardware/*/03_GATE/*.log (gate sim logs)
+# - *.log (all logs for debugging)

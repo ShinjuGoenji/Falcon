@@ -3902,7 +3902,7 @@ test_keygen_inner(unsigned logn, uint8_t *tmp)
 		Zf(to_ntt_monty)(h2, logn);
 		check_eq(h, h2, n * sizeof *h, "recovered public key");
 
-		printf(".%d", i);
+		printf(".");
 		fflush(stdout);
 	}
 }
@@ -3918,7 +3918,7 @@ test_keygen(void)
 	fflush(stdout);
 	tlen = 90112;
 	tmp = xmalloc(tlen);
-	for (logn = 9; logn <= 9; logn++)
+	for (logn = 1; logn <= 10; logn++)
 	{
 		test_keygen_inner(logn, tmp);
 	}
@@ -5188,19 +5188,19 @@ int main(void)
 
 	old = set_fpu_cw(2);
 
-	// test_SHAKE256();
-	// test_codec();
-	// test_vrfy();
-	// test_RNG();
-	// test_FP_block();
-	// test_poly();
-	// test_gaussian0_sampler();
-	// test_sampler();
-	// test_sign();
+	test_SHAKE256();
+	test_codec();
+	test_vrfy();
+	test_RNG();
+	test_FP_block();
+	test_poly();
+	test_gaussian0_sampler();
+	test_sampler();
+	test_sign();
 	test_keygen();
-	// test_external_API();
-	// test_nist_KAT(9, "a57400cbaee7109358859a56c735a3cf048a9da2");
-	// test_nist_KAT(10, "affdeb3aa83bf9a2039fa9c17d65fd3e3b9828e2");
+	test_external_API();
+	test_nist_KAT(9, "a57400cbaee7109358859a56c735a3cf048a9da2");
+	test_nist_KAT(10, "affdeb3aa83bf9a2039fa9c17d65fd3e3b9828e2");
 	/* test_speed(); */
 
 	set_fpu_cw(old);
