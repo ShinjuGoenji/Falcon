@@ -6,18 +6,14 @@ Report : timing
         -max_paths 3
 Design : MODP_MONTYMUL
 Version: T-2022.03
-Date   : Tue Apr 21 16:07:04 2026
+Date   : Thu Oct 23 11:02:08 2025
 ****************************************
-
- # A fanout number of 1000 was used for high fanout net computations.
 
 Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
 Wire Load Model Mode: top
 
-  Startpoint: mult_x_1/clk_r_REG514_S2
-              (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: DP_OP_16J1_122_5909/clk_r_REG137_S3
-            (rising edge-triggered flip-flop clocked by clk)
+  Startpoint: a[7] (input port clocked by clk)
+  Endpoint: d_reg[27] (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
 
@@ -25,54 +21,94 @@ Wire Load Model Mode: top
   ------------------------------------------------
   MODP_MONTYMUL      Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
 
-  Point                                                   Incr       Path
-  --------------------------------------------------------------------------
-  clock clk (rise edge)                                   0.00       0.00
-  clock network delay (ideal)                             0.00       0.00
-  mult_x_1/clk_r_REG514_S2/CK (DFFRPQ_X4M_A9TL)           0.00 #     0.00 r
-  mult_x_1/clk_r_REG514_S2/Q (DFFRPQ_X4M_A9TL)            0.14       0.14 f
-  U9843/Y (BUFH_X7P5M_A9TL)                               0.03       0.17 f
-  U6734/Y (BUFH_X7P5M_A9TL)                               0.04       0.20 f
-  U20524/Y (AOI222_X1M_A9TL)                              0.11       0.31 r
-  U6496/Y (OAI21_X3M_A9TL)                                0.05       0.36 f
-  U20525/Y (XOR2_X1M_A9TL)                                0.06       0.42 r
-  U18293/S (ADDF_X2M_A9TL)                                0.14       0.56 f
-  U19450/Y (XOR2_X3M_A9TL)                                0.06       0.62 f
-  U15502/Y (XOR2_X4M_A9TL)                                0.04       0.66 f
-  U10157/Y (XOR2_X3M_A9TL)                                0.04       0.70 f
-  U15501/Y (XOR2_X4M_A9TL)                                0.04       0.74 f
-  U17158/Y (NAND2_X3M_A9TL)                               0.03       0.77 r
-  U2822/Y (INV_X3M_A9TR)                                  0.02       0.80 f
-  U12441/Y (AOI21_X6M_A9TL)                               0.03       0.82 r
-  U19720/Y (OAI21_X8M_A9TL)                               0.03       0.85 f
-  U19750/Y (AOI21_X8M_A9TL)                               0.03       0.88 r
-  U20243/Y (OAI21_X8M_A9TL)                               0.03       0.91 f
-  U16271/Y (AOI21_X8M_A9TL)                               0.04       0.95 r
-  U19892/Y (INV_X11M_A9TL)                                0.03       0.98 f
-  U674/Y (AOI21_X2M_A9TL)                                 0.05       1.03 r
-  U9198/Y (XOR2_X3M_A9TL)                                 0.04       1.08 r
-  U8470/Y (XOR2_X2M_A9TL)                                 0.05       1.13 r
-  DP_OP_16J1_122_5909/clk_r_REG137_S3/D (DFFSQ_X1M_A9TR)
-                                                          0.00       1.13 r
-  data arrival time                                                  1.13
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     0.00       0.00 f
+  a[7] (in)                                0.00       0.00 f
+  U2243/Y (INV_X7P5B_A9TL)                 0.05       0.05 r
+  U11833/Y (AND2_X11B_A9TL)                0.05       0.10 r
+  U7804/Y (NAND2XB_X8M_A9TL)               0.04       0.14 r
+  U2183/Y (BUF_X9M_A9TR)                   0.05       0.19 r
+  U2063/Y (INV_X1B_A9TR)                   0.04       0.23 f
+  U11157/Y (AO1B2_X4M_A9TL)                0.05       0.28 f
+  U7279/Y (OAI21_X3M_A9TL)                 0.04       0.32 r
+  U3286/Y (NAND2_X4M_A9TL)                 0.03       0.35 f
+  U3287/Y (OAI21_X4M_A9TL)                 0.03       0.38 r
+  U10847/Y (AO21B_X4M_A9TL)                0.03       0.40 f
+  U1826/Y (NAND2_X1A_A9TL)                 0.04       0.45 r
+  U3713/Y (OAI21_X8M_A9TL)                 0.04       0.48 f
+  U6610/Y (NAND2B_X4M_A9TL)                0.05       0.53 f
+  U11044/Y (NAND2B_X6M_A9TL)               0.02       0.55 r
+  U7699/Y (NAND2_X4M_A9TL)                 0.02       0.57 f
+  U11809/Y (XOR2_X4M_A9TL)                 0.05       0.62 f
+  U11136/Y (XNOR2_X4M_A9TL)                0.06       0.68 f
+  U3973/Y (INV_X16M_A9TL)                  0.04       0.72 r
+  U3874/Y (BUFH_X13M_A9TL)                 0.03       0.75 r
+  U9722/Y (XOR2_X3M_A9TL)                  0.03       0.78 r
+  U10780/Y (OAI22_X6M_A9TL)                0.04       0.83 f
+  U1459/Y (XOR2_X3M_A9TL)                  0.06       0.89 f
+  U3412/Y (XOR2_X4M_A9TL)                  0.05       0.93 f
+  U1415/Y (NOR2_X2A_A9TL)                  0.04       0.98 r
+  U1398/Y (NOR2_X2A_A9TL)                  0.03       1.00 f
+  U3355/Y (NOR2_X4A_A9TL)                  0.04       1.05 r
+  U3160/Y (NAND2_X6M_A9TL)                 0.03       1.08 f
+  U2286/Y (AOI21_X8M_A9TL)                 0.03       1.11 r
+  U10919/Y (NAND2_X8M_A9TL)                0.02       1.14 f
+  U1268/Y (AOI21_X6M_A9TL)                 0.03       1.17 r
+  U10218/Y (XOR2_X4M_A9TL)                 0.04       1.20 r
+  U7589/Y (INV_X11M_A9TL)                  0.03       1.24 f
+  U2905/Y (XNOR2_X3M_A9TL)                 0.04       1.27 f
+  U4899/Y (INV_X1P7M_A9TR)                 0.04       1.31 r
+  U9591/Y (OAI22BB_X3M_A9TL)               0.05       1.36 r
+  U11840/S (ADDF_X2M_A9TL)                 0.12       1.49 f
+  U2906/Y (XOR2_X4M_A9TL)                  0.05       1.54 f
+  U816/Y (INV_X5M_A9TL)                    0.02       1.56 r
+  U7097/Y (XOR2_X3M_A9TL)                  0.05       1.61 r
+  U10765/Y (XOR2_X4M_A9TL)                 0.06       1.68 r
+  U10764/Y (XOR2_X4M_A9TL)                 0.06       1.74 r
+  U10325/Y (XOR2_X4M_A9TL)                 0.05       1.78 r
+  U10052/Y (NOR2_X6A_A9TL)                 0.03       1.81 f
+  U6019/Y (NOR2_X6A_A9TL)                  0.03       1.84 r
+  U11506/Y (NAND2_X4M_A9TL)                0.02       1.86 f
+  U11942/Y (OAI21_X8M_A9TL)                0.04       1.90 r
+  U10153/Y (NAND2_X8M_A9TL)                0.03       1.92 f
+  U11732/Y (NAND2_X8M_A9TL)                0.02       1.95 r
+  U10728/Y (INV_X16M_A9TL)                 0.02       1.97 f
+  U9020/Y (INV_X16M_A9TL)                  0.02       1.98 r
+  U11158/Y (XOR2_X4M_A9TL)                 0.04       2.02 r
+  U10717/Y (XOR2_X4M_A9TL)                 0.05       2.07 f
+  U262/Y (BUFH_X2M_A9TL)                   0.05       2.12 f
+  U11175/Y (NAND2_X4M_A9TL)                0.03       2.15 r
+  U10377/Y (OAI21_X6M_A9TL)                0.04       2.18 f
+  U7404/Y (NAND3BB_X2M_A9TL)               0.05       2.24 f
+  U8294/Y (NAND2_X3M_A9TL)                 0.03       2.27 r
+  U3055/Y (OAI21_X8M_A9TL)                 0.03       2.29 f
+  U10223/Y (NAND2_X3M_A9TL)                0.02       2.32 r
+  U6990/Y (NAND3_X4A_A9TL)                 0.03       2.34 f
+  U6989/Y (AOI2XB1_X3M_A9TL)               0.04       2.38 r
+  U8281/Y (XOR2_X1P4M_A9TL)                0.03       2.41 f
+  U5317/Y (AOI2XB1_X4M_A9TL)               0.06       2.47 f
+  U9430/Y (OAI21_X4M_A9TL)                 0.02       2.50 r
+  d_reg[27]/D (DFFRPQ_X2M_A9TL)            0.00       2.50 r
+  data arrival time                                   2.50
 
-  clock clk (rise edge)                                   1.25       1.25
-  clock network delay (ideal)                             0.00       1.25
-  clock uncertainty                                      -0.10       1.15
-  DP_OP_16J1_122_5909/clk_r_REG137_S3/CK (DFFSQ_X1M_A9TR)
-                                                          0.00       1.15 r
-  library setup time                                     -0.02       1.13
-  data required time                                                 1.13
-  --------------------------------------------------------------------------
-  data required time                                                 1.13
-  data arrival time                                                 -1.13
-  --------------------------------------------------------------------------
-  slack (MET)                                                        0.00
+  clock clk (rise edge)                    2.60       2.60
+  clock network delay (ideal)              0.00       2.60
+  clock uncertainty                       -0.10       2.50
+  d_reg[27]/CK (DFFRPQ_X2M_A9TL)           0.00       2.50 r
+  library setup time                       0.00       2.50
+  data required time                                  2.50
+  -----------------------------------------------------------
+  data required time                                  2.50
+  data arrival time                                  -2.50
+  -----------------------------------------------------------
+  slack (MET)                                         0.00
 
 
-  Startpoint: b[36] (input port clocked by clk)
-  Endpoint: DP_OP_16J1_122_5909/clk_r_REG310_S1
-            (rising edge-triggered flip-flop clocked by clk)
+  Startpoint: a[3] (input port clocked by clk)
+  Endpoint: d_reg[0] (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
 
@@ -80,43 +116,87 @@ Wire Load Model Mode: top
   ------------------------------------------------
   MODP_MONTYMUL      Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
 
-  Point                                                   Incr       Path
-  --------------------------------------------------------------------------
-  clock clk (rise edge)                                   0.00       0.00
-  clock network delay (ideal)                             0.00       0.00
-  input external delay                                    0.00       0.00 f
-  b[36] (in)                                              0.00       0.00 f
-  U2183/Y (XNOR2_X1M_A9TR)                                0.26       0.26 r
-  U23653/Y (OAI22_X1M_A9TL)                               0.12       0.38 f
-  U23724/S (ADDF_X1M_A9TH)                                0.22       0.59 r
-  U23755/CO (ADDF_X1M_A9TL)                               0.10       0.69 r
-  U15629/CO (ADDF_X1M_A9TL)                               0.08       0.77 r
-  U19822/S (ADDF_X1M_A9TL)                                0.09       0.86 r
-  U18817/CO (ADDF_X1M_A9TL)                               0.08       0.94 r
-  U24881/S (ADDF_X1M_A9TL)                                0.10       1.05 f
-  U24882/S (ADDF_X1M_A9TL)                                0.09       1.14 r
-  DP_OP_16J1_122_5909/clk_r_REG310_S1/D (DFFSQ_X2M_A9TL)
-                                                          0.00       1.14 r
-  data arrival time                                                  1.14
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     0.00       0.00 f
+  a[3] (in)                                0.00       0.00 f
+  U2558/Y (INV_X3M_A9TL)                   0.12       0.12 r
+  U3497/Y (OA21_X8M_A9TL)                  0.07       0.19 r
+  U3502/Y (INV_X16M_A9TL)                  0.02       0.20 f
+  U2166/Y (INV_X3M_A9TR)                   0.03       0.24 r
+  U2898/Y (OR2_X8B_A9TL)                   0.03       0.27 r
+  U3235/Y (OAI21_X8M_A9TL)                 0.02       0.29 f
+  U10090/Y (XOR2_X4M_A9TL)                 0.06       0.34 f
+  U10345/Y (XOR2_X4M_A9TL)                 0.05       0.39 f
+  U10344/Y (INV_X16M_A9TL)                 0.04       0.44 r
+  U8779/Y (BUFH_X9M_A9TL)                  0.04       0.47 r
+  U3993/Y (XNOR2_X4M_A9TL)                 0.04       0.51 r
+  U11820/Y (OAI22_X6M_A9TL)                0.06       0.57 f
+  U1554/Y (AND2_X3B_A9TL)                  0.06       0.63 f
+  U7246/Y (AO1B2_X2M_A9TL)                 0.05       0.67 f
+  U3450/S (ADDF_X2M_A9TL)                  0.12       0.79 r
+  U3884/Y (XOR2_X4M_A9TL)                  0.05       0.84 r
+  U4072/Y (XOR2_X4M_A9TL)                  0.04       0.88 r
+  U10649/Y (XOR2_X4M_A9TL)                 0.05       0.93 r
+  U10648/Y (XNOR2_X4M_A9TL)                0.04       0.97 r
+  U10650/Y (XNOR2_X4M_A9TL)                0.05       1.02 r
+  U2856/Y (OAI21_X6M_A9TL)                 0.04       1.06 f
+  U2855/Y (NAND2_X8M_A9TL)                 0.03       1.09 r
+  U2579/Y (XNOR2_X4M_A9TL)                 0.03       1.12 r
+  U2578/Y (XNOR2_X4M_A9TL)                 0.04       1.16 r
+  U10972/Y (XNOR2_X4M_A9TL)                0.07       1.23 r
+  U11967/Y (NOR2_X8A_A9TL)                 0.03       1.26 f
+  U8524/Y (NOR2_X6A_A9TL)                  0.03       1.29 r
+  U10165/Y (AOI21_X8M_A9TL)                0.03       1.32 f
+  U10306/Y (XOR2_X4M_A9TL)                 0.06       1.38 f
+  U3537/Y (INV_X16M_A9TL)                  0.04       1.41 r
+  U7563/Y (INV_X16M_A9TL)                  0.02       1.43 f
+  U624/Y (INV_X3M_A9TR)                    0.03       1.46 r
+  U7099/Y (XNOR2_X3M_A9TL)                 0.04       1.50 r
+  U4436/Y (OAI22_X2M_A9TL)                 0.05       1.55 f
+  U11350/S (ADDF_X1M_A9TL)                 0.12       1.67 r
+  U11486/S (ADDF_X2M_A9TL)                 0.12       1.79 f
+  U9490/Y (AND2_X4M_A9TL)                  0.04       1.83 f
+  U467/Y (INV_X2M_A9TR)                    0.03       1.86 r
+  U4383/Y (INV_X2M_A9TR)                   0.02       1.88 f
+  U7051/Y (NAND2XB_X2M_A9TL)               0.05       1.93 f
+  U10801/Y (AOI2XB1_X4M_A9TL)              0.03       1.96 r
+  U11174/Y (OAI21_X6M_A9TL)                0.03       1.98 f
+  U10075/Y (AOI21_X8M_A9TL)                0.02       2.01 r
+  U10074/Y (XOR2_X4M_A9TL)                 0.04       2.05 r
+  U2865/Y (XOR2_X4M_A9TL)                  0.05       2.09 r
+  U2554/Y (INV_X11M_A9TL)                  0.02       2.11 f
+  U11035/Y (XNOR2_X4M_A9TL)                0.05       2.17 f
+  U10040/Y (AND2_X11B_A9TL)                0.04       2.21 f
+  U9014/Y (NAND2_X8M_A9TL)                 0.02       2.23 r
+  U10169/Y (AO21A1AI2_X6M_A9TL)            0.04       2.27 f
+  U10782/Y (AOI2XB1_X8M_A9TL)              0.04       2.30 r
+  U10208/Y (AOI21B_X6M_A9TL)               0.03       2.34 f
+  U3059/Y (NAND3BB_X8M_A9TL)               0.04       2.38 f
+  U2588/Y (OR2_X11M_A9TL)                  0.03       2.41 f
+  U12068/Y (INV_X16M_A9TL)                 0.02       2.44 r
+  U93/Y (AOI22_X4M_A9TL)                   0.03       2.46 f
+  U78/Y (OAI21_X3M_A9TL)                   0.03       2.49 r
+  d_reg[0]/D (DFFRPQ_X2M_A9TL)             0.00       2.49 r
+  data arrival time                                   2.49
 
-  clock clk (rise edge)                                   1.25       1.25
-  clock network delay (ideal)                             0.00       1.25
-  clock uncertainty                                      -0.10       1.15
-  DP_OP_16J1_122_5909/clk_r_REG310_S1/CK (DFFSQ_X2M_A9TL)
-                                                          0.00       1.15 r
-  library setup time                                     -0.01       1.14
-  data required time                                                 1.14
-  --------------------------------------------------------------------------
-  data required time                                                 1.14
-  data arrival time                                                 -1.14
-  --------------------------------------------------------------------------
-  slack (MET)                                                        0.00
+  clock clk (rise edge)                    2.60       2.60
+  clock network delay (ideal)              0.00       2.60
+  clock uncertainty                       -0.10       2.50
+  d_reg[0]/CK (DFFRPQ_X2M_A9TL)            0.00       2.50 r
+  library setup time                      -0.01       2.49
+  data required time                                  2.49
+  -----------------------------------------------------------
+  data required time                                  2.49
+  data arrival time                                  -2.49
+  -----------------------------------------------------------
+  slack (MET)                                         0.00
 
 
-  Startpoint: mult_x_1/R_17_clk_r_REG669_S2
-              (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: DP_OP_16J1_122_5909/clk_r_REG114_S3
-            (rising edge-triggered flip-flop clocked by clk)
+  Startpoint: a[7] (input port clocked by clk)
+  Endpoint: d_reg[15] (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
 
@@ -124,50 +204,90 @@ Wire Load Model Mode: top
   ------------------------------------------------
   MODP_MONTYMUL      Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
 
-  Point                                                   Incr       Path
-  --------------------------------------------------------------------------
-  clock clk (rise edge)                                   0.00       0.00
-  clock network delay (ideal)                             0.00       0.00
-  mult_x_1/R_17_clk_r_REG669_S2/CK (DFFRPQ_X4M_A9TL)      0.00 #     0.00 r
-  mult_x_1/R_17_clk_r_REG669_S2/Q (DFFRPQ_X4M_A9TL)       0.14       0.14 r
-  U14769/Y (BUFH_X13M_A9TL)                               0.03       0.18 r
-  U14766/Y (BUFH_X13M_A9TL)                               0.04       0.21 r
-  U18777/Y (AOI222_X2M_A9TL)                              0.04       0.25 f
-  U11769/Y (OAI21_X4M_A9TL)                               0.05       0.30 r
-  U14675/Y (XOR2_X4M_A9TL)                                0.05       0.35 r
-  U5486/Y (NAND2B_X2M_A9TL)                               0.06       0.40 r
-  U19963/Y (AO1B2_X4M_A9TL)                               0.02       0.43 f
-  U19753/S (ADDF_X2M_A9TL)                                0.11       0.53 r
-  U14135/CO (ADDF_X2M_A9TL)                               0.08       0.61 r
-  U3234/Y (BUFH_X1P7M_A9TR)                               0.06       0.68 r
-  U9322/Y (OAI21_X6M_A9TL)                                0.04       0.71 f
-  U9319/Y (AO1B2_X4M_A9TL)                                0.03       0.74 r
-  U15409/Y (XOR2_X4M_A9TL)                                0.03       0.78 r
-  U18931/Y (XNOR2_X4M_A9TL)                               0.04       0.82 r
-  U14082/Y (NOR2_X6A_A9TL)                                0.03       0.85 f
-  U1182/Y (INV_X0P7M_A9TR)                                0.05       0.90 r
-  U21158/Y (NAND2_X2M_A9TL)                               0.05       0.95 f
-  U17709/Y (NOR2_X4A_A9TL)                                0.04       0.99 r
-  U17742/Y (AOI22_X3M_A9TL)                               0.04       1.03 f
-  U5022/Y (INV_X2M_A9TR)                                  0.04       1.06 r
-  U18925/Y (NAND3BB_X4M_A9TL)                             0.04       1.11 r
-  U21159/Y (XOR2_X4M_A9TL)                                0.03       1.14 r
-  DP_OP_16J1_122_5909/clk_r_REG114_S3/D (DFFRPQ_X2M_A9TL)
-                                                          0.00       1.14 r
-  data arrival time                                                  1.14
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     0.00       0.00 f
+  a[7] (in)                                0.00       0.00 f
+  U2243/Y (INV_X7P5B_A9TL)                 0.05       0.05 r
+  U11833/Y (AND2_X11B_A9TL)                0.05       0.10 r
+  U7804/Y (NAND2XB_X8M_A9TL)               0.04       0.14 r
+  U2183/Y (BUF_X9M_A9TR)                   0.05       0.19 r
+  U2063/Y (INV_X1B_A9TR)                   0.04       0.23 f
+  U11157/Y (AO1B2_X4M_A9TL)                0.05       0.28 f
+  U7279/Y (OAI21_X3M_A9TL)                 0.04       0.32 r
+  U3286/Y (NAND2_X4M_A9TL)                 0.03       0.35 f
+  U3287/Y (OAI21_X4M_A9TL)                 0.03       0.38 r
+  U10847/Y (AO21B_X4M_A9TL)                0.03       0.40 f
+  U1826/Y (NAND2_X1A_A9TL)                 0.04       0.45 r
+  U3713/Y (OAI21_X8M_A9TL)                 0.04       0.48 f
+  U6610/Y (NAND2B_X4M_A9TL)                0.05       0.53 f
+  U11044/Y (NAND2B_X6M_A9TL)               0.02       0.55 r
+  U7699/Y (NAND2_X4M_A9TL)                 0.02       0.57 f
+  U11809/Y (XOR2_X4M_A9TL)                 0.05       0.62 f
+  U11136/Y (XNOR2_X4M_A9TL)                0.06       0.68 f
+  U3973/Y (INV_X16M_A9TL)                  0.04       0.72 r
+  U3874/Y (BUFH_X13M_A9TL)                 0.03       0.75 r
+  U9722/Y (XOR2_X3M_A9TL)                  0.03       0.78 r
+  U10780/Y (OAI22_X6M_A9TL)                0.04       0.83 f
+  U1459/Y (XOR2_X3M_A9TL)                  0.06       0.89 f
+  U3412/Y (XOR2_X4M_A9TL)                  0.05       0.93 f
+  U1415/Y (NOR2_X2A_A9TL)                  0.04       0.98 r
+  U1398/Y (NOR2_X2A_A9TL)                  0.03       1.00 f
+  U3355/Y (NOR2_X4A_A9TL)                  0.04       1.05 r
+  U3160/Y (NAND2_X6M_A9TL)                 0.03       1.08 f
+  U2286/Y (AOI21_X8M_A9TL)                 0.03       1.11 r
+  U10919/Y (NAND2_X8M_A9TL)                0.02       1.14 f
+  U1268/Y (AOI21_X6M_A9TL)                 0.03       1.17 r
+  U10218/Y (XOR2_X4M_A9TL)                 0.04       1.20 r
+  U7589/Y (INV_X11M_A9TL)                  0.03       1.24 f
+  U2905/Y (XNOR2_X3M_A9TL)                 0.04       1.27 f
+  U4899/Y (INV_X1P7M_A9TR)                 0.04       1.31 r
+  U9591/Y (OAI22BB_X3M_A9TL)               0.05       1.36 r
+  U11840/S (ADDF_X2M_A9TL)                 0.12       1.49 f
+  U2906/Y (XOR2_X4M_A9TL)                  0.05       1.54 f
+  U816/Y (INV_X5M_A9TL)                    0.02       1.56 r
+  U7097/Y (XOR2_X3M_A9TL)                  0.05       1.61 r
+  U10765/Y (XOR2_X4M_A9TL)                 0.06       1.68 r
+  U10764/Y (XOR2_X4M_A9TL)                 0.06       1.74 r
+  U10325/Y (XOR2_X4M_A9TL)                 0.05       1.78 r
+  U10052/Y (NOR2_X6A_A9TL)                 0.03       1.81 f
+  U6019/Y (NOR2_X6A_A9TL)                  0.03       1.84 r
+  U11506/Y (NAND2_X4M_A9TL)                0.02       1.86 f
+  U11942/Y (OAI21_X8M_A9TL)                0.04       1.90 r
+  U10138/Y (INV_X9M_A9TL)                  0.02       1.92 f
+  U11184/Y (INV_X16M_A9TL)                 0.02       1.94 r
+  U450/Y (NAND2XB_X4M_A9TL)                0.02       1.95 f
+  U4243/Y (NAND2_X6M_A9TL)                 0.02       1.98 r
+  U2417/Y (XNOR2_X3M_A9TL)                 0.04       2.01 r
+  U11998/Y (XOR2_X4M_A9TL)                 0.05       2.06 r
+  U8332/Y (BUFH_X3M_A9TL)                  0.05       2.11 r
+  U12129/Y (NOR2_X3A_A9TL)                 0.02       2.13 f
+  U243/Y (INV_X2P5M_A9TL)                  0.03       2.16 r
+  U11241/Y (AOI21_X3M_A9TL)                0.03       2.19 f
+  U9440/Y (OAI21_X6M_A9TL)                 0.03       2.22 r
+  U3104/Y (INV_X9M_A9TL)                   0.02       2.25 f
+  U172/Y (OAI21_X1P4M_A9TL)                0.05       2.30 r
+  U7861/Y (AOI21_X2M_A9TL)                 0.04       2.34 f
+  U6352/Y (OAI21_X2M_A9TL)                 0.04       2.38 r
+  U6991/Y (XNOR2_X1P4M_A9TL)               0.05       2.43 r
+  U5320/Y (AOI22_X3M_A9TL)                 0.04       2.47 f
+  U77/Y (OAI21_X4M_A9TL)                   0.03       2.49 r
+  d_reg[15]/D (DFFRPQ_X2M_A9TL)            0.00       2.49 r
+  data arrival time                                   2.49
 
-  clock clk (rise edge)                                   1.25       1.25
-  clock network delay (ideal)                             0.00       1.25
-  clock uncertainty                                      -0.10       1.15
-  DP_OP_16J1_122_5909/clk_r_REG114_S3/CK (DFFRPQ_X2M_A9TL)
-                                                          0.00       1.15 r
-  library setup time                                     -0.01       1.14
-  data required time                                                 1.14
-  --------------------------------------------------------------------------
-  data required time                                                 1.14
-  data arrival time                                                 -1.14
-  --------------------------------------------------------------------------
-  slack (MET)                                                        0.00
+  clock clk (rise edge)                    2.60       2.60
+  clock network delay (ideal)              0.00       2.60
+  clock uncertainty                       -0.10       2.50
+  d_reg[15]/CK (DFFRPQ_X2M_A9TL)           0.00       2.50 r
+  library setup time                       0.00       2.50
+  data required time                                  2.50
+  -----------------------------------------------------------
+  data required time                                  2.50
+  data arrival time                                  -2.49
+  -----------------------------------------------------------
+  slack (MET)                                         0.00
 
 
 1

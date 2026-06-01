@@ -1,2 +1,1 @@
-TESTBED.sv
-../04_MEM/RF_2p_CRT_4x512.v
+TESTBED.v

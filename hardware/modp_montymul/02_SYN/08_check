@@ -1,6 +1,6 @@
 #!/bin/bash
 #dcnxt_shell -f syn.tcl | tee syn.log
-Design="MODP_MONTYMUL"
+Design="MODP_MONTYMUL_TOP"
 
 NO_COLOR='\033[0m'
 RED='\033[0;31m'

@@ -3,7 +3,7 @@
 Report : area
 Design : MODP_MONTYMUL
 Version: T-2022.03
-Date   : Tue Apr 21 16:07:04 2026
+Date   : Thu Oct 23 11:02:08 2025
 ****************************************
 
 Library(s) Used:
@@ -12,21 +12,21 @@ Library(s) Used:
     sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
     sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
 
-Number of ports:                          319
-Number of nets:                         31050
-Number of cells:                        27465
-Number of combinational cells:          25208
-Number of sequential cells:              2257
+Number of ports:                          160
+Number of nets:                         13336
+Number of cells:                        12490
+Number of combinational cells:          12458
+Number of sequential cells:                32
 Number of macros/black boxes:               0
-Number of buf/inv:                       3189
-Number of references:                     577
+Number of buf/inv:                       2212
+Number of references:                     527
 
-Combinational area:              55851.313790
-Buf/Inv area:                     3841.991991
-Noncombinational area:           10746.464288
+Combinational area:              31037.579923
+Buf/Inv area:                     2856.999599
+Noncombinational area:             145.151993
 Macro/Black Box area:                0.000000
 Net Interconnect area:               0.000000
 
-Total cell area:                 66597.778078
-Total area:                      66597.778078
+Total cell area:                 31182.731915
+Total area:                      31182.731915
 1

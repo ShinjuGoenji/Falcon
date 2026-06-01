@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version T-2022.03 for linux64 -- Feb 22, 2022
-#@ # Date:   Thu Mar  5 00:42:43 2026
+#@ # Date:   Sun Feb 15 22:07:09 2026
 #@ # Run by: daniel_kuo@eda_root
 #@ 
 
@@ -8616,7 +8616,7 @@ source /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/.synopsys_dc.set
 #@ alias h history
 #@ # -- End source /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/.synopsys_dc.setup
 
-set_host_options -max_cores 8; set WN 4; set PERIOD 1.55
+set_host_options -max_cores 8; set WN 8; set PERIOD 1.65
 source -echo -verbose /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/syn.tcl
 #@ # -- Starting source /home/daniel_kuo/Falcon/hardware/zint_rebuild_CRT/02_SYN/syn.tcl
 
