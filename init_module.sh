@@ -45,20 +45,16 @@ sed -i "s/MAKE_FG/${MODULE_NAME}/g" "$MODULE_PATH/00_TESTBED/makefile"
 
 cp "$TEMPLATE_PATH/00_TESTBED/PATTERN.sv" "$MODULE_PATH/00_TESTBED/"
 cp "$TEMPLATE_PATH/00_TESTBED/TESTBED.sv" "$MODULE_PATH/00_TESTBED/"
-cp "$TEMPLATE_PATH/00_TESTBED/Usertype.sv" "$MODULE_PATH/00_TESTBED/"
-cp "$TEMPLATE_PATH/00_TESTBED/INF.sv" "$MODULE_PATH/00_TESTBED/"
+sed -i "s/MAKE_FG/${MODULE_NAME}/g" "$MODULE_PATH/00_TESTBED/TESTBED.sv"
 
 # Create input/output files
 touch "$MODULE_PATH/00_TESTBED/input.txt"
 touch "$MODULE_PATH/00_TESTBED/output.txt"
 touch "$MODULE_PATH/00_TESTBED/PATNUM.txt"
 
-# Create filelist.f (customize for module)
+# Create filelist.f
 cat > "$MODULE_PATH/00_TESTBED/filelist.f" << 'EOF'
 TESTBED.sv
-../04_MEM/RF_2p_CRT_2x1024.v
-../04_MEM/RF_2p_CRT_4x512.v
-../04_MEM/RF_2p_CRT_TMP.v
 EOF
 
 # ========== 01_RTL ==========
@@ -74,8 +70,6 @@ cd "$MODULE_PATH/01_RTL"
 ln -sf ../00_TESTBED/filelist.f filelist.f
 ln -sf ../00_TESTBED/PATTERN.sv PATTERN.sv
 ln -sf ../00_TESTBED/TESTBED.sv TESTBED.sv
-ln -sf ../00_TESTBED/Usertype.sv Usertype.sv
-ln -sf ../00_TESTBED/INF.sv INF.sv
 cd - > /dev/null
 
 # Create placeholder RTL file
@@ -125,8 +119,6 @@ cd "$MODULE_PATH/03_GATE"
 ln -sf ../00_TESTBED/filelist.f filelist.f
 ln -sf ../00_TESTBED/PATTERN.sv PATTERN.sv
 ln -sf ../00_TESTBED/TESTBED.sv TESTBED.sv
-ln -sf ../00_TESTBED/Usertype.sv Usertype.sv
-ln -sf ../00_TESTBED/INF.sv INF.sv
 cd - > /dev/null
 
 # ========== 04_MEM ==========
