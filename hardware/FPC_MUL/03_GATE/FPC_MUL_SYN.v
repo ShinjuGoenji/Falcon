@@ -1,1 +1,0 @@
-../02_SYN/Netlist/FPC_MUL_SYN.v

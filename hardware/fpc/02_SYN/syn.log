@@ -1,0 +1,911 @@
+#======================================================
+#
+# Synopsys Synthesis Scripts (Design Vision dctcl mode)
+#
+#======================================================
+#======================================================
+# (A) Global Parameters
+#======================================================
+set DESIGN "FPC_TOP"
+FPC_TOP
+set CYCLE 1.2
+1.2
+# set INPUT_DLY [expr 0*$CYCLE]
+set INPUT_DLY [expr 0.36]
+0.36
+set OUTPUT_DLY [expr 0*$CYCLE]
+0.0
+#======================================================
+# (B) Read RTL Code
+#======================================================
+# (B-1) analyze + elaborate
+set hdlin_auto_save_templates TRUE
+TRUE
+analyze -f sverilog $DESIGN.sv
+Running PRESTO HDLC
+Compiling source file ../01_RTL/FPC_TOP.sv
+Opening include file ../01_RTL/FPC.sv
+Presto compilation completed successfully.
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/standard.sldb'
+1
+elaborate $DESIGN 
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db'
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb'
+  Loading link library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+
+Inferred memory devices in process
+        in routine FPC_TOP line 57 in file
+                '../01_RTL/FPC_TOP.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    valid_reg_reg    | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine FPC_TOP line 67 in file
+                '../01_RTL/FPC_TOP.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (FPC_TOP)
+Elaborated 1 design.
+Current design is now 'FPC_TOP'.
+Information: Building the design 'FPC_MUL' instantiated from design 'FPC_TOP' with
+        the parameters "FLOAT_PRECISION=64,PIPELINE_STAGES=3". (HDL-193)
+
+Inferred memory devices in process
+        in routine FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3 line 211 in file
+                '../01_RTL/FPC.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     pipe_im_reg     | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     pipe_re_reg     | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3 line 225 in file
+                '../01_RTL/FPC.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     pipe_im_reg     | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+|     pipe_re_reg     | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3)
+Information: Building the design 'fpr_mul'. (HDL-193)
+Presto compilation completed successfully. (fpr_mul)
+Information: Building the design 'fpr_add'. (HDL-193)
+Presto compilation completed successfully. (fpr_add)
+Information: Building the design 'lzd64'. (HDL-193)
+Warning:  ../01_RTL/FPC.sv:602: signed to unsigned part selection occurs. (VER-318)
+Presto compilation completed successfully. (lzd64)
+1
+# (B-2) set current design
+current_design $DESIGN
+Current design is 'FPC_TOP'.
+{FPC_TOP}
+link
+
+  Linking design 'FPC_TOP'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (5 designs)               /home/daniel_kuo/Falcon/hardware/FPC_MUL/02_SYN/FPC_TOP.db, etc
+  sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db
+  dw_foundation.sldb (library) /usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb
+
+1
+#======================================================
+#  (C) Global Setting
+#======================================================
+set_svf -append Netlist/$DESIGN\_SYN.svf
+1
+set_wire_load_mode top
+1
+#======================================================
+#  (D) Set Design Constraints
+#======================================================
+# (D-1) Setting Clock Constraints
+create_clock -name clk -period $CYCLE [get_ports clk] 
+1
+set_dont_touch_network             [get_clocks clk]
+1
+# (D-2) Setting in/out Constraints
+set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
+1
+set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
+1
+set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time check 
+1
+set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
+1
+set_input_delay 0 -clock clk clk
+1
+set_input_delay 0 -clock clk rst_n
+1
+# (D-3) Setting Design Environment
+set_load 0.05 [all_outputs]
+1
+# (D-4) Report Clock skew
+report_clock -skew clk
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Updating design information... (UID-85)
+Warning: Design 'FPC_TOP' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : clock_skew
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Tue Jun  2 20:13:50 2026
+****************************************
+
+                 Rise      Fall  Min Rise  Min fall        Uncertainty
+Object          Delay     Delay     Delay     Delay     Plus      Minus
+--------------------------------------------------------------------------------
+1
+check_timing
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+#======================================================
+#  (E) Optimization
+#======================================================
+check_design > Report/$DESIGN\.check
+set_fix_multiple_port_nets -all -buffer_constants
+1
+###################################################################
+# Adaptive retiming moves registers to improve worst negative slack
+set_optimize_registers true -design *FPC_MUL*
+1
+# set_optimize_registers true -design *FPC_ADD*
+# set_optimize_registers true -design *FPC_SUB*
+set_dont_retime [get_cells {u_FPC_MUL/pipe_re_reg\[0\]*}] true
+1
+set_dont_retime [get_cells {u_FPC_MUL/pipe_im_reg\[0\]*}] true
+1
+# set_dont_retime [get_cells {u_FPC_ADD/pipe_re_reg\[0\]*}] true
+# set_dont_retime [get_cells {u_FPC_ADD/pipe_im_reg\[0\]*}] true
+# set_dont_retime [get_cells {u_FPC_SUB/pipe_re_reg\[0\]*}] true
+# set_dont_retime [get_cells {u_FPC_SUB/pipe_im_reg\[0\]*}] true
+###################################################################
+# compile_ultra
+compile_ultra -retime
+Information: Performing power optimization. (PWR-850)
+Alib files are up-to-date.
+Information: Running optimization using a maximum of 8 cores. (OPT-1500)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | S-2021.06-DWBB_202106.0 |     *     |
+| Licensed DW Building Blocks        | S-2021.06-DWBB_202106.0 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT WLM                                                           |
+| Comand line  | compile_ultra -retime                                                             |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 2782                                   |
+| Number of User Hierarchies                              | 9                                      |
+| Sequential Cell Count                                   | 387                                    |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 690                                    |
+| Number of Dont Touch nets                               | 2                                      |
+| Number of size only cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)
+
+Information: There are 223 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+Information: Uniquified 4 instances of design 'fpr_mul'. (OPT-1056)
+Information: Uniquified 2 instances of design 'fpr_add'. (OPT-1056)
+Information: Uniquified 2 instances of design 'lzd64'. (OPT-1056)
+  Simplifying Design 'FPC_TOP'
+
+Loaded alib file './alib-52/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+Loaded alib file './alib-52/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db.alib'
+Loaded alib file './alib-52/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+  Building model 'DW01_NAND2'
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_ADD_0 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_ADD_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_ADD_0/u_lzd_tree before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_ADD_1/u_lzd_tree before Pass 1 (OPT-776)
+Information: Ungrouping 4 of 10 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3'
+ Implement Synthetic for 'FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3'.
+Information: Added key list 'DesignWare' to design 'FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3'. (DDB-72)
+Information: Added key list 'DesignWare' to design 'FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3_RSOP_900'. (DDB-72)
+Information: Added key list 'DesignWare' to design 'FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3_RSOP_903'. (DDB-72)
+  Processing 'FPC_TOP'
+  Processing 'fpr_mul_0'
+ Implement Synthetic for 'fpr_mul_0'.
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIELO_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Information: Checking pipeline property of cell u_FPC_MUL (design FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3). (RTDC-137)
+Information: cell u_FPC_MUL (design FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3) is a pipeline. (RTDC-139)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_MUL_3 'fpr_mul_0' #insts = 121. (OPT-777)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_MUL_2 'fpr_mul_1' #insts = 121. (OPT-777)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_MUL_1 'fpr_mul_2' #insts = 121. (OPT-777)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_MUL_0 'fpr_mul_3' #insts = 121. (OPT-777)
+  Mapping Optimization (Phase 1)
+  Mapping Optimization (Phase 2)
+  Mapping Optimization (Phase 3)
+  Mapping Optimization (Phase 4)
+Information: Checkpoint guidance is generated in the .svf file. (INFO-122)
+Warning: Retiming is likely to run for an extended
+        period of time due to the large design size. (RTDC-135)
+  Retiming FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3 (u_FPC_MUL)
+  Preferred flip-flop is DFFQ_X4M_A9TL with setup = 0.02
+
+Warning: The following cells only drive
+        asynchronous pins of sequential cells which have no
+        timing constraint. Therefore retiming will not optimize
+        delay through them:
+        u_FPC_MUL/*cell*2982 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2987 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2986 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2985 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2984 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2983 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2992 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2991 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2990 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2989 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2988 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2997 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2996 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2995 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2994 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*2993 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*3005 (BUFH_X11M_A9TH)
+        u_FPC_MUL/*cell*3003 (BUFH_X11M_A9TH)
+        u_FPC_MUL/*cell*3004 (BUFH_X11M_A9TH)
+        u_FPC_MUL/*cell*3000 (BUFH_X11M_A9TH)
+        u_FPC_MUL/*cell*3001 (BUFH_X11M_A9TH)
+        u_FPC_MUL/*cell*3002 (BUFH_X11M_A9TH)
+        u_FPC_MUL/*cell*2998 (BUFH_X11M_A9TH)
+        u_FPC_MUL/*cell*2999 (BUFH_X11M_A9TH)
+        u_FPC_MUL/*cell*3006 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*3007 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*3008 (INV_X16M_A9TH)
+        u_FPC_MUL/*cell*3010 (BUFH_X11M_A9TH)
+        u_FPC_MUL/*cell*3009 (BUFH_X11M_A9TH)
+        u_FPC_MUL/*cell*2244 (INV_X0P6B_A9TH)
+
+ (RTDC-115)
+
+  Retiming base-clock clk, rising edge.
+  Beginning minimum period retiming ...
+  ... minimum period retiming done.
+  Beginning minimum area retiming step 1 ...
+  ... minimum area retiming step 1 done.
+  Beginning minimum area retiming step 2 ...
+  
+  ... minimum area retiming step 2 done.
+  Beginning minimum area retiming step 3 ...
+  
+  ... minimum area retiming step 3 done.
+  Beginning final register move ...
+  ... final register move done.
+  Lower bound estimate = 1.41
+  Critical path length = 1.41
+  Clock correction = 0.17 (clock-to-Q delay = 0.16, setup = 0.02, uncertainty = 0.00)
+  Mapping Optimization (Phase 5)
+  Mapping Optimization (Phase 6)
+  Mapping Optimization (Phase 7)
+  Mapping Optimization (Phase 8)
+  Mapping Optimization (Phase 9)
+  Mapping Optimization (Phase 10)
+  Mapping Optimization (Phase 11)
+  Mapping Optimization (Phase 12)
+  Mapping Optimization (Phase 13)
+  Mapping Optimization (Phase 14)
+  Mapping Optimization (Phase 15)
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:01:30  142510.2      0.27     175.6       0.0 u_FPC_MUL/pipe_im_reg[0][13]/D 6244.9180
+    0:01:30  142510.2      0.27     175.6       0.0 u_FPC_MUL/pipe_im_reg[0][13]/D 6244.9180
+    0:01:33  142310.0      0.20     146.2       0.0 u_FPC_MUL/clk_r_REG69_S2/D 6270.2510
+    0:01:34  140919.0      0.18     131.8       0.0 u_FPC_MUL/clk_r_REG68_S2/D 6230.2905
+    0:01:35  139312.1      0.17     121.2       0.0 u_FPC_MUL/pipe_re_reg[0][38]/D 6182.7280
+    0:01:37  138377.7      0.16     113.0       0.0 u_FPC_MUL/pipe_im_reg[0][13]/D 6162.4243
+    0:01:37  138049.1      0.16     111.5       0.0                           6152.3296
+    0:01:38  138008.7      0.23     116.7       0.0                           6150.3418
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    0:01:38  138076.1      0.23     118.1       0.0                           6156.7314
+    0:01:38  138076.1      0.23     118.1       0.0                           6156.7314
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+  Global Optimization (Phase 32)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:01:48   60286.4      0.69     437.5       0.0                           1670.5488
+    0:01:50   61261.4      0.37     348.3       0.0                           1751.7714
+    0:01:50   61261.4      0.37     348.3       0.0                           1751.7714
+    0:01:51   61269.8      0.37     349.9       0.0                           1753.1667
+    0:01:57   61143.0      1.05     509.4       0.0                           1748.0571
+    0:01:57   60609.8      1.03     568.0       7.1                           1724.1633
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:02:04   60830.3      1.03     564.9       7.1                           1699.0793
+    0:02:05   60313.6      1.03     530.3       0.0                           1662.0591
+    0:02:05   60237.2      0.77     485.7       0.0                           1657.7787
+    0:02:08   61278.2      0.33     304.2       0.0                           1748.8907
+    0:02:10   61991.2      0.33     258.9       0.0                           1823.2200
+    0:02:11   62122.6      0.33     249.8       0.0                           1839.0358
+    0:02:11   62122.6      0.33     249.8       0.0                           1839.0358
+    0:02:12   63586.6      0.33     239.3       5.9                           1779.4419
+    0:02:12   63586.6      0.33     239.3       5.9                           1779.4419
+    0:02:18   66777.2      0.29     236.1       5.9                           1923.4705
+    0:02:18   66777.2      0.29     236.1       5.9                           1923.4705
+    0:02:19   67849.0      0.22     188.1       5.9                           2006.2411
+    0:02:19   67849.0      0.22     188.1       5.9                           2006.2411
+    0:02:31   71265.5      0.20     171.6       5.9                           2185.0908
+    0:02:31   71265.5      0.20     171.6       5.9                           2185.0908
+    0:02:41   75187.4      0.07      53.1       6.0                           2489.9211
+    0:02:41   75187.4      0.07      53.1       6.0                           2489.9211
+    0:02:46   75846.0      0.07      52.0       6.0                           2528.8962
+    0:02:46   75846.0      0.07      52.0       6.0                           2528.8962
+    0:02:49   76895.2      0.06      42.1       6.1                           2600.1018
+    0:02:49   76895.2      0.06      42.1       6.1                           2600.1018
+    0:02:50   76962.5      0.06      41.9       6.1                           2604.3384
+    0:02:50   76962.5      0.06      41.9       6.1                           2604.3384
+    0:02:52   77615.9      0.06      38.2       6.1                           2645.8369
+    0:02:52   77615.9      0.06      38.2       6.1                           2645.8369
+    0:02:52   77605.1      0.06      38.2       6.1                           2644.9109
+
+
+  Beginning Design Rule Fixing  (max_transition)
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:02:52   77605.1      0.06      38.2       6.1                           2644.9109
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+  Global Optimization (Phase 35)
+    0:02:53   77774.9      0.06      37.5       0.8 u_FPC_MUL/pipe_im_reg[0][48]/D 2660.2444
+    0:02:54   77877.9      0.05      36.3       0.8 u_FPC_MUL/pipe_re_reg[0][48]/D 2669.3455
+    0:02:55   78071.4      0.05      35.0       0.8 u_FPC_MUL/pipe_re_reg[0][42]/D 2684.3301
+    0:02:56   78226.3      0.05      34.2       0.8 u_FPC_MUL/pipe_re_reg[0][42]/D 2694.8406
+    0:02:56   78252.3      0.09      36.4       0.8 u_FPC_MUL/pipe_im_reg[0][33]/D 2696.1174
+    0:02:57   78283.6      0.08      35.9       0.0 u_FPC_MUL/pipe_im_reg[0][51]/D 2698.3643
+    0:02:58   78308.8      0.08      35.6       0.0 u_FPC_MUL/pipe_im_reg[0][42]/D 2700.6328
+    0:02:58   78326.3      0.07      35.5       0.0                           2701.8601
+    0:03:01   78444.4      0.07      35.3       0.0                           2708.0552
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:03:01   78444.4      0.07      35.3       0.0                           2708.0552
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+  Global Optimization (Phase 50)
+  Global Optimization (Phase 51)
+    0:03:09   83630.7      0.14      64.0       0.0 u_FPC_MUL/clk_r_REG49_S2/D 2380.6396
+    0:03:09   83705.5      0.13      53.2       0.0                           2387.4155
+    0:03:09   83713.0      0.13      53.7       0.0                           2387.5105
+    0:03:09   83713.0      0.13      53.7       0.0                           2387.5105
+    0:03:11   81863.9      0.13      48.7       0.0                           2270.3845
+    0:03:11   81863.9      0.13      48.7       0.0                           2270.3845
+    0:03:11   81863.9      0.13      48.7       0.0                           2270.3845
+    0:03:11   81863.9      0.13      48.7       0.0                           2270.3845
+    0:03:11   82252.6      0.11      38.4       0.0                           2294.2361
+    0:03:11   82252.6      0.11      38.4       0.0                           2294.2361
+    0:03:16   83068.4      0.09      41.2       0.0                           2330.0364
+    0:03:16   83068.4      0.09      41.2       0.0                           2330.0364
+    0:03:20   84896.9      0.04      20.2       0.0                           2444.1335
+    0:03:20   84896.9      0.04      20.2       0.0                           2444.1335
+    0:03:21   84928.7      0.04      20.3       0.0                           2444.9812
+    0:03:21   84928.7      0.04      20.3       0.0                           2444.9812
+    0:03:24   85630.2      0.04      17.3       0.0                           2492.1062
+    0:03:24   85630.2      0.04      17.3       0.0                           2492.1062
+    0:03:24   85627.9      0.04      17.3       0.0                           2492.0366
+    0:03:24   85627.9      0.04      17.3       0.0                           2492.0366
+    0:03:25   85721.8      0.04      17.0       0.0                           2497.8145
+    0:03:25   85721.8      0.04      17.0       0.0                           2497.8145
+    0:03:25   85721.8      0.04      17.0       0.0                           2497.8145
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:03:26   85721.8      0.04      17.0       0.0                           2497.8145
+    0:03:41   75695.9      0.05      20.1       0.6                           2557.6218
+    0:03:41   75655.3      0.04      19.6       0.6                           2555.7144
+    0:03:41   75655.3      0.04      19.6       0.6                           2555.7144
+    0:03:43   75243.2      0.05      19.5       0.3                           2524.0015
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:03:44   75243.2      0.05      19.5       0.3                           2524.0015
+    0:03:44   75243.2      0.05      19.5       0.3                           2524.0015
+    0:03:44   75243.2      0.05      19.5       0.3                           2524.0015
+    0:03:46   75396.5      0.04      18.3       0.3                           2530.6069
+    0:03:48   75396.5      0.04      18.3       0.3                           2530.6069
+    0:03:48   75396.5      0.04      18.3       0.3                           2530.6069
+    0:03:48   75396.5      0.04      18.3       0.3                           2530.6069
+    0:03:50   75412.1      0.04      18.2       0.3                           2531.8230
+    0:03:53   75139.1      0.04      18.6       0.0                           2512.4724
+    0:03:53   75082.1      0.04      18.8       0.0                           2495.3694
+    0:03:54   75083.5      0.04      18.8       0.0                           2494.7034
+    0:03:56   76195.5      0.03      14.0       0.0                           2565.6550
+    0:03:56   76195.5      0.03      14.0       0.0                           2565.6550
+    0:03:58   76249.0      0.03      13.1       0.0                           2573.4041
+    0:03:58   76243.8      0.03      13.0       0.0                           2573.9282
+    0:03:58   76243.8      0.03      13.0       0.0                           2573.9282
+    0:03:58   76296.7      0.03      13.0       0.0                           2576.5051
+    0:04:02   72522.0      0.03      13.0       0.0                           2371.0298
+    0:04:04   71116.3      0.03      13.0     427.4                           2287.3677
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'FPC_TOP' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 1337 load(s), 1 driver(s)
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+set_fix_hold [all_clocks]
+1
+compile -incremental_mapping -only_hold_time
+Information: Performing power optimization. (PWR-850)
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT                                                               |
+| Comand line  | compile_ultra                                                                     |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 31296                                  |
+| Number of User Hierarchies                              | 1                                      |
+| Sequential Cell Count                                   | 1337                                   |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 0                                      |
+| Number of Dont Touch nets                               | 2                                      |
+| Number of size only cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping  (Incremental)
+  ------------------------
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIELO_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+
+  Beginning Mapping Optimizations  (Incremental)
+  -------------------------------
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:03   71116.3      0.03      13.0     427.4                           2287.3677      0.00  
+    0:00:04   71981.8      0.13      20.4       0.0                           2329.8665      0.00  
+    0:00:04   71970.9      0.13      21.2       0.0                           2330.0942      0.00  
+    0:00:04   71959.1      0.13      24.6       0.0                           2329.1162      0.00  
+
+
+  Beginning Design Rule Fixing  (min_path)
+  ----------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:04   71959.1      0.13      24.6       0.0                           2329.1162     -0.01  
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+    0:00:07   72054.1      0.05      16.9       0.0 u_FPC_MUL/u_FPR_MUL_0/mult_x_1/clk_r_REG773_S1/D 2370.4285      0.00  
+    0:00:08   72112.6      0.04      15.1       0.0 u_FPC_MUL/u_FPR_MUL_0/mult_x_1/clk_r_REG783_S1/D 2374.8848      0.00  
+    0:00:08   72151.4      0.03      14.6       0.0 u_FPC_MUL/pipe_re_reg[0][22]/D 2377.2080      0.00  
+    0:00:09   72182.5      0.03      14.0       0.0 u_FPC_MUL/u_FPR_MUL_0/mult_x_1/clk_r_REG483_S1/D 2379.1978      0.00  
+    0:00:09   72230.1      0.03      13.5       0.0 u_FPC_MUL/u_FPR_MUL_0/mult_x_1/clk_r_REG827_S1/D 2381.7729      0.00  
+    0:00:09   72229.7      0.03      13.5       0.0                           2381.6787      0.00  
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'FPC_TOP' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 1337 load(s), 1 driver(s)
+1
+# uniquify
+# compile
+#======================================================
+#  (F) Output Reports
+#======================================================
+report_design  >  Report/$DESIGN\.design
+report_resource >  Report/$DESIGN\.resource
+report_timing -max_paths 3 >  Report/$DESIGN\.timing
+report_timing -delay_type min >  Report/$DESIGN\_hold.timing
+report_area >  Report/$DESIGN\.area
+report_area -hierarchy >  Report/$DESIGN\_hier.area
+report_power > Report/$DESIGN\.power
+report_clock > Report/$DESIGN\.clock
+report_port >  Report/$DESIGN\.port
+report_power >  Report/$DESIGN\.power
+#======================================================
+#  (G) Change Naming Rule
+#======================================================
+set bus_inference_style "%s\[%d\]"
+%s[%d]
+set bus_naming_style "%s\[%d\]"
+%s[%d]
+set hdlout_internal_busses true
+true
+change_names -hierarchy -rule verilog
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
+1
+define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+1
+define_name_rules name_rule -case_insensitive
+1
+change_names -hierarchy -rules name_rule
+1
+#======================================================
+#  (H) Output Results
+#======================================================
+set verilogout_higher_designs_first true
+true
+write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
+Writing verilog file '/home/daniel_kuo/Falcon/hardware/FPC_MUL/02_SYN/Netlist/FPC_TOP_SYN.v'.
+1
+write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
+Writing ddc file 'FPC_TOP_SYN.ddc'.
+1
+write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
+Information: Writing timing information to file '/home/daniel_kuo/Falcon/hardware/FPC_MUL/02_SYN/Netlist/FPC_TOP_SYN.sdf'. (WT-3)
+1
+write_sdc Netlist/$DESIGN\_SYN.sdc
+1
+write -format ddc -hierarchy -output Netlist/${DESIGN}_SYN.ddc
+Writing ddc file 'Netlist/FPC_TOP_SYN.ddc'.
+1
+#======================================================
+#  (I) Finish and Quit
+#======================================================
+report_resource
+ 
+****************************************
+Report : resources
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Tue Jun  2 20:18:18 2026
+****************************************
+
+
+No resource sharing information to report.
+
+No implementations to report
+1
+report_area -hierarchy
+ 
+****************************************
+Report : area
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Tue Jun  2 20:18:18 2026
+****************************************
+
+Library(s) Used:
+
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+
+Number of ports:                          774
+Number of nets:                         37407
+Number of cells:                        31474
+Number of combinational cells:          30136
+Number of sequential cells:              1337
+Number of macros/black boxes:               0
+Number of buf/inv:                       3377
+Number of references:                       5
+
+Combinational area:              65964.552352
+Buf/Inv area:                     5166.050435
+Noncombinational area:            6265.123174
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                 72229.675526
+Total area:                      72229.675526
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area            Local cell area
+                                  -------------------  ----------------------------- 
+Hierarchical cell                 Absolute    Percent  Combi-      Noncombi-  Black-
+                                  Total       Total    national    national   boxes   Design
+--------------------------------  ----------  -------  ----------  ---------  ------  ------------------------------------------
+FPC_TOP                           72229.6755    100.0      1.5876    13.6080  0.0000  FPC_TOP
+u_FPC_MUL                         72214.4799    100.0  65962.9648  6251.5152  0.0000  FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3
+--------------------------------  ----------  -------  ----------  ---------  ------  ------------------------------------------
+Total                                                  65964.5524  6265.1232  0.0000
+
+1
+report_timing -delay_type min
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 1
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Tue Jun  2 20:18:18 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: in_valid (input port clocked by clk)
+  Endpoint: valid_reg_reg_1_
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FPC_TOP            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.00       0.00 f
+  in_valid (in)                                           0.00       0.00 f
+  U6/Y (BUFH_X1M_A9TL)                                    0.03       0.03 f
+  valid_reg_reg_1_/D (DFFRPQ_X0P5M_A9TH)                  0.00       0.03 f
+  data arrival time                                                  0.03
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  valid_reg_reg_1_/CK (DFFRPQ_X0P5M_A9TH)                 0.00       0.00 r
+  library hold time                                       0.00       0.00
+  data required time                                                 0.00
+  --------------------------------------------------------------------------
+  data required time                                                 0.00
+  data arrival time                                                 -0.03
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.03
+
+
+1
+report_timing 
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Tue Jun  2 20:18:18 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: a_re[31] (input port clocked by clk)
+  Endpoint: u_FPC_MUL/u_FPR_MUL_0_mult_x_1_clk_r_REG511_S1
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FPC_TOP            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.36       0.36 f
+  a_re[31] (in)                                           0.00       0.36 f
+  u_FPC_MUL/a_re[31] (FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3)
+                                                          0.00       0.36 f
+  u_FPC_MUL/U20193/Y (XNOR2_X4M_A9TL)                     0.05       0.41 f
+  u_FPC_MUL/U18939/Y (INV_X6M_A9TL)                       0.07       0.48 r
+  u_FPC_MUL/U24785/Y (OAI22_X1M_A9TL)                     0.08       0.56 f
+  u_FPC_MUL/U18102/CO (ADDF_X2M_A9TL)                     0.10       0.66 f
+  u_FPC_MUL/U7133/S (ADDF_X2M_A9TL)                       0.11       0.77 r
+  u_FPC_MUL/U18034/CO (ADDF_X2M_A9TL)                     0.08       0.85 r
+  u_FPC_MUL/U17730/S (ADDF_X1M_A9TL)                      0.11       0.95 f
+  u_FPC_MUL/U17677/CO (ADDF_X2M_A9TL)                     0.07       1.02 f
+  u_FPC_MUL/U19292/CO (ADDF_X2M_A9TL)                     0.07       1.09 f
+  u_FPC_MUL/U25824/S (ADDF_X1M_A9TL)                      0.10       1.19 r
+  u_FPC_MUL/u_FPR_MUL_0_mult_x_1_clk_r_REG511_S1/D (DFFRPQ_X2M_A9TL)
+                                                          0.00       1.19 r
+  data arrival time                                                  1.19
+
+  clock clk (rise edge)                                   1.20       1.20
+  clock network delay (ideal)                             0.00       1.20
+  u_FPC_MUL/u_FPR_MUL_0_mult_x_1_clk_r_REG511_S1/CK (DFFRPQ_X2M_A9TL)
+                                                          0.00       1.20 r
+  library setup time                                     -0.03       1.17
+  data required time                                                 1.17
+  --------------------------------------------------------------------------
+  data required time                                                 1.17
+  data arrival time                                                 -1.19
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.03
+
+
+1
+exit
+
+Memory usage for this session 971 Mbytes.
+Memory usage for this session including child processes 1305 Mbytes.
+CPU usage for this session 1019 seconds ( 0.28 hours ).
+Elapsed time for this session 273 seconds ( 0.08 hours ).
+
+Thank you...
+

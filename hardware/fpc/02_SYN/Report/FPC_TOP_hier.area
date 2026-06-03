@@ -1,0 +1,46 @@
+ 
+****************************************
+Report : area
+Design : FPC_TOP
+Version: T-2022.03
+Date   : Tue Jun  2 20:18:15 2026
+****************************************
+
+Library(s) Used:
+
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+
+Number of ports:                          774
+Number of nets:                         37407
+Number of cells:                        31474
+Number of combinational cells:          30136
+Number of sequential cells:              1337
+Number of macros/black boxes:               0
+Number of buf/inv:                       3377
+Number of references:                       5
+
+Combinational area:              65964.552352
+Buf/Inv area:                     5166.050435
+Noncombinational area:            6265.123174
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                 72229.675526
+Total area:                      72229.675526
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area            Local cell area
+                                  -------------------  ----------------------------- 
+Hierarchical cell                 Absolute    Percent  Combi-      Noncombi-  Black-
+                                  Total       Total    national    national   boxes   Design
+--------------------------------  ----------  -------  ----------  ---------  ------  ------------------------------------------
+FPC_TOP                           72229.6755    100.0      1.5876    13.6080  0.0000  FPC_TOP
+u_FPC_MUL                         72214.4799    100.0  65962.9648  6251.5152  0.0000  FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3
+--------------------------------  ----------  -------  ----------  ---------  ------  ------------------------------------------
+Total                                                  65964.5524  6265.1232  0.0000
+
+1
