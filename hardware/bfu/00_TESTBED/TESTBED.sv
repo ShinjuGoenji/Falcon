@@ -33,8 +33,8 @@ initial begin
         $fsdbDumpvars(0,"+all");
     `elsif GATE
         $sdf_annotate("BFU_SYN.sdf", dut_p);
-        $fsdbDumpfile("BFU_SYN.fsdb");
-        $fsdbDumpvars(0,"+all");
+        // $fsdbDumpfile("BFU_SYN.fsdb");
+        // $fsdbDumpvars(0,"+all");
     `endif
 end
 
