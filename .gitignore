@@ -34,6 +34,7 @@ hardware/*/03_GATE/verdiLog/
 hardware/*/03_GATE/nWaveLog/
 hardware/*/03_GATE/simv
 hardware/*/03_GATE/simv.vdb
+hardware/*/03_GATE/*.fsdb
 hardware/*/03_GATE/*.fsdb.bak
 hardware/*/03_GATE/*.fsdb.X
 hardware/*/03_GATE/novas*
