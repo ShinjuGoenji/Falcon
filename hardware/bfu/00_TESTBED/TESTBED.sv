@@ -16,7 +16,7 @@ module TESTBED;
 wire        clk;
 wire        rst_n;
 wire        in_valid;
-wire        is_ifft;
+wire [2:0]  bfu_mode;
 wire [63:0] x_re, x_im;
 wire [63:0] y_re, y_im;
 wire [63:0] w_re, w_im;
@@ -45,7 +45,7 @@ PATTERN test_p (
     .clk     (clk),
     .rst_n   (rst_n),
     .in_valid(in_valid),
-    .is_ifft (is_ifft),
+    .bfu_mode(bfu_mode),
     .x_re(x_re), .x_im(x_im),
     .y_re(y_re), .y_im(y_im),
     .w_re(w_re), .w_im(w_im),
@@ -59,7 +59,7 @@ PATTERN test_p (
         .clk     (clk),
         .rst_n   (rst_n),
         .in_valid(in_valid),
-        .is_ifft (is_ifft),
+        .bfu_mode(bfu_mode),
         .x_re(x_re), .x_im(x_im),
         .y_re(y_re), .y_im(y_im),
         .w_re(w_re), .w_im(w_im),
@@ -72,7 +72,7 @@ PATTERN test_p (
         .clk     (clk),
         .rst_n   (rst_n),
         .in_valid(in_valid),
-        .is_ifft (is_ifft),
+        .bfu_mode(bfu_mode),
         .x_re(x_re), .x_im(x_im),
         .y_re(y_re), .y_im(y_im),
         .w_re(w_re), .w_im(w_im),

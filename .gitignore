@@ -22,6 +22,7 @@ hardware/*/01_RTL/verdiLog/
 hardware/*/01_RTL/nWaveLog/
 hardware/*/01_RTL/simv
 hardware/*/01_RTL/simv.vdb
+hardware/*/01_RTL/*.fsdb
 hardware/*/01_RTL/*.fsdb.bak
 hardware/*/01_RTL/*.fsdb.X
 hardware/*/01_RTL/novas*

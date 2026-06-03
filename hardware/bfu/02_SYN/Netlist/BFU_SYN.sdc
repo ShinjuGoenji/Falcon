@@ -1,6 +1,6 @@
 ###################################################################
 
-# Created by write_sdc on Wed Jun  3 00:40:45 2026
+# Created by write_sdc on Wed Jun  3 14:30:32 2026
 
 ###################################################################
 set sdc_version 2.1
@@ -266,11 +266,13 @@ set_load -pin_load 0.05 [get_ports {Y_im0[3]}]
 set_load -pin_load 0.05 [get_ports {Y_im0[2]}]
 set_load -pin_load 0.05 [get_ports {Y_im0[1]}]
 set_load -pin_load 0.05 [get_ports {Y_im0[0]}]
-create_clock [get_ports clk]  -period 1  -waveform {0 0.5}
+create_clock [get_ports clk]  -period 1.2  -waveform {0 0.6}
 set_input_delay -clock clk  0  [get_ports clk]
 set_input_delay -clock clk  0  [get_ports rst_n]
 set_input_delay -clock clk  0  [get_ports in_valid]
-set_input_delay -clock clk  0  [get_ports is_ifft]
+set_input_delay -clock clk  0  [get_ports {bfu_mode[2]}]
+set_input_delay -clock clk  0  [get_ports {bfu_mode[1]}]
+set_input_delay -clock clk  0  [get_ports {bfu_mode[0]}]
 set_input_delay -clock clk  0  [get_ports {x_re[63]}]
 set_input_delay -clock clk  0  [get_ports {x_re[62]}]
 set_input_delay -clock clk  0  [get_ports {x_re[61]}]

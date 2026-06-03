@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version T-2022.03 for linux64 -- Feb 22, 2022
-#@ # Date:   Wed Jun  3 00:32:17 2026
+#@ # Date:   Wed Jun  3 14:23:36 2026
 #@ # Run by: daniel_kuo@eda_root
 #@ 
 
@@ -8585,8 +8585,8 @@ source /usr/cad/synopsys/synthesis/2022.03/admin/setup/.synopsys_dc.setup
 
 #@ # -- End source /usr/cad/synopsys/synthesis/2022.03/admin/setup/.synopsys_dc.setup
 
-source /home/daniel_kuo/Falcon/hardware/BFU/02_SYN/.synopsys_dc.setup
-#@ # -- Starting source /home/daniel_kuo/Falcon/hardware/BFU/02_SYN/.synopsys_dc.setup
+source /home/daniel_kuo/Falcon/hardware/bfu/02_SYN/.synopsys_dc.setup
+#@ # -- Starting source /home/daniel_kuo/Falcon/hardware/bfu/02_SYN/.synopsys_dc.setup
 
 #@ set company "iclab"
 #@ set desinger "Student"
@@ -8610,11 +8610,11 @@ source /home/daniel_kuo/Falcon/hardware/BFU/02_SYN/.synopsys_dc.setup
 #@ set sh_enable_line_editing true 
 #@ history keep 100
 #@ alias h history
-#@ # -- End source /home/daniel_kuo/Falcon/hardware/BFU/02_SYN/.synopsys_dc.setup
+#@ # -- End source /home/daniel_kuo/Falcon/hardware/bfu/02_SYN/.synopsys_dc.setup
 
-set_host_options -max_cores 8; set PERIOD 1.0
-source -echo -verbose /home/daniel_kuo/Falcon/hardware/BFU/02_SYN/syn.tcl
-#@ # -- Starting source /home/daniel_kuo/Falcon/hardware/BFU/02_SYN/syn.tcl
+set_host_options -max_cores 8; set PERIOD 1.2
+source -echo -verbose /home/daniel_kuo/Falcon/hardware/bfu/02_SYN/syn.tcl
+#@ # -- Starting source /home/daniel_kuo/Falcon/hardware/bfu/02_SYN/syn.tcl
 
 #@ #======================================================
 #@ #

@@ -3,7 +3,7 @@
 Report : port
 Design : BFU
 Version: T-2022.03
-Date   : Wed Jun  3 00:40:43 2026
+Date   : Wed Jun  3 14:30:29 2026
 ****************************************
 
 
@@ -14,9 +14,11 @@ Attributes:
                        Pin      Wire     Max     Max     Connection
 Port           Dir     Load     Load     Trans   Cap     Class      Attrs
 --------------------------------------------------------------------------------
+bfu_mode[0]    in      0.0000   0.0000   --      --      --         
+bfu_mode[1]    in      0.0000   0.0000   --      --      --         
+bfu_mode[2]    in      0.0000   0.0000   --      --      --         
 clk            in      0.0000   0.0000   --      --      --         d
 in_valid       in      0.0000   0.0000   --      --      --         
-is_ifft        in      0.0000   0.0000   --      --      --         
 rst_n          in      0.0000   0.0000   --      --      --         
 w_im[0]        in      0.0000   0.0000   --      --      --         
 w_im[1]        in      0.0000   0.0000   --      --      --         
