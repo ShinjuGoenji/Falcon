@@ -1,2 +1,0 @@
-TESTBED.sv
-../../FPC_MUL/01_RTL/FPC_MUL.sv

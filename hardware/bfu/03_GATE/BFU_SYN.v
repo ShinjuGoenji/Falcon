@@ -1,0 +1,1 @@
+../02_SYN/Netlist/BFU_SYN.v

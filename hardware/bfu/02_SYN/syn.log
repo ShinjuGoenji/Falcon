@@ -1,0 +1,1868 @@
+#======================================================
+#
+# Synopsys Synthesis Scripts (Design Vision dctcl mode)
+#
+#======================================================
+#======================================================
+# (A) Global Parameters
+#======================================================
+set DESIGN "BFU"
+BFU
+if {[info exists PERIOD]} {
+    set CYCLE $PERIOD
+} else {
+    set CYCLE 1.2
+}
+1.0
+set INPUT_DLY [expr 0*$CYCLE]
+0.0
+set OUTPUT_DLY [expr 0*$CYCLE]
+0.0
+#======================================================
+# (B) Read RTL Code
+#======================================================
+# (B-1) analyze + elaborate
+analyze -f sverilog $DESIGN.sv
+Running PRESTO HDLC
+Compiling source file ../01_RTL/BFU.sv
+Opening include file ../01_RTL/FPC.sv
+Presto compilation completed successfully.
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/standard.sldb'
+1
+elaborate $DESIGN
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db'
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb'
+  Loading link library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+
+Inferred memory devices in process
+        in routine BFU line 107 in file
+                '../01_RTL/BFU.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      Y_im_reg       | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      X_re_reg       | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      X_im_reg       | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      Y_re_reg       | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine BFU line 152 in file
+                '../01_RTL/BFU.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  delay_line_im_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  delay_line_re_reg  | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine BFU line 165 in file
+                '../01_RTL/BFU.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  delay_line_im_reg  | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+|  delay_line_re_reg  | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine BFU line 180 in file
+                '../01_RTL/BFU.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   w_delay_im_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   w_delay_re_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine BFU line 193 in file
+                '../01_RTL/BFU.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   w_delay_im_reg    | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+|   w_delay_re_reg    | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine BFU line 208 in file
+                '../01_RTL/BFU.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| valid_pipeline_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine BFU line 221 in file
+                '../01_RTL/BFU.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| valid_pipeline_reg  | Flip-flop |   5   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine BFU line 234 in file
+                '../01_RTL/BFU.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (BFU)
+Elaborated 1 design.
+Current design is now 'BFU'.
+Information: Building the design 'FPC_MUL' instantiated from design 'BFU' with
+        the parameters "FLOAT_PRECISION=64,PIPELINE_STAGES=3". (HDL-193)
+
+Inferred memory devices in process
+        in routine FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3 line 211 in file
+                '../01_RTL/FPC.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     pipe_im_reg     | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     pipe_re_reg     | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3 line 225 in file
+                '../01_RTL/FPC.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     pipe_im_reg     | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+|     pipe_re_reg     | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (FPC_MUL_FLOAT_PRECISION64_PIPELINE_STAGES3)
+Information: Building the design 'FPC_ADD' instantiated from design 'BFU' with
+        the parameters "FLOAT_PRECISION=64,PIPELINE_STAGES=3". (HDL-193)
+
+Inferred memory devices in process
+        in routine FPC_ADD_FLOAT_PRECISION64_PIPELINE_STAGES3 line 46 in file
+                '../01_RTL/FPC.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     pipe_im_reg     | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     pipe_re_reg     | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine FPC_ADD_FLOAT_PRECISION64_PIPELINE_STAGES3 line 59 in file
+                '../01_RTL/FPC.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     pipe_im_reg     | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+|     pipe_re_reg     | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (FPC_ADD_FLOAT_PRECISION64_PIPELINE_STAGES3)
+Information: Building the design 'FPC_SUB' instantiated from design 'BFU' with
+        the parameters "FLOAT_PRECISION=64,PIPELINE_STAGES=3". (HDL-193)
+
+Inferred memory devices in process
+        in routine FPC_SUB_FLOAT_PRECISION64_PIPELINE_STAGES3 line 128 in file
+                '../01_RTL/FPC.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     pipe_im_reg     | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     pipe_re_reg     | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine FPC_SUB_FLOAT_PRECISION64_PIPELINE_STAGES3 line 141 in file
+                '../01_RTL/FPC.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     pipe_im_reg     | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+|     pipe_re_reg     | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (FPC_SUB_FLOAT_PRECISION64_PIPELINE_STAGES3)
+Information: Building the design 'fpr_mul'. (HDL-193)
+Presto compilation completed successfully. (fpr_mul)
+Information: Building the design 'fpr_add'. (HDL-193)
+Presto compilation completed successfully. (fpr_add)
+Information: Building the design 'lzd64'. (HDL-193)
+Warning:  ../01_RTL/FPC.sv:602: signed to unsigned part selection occurs. (VER-318)
+Presto compilation completed successfully. (lzd64)
+1
+# (B-2) set current design
+current_design $DESIGN
+Current design is 'BFU'.
+{BFU}
+link
+
+  Linking design 'BFU'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (7 designs)               /home/daniel_kuo/Falcon/hardware/BFU/02_SYN/BFU.db, etc
+  sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db
+  dw_foundation.sldb (library) /usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb
+
+1
+#======================================================
+#  (C) Global Setting
+#======================================================
+set_svf -append Netlist/$DESIGN\_SYN.svf
+1
+set_wire_load_mode top
+1
+#======================================================
+#  (D) Set Design Constraints
+#======================================================
+# (D-1) Setting Clock Constraints
+create_clock -name clk -period $CYCLE [get_ports clk] 
+1
+set_dont_touch_network             [get_clocks clk]
+1
+# (D-2) Setting in/out Constraints
+set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
+1
+set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
+1
+set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time check 
+1
+set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
+1
+set_input_delay 0 -clock clk clk
+1
+set_input_delay 0 -clock clk rst_n
+1
+# (D-3) Setting Design Environment
+set_load 0.05 [all_outputs]
+1
+# (D-4) Report Clock skew
+report_clock -skew clk
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'Small'. (OPT-170)
+Information: Updating design information... (UID-85)
+Warning: Design 'BFU' contains 6 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : clock_skew
+Design : BFU
+Version: T-2022.03
+Date   : Wed Jun  3 00:32:20 2026
+****************************************
+
+                 Rise      Fall  Min Rise  Min fall        Uncertainty
+Object          Delay     Delay     Delay     Delay     Plus      Minus
+--------------------------------------------------------------------------------
+1
+check_timing
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+#======================================================
+#  (E) Optimization
+#======================================================
+check_design > Report/$DESIGN\.check
+set_fix_multiple_port_nets -all -buffer_constants
+1
+# Adaptive retiming moves registers to improve worst negative slack
+set_optimize_registers true -design $DESIGN
+1
+# set_dont_retime [get_cells {u_FPC_SUB/pipe_re_reg\[0\]*}] true
+# set_dont_retime [get_cells {u_FPC_SUB/pipe_im_reg\[0\]*}] true
+# set_dont_retime [get_cells {u_FPC_ADD/pipe_re_reg\[0\]*}] true
+# set_dont_retime [get_cells {u_FPC_ADD/pipe_im_reg\[0\]*}] true
+# set_dont_retime [get_cells {u_FPC_MUL/pipe_re_reg\[0\]*}] true
+# set_dont_retime [get_cells {u_FPC_MUL/pipe_im_reg\[0\]*}] true
+set_dont_retime [get_cells {X_re_reg*}] true
+1
+set_dont_retime [get_cells {X_im_reg*}] true
+1
+set_dont_retime [get_cells {Y_re_reg*}] true
+1
+set_dont_retime [get_cells {Y_im_reg*}] true
+1
+# set_optimize_registers true -design FPC_MUL
+# set_optimize_registers true -design FPC_ADD
+# set_optimize_registers true -design FPC_SUB
+compile_ultra -retime
+Information: Performing power optimization. (PWR-850)
+Alib files are up-to-date.
+Information: Running optimization using a maximum of 8 cores. (OPT-1500)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | S-2021.06-DWBB_202106.0 |     *     |
+| Licensed DW Building Blocks        | S-2021.06-DWBB_202106.0 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT WLM                                                           |
+| Comand line  | compile_ultra -retime                                                             |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 8254                                   |
+| Number of User Hierarchies                              | 19                                     |
+| Sequential Cell Count                                   | 2183                                   |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 2040                                   |
+| Number of Dont Touch nets                               | 4                                      |
+| Number of size only cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)
+
+Information: There are 223 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+Information: Uniquified 4 instances of design 'fpr_mul'. (OPT-1056)
+Information: Uniquified 6 instances of design 'fpr_add'. (OPT-1056)
+Information: Uniquified 6 instances of design 'lzd64'. (OPT-1056)
+  Simplifying Design 'BFU'
+
+Loaded alib file './alib-52/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+Loaded alib file './alib-52/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db.alib'
+Loaded alib file './alib-52/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+  Building model 'DW01_NAND2'
+Information: Ungrouping hierarchy u_FPC_MUL before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_ADD before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_SUB before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_ADD_0 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_SUB/u_FPR_SUB_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_SUB/u_FPR_SUB_0 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_ADD/u_FPR_ADD_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_ADD/u_FPR_ADD_0 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_ADD_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_ADD_0/u_lzd_tree before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_SUB/u_FPR_SUB_1/u_lzd_tree before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_SUB/u_FPR_SUB_0/u_lzd_tree before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_ADD/u_FPR_ADD_1/u_lzd_tree before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_ADD/u_FPR_ADD_0/u_lzd_tree before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_ADD_1/u_lzd_tree before Pass 1 (OPT-776)
+Information: Ungrouping 15 of 20 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'BFU'
+ Implement Synthetic for 'BFU'.
+Information: Added key list 'DesignWare' to design 'BFU'. (DDB-72)
+Information: Added key list 'DesignWare' to design 'BFU_RSOP_2710'. (DDB-72)
+Information: Added key list 'DesignWare' to design 'BFU_RSOP_2712'. (DDB-72)
+Information: Added key list 'DesignWare' to design 'BFU_RSOP_2714'. (DDB-72)
+Information: Added key list 'DesignWare' to design 'BFU_RSOP_2716'. (DDB-72)
+Information: Added key list 'DesignWare' to design 'BFU_RSOP_2718'. (DDB-72)
+Information: Added key list 'DesignWare' to design 'BFU_RSOP_2721'. (DDB-72)
+  Processing 'fpr_mul_0'
+ Implement Synthetic for 'fpr_mul_0'.
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIELO_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Information: Checking pipeline property of design BFU. (RTDC-137)
+Information: design BFU is not a pipeline. (RTDC-139)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_MUL_0 'fpr_mul_3' #insts = 121. (OPT-777)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_MUL_1 'fpr_mul_2' #insts = 121. (OPT-777)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_MUL_2 'fpr_mul_1' #insts = 121. (OPT-777)
+Information: Ungrouping hierarchy u_FPC_MUL/u_FPR_MUL_3 'fpr_mul_0' #insts = 121. (OPT-777)
+  Mapping Optimization (Phase 1)
+  Mapping Optimization (Phase 2)
+  Mapping Optimization (Phase 3)
+  Mapping Optimization (Phase 4)
+  Mapping Optimization (Phase 5)
+  Mapping Optimization (Phase 6)
+  Mapping Optimization (Phase 7)
+  Mapping Optimization (Phase 8)
+  Mapping Optimization (Phase 9)
+  Mapping Optimization (Phase 10)
+  Mapping Optimization (Phase 11)
+Information: Checkpoint guidance is generated in the .svf file. (INFO-122)
+Warning: Retiming is likely to run for an extended
+        period of time due to the large design size. (RTDC-135)
+  Retiming BFU (top)
+  Preferred flip-flop is DFFQ_X4M_A9TL with setup = 0.02
+
+Warning: The following cells only drive
+        asynchronous pins of sequential cells which have no
+        timing constraint. Therefore retiming will not optimize
+        delay through them:
+        *cell*8600 (BUF_X9M_A9TH)
+        *cell*8610 (BUF_X9M_A9TH)
+        *cell*8609 (BUF_X9M_A9TH)
+        *cell*8608 (BUF_X9M_A9TH)
+        *cell*8602 (BUF_X9M_A9TH)
+        *cell*8601 (BUF_X9M_A9TH)
+        *cell*8605 (BUF_X9M_A9TH)
+        *cell*8604 (BUF_X9M_A9TH)
+        *cell*8603 (BUF_X9M_A9TH)
+        *cell*8607 (BUF_X9M_A9TH)
+        *cell*8606 (BUF_X9M_A9TH)
+        *cell*8594 (BUF_X9M_A9TH)
+        *cell*8599 (BUF_X9M_A9TH)
+        *cell*8598 (BUF_X9M_A9TH)
+        *cell*8597 (BUF_X9M_A9TH)
+        *cell*8596 (BUF_X9M_A9TH)
+        *cell*8595 (BUF_X9M_A9TH)
+        *cell*8589 (BUF_X9M_A9TH)
+        *cell*8593 (BUF_X9M_A9TH)
+        *cell*8592 (BUF_X9M_A9TH)
+        *cell*8591 (BUF_X9M_A9TH)
+        *cell*8590 (BUF_X9M_A9TH)
+        *cell*8584 (BUF_X9M_A9TH)
+        *cell*8588 (BUF_X9M_A9TH)
+        *cell*8587 (BUF_X9M_A9TH)
+        *cell*8586 (BUF_X9M_A9TH)
+        *cell*8585 (BUF_X9M_A9TH)
+        *cell*8578 (BUF_X9M_A9TH)
+        *cell*8583 (BUF_X9M_A9TH)
+        *cell*8582 (BUF_X9M_A9TH)
+        *cell*8581 (BUF_X9M_A9TH)
+        *cell*8580 (BUF_X9M_A9TH)
+        *cell*8579 (BUF_X9M_A9TH)
+        *cell*8573 (BUF_X9M_A9TH)
+        *cell*8577 (BUF_X9M_A9TH)
+        *cell*8576 (BUF_X9M_A9TH)
+        *cell*8575 (BUF_X9M_A9TH)
+        *cell*8574 (BUF_X9M_A9TH)
+        *cell*8568 (BUF_X9M_A9TH)
+        *cell*8572 (BUF_X9M_A9TH)
+        *cell*8571 (BUF_X9M_A9TH)
+        *cell*8570 (BUF_X9M_A9TH)
+        *cell*8569 (BUF_X9M_A9TH)
+        *cell*8562 (BUF_X9M_A9TH)
+        *cell*8563 (BUF_X9M_A9TH)
+        *cell*8564 (BUF_X9M_A9TH)
+        *cell*8565 (BUF_X9M_A9TH)
+        *cell*8566 (BUF_X9M_A9TH)
+        *cell*8567 (BUF_X9M_A9TH)
+        *cell*8557 (BUF_X9M_A9TH)
+        *cell*8558 (BUF_X9M_A9TH)
+        *cell*8559 (BUF_X9M_A9TH)
+        *cell*8560 (BUF_X9M_A9TH)
+        *cell*8561 (BUF_X9M_A9TH)
+        *cell*8552 (BUF_X9M_A9TH)
+        *cell*8553 (BUF_X9M_A9TH)
+        *cell*8554 (BUF_X9M_A9TH)
+        *cell*8555 (BUF_X9M_A9TH)
+        *cell*8556 (BUF_X9M_A9TH)
+        *cell*8546 (BUF_X9M_A9TH)
+        *cell*8547 (BUF_X9M_A9TH)
+        *cell*8548 (BUF_X9M_A9TH)
+        *cell*8549 (BUF_X9M_A9TH)
+        *cell*8550 (BUF_X9M_A9TH)
+        *cell*8551 (BUF_X9M_A9TH)
+        *cell*8541 (BUF_X9M_A9TH)
+        *cell*8542 (BUF_X9M_A9TH)
+        *cell*8543 (BUF_X9M_A9TH)
+        *cell*8544 (BUF_X9M_A9TH)
+        *cell*8545 (BUF_X9M_A9TH)
+        *cell*8536 (BUF_X9M_A9TH)
+        *cell*8537 (BUF_X9M_A9TH)
+        *cell*8538 (BUF_X9M_A9TH)
+        *cell*8539 (BUF_X9M_A9TH)
+        *cell*8540 (BUF_X9M_A9TH)
+        *cell*8530 (BUF_X9M_A9TH)
+        *cell*8531 (BUF_X9M_A9TH)
+        *cell*8532 (BUF_X9M_A9TH)
+        *cell*8533 (BUF_X9M_A9TH)
+        *cell*8534 (BUF_X9M_A9TH)
+        *cell*8535 (BUF_X9M_A9TH)
+        *cell*8525 (BUF_X9M_A9TH)
+        *cell*8526 (BUF_X9M_A9TH)
+        *cell*8527 (BUF_X9M_A9TH)
+        *cell*8528 (BUF_X9M_A9TH)
+        *cell*8529 (BUF_X9M_A9TH)
+        *cell*8520 (BUF_X9M_A9TH)
+        *cell*8521 (BUF_X9M_A9TH)
+        *cell*8522 (BUF_X9M_A9TH)
+        *cell*8523 (BUF_X9M_A9TH)
+        *cell*8524 (BUF_X9M_A9TH)
+        *cell*8614 (BUFH_X11M_A9TH)
+        *cell*8611 (BUFH_X11M_A9TH)
+        *cell*8613 (BUFH_X11M_A9TH)
+        *cell*8612 (BUFH_X11M_A9TH)
+        *cell*8616 (BUFH_X11M_A9TH)
+        *cell*8615 (BUFH_X11M_A9TH)
+        *cell*8618 (BUFH_X11M_A9TH)
+        *cell*8617 (BUFH_X11M_A9TH)
+        *cell*8619 (BUFH_X11M_A9TH)
+        *cell*8621 (BUFH_X11M_A9TH)
+        *cell*8620 (BUFH_X11M_A9TH)
+        *cell*8623 (BUFH_X11M_A9TH)
+        *cell*8622 (BUFH_X11M_A9TH)
+        *cell*8625 (BUFH_X11M_A9TH)
+        *cell*8624 (BUFH_X11M_A9TH)
+        *cell*8627 (BUFH_X11M_A9TH)
+        *cell*8626 (BUFH_X11M_A9TH)
+        *cell*8628 (BUFH_X11M_A9TH)
+        *cell*8630 (BUFH_X11M_A9TH)
+        *cell*8629 (BUFH_X11M_A9TH)
+        *cell*8632 (BUFH_X11M_A9TH)
+        *cell*8631 (BUFH_X11M_A9TH)
+        *cell*8634 (BUFH_X11M_A9TH)
+        *cell*8633 (BUFH_X11M_A9TH)
+        *cell*8635 (BUFH_X11M_A9TH)
+        *cell*8637 (BUFH_X11M_A9TH)
+        *cell*8636 (BUFH_X11M_A9TH)
+        *cell*8639 (BUFH_X11M_A9TH)
+        *cell*8638 (BUFH_X11M_A9TH)
+        *cell*8641 (BUFH_X11M_A9TH)
+        *cell*8640 (BUFH_X11M_A9TH)
+        *cell*8655 (BUF_X9M_A9TH)
+        *cell*8657 (BUF_X9M_A9TH)
+        *cell*8656 (BUF_X9M_A9TH)
+        *cell*8654 (BUF_X9M_A9TH)
+        *cell*8653 (BUF_X9M_A9TH)
+        *cell*8652 (BUF_X9M_A9TH)
+        *cell*8651 (BUF_X9M_A9TH)
+        *cell*8650 (BUF_X9M_A9TH)
+        *cell*8649 (BUF_X9M_A9TH)
+        *cell*8648 (BUF_X9M_A9TH)
+        *cell*8647 (BUF_X9M_A9TH)
+        *cell*8646 (BUF_X9M_A9TH)
+        *cell*8645 (BUF_X9M_A9TH)
+        *cell*8644 (BUF_X9M_A9TH)
+        *cell*8643 (BUF_X9M_A9TH)
+        *cell*8642 (BUF_X9M_A9TH)
+        *cell*8658 (BUFH_X11M_A9TH)
+        *cell*8659 (BUFH_X11M_A9TH)
+        *cell*8660 (BUFH_X11M_A9TH)
+        *cell*8661 (BUFH_X11M_A9TH)
+        *cell*8662 (BUFH_X11M_A9TH)
+        *cell*8663 (BUFH_X11M_A9TH)
+        *cell*8665 (INV_X16M_A9TH)
+        *cell*8664 (INV_X16M_A9TH)
+        *cell*8666 (INV_X16M_A9TH)
+        *cell*6236 (INV_X0P6B_A9TH)
+
+ (RTDC-115)
+
+  Retiming base-clock clk, rising edge.
+  Beginning minimum period retiming ...
+  ... minimum period retiming done.
+  Beginning minimum area retiming step 1 ...
+  ... minimum area retiming step 1 done.
+  Beginning minimum area retiming step 2 ...
+  
+  ... minimum area retiming step 2 done.
+  Beginning minimum area retiming step 3 ...
+  
+  ... minimum area retiming step 3 done.
+  Beginning final register move ...
+  ... final register move done.
+  Lower bound estimate = 1.07
+  Critical path length = 1.07
+  Clock correction = 0.19 (clock-to-Q delay = 0.17, setup = 0.02, uncertainty = 0.00)
+  Mapping Optimization (Phase 12)
+  Mapping Optimization (Phase 13)
+  Mapping Optimization (Phase 14)
+  Mapping Optimization (Phase 15)
+  Mapping Optimization (Phase 16)
+  Mapping Optimization (Phase 17)
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:04:02  199227.5      0.20     204.2       0.0 u_FPC_MUL/u_FPR_MUL_1/mult_x_1/clk_r_REG666_S52/D 8616.0879
+    0:04:02  199227.5      0.20     204.2       0.0 u_FPC_MUL/u_FPR_MUL_1/mult_x_1/clk_r_REG666_S52/D 8616.0879
+    0:04:04  198370.4      0.17     159.9       0.0 clk_r_REG182_S41/D        8606.8369
+    0:04:05  197989.6      0.15     138.7       0.0                           8603.9561
+    0:04:06  197382.2      0.23     145.6       0.0                           8573.2236
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    0:04:06  197512.4      0.23     143.7       0.0                           8580.1611
+    0:04:07  197494.3      0.23     147.0       0.0                           8579.3652
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:04:21   87218.4      0.63     553.4     166.1                           2423.0916
+    0:04:22   88595.8      0.36     431.0     166.1                           2521.1943
+    0:04:22   88595.8      0.36     431.0     166.1                           2521.1943
+    0:04:23   88612.3      0.36     430.1     166.1                           2522.9734
+    0:04:27   88567.7      0.62     436.4     166.1                           2521.3730
+    0:04:28   88127.9      0.67     493.9     210.0                           2502.7268
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:04:34   88080.3      0.67     498.3     210.0                           2482.3323
+    0:04:35   87793.8      0.67     497.2     210.0                           2454.8066
+    0:04:38   86503.6      0.67     486.6     210.0                           2362.3250
+    0:04:38   86400.6      0.67     487.9     210.0                           2356.1060
+    0:04:41   87494.4      0.33     390.4     166.1                           2445.5996
+    0:04:44   88270.3      0.33     354.1     166.1                           2523.1851
+    0:04:45   88603.7      0.33     341.5     166.1                           2555.3945
+    0:04:45   88603.7      0.33     341.5     166.1                           2555.3945
+    0:04:47   90429.0      0.33     329.3     166.1                           2459.2554
+    0:04:47   90429.0      0.33     329.3     166.1                           2459.2554
+    0:04:53   95002.2      0.28     322.4     166.1                           2694.7202
+    0:04:53   95002.2      0.28     322.4     166.1                           2694.7202
+    0:04:54   97158.9      0.22     254.2     166.1                           2852.4460
+    0:04:54   97158.9      0.22     254.2     166.1                           2852.4460
+    0:05:06  101880.4      0.21     232.2     198.7                           3092.1196
+    0:05:06  101880.4      0.21     232.2     198.7                           3092.1196
+    0:05:15  107531.8      0.10      95.2     166.0                           3497.5430
+    0:05:15  107531.8      0.10      95.2     166.0                           3497.5430
+    0:05:16  107628.2      0.10      94.9     166.0                           3502.3977
+    0:05:16  107628.2      0.10      94.9     166.0                           3502.3977
+    0:05:21  110265.2      0.07      61.6     166.0                           3674.5549
+    0:05:21  110265.2      0.07      61.6     166.0                           3674.5549
+    0:05:24  110827.2      0.07      60.5     166.0                           3707.7207
+    0:05:24  110827.2      0.07      60.5     166.0                           3707.7207
+    0:05:27  112567.4      0.06      45.1     166.0                           3820.2380
+    0:05:27  112567.4      0.06      45.1     166.0                           3820.2380
+    0:05:31  113707.1      0.06      44.0     166.0                           3878.1133
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:05:31  113707.1      0.06      44.0     166.0                           3878.1133
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+    0:05:33  113820.9      0.05      42.1       0.0 clk_r_REG1346_S12/D       3888.6975
+    0:05:33  113838.2      0.05      42.1       0.0                           3889.7695
+    0:05:35  114325.1      0.05      41.7       0.0                           3914.4180
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:05:35  114325.1      0.05      41.7       0.0                           3914.4180
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+  Global Optimization (Phase 50)
+    0:05:48  109554.4      0.18     146.0       0.0                           3516.8093
+    0:05:48  109613.3      0.18     130.5       0.0                           3520.0637
+    0:05:48  109613.3      0.18     130.5       0.0                           3520.0637
+    0:05:51  106045.6      0.18     105.0       0.0                           3220.2026
+    0:05:51  106045.6      0.18     105.0       0.0                           3220.2026
+    0:05:58  108489.1      0.12      81.9       0.0                           3333.1685
+    0:05:58  108489.1      0.12      81.9       0.0                           3333.1685
+    0:05:58  108911.6      0.10      73.7       0.0                           3359.8020
+    0:05:58  108911.6      0.10      73.7       0.0                           3359.8020
+    0:06:01  109433.0      0.10      72.1       0.0                           3386.2407
+    0:06:01  109433.0      0.10      72.1       0.0                           3386.2407
+    0:06:05  111181.2      0.06      40.6       0.0                           3496.8682
+    0:06:05  111181.2      0.06      40.6       0.0                           3496.8682
+    0:06:08  111230.9      0.06      40.4       0.0                           3498.7297
+    0:06:08  111230.9      0.06      40.4       0.0                           3498.7297
+    0:06:11  112363.1      0.05      30.2       0.0                           3575.4785
+    0:06:11  112363.1      0.05      30.2       0.0                           3575.4785
+    0:06:16  114191.1      0.04      29.5       0.0                           3698.8743
+    0:06:16  114191.1      0.04      29.5       0.0                           3698.8743
+    0:06:18  114969.5      0.04      24.2       0.0                           3751.6521
+    0:06:18  114969.5      0.04      24.2       0.0                           3751.6521
+    0:06:20  115208.7      0.04      24.1       0.0                           3765.1362
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:06:20  115208.7      0.04      24.1       0.0                           3765.1362
+    0:07:11  100095.7      0.06      43.7       2.7                           3027.3191
+    0:07:13  100760.7      0.05      41.0       2.7 clk_r_REG17_S7/D          3076.0920
+    0:07:14  101259.2      0.05      38.5       2.7 u_FPC_MUL/u_FPR_MUL_2/mult_x_1/clk_r_REG147_S10/D 3113.9888
+    0:07:15  101344.0      0.05      38.3       2.7                           3119.7524
+    0:07:15  101344.0      0.05      38.3       2.7                           3119.7524
+    0:07:18  102708.9      0.05      41.3       1.4                           3048.1162
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:07:18  102708.9      0.05      41.3       1.4                           3048.1162
+    0:07:19  102708.9      0.05      41.3       1.4                           3048.1162
+    0:07:19  102708.9      0.05      41.3       1.4                           3048.1162
+    0:07:21  103064.0      0.05      38.8       1.4                           3061.0046
+    0:07:23  103064.0      0.05      38.8       1.4                           3061.0046
+    0:07:23  103064.0      0.05      38.8       1.4                           3061.0046
+    0:07:23  103064.0      0.05      38.8       1.4                           3061.0046
+    0:07:23  103085.1      0.05      38.7       1.4                           3061.1763
+    0:07:27  102879.4      0.05      39.0       1.0                           3047.6079
+    0:07:27  102785.3      0.05      39.2       1.0                           3037.9573
+    0:07:29  102809.1      0.05      38.8       0.9 clk_r_REG187_S42/D        3036.9417
+    0:07:30  103207.2      0.04      36.3       0.9 clk_r_REG967_S44/D        3066.6277
+    0:07:32  103668.7      0.04      33.4       0.9 u_FPC_MUL/u_FPR_MUL_3/mult_x_1/clk_r_REG1099_S34/D 3102.1992
+    0:07:33  103993.5      0.04      31.0       0.9 clk_r_REG187_S42/D        3125.0989
+    0:07:33  104179.0      0.04      29.7       0.9 clk_r_REG967_S44/D        3138.8950
+    0:07:34  104366.1      0.04      28.5       0.9 clk_r_REG17_S7/D          3152.2947
+    0:07:36  104424.8      0.04      28.3       0.9 clk_r_REG889_S47/D        3155.8457
+    0:07:37  104620.3      0.04      26.7       0.9 clk_r_REG532_S5/D         3168.8005
+    0:07:38  104624.7      0.04      26.7       0.9                           3169.1643
+    0:07:42  106136.7      0.03      16.0       1.6                           3281.7986
+    0:07:42  106136.7      0.03      16.0       1.6                           3281.7986
+    0:07:44  106093.0      0.03      14.2       1.6                           3294.6426
+    0:07:44  106093.0      0.03      14.2       1.6                           3294.6426
+    0:07:44  106196.8      0.03      14.2       1.6                           3300.6433
+    0:07:52  102844.7      0.03      14.2       0.3                           3133.4097
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'BFU' contains 2 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 3576 load(s), 1 driver(s)
+     Net 'rst_n': 1128 load(s), 1 driver(s)
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+# compile_ultra
+set_fix_hold [all_clocks]
+1
+compile -incremental_mapping -only_hold_time
+Information: Performing power optimization. (PWR-850)
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT                                                               |
+| Comand line  | compile_ultra                                                                     |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 45638                                  |
+| Number of User Hierarchies                              | 0                                      |
+| Sequential Cell Count                                   | 3576                                   |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 0                                      |
+| Number of Dont Touch nets                               | 1                                      |
+| Number of size only cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping  (Incremental)
+  ------------------------
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIELO_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+
+  Beginning Mapping Optimizations  (Incremental)
+  -------------------------------
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:03  102844.7      0.03      14.2       0.3                           3133.4097      0.00  
+    0:00:04  104502.9      0.03      14.2       0.0                           3259.1289      0.00  
+    0:00:05  104500.8      0.03      13.9       0.0                           3262.1941      0.00  
+    0:00:05  104499.9      0.03      13.6       0.0                           3263.7004      0.00  
+
+
+  Beginning Design Rule Fixing  (min_path)
+  ----------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:06  104499.9      0.03      13.6       0.0                           3263.7004     -1.17  
+    0:00:06  104585.0      0.03      13.6       0.0 clk_r_REG3334_S1/D        3266.7058     -0.04  
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+    0:00:09  104643.5      0.02      13.3       0.0 clk_r_REG187_S42/D        3307.1150      0.00  
+    0:00:10  104732.4      0.02      13.0       0.0 u_FPC_MUL/u_FPR_MUL_0/mult_x_1/clk_r_REG65_S10/D 3312.2261      0.00  
+    0:00:10  104806.1      0.02      12.6       0.0 clk_r_REG2171_S48/D       3317.0500      0.00  
+    0:00:11  104879.3      0.02      12.5       0.0 clk_r_REG187_S42/D        3321.5325      0.00  
+    0:00:11  104937.9      0.02      12.2       0.0 u_FPC_MUL/u_FPR_MUL_3/mult_x_1/clk_r_REG1035_S46/D 3325.8069      0.00  
+    0:00:12  105040.4      0.02      11.9       0.0 u_FPC_MUL/u_FPR_MUL_0/mult_x_1/clk_r_REG404_S28/D 3332.2268      0.00  
+    0:00:13  105142.4      0.02      11.6       0.0 clk_r_REG967_S44/D        3338.4270      0.00  
+    0:00:13  105229.1      0.02      11.4       0.0 u_FPC_MUL/u_FPR_MUL_2/mult_x_1/clk_r_REG1134_S34/D 3344.7732      0.00  
+    0:00:14  105309.8      0.02      11.2       0.0 u_FPC_MUL/u_FPR_MUL_3/mult_x_1/clk_r_REG1071_S34/D 3350.1455      0.00  
+    0:00:15  105352.7      0.02      10.9       0.0                           3353.7200      0.00  
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'BFU' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 3576 load(s), 1 driver(s)
+1
+# # uniquify
+# # compile
+#======================================================
+#  (F) Output Reports 
+#======================================================
+report_design  >  Report/$DESIGN\.design
+report_resource >  Report/$DESIGN\.resource
+report_timing -max_paths 3 >  Report/$DESIGN\.timing
+report_timing -delay_type min >  Report/$DESIGN\_hold.timing
+report_area >  Report/$DESIGN\.area
+report_area -hierarchy >  Report/$DESIGN\_hier.area
+report_power > Report/$DESIGN\.power
+report_clock > Report/$DESIGN\.clock
+report_port >  Report/$DESIGN\.port
+report_power >  Report/$DESIGN\.power
+#======================================================
+#  (G) Change Naming Rule
+#======================================================
+set bus_inference_style "%s\[%d\]"
+%s[%d]
+set bus_naming_style "%s\[%d\]"
+%s[%d]
+set hdlout_internal_busses true
+true
+change_names -hierarchy -rule verilog
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
+1
+define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+1
+define_name_rules name_rule -case_insensitive
+1
+change_names -hierarchy -rules name_rule
+1
+#======================================================
+#  (H) Output Results
+#======================================================
+set verilogout_higher_designs_first true
+true
+write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
+Writing verilog file '/home/daniel_kuo/Falcon/hardware/BFU/02_SYN/Netlist/BFU_SYN.v'.
+Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
+1
+write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
+Writing ddc file 'BFU_SYN.ddc'.
+1
+write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
+Information: Writing timing information to file '/home/daniel_kuo/Falcon/hardware/BFU/02_SYN/Netlist/BFU_SYN.sdf'. (WT-3)
+1
+write_sdc Netlist/$DESIGN\_SYN.sdc
+1
+write -format ddc -hierarchy -output Netlist/${DESIGN}_SYN.ddc
+Writing ddc file 'Netlist/BFU_SYN.ddc'.
+1
+#======================================================
+#  (I) Finish and Quit
+#======================================================
+report_resource
+ 
+****************************************
+Report : resources
+Design : BFU
+Version: T-2022.03
+Date   : Wed Jun  3 00:40:46 2026
+****************************************
+
+
+Resource Report for this hierarchy in file ../01_RTL/BFU.sv
+=============================================================================
+| Cell           | Module         | Parameters | Contained Operations       |
+=============================================================================
+| gte_x_15       | DW_cmp         | width=63   | u_FPC_MUL/u_FPR_ADD_0/gte_348 (FPC.sv:348) |
+| gt_x_16        | DW_cmp         | width=11   | u_FPC_MUL/u_FPR_ADD_0/gt_358 (FPC.sv:358) |
+| ash_22         | DW_leftsh      | A_width=52 | u_FPC_MUL/u_FPR_ADD_0/sll_408 (FPC.sv:408) |
+ |                | SH_width=6 |                            |
+| sub_x_26       | DW01_sub       | width=11   | u_FPC_SUB/u_FPR_SUB_1/sub_355 (FPC.sv:355) |
+| gt_x_28        | DW_cmp         | width=11   | u_FPC_SUB/u_FPR_SUB_1/gt_358 (FPC.sv:358) |
+| ash_34         | DW_leftsh      | A_width=52 | u_FPC_SUB/u_FPR_SUB_1/sll_408 (FPC.sv:408) |
+ |                | SH_width=6 |                            |
+| sub_x_38       | DW01_sub       | width=11   | u_FPC_SUB/u_FPR_SUB_0/sub_355 (FPC.sv:355) |
+| gt_x_40        | DW_cmp         | width=11   | u_FPC_SUB/u_FPR_SUB_0/gt_358 (FPC.sv:358) |
+| ash_46         | DW_leftsh      | A_width=52 | u_FPC_SUB/u_FPR_SUB_0/sll_408 (FPC.sv:408) |
+ |                | SH_width=6 |                            |
+| sub_x_49       | DW01_sub       | width=11   | u_FPC_ADD/u_FPR_ADD_1/sub_355 (FPC.sv:355) |
+| gt_x_51        | DW_cmp         | width=11   | u_FPC_ADD/u_FPR_ADD_1/gt_358 (FPC.sv:358) |
+| ash_57         | DW_leftsh      | A_width=52 | u_FPC_ADD/u_FPR_ADD_1/sll_408 (FPC.sv:408) |
+ |                | SH_width=6 |                            |
+| sub_x_60       | DW01_sub       | width=11   | u_FPC_ADD/u_FPR_ADD_0/sub_355 (FPC.sv:355) |
+| gt_x_62        | DW_cmp         | width=11   | u_FPC_ADD/u_FPR_ADD_0/gt_358 (FPC.sv:358) |
+| ash_68         | DW_leftsh      | A_width=52 | u_FPC_ADD/u_FPR_ADD_0/sll_408 (FPC.sv:408) |
+ |                | SH_width=6 |                            |
+| gte_x_71       | DW_cmp         | width=63   | u_FPC_MUL/u_FPR_ADD_1/gte_348 (FPC.sv:348) |
+| gt_x_72        | DW_cmp         | width=11   | u_FPC_MUL/u_FPR_ADD_1/gt_358 (FPC.sv:358) |
+| ash_78         | DW_leftsh      | A_width=52 | u_FPC_MUL/u_FPR_ADD_1/sll_408 (FPC.sv:408) |
+ |                | SH_width=6 |                            |
+| gte_x_2535     | DW_cmp         | width=63   | u_FPC_ADD/u_FPR_ADD_1/gte_348 (FPC.sv:348) |
+ |                |            | u_FPC_SUB/u_FPR_SUB_1/gte_348 (FPC.sv:348) |
+| gte_x_2536     | DW_cmp         | width=63   | u_FPC_ADD/u_FPR_ADD_0/gte_348 (FPC.sv:348) |
+ |                |            | u_FPC_SUB/u_FPR_SUB_0/gte_348 (FPC.sv:348) |
+| sub_x_25       | DW01_sub       | width=11   | u_FPC_ADD/u_FPR_ADD_1/sub_354 (FPC.sv:354) |
+ |                |            | u_FPC_SUB/u_FPR_SUB_1/sub_354 (FPC.sv:354) |
+| sub_x_37       | DW01_sub       | width=11   | u_FPC_ADD/u_FPR_ADD_0/sub_354 (FPC.sv:354) |
+ |                |            | u_FPC_SUB/u_FPR_SUB_0/sub_354 (FPC.sv:354) |
+| DP_OP_37J1_125_7499             |            |                            |
+|                | DP_OP_37J1_125_7499 |       |                            |
+| DP_OP_2708_178_2698             |            |                            |
+|                | DP_OP_2708_178_2698 |       |                            |
+| DP_OP_2709_179_3488             |            |                            |
+|                | DP_OP_2709_179_3488 |       |                            |
+| DP_OP_129_180_6738              |            |                            |
+|                | DP_OP_129_180_6738 |        |                            |
+| DP_OP_130_181_6738              |            |                            |
+|                | DP_OP_130_181_6738 |        |                            |
+| DP_OP_147J1_143_2328            |            |                            |
+|                | DP_OP_147J1_143_2328 |      |                            |
+| ashr_r2721_2   | DW_rightsh     | A_width=53 | u_FPC_MUL/u_FPR_ADD_1/srl_365 (FPC.sv:365) |
+ |                | SH_width=6 |                            |
+| ashr_r2721_3   | DW_rightsh     | A_width=53 | u_FPC_MUL/u_FPR_ADD_1/srl_364 (FPC.sv:364) |
+ |                | SH_width=6 |                            |
+| DP_OP_26_189_4298               |            |                            |
+|                | DP_OP_26_189_4298 |         |                            |
+| DP_OP_2693_182_996              |            |                            |
+|                | DP_OP_2693_182_996 |        |                            |
+| DP_OP_2694_183_5280             |            |                            |
+|                | DP_OP_2694_183_5280 |       |                            |
+| DP_OP_19_184_8237               |            |                            |
+|                | DP_OP_19_184_8237 |         |                            |
+| DP_OP_20_185_8237               |            |                            |
+|                | DP_OP_20_185_8237 |         |                            |
+| ashr_r2710_2   | DW_rightsh     | A_width=53 | u_FPC_MUL/u_FPR_ADD_0/srl_365 (FPC.sv:365) |
+ |                | SH_width=6 |                            |
+| ashr_r2710_3   | DW_rightsh     | A_width=53 | u_FPC_MUL/u_FPR_ADD_0/srl_364 (FPC.sv:364) |
+ |                | SH_width=6 |                            |
+| DP_OP_26_186_3786               |            |                            |
+|                | DP_OP_26_186_3786 |         |                            |
+| DP_OP_2699_193_6506             |            |                            |
+|                | DP_OP_2699_193_6506 |       |                            |
+| DP_OP_2700_194_4768             |            |                            |
+|                | DP_OP_2700_194_4768 |       |                            |
+| DP_OP_74_202_5836               |            |                            |
+|                | DP_OP_74_202_5836 |         |                            |
+| DP_OP_75_203_5836               |            |                            |
+|                | DP_OP_75_203_5836 |         |                            |
+| ashr_r2714_2   | DW_rightsh     | A_width=53 | u_FPC_SUB/u_FPR_SUB_0/srl_365 (FPC.sv:365) |
+ |                | SH_width=6 |                            |
+| ashr_r2714_3   | DW_rightsh     | A_width=53 | u_FPC_SUB/u_FPR_SUB_0/srl_364 (FPC.sv:364) |
+ |                | SH_width=6 |                            |
+| DP_OP_2705_196_9910             |            |                            |
+|                | DP_OP_2705_196_9910 |       |                            |
+| DP_OP_2706_197_4256             |            |                            |
+|                | DP_OP_2706_197_4256 |       |                            |
+| DP_OP_2702_199_5065             |            |                            |
+|                | DP_OP_2702_199_5065 |       |                            |
+| DP_OP_2703_200_7823             |            |                            |
+|                | DP_OP_2703_200_7823 |       |                            |
+| DP_OP_2696_190_3751             |            |                            |
+|                | DP_OP_2696_190_3751 |       |                            |
+| DP_OP_2697_191_4512             |            |                            |
+|                | DP_OP_2697_191_4512 |       |                            |
+| DP_OP_125_198_1138              |            |                            |
+|                | DP_OP_125_198_1138 |        |                            |
+| ashr_r2718_2   | DW_rightsh     | A_width=53 | u_FPC_ADD/u_FPR_ADD_0/srl_365 (FPC.sv:365) |
+ |                | SH_width=6 |                            |
+| ashr_r2718_3   | DW_rightsh     | A_width=53 | u_FPC_ADD/u_FPR_ADD_0/srl_364 (FPC.sv:364) |
+ |                | SH_width=6 |                            |
+| DP_OP_103_201_7023              |            |                            |
+|                | DP_OP_103_201_7023 |        |                            |
+| ashr_r2716_2   | DW_rightsh     | A_width=53 | u_FPC_ADD/u_FPR_ADD_1/srl_365 (FPC.sv:365) |
+ |                | SH_width=6 |                            |
+| ashr_r2716_3   | DW_rightsh     | A_width=53 | u_FPC_ADD/u_FPR_ADD_1/srl_364 (FPC.sv:364) |
+ |                | SH_width=6 |                            |
+| DP_OP_59_192_5220               |            |                            |
+|                | DP_OP_59_192_5220 |         |                            |
+| ashr_r2712_2   | DW_rightsh     | A_width=53 | u_FPC_SUB/u_FPR_SUB_1/srl_365 (FPC.sv:365) |
+ |                | SH_width=6 |                            |
+| ashr_r2712_3   | DW_rightsh     | A_width=53 | u_FPC_SUB/u_FPR_SUB_1/srl_364 (FPC.sv:364) |
+ |                | SH_width=6 |                            |
+| DP_OP_26_187_3018               |            |                            |
+|                | DP_OP_26_187_3018 |         |                            |
+| DP_OP_26_188_5578               |            |                            |
+|                | DP_OP_26_188_5578 |         |                            |
+=============================================================================
+
+Datapath Report for DP_OP_37J1_125_7499
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_37J1_125_7499  | u_FPC_MUL/u_FPR_ADD_0/add_383 (FPC.sv:383)          |
+|                      | u_FPC_MUL/u_FPR_ADD_0/sub_384 (FPC.sv:384)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 53    |                                          |
+| I2    | PI   | Unsigned | 53    |                                          |
+| I3    | PI   | Unsigned | 1     |                                          |
+| O1    | PO   | Signed   | 54    | addsub(I1,I2,I3) ( FPC.sv:383 FPC.sv:384 ) |
+==============================================================================
+
+Datapath Report for DP_OP_2708_178_2698
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2708_178_2698  | u_FPC_MUL/u_FPR_ADD_1/add_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| O1    | PO   | Unsigned | 11    | I1 + $unsigned(1'b1) (FPC.sv:416)        |
+==============================================================================
+
+Datapath Report for DP_OP_2709_179_3488
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2709_179_3488  | u_FPC_MUL/u_FPR_ADD_1/sub_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 6     |                                          |
+| O1    | PO   | Signed   | 11    | I1 - I2 (FPC.sv:416)                     |
+==============================================================================
+
+Datapath Report for DP_OP_129_180_6738
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_129_180_6738   | u_FPC_MUL/u_FPR_ADD_1/sub_354 (FPC.sv:354)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 11    |                                          |
+| O1    | PO   | Signed   | 11    | I1 - I2 (FPC.sv:354)                     |
+==============================================================================
+
+Datapath Report for DP_OP_130_181_6738
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_130_181_6738   | u_FPC_MUL/u_FPR_ADD_1/sub_355 (FPC.sv:355)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 11    |                                          |
+| O1    | PO   | Signed   | 11    | I1 - I2 (FPC.sv:355)                     |
+==============================================================================
+
+Datapath Report for DP_OP_147J1_143_2328
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_147J1_143_2328 | u_FPC_MUL/u_FPR_ADD_1/add_383 (FPC.sv:383)          |
+|                      | u_FPC_MUL/u_FPR_ADD_1/sub_384 (FPC.sv:384)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 53    |                                          |
+| I2    | PI   | Unsigned | 53    |                                          |
+| I3    | PI   | Unsigned | 1     |                                          |
+| O1    | PO   | Signed   | 54    | addsub(I1,I2,I3) ( FPC.sv:383 FPC.sv:384 ) |
+==============================================================================
+
+Datapath Report for DP_OP_26_189_4298
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_26_189_4298    | add_519 (FPC.sv:519) sub_520 (FPC.sv:520)           |
+|                      | sub_521 (FPC.sv:521)                                |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 11    |                                          |
+| T24   | IFO  | Unsigned | 11    | I1 + I2 ( FPC.sv:519 FPC.sv:520 FPC.sv:521 ) |
+| O1    | PO   | Signed   | 11    | -$unsigned(10'b1111111110) + T24 ( FPC.sv:519 FPC.sv:520 ) |
+| O2    | PO   | Signed   | 11    | -$unsigned(10'b1111111111) + T24 ( FPC.sv:519 FPC.sv:521 ) |
+==============================================================================
+
+Datapath Report for DP_OP_2693_182_996
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2693_182_996   | u_FPC_MUL/u_FPR_ADD_0/add_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| O1    | PO   | Unsigned | 11    | I1 + $unsigned(1'b1) (FPC.sv:416)        |
+==============================================================================
+
+Datapath Report for DP_OP_2694_183_5280
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2694_183_5280  | u_FPC_MUL/u_FPR_ADD_0/sub_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 6     |                                          |
+| O1    | PO   | Signed   | 11    | I1 - I2 (FPC.sv:416)                     |
+==============================================================================
+
+Datapath Report for DP_OP_19_184_8237
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_19_184_8237    | u_FPC_MUL/u_FPR_ADD_0/sub_354 (FPC.sv:354)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 11    |                                          |
+| O1    | PO   | Signed   | 11    | I1 - I2 (FPC.sv:354)                     |
+==============================================================================
+
+Datapath Report for DP_OP_20_185_8237
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_20_185_8237    | u_FPC_MUL/u_FPR_ADD_0/sub_355 (FPC.sv:355)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 11    |                                          |
+| O1    | PO   | Signed   | 11    | I1 - I2 (FPC.sv:355)                     |
+==============================================================================
+
+Datapath Report for DP_OP_26_186_3786
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_26_186_3786    | add_519 (FPC.sv:519) sub_520 (FPC.sv:520)           |
+|                      | sub_521 (FPC.sv:521)                                |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 11    |                                          |
+| T24   | IFO  | Unsigned | 11    | I1 + I2 ( FPC.sv:519 FPC.sv:520 FPC.sv:521 ) |
+| O1    | PO   | Signed   | 11    | -$unsigned(10'b1111111110) + T24 ( FPC.sv:519 FPC.sv:520 ) |
+| O2    | PO   | Signed   | 11    | -$unsigned(10'b1111111111) + T24 ( FPC.sv:519 FPC.sv:521 ) |
+==============================================================================
+
+Datapath Report for DP_OP_2699_193_6506
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2699_193_6506  | u_FPC_SUB/u_FPR_SUB_0/add_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| O1    | PO   | Unsigned | 11    | I1 + $unsigned(1'b1) (FPC.sv:416)        |
+==============================================================================
+
+Datapath Report for DP_OP_2700_194_4768
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2700_194_4768  | u_FPC_SUB/u_FPR_SUB_0/sub_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 6     |                                          |
+| O1    | PO   | Signed   | 11    | I1 - I2 (FPC.sv:416)                     |
+==============================================================================
+
+Datapath Report for DP_OP_74_202_5836
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_74_202_5836    | u_FPC_SUB/u_FPR_SUB_0/add_383 (FPC.sv:383)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 53    |                                          |
+| I2    | PI   | Unsigned | 53    |                                          |
+| O1    | PO   | Unsigned | 54    | I1 + I2 (FPC.sv:383)                     |
+==============================================================================
+
+Datapath Report for DP_OP_75_203_5836
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_75_203_5836    | u_FPC_SUB/u_FPR_SUB_0/sub_384 (FPC.sv:384)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 53    |                                          |
+| I2    | PI   | Unsigned | 53    |                                          |
+| O1    | PO   | Signed   | 54    | I1 - I2 (FPC.sv:384)                     |
+==============================================================================
+
+Datapath Report for DP_OP_2705_196_9910
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2705_196_9910  | u_FPC_ADD/u_FPR_ADD_0/add_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| O1    | PO   | Unsigned | 11    | I1 + $unsigned(1'b1) (FPC.sv:416)        |
+==============================================================================
+
+Datapath Report for DP_OP_2706_197_4256
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2706_197_4256  | u_FPC_ADD/u_FPR_ADD_0/sub_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 6     |                                          |
+| O1    | PO   | Signed   | 11    | I1 - I2 (FPC.sv:416)                     |
+==============================================================================
+
+Datapath Report for DP_OP_2702_199_5065
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2702_199_5065  | u_FPC_ADD/u_FPR_ADD_1/add_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| O1    | PO   | Unsigned | 11    | I1 + $unsigned(1'b1) (FPC.sv:416)        |
+==============================================================================
+
+Datapath Report for DP_OP_2703_200_7823
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2703_200_7823  | u_FPC_ADD/u_FPR_ADD_1/sub_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 6     |                                          |
+| O1    | PO   | Signed   | 11    | I1 - I2 (FPC.sv:416)                     |
+==============================================================================
+
+Datapath Report for DP_OP_2696_190_3751
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2696_190_3751  | u_FPC_SUB/u_FPR_SUB_1/add_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| O1    | PO   | Unsigned | 11    | I1 + $unsigned(1'b1) (FPC.sv:416)        |
+==============================================================================
+
+Datapath Report for DP_OP_2697_191_4512
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_2697_191_4512  | u_FPC_SUB/u_FPR_SUB_1/sub_416 (FPC.sv:416)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 6     |                                          |
+| O1    | PO   | Signed   | 11    | I1 - I2 (FPC.sv:416)                     |
+==============================================================================
+
+Datapath Report for DP_OP_125_198_1138
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_125_198_1138   | u_FPC_ADD/u_FPR_ADD_0/add_383 (FPC.sv:383)          |
+|                      | u_FPC_ADD/u_FPR_ADD_0/sub_384 (FPC.sv:384)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 53    |                                          |
+| I2    | PI   | Unsigned | 53    |                                          |
+| I3    | PI   | Unsigned | 1     |                                          |
+| O1    | PO   | Signed   | 54    | addsub(I1,I2,I3) ( FPC.sv:383 FPC.sv:384 ) |
+==============================================================================
+
+Datapath Report for DP_OP_103_201_7023
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_103_201_7023   | u_FPC_ADD/u_FPR_ADD_1/add_383 (FPC.sv:383)          |
+|                      | u_FPC_ADD/u_FPR_ADD_1/sub_384 (FPC.sv:384)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 53    |                                          |
+| I2    | PI   | Unsigned | 53    |                                          |
+| I3    | PI   | Unsigned | 1     |                                          |
+| O1    | PO   | Signed   | 54    | addsub(I1,I2,I3) ( FPC.sv:383 FPC.sv:384 ) |
+==============================================================================
+
+Datapath Report for DP_OP_59_192_5220
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_59_192_5220    | u_FPC_SUB/u_FPR_SUB_1/add_383 (FPC.sv:383)          |
+|                      | u_FPC_SUB/u_FPR_SUB_1/sub_384 (FPC.sv:384)          |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 53    |                                          |
+| I2    | PI   | Unsigned | 53    |                                          |
+| I3    | PI   | Unsigned | 1     |                                          |
+| O1    | PO   | Signed   | 54    | addsub(I1,I2,I3) ( FPC.sv:383 FPC.sv:384 ) |
+==============================================================================
+
+Datapath Report for DP_OP_26_187_3018
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_26_187_3018    | add_519 (FPC.sv:519) sub_520 (FPC.sv:520)           |
+|                      | sub_521 (FPC.sv:521)                                |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 11    |                                          |
+| T24   | IFO  | Unsigned | 11    | I1 + I2 ( FPC.sv:519 FPC.sv:520 FPC.sv:521 ) |
+| O1    | PO   | Signed   | 11    | -$unsigned(10'b1111111110) + T24 ( FPC.sv:519 FPC.sv:520 ) |
+| O2    | PO   | Signed   | 11    | -$unsigned(10'b1111111111) + T24 ( FPC.sv:519 FPC.sv:521 ) |
+==============================================================================
+
+Datapath Report for DP_OP_26_188_5578
+==============================================================================
+| Cell                 | Contained Operations                                |
+==============================================================================
+| DP_OP_26_188_5578    | add_519 (FPC.sv:519) sub_520 (FPC.sv:520)           |
+|                      | sub_521 (FPC.sv:521)                                |
+==============================================================================
+
+==============================================================================
+|       |      | Data     |       |                                          |
+| Var   | Type | Class    | Width | Expression                               |
+==============================================================================
+| I1    | PI   | Unsigned | 11    |                                          |
+| I2    | PI   | Unsigned | 11    |                                          |
+| T24   | IFO  | Unsigned | 11    | I1 + I2 ( FPC.sv:519 FPC.sv:520 FPC.sv:521 ) |
+| O1    | PO   | Signed   | 11    | -$unsigned(10'b1111111110) + T24 ( FPC.sv:519 FPC.sv:520 ) |
+| O2    | PO   | Signed   | 11    | -$unsigned(10'b1111111111) + T24 ( FPC.sv:519 FPC.sv:521 ) |
+==============================================================================
+
+
+Resource Report for Ungrouped Hierarchy u_FPC_MUL/u_FPR_MUL_0 in file
+        ../01_RTL/FPC.sv
+=============================================================================
+| Cell           | Module         | Parameters | Contained Operations       |
+=============================================================================
+| mult_x_1       | DW_mult_uns    | a_width=53 | mult_511 (FPC.sv:511)      |
+|                |                | b_width=53 |                            |
+=============================================================================
+
+
+Resource Report for Ungrouped Hierarchy u_FPC_MUL/u_FPR_MUL_1 in file
+        ../01_RTL/FPC.sv
+=============================================================================
+| Cell           | Module         | Parameters | Contained Operations       |
+=============================================================================
+| mult_x_1       | DW_mult_uns    | a_width=53 | mult_511 (FPC.sv:511)      |
+|                |                | b_width=53 |                            |
+=============================================================================
+
+
+Resource Report for Ungrouped Hierarchy u_FPC_MUL/u_FPR_MUL_2 in file
+        ../01_RTL/FPC.sv
+=============================================================================
+| Cell           | Module         | Parameters | Contained Operations       |
+=============================================================================
+| mult_x_1       | DW_mult_uns    | a_width=53 | mult_511 (FPC.sv:511)      |
+|                |                | b_width=53 |                            |
+=============================================================================
+
+
+Resource Report for Ungrouped Hierarchy u_FPC_MUL/u_FPR_MUL_3 in file
+        ../01_RTL/FPC.sv
+=============================================================================
+| Cell           | Module         | Parameters | Contained Operations       |
+=============================================================================
+| mult_x_1       | DW_mult_uns    | a_width=53 | mult_511 (FPC.sv:511)      |
+|                |                | b_width=53 |                            |
+=============================================================================
+
+
+Datapath Extraction Report
+
+Information: Operator associated with resources 'u_FPC_SUB/u_FPR_SUB_1/sub_354 (FPC.sv:354) u_FPC_ADD/u_FPR_ADD_1/sub_354 (FPC.sv:354)' in design 'BFU' breaks the datapath extraction because there is leakage due to truncation on its fanout to operator of resources 'u_FPC_SUB/u_FPR_SUB_1/C478 (FPC.sv:357)'.  (HDL-120)
+
+Information: Operator associated with resources 'u_FPC_SUB/u_FPR_SUB_1/sub_355 (FPC.sv:355)' in design 'BFU' breaks the datapath extraction because there is leakage due to truncation on its fanout to operator of resources 'u_FPC_SUB/u_FPR_SUB_1/C478 (FPC.sv:357)'.  (HDL-120)
+
+Information: Operator associated with resources 'u_FPC_SUB/u_FPR_SUB_0/sub_354 (FPC.sv:354) u_FPC_ADD/u_FPR_ADD_0/sub_354 (FPC.sv:354)' in design 'BFU' breaks the datapath extraction because there is leakage due to truncation on its fanout to operator of resources 'u_FPC_SUB/u_FPR_SUB_0/C478 (FPC.sv:357)'.  (HDL-120)
+
+Information: Operator associated with resources 'u_FPC_SUB/u_FPR_SUB_0/sub_355 (FPC.sv:355)' in design 'BFU' breaks the datapath extraction because there is leakage due to truncation on its fanout to operator of resources 'u_FPC_SUB/u_FPR_SUB_0/C478 (FPC.sv:357)'.  (HDL-120)
+
+Information: Operator associated with resources 'u_FPC_ADD/u_FPR_ADD_1/sub_355 (FPC.sv:355)' in design 'BFU' breaks the datapath extraction because there is leakage due to truncation on its fanout to operator of resources 'u_FPC_ADD/u_FPR_ADD_1/C478 (FPC.sv:357)'.  (HDL-120)
+
+Information: Operator associated with resources 'u_FPC_ADD/u_FPR_ADD_0/sub_355 (FPC.sv:355)' in design 'BFU' breaks the datapath extraction because there is leakage due to truncation on its fanout to operator of resources 'u_FPC_ADD/u_FPR_ADD_0/C478 (FPC.sv:357)'.  (HDL-120)
+
+
+Implementation Report
+===============================================================================
+|                    |                  | Current            | Set            |
+| Cell               | Module           | Implementation     | Implementation |
+===============================================================================
+| gte_x_15           | DW_cmp           | pparch (area,speed)                 |
+| gt_x_16            | DW_cmp           | apparch (area)     |                |
+| ash_22             | DW_leftsh        | astr (area)        |                |
+| sub_x_26           | DW01_sub         | pparch (area,speed)                 |
+| gt_x_28            | DW_cmp           | apparch (area)     |                |
+| ash_34             | DW_leftsh        | astr (area)        |                |
+| sub_x_38           | DW01_sub         | pparch (area,speed)                 |
+| gt_x_40            | DW_cmp           | apparch (area)     |                |
+| ash_46             | DW_leftsh        | astr (area)        |                |
+| sub_x_49           | DW01_sub         | pparch (area,speed)                 |
+| gt_x_51            | DW_cmp           | apparch (area)     |                |
+| ash_57             | DW_leftsh        | astr (area)        |                |
+| sub_x_60           | DW01_sub         | pparch (area,speed)                 |
+| gt_x_62            | DW_cmp           | apparch (area)     |                |
+| ash_68             | DW_leftsh        | astr (area)        |                |
+| gte_x_71           | DW_cmp           | pparch (area,speed)                 |
+| gt_x_72            | DW_cmp           | apparch (area)     |                |
+| ash_78             | DW_leftsh        | astr (area)        |                |
+| gte_x_2535         | DW_cmp           | pparch (area,speed)                 |
+| gte_x_2536         | DW_cmp           | pparch (area,speed)                 |
+| sub_x_25           | DW01_sub         | pparch (area,speed)                 |
+| sub_x_37           | DW01_sub         | pparch (area,speed)                 |
+| ashr_r2721_2       | DW_rightsh       | astr (area)        |                |
+| ashr_r2721_3       | DW_rightsh       | astr (area)        |                |
+| ashr_r2710_2       | DW_rightsh       | astr (area)        |                |
+| ashr_r2710_3       | DW_rightsh       | astr (area)        |                |
+| ashr_r2714_2       | DW_rightsh       | astr (area)        |                |
+| ashr_r2714_3       | DW_rightsh       | astr (area)        |                |
+| ashr_r2718_2       | DW_rightsh       | astr (area)        |                |
+| ashr_r2718_3       | DW_rightsh       | astr (area)        |                |
+| ashr_r2716_2       | DW_rightsh       | astr (area)        |                |
+| ashr_r2716_3       | DW_rightsh       | astr (area)        |                |
+| ashr_r2712_2       | DW_rightsh       | astr (area)        |                |
+| ashr_r2712_3       | DW_rightsh       | astr (area)        |                |
+| mult_x_1           | DW_mult_uns      | pparch (area,speed)                 |
+|                    |                  | mult_arch: benc_radix4              |
+| mult_x_1           | DW_mult_uns      | pparch (area,speed)                 |
+|                    |                  | mult_arch: benc_radix4              |
+| mult_x_1           | DW_mult_uns      | pparch (area,speed)                 |
+|                    |                  | mult_arch: benc_radix4              |
+| mult_x_1           | DW_mult_uns      | pparch (area,speed)                 |
+|                    |                  | mult_arch: benc_radix4              |
+| DP_OP_37J1_125_7499                   |                    |                |
+|                    | DP_OP_37J1_125_7499 | str (area,speed)                 |
+| DP_OP_2708_178_2698                   |                    |                |
+|                    | DP_OP_2708_178_2698 | str (area)      |                |
+| DP_OP_2709_179_3488                   |                    |                |
+|                    | DP_OP_2709_179_3488 | str (area,speed)                 |
+| DP_OP_129_180_6738 | DP_OP_129_180_6738 | str (area,speed) |                |
+| DP_OP_130_181_6738 | DP_OP_130_181_6738 | str (area,speed) |                |
+| DP_OP_147J1_143_2328                  |                    |                |
+|                    | DP_OP_147J1_143_2328 | str (area,speed)                |
+| DP_OP_26_189_4298  | DP_OP_26_189_4298 | str (area)        |                |
+| DP_OP_2693_182_996 | DP_OP_2693_182_996 | str (area)       |                |
+| DP_OP_2694_183_5280                   |                    |                |
+|                    | DP_OP_2694_183_5280 | str (area,speed)                 |
+| DP_OP_19_184_8237  | DP_OP_19_184_8237 | str (area,speed)  |                |
+| DP_OP_20_185_8237  | DP_OP_20_185_8237 | str (area,speed)  |                |
+| DP_OP_26_186_3786  | DP_OP_26_186_3786 | str (area)        |                |
+| DP_OP_2699_193_6506                   |                    |                |
+|                    | DP_OP_2699_193_6506 | str (area)      |                |
+| DP_OP_2700_194_4768                   |                    |                |
+|                    | DP_OP_2700_194_4768 | str (area,speed)                 |
+| DP_OP_74_202_5836  | DP_OP_74_202_5836 | str (area,speed)  |                |
+| DP_OP_75_203_5836  | DP_OP_75_203_5836 | str (area,speed)  |                |
+| DP_OP_2705_196_9910                   |                    |                |
+|                    | DP_OP_2705_196_9910 | str (area)      |                |
+| DP_OP_2706_197_4256                   |                    |                |
+|                    | DP_OP_2706_197_4256 | str (area)      |                |
+| DP_OP_2702_199_5065                   |                    |                |
+|                    | DP_OP_2702_199_5065 | str (area)      |                |
+| DP_OP_2703_200_7823                   |                    |                |
+|                    | DP_OP_2703_200_7823 | str (area)      |                |
+| DP_OP_2696_190_3751                   |                    |                |
+|                    | DP_OP_2696_190_3751 | str (area)      |                |
+| DP_OP_2697_191_4512                   |                    |                |
+|                    | DP_OP_2697_191_4512 | str (area)      |                |
+| DP_OP_125_198_1138 | DP_OP_125_198_1138 | str (area,speed) |                |
+| DP_OP_103_201_7023 | DP_OP_103_201_7023 | str (area,speed) |                |
+| DP_OP_59_192_5220  | DP_OP_59_192_5220 | str (area,speed)  |                |
+| DP_OP_26_187_3018  | DP_OP_26_187_3018 | str (area)        |                |
+| DP_OP_26_188_5578  | DP_OP_26_188_5578 | str (area)        |                |
+===============================================================================
+
+1
+report_area -hierarchy
+ 
+****************************************
+Report : area
+Design : BFU
+Version: T-2022.03
+Date   : Wed Jun  3 00:40:46 2026
+****************************************
+
+Library(s) Used:
+
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+
+Number of ports:                          645
+Number of nets:                         51821
+Number of cells:                        46106
+Number of combinational cells:          42530
+Number of sequential cells:              3576
+Number of macros/black boxes:               0
+Number of buf/inv:                       5617
+Number of references:                     795
+
+Combinational area:              88621.872287
+Buf/Inv area:                     8132.594422
+Noncombinational area:           16730.808898
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                105352.681185
+Total area:                     105352.681185
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area             Local cell area
+                                  --------------------  ------------------------------ 
+Hierarchical cell                 Absolute     Percent  Combi-      Noncombi-   Black-
+                                  Total        Total    national    national    boxes   Design
+--------------------------------  -----------  -------  ----------  ----------  ------  ---------
+BFU                               105352.6812    100.0  88621.8723  16730.8089  0.0000  BFU
+--------------------------------  -----------  -------  ----------  ----------  ------  ---------
+Total                                                   88621.8723  16730.8089  0.0000
+
+1
+report_timing -delay_type min
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 1
+Design : BFU
+Version: T-2022.03
+Date   : Wed Jun  3 00:40:46 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: y_re[45] (input port clocked by clk)
+  Endpoint: clk_r_REG1293_S55
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  BFU                Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.00       0.00 r
+  y_re[45] (in)                                           0.00       0.00 r
+  U35748/Y (MXIT2_X4M_A9TL)                               0.03       0.03 f
+  clk_r_REG1293_S55/D (DFFSQ_X4M_A9TH)                    0.00       0.03 f
+  data arrival time                                                  0.03
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clk_r_REG1293_S55/CK (DFFSQ_X4M_A9TH)                   0.00       0.00 r
+  library hold time                                       0.01       0.01
+  data required time                                                 0.01
+  --------------------------------------------------------------------------
+  data required time                                                 0.01
+  data arrival time                                                 -0.03
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.01
+
+
+1
+report_timing 
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : BFU
+Version: T-2022.03
+Date   : Wed Jun  3 00:40:46 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: clk_r_REG3306_S3
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: u_FPC_MUL_u_FPR_MUL_2_mult_x_1_clk_r_REG980_S52
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  BFU                Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clk_r_REG3306_S3/CK (DFFRPQ_X4M_A9TL)                   0.00 #     0.00 r
+  clk_r_REG3306_S3/Q (DFFRPQ_X4M_A9TL)                    0.10       0.10 r
+  U25692/Y (NAND2_X4M_A9TL)                               0.01       0.11 f
+  U9194/Y (AOI21B_X8M_A9TL)                               0.05       0.16 f
+  U33376/Y (INV_X16M_A9TL)                                0.05       0.21 r
+  U21598/Y (XNOR2_X1M_A9TL)                               0.10       0.31 r
+  U25731/Y (OAI22_X0P7M_A9TL)                             0.09       0.40 f
+  U12799/CO (ADDF_X2M_A9TL)                               0.10       0.51 f
+  U40517/CO (ADDF_X1M_A9TL)                               0.08       0.59 f
+  U34983/S (ADDF_X1M_A9TL)                                0.11       0.70 r
+  U15887/CO (ADDF_X1M_A9TL)                               0.08       0.78 r
+  U12272/SUM (ADDFH_X2M_A9TL)                             0.11       0.89 f
+  U40523/S (ADDF_X1M_A9TL)                                0.10       0.99 r
+  u_FPC_MUL_u_FPR_MUL_2_mult_x_1_clk_r_REG980_S52/D (DFFRPQ_X2M_A9TL)
+                                                          0.00       0.99 r
+  data arrival time                                                  0.99
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  u_FPC_MUL_u_FPR_MUL_2_mult_x_1_clk_r_REG980_S52/CK (DFFRPQ_X2M_A9TL)
+                                                          0.00       1.00 r
+  library setup time                                     -0.03       0.97
+  data required time                                                 0.97
+  --------------------------------------------------------------------------
+  data required time                                                 0.97
+  data arrival time                                                 -0.99
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.02
+
+
+1
+exit
+
+Memory usage for this session 1553 Mbytes.
+Memory usage for this session including child processes 1553 Mbytes.
+CPU usage for this session 1556 seconds ( 0.43 hours ).
+Elapsed time for this session 511 seconds ( 0.14 hours ).
+
+Thank you...
+
