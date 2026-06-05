@@ -15,7 +15,7 @@ fi
 
 MODULE_NAME=$1
 TEMPLATE_PATH="hardware/template"
-MODULE_PATH="hardware/${MODULE_NAME}"
+MODULE_PATH="hardware/${MODULE_NAME,,}"
 
 # Check if module already exists
 if [ -d "$MODULE_PATH" ]; then
@@ -62,27 +62,59 @@ cp "$TEMPLATE_PATH/01_RTL/01_run_vcs_rtl" "$MODULE_PATH/01_RTL/"
 cp "$TEMPLATE_PATH/01_RTL/04_verdi" "$MODULE_PATH/01_RTL/"
 cp "$TEMPLATE_PATH/01_RTL/05_nWave" "$MODULE_PATH/01_RTL/"
 cp "$TEMPLATE_PATH/01_RTL/09_clean_up" "$MODULE_PATH/01_RTL/"
-cp "$TEMPLATE_PATH/01_RTL/makefile" "$MODULE_PATH/01_RTL/"
-sed -i "s/MAKE_FG/${MODULE_NAME}/g" "$MODULE_PATH/01_RTL/makefile"
 
 # Create symlinks in 01_RTL
 cd "$MODULE_PATH/01_RTL"
 ln -sf ../00_TESTBED/filelist.f filelist.f
 ln -sf ../00_TESTBED/PATTERN.sv PATTERN.sv
 ln -sf ../00_TESTBED/TESTBED.sv TESTBED.sv
+ln -sf ../00_TESTBED/makefile makefile
 cd - > /dev/null
 
 # Create placeholder RTL file
 cat > "$MODULE_PATH/01_RTL/${MODULE_NAME}.sv" << 'EOF'
-// TODO: Implement module logic
+/*
+ * TODO: Implement module logic
+ */
 module PLACEHOLDER (
-  input  clk,
-  input  rst_n,
-  input  in_valid,
-  output out_valid
+  clk,
+  rst_n,
+  in_valid,
+  out_valid
 );
 
-  // Placeholder: replace with actual design
+// Placeholder: replace with actual design
+
+//---------------------------------------------------------------------
+//   Input & Output
+//---------------------------------------------------------------------
+input                               clk;
+input                               rst_n;
+input                               in_valid;
+output                              out_valid;
+
+//---------------------------------------------------------------------
+//   Reg & Wire
+//---------------------------------------------------------------------
+
+//---------------------------------------------------------------------
+//   Submodule
+//---------------------------------------------------------------------
+// SUBMODULE #(.PARAM0(), .PARAM1() ) u_SUBMODULE(
+//     .x(), 
+//     .y(), 
+//     .z());
+
+//---------------------------------------------------------------------
+//   Sequential Logic
+//---------------------------------------------------------------------
+// always @(posedge clk or negedge rst_n) begin
+//     if (!rst_n) begin
+//         out_valid <= 0;
+//     end else begin
+//         out_valid <= in_valid;
+//     end
+// end
 
 endmodule
 EOF
@@ -90,8 +122,11 @@ sed -i "s/PLACEHOLDER/${MODULE_NAME}/g" "$MODULE_PATH/01_RTL/${MODULE_NAME}.sv"
 
 # ========== 02_SYN ==========
 cp "$TEMPLATE_PATH/02_SYN/.synopsys_dc.setup" "$MODULE_PATH/02_SYN/"
-cp "$TEMPLATE_PATH/02_SYN/makefile" "$MODULE_PATH/02_SYN/"
-sed -i "s/MAKE_FG/${MODULE_NAME}/g" "$MODULE_PATH/02_SYN/makefile"
+
+# Create symlinks in 02_SYN
+cd "$MODULE_PATH/02_SYN"
+ln -sf ../00_TESTBED/makefile makefile
+cd - > /dev/null
 
 # Create syn.tcl from template
 cp "$TEMPLATE_PATH/02_SYN/syn.tcl" "$MODULE_PATH/02_SYN/syn.tcl"
@@ -103,6 +138,7 @@ mkdir -p "$MODULE_PATH/02_SYN/Report"
 
 cp "$TEMPLATE_PATH/02_SYN/01_run_dc_shell" "$MODULE_PATH/02_SYN/"
 cp "$TEMPLATE_PATH/02_SYN/08_check" "$MODULE_PATH/02_SYN/"
+sed -i "s/MAKE_FG/${MODULE_NAME}/g" "$MODULE_PATH/02_SYN/08_check"
 cp "$TEMPLATE_PATH/02_SYN/09_clean_up" "$MODULE_PATH/02_SYN/"
 
 # ========== 03_GATE ==========
@@ -111,14 +147,13 @@ cp "$TEMPLATE_PATH/03_GATE/04_verdi" "$MODULE_PATH/03_GATE/"
 cp "$TEMPLATE_PATH/03_GATE/05_nWave" "$MODULE_PATH/03_GATE/"
 cp "$TEMPLATE_PATH/03_GATE/08_check" "$MODULE_PATH/03_GATE/"
 cp "$TEMPLATE_PATH/03_GATE/09_clean_up" "$MODULE_PATH/03_GATE/"
-cp "$TEMPLATE_PATH/03_GATE/makefile" "$MODULE_PATH/03_GATE/"
-sed -i "s/MAKE_FG/${MODULE_NAME}/g" "$MODULE_PATH/03_GATE/makefile"
 
 # Create symlinks in 03_GATE
 cd "$MODULE_PATH/03_GATE"
 ln -sf ../00_TESTBED/filelist.f filelist.f
 ln -sf ../00_TESTBED/PATTERN.sv PATTERN.sv
 ln -sf ../00_TESTBED/TESTBED.sv TESTBED.sv
+ln -sf ../00_TESTBED/makefile makefile
 cd - > /dev/null
 
 # ========== 04_MEM ==========
