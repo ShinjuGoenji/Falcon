@@ -1,0 +1,1 @@
+../02_SYN/Netlist/fpr_inv_SYN.v

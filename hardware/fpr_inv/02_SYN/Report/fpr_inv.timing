@@ -1,0 +1,188 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 3
+Design : fpr_inv
+Version: T-2022.03
+Date   : Thu Jun  4 11:51:13 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1056_S2
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG819_S3
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  fpr_inv            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1056_S2/CK (DFFRPQ_X4M_A9TL)
+                                                          0.00 #     0.00 r
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1056_S2/Q (DFFRPQ_X4M_A9TL)
+                                                          0.10       0.10 r
+  u_FPR_RECIP/U5954/Y (INV_X9M_A9TL)                      0.03       0.14 f
+  u_FPR_RECIP/U5945/Y (XNOR2_X3M_A9TL)                    0.06       0.19 f
+  u_FPR_RECIP/U9659/Y (OAI22_X3M_A9TL)                    0.05       0.24 r
+  u_FPR_RECIP/U16572/CO (ADDF_X1M_A9TL)                   0.10       0.35 r
+  u_FPR_RECIP/U15836/Y (OA21A1OI2_X3M_A9TL)               0.07       0.42 f
+  u_FPR_RECIP/U2258/Y (INV_X1P7M_A9TL)                    0.04       0.46 r
+  u_FPR_RECIP/U8960/Y (OAI2XB1_X3M_A9TL)                  0.03       0.49 f
+  u_FPR_RECIP/U5283/Y (AO21B_X2M_A9TL)                    0.04       0.52 r
+  u_FPR_RECIP/U7727/Y (OAI21_X3M_A9TL)                    0.03       0.56 f
+  u_FPR_RECIP/U1683/Y (AO21B_X3M_A9TL)                    0.03       0.59 r
+  u_FPR_RECIP/U10992/Y (OR2_X2B_A9TL)                     0.04       0.63 r
+  u_FPR_RECIP/U1566/Y (AO1B2_X4M_A9TL)                    0.05       0.68 r
+  u_FPR_RECIP/U1356/Y (XOR2_X3M_A9TL)                     0.06       0.73 r
+  u_FPR_RECIP/U9312/Y (XOR2_X3M_A9TL)                     0.04       0.78 r
+  u_FPR_RECIP/U14419/CO (ADDF_X2M_A9TL)                   0.08       0.86 r
+  u_FPR_RECIP/U14552/S (ADDF_X2M_A9TL)                    0.12       0.98 f
+  u_FPR_RECIP/U12034/Y (NOR2_X8B_A9TL)                    0.02       1.01 r
+  u_FPR_RECIP/U11936/Y (NAND2B_X8M_A9TL)                  0.04       1.04 r
+  u_FPR_RECIP/U11750/Y (INV_X6M_A9TL)                     0.02       1.06 f
+  u_FPR_RECIP/U12403/Y (AOI31_X6M_A9TL)                   0.03       1.09 r
+  u_FPR_RECIP/U12401/Y (NAND3_X6A_A9TL)                   0.04       1.13 f
+  u_FPR_RECIP/U12189/Y (NAND2_X6M_A9TL)                   0.02       1.15 r
+  u_FPR_RECIP/U4794/Y (AO21A1AI2_X4M_A9TL)                0.03       1.18 f
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG819_S3/D (DFFSQ_X3M_A9TL)
+                                                          0.00       1.18 f
+  data arrival time                                                  1.18
+
+  clock clk (rise edge)                                   1.20       1.20
+  clock network delay (ideal)                             0.00       1.20
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG819_S3/CK (DFFSQ_X3M_A9TL)
+                                                          0.00       1.20 r
+  library setup time                                     -0.02       1.18
+  data required time                                                 1.18
+  --------------------------------------------------------------------------
+  data required time                                                 1.18
+  data arrival time                                                 -1.18
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1237_S2
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1129_S3
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  fpr_inv            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1237_S2/CK (DFFRPQ_X4M_A9TL)
+                                                          0.00 #     0.00 r
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1237_S2/Q (DFFRPQ_X4M_A9TL)
+                                                          0.10       0.10 r
+  u_FPR_RECIP/U12556/Y (NAND2B_X4M_A9TL)                  0.04       0.14 r
+  u_FPR_RECIP/U6623/Y (NAND3BB_X3M_A9TL)                  0.04       0.18 r
+  u_FPR_RECIP/U12672/Y (NAND3_X6M_A9TL)                   0.03       0.21 f
+  u_FPR_RECIP/U5641/Y (NAND2_X3M_A9TL)                    0.03       0.24 r
+  u_FPR_RECIP/U12697/Y (NAND2XB_X6M_A9TL)                 0.03       0.27 f
+  u_FPR_RECIP/U4443/Y (NOR2_X3A_A9TL)                     0.03       0.30 r
+  u_FPR_RECIP/U5403/Y (NOR2_X2M_A9TL)                     0.03       0.33 f
+  u_FPR_RECIP/U9490/Y (AO1B2_X4M_A9TL)                    0.05       0.37 f
+  u_FPR_RECIP/U9477/Y (OAI21_X3M_A9TL)                    0.03       0.40 r
+  u_FPR_RECIP/U12706/Y (NAND2B_X6M_A9TL)                  0.05       0.46 r
+  u_FPR_RECIP/U8085/Y (INV_X11M_A9TL)                     0.03       0.49 f
+  u_FPR_RECIP/U1182/Y (NOR2_X1M_A9TL)                     0.07       0.56 r
+  u_FPR_RECIP/U15929/CO (ADDF_X1M_A9TL)                   0.10       0.66 r
+  u_FPR_RECIP/U6235/CO (ADDF_X1M_A9TL)                    0.09       0.75 r
+  u_FPR_RECIP/U17115/S (ADDF_X1M_A9TL)                    0.11       0.87 f
+  u_FPR_RECIP/U15908/S (ADDF_X2M_A9TL)                    0.13       0.99 r
+  u_FPR_RECIP/U3422/Y (XOR2_X1P4M_A9TL)                   0.08       1.07 r
+  u_FPR_RECIP/U54/Y (XNOR2_X1M_A9TL)                      0.09       1.16 r
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1129_S3/D (DFFSQ_X1M_A9TL)
+                                                          0.00       1.16 r
+  data arrival time                                                  1.16
+
+  clock clk (rise edge)                                   1.20       1.20
+  clock network delay (ideal)                             0.00       1.20
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1129_S3/CK (DFFSQ_X1M_A9TL)
+                                                          0.00       1.20 r
+  library setup time                                     -0.04       1.16
+  data required time                                                 1.16
+  --------------------------------------------------------------------------
+  data required time                                                 1.16
+  data arrival time                                                 -1.16
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1320_S2
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG73_S3
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  fpr_inv            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1320_S2/CK (DFFRPQ_X4M_A9TL)
+                                                          0.00 #     0.00 r
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1320_S2/Q (DFFRPQ_X4M_A9TL)
+                                                          0.11       0.11 r
+  u_FPR_RECIP/U3305/Y (INV_X11M_A9TL)                     0.02       0.12 f
+  u_FPR_RECIP/U11709/Y (INV_X11M_A9TL)                    0.03       0.16 r
+  u_FPR_RECIP/U2538/Y (XNOR2_X1M_A9TL)                    0.09       0.25 r
+  u_FPR_RECIP/U16342/Y (OAI22_X1M_A9TL)                   0.09       0.34 f
+  u_FPR_RECIP/U5638/S (ADDF_X1M_A9TL)                     0.13       0.46 r
+  u_FPR_RECIP/U13739/CO (ADDF_X1M_A9TL)                   0.11       0.57 r
+  u_FPR_RECIP/U11804/Y (XNOR2_X3M_A9TL)                   0.06       0.64 r
+  u_FPR_RECIP/U5088/Y (XNOR2_X3M_A9TL)                    0.05       0.69 r
+  u_FPR_RECIP/U10809/Y (NAND2_X1B_A9TR)                   0.07       0.76 f
+  u_FPR_RECIP/U10756/Y (NAND2_X4M_A9TL)                   0.04       0.80 r
+  u_FPR_RECIP/U1454/Y (XOR2_X3M_A9TL)                     0.04       0.84 r
+  u_FPR_RECIP/U14742/Y (XOR2_X4M_A9TL)                    0.05       0.89 r
+  u_FPR_RECIP/U11918/Y (NOR2_X6A_A9TL)                    0.02       0.92 f
+  u_FPR_RECIP/U3390/Y (INV_X2P5M_A9TL)                    0.02       0.94 r
+  u_FPR_RECIP/U12661/Y (NOR3BB_X6M_A9TL)                  0.05       0.99 r
+  u_FPR_RECIP/U3016/Y (NAND2_X6M_A9TL)                    0.02       1.01 f
+  u_FPR_RECIP/U12430/Y (NOR2_X4B_A9TL)                    0.02       1.03 r
+  u_FPR_RECIP/U11680/Y (NOR3BB_X8M_A9TL)                  0.05       1.07 r
+  u_FPR_RECIP/U12704/Y (NAND3_X4M_A9TL)                   0.03       1.11 f
+  u_FPR_RECIP/U12328/Y (NOR2_X6B_A9TL)                    0.02       1.13 r
+  u_FPR_RECIP/U12194/Y (AOI21B_X4M_A9TL)                  0.03       1.16 f
+  u_FPR_RECIP/U3054/Y (NAND2_X4M_A9TL)                    0.02       1.18 r
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG73_S3/D (DFFSQ_X2M_A9TL)
+                                                          0.00       1.18 r
+  data arrival time                                                  1.18
+
+  clock clk (rise edge)                                   1.20       1.20
+  clock network delay (ideal)                             0.00       1.20
+  u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG73_S3/CK (DFFSQ_X2M_A9TL)
+                                                          0.00       1.20 r
+  library setup time                                     -0.02       1.18
+  data required time                                                 1.18
+  --------------------------------------------------------------------------
+  data required time                                                 1.18
+  data arrival time                                                 -1.18
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1

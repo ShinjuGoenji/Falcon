@@ -13,11 +13,12 @@ module TESTBED;
 //================================================================
 // Wire Declarations
 //================================================================
-wire clk;
-wire rst_n;
-wire in_valid;
-wire out_valid;
-// TODO: declare wires matching fpr_inv ports
+wire        clk;
+wire        rst_n;
+wire        in_valid;
+wire [63:0] b;
+wire        out_valid;
+wire [63:0] z;
 
 //================================================================
 // Dump Waveform
@@ -40,8 +41,9 @@ PATTERN test_p (
     .clk      (clk),
     .rst_n    (rst_n),
     .in_valid (in_valid),
-    .out_valid(out_valid)
-    // TODO: add module-specific ports
+    .b        (b),
+    .out_valid(out_valid),
+    .z        (z)
 );
 
 `ifdef RTL
@@ -49,16 +51,18 @@ PATTERN test_p (
         .clk      (clk),
         .rst_n    (rst_n),
         .in_valid (in_valid),
-        .out_valid(out_valid)
-        // TODO: add module-specific ports
+        .b        (b),
+        .out_valid(out_valid),
+        .z        (z)
     );
 `elsif GATE
     fpr_inv dut_p (
         .clk      (clk),
         .rst_n    (rst_n),
         .in_valid (in_valid),
-        .out_valid(out_valid)
-        // TODO: add module-specific ports
+        .b        (b),
+        .out_valid(out_valid),
+        .z        (z)
     );
 `endif
 

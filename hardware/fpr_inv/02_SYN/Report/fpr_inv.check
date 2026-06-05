@@ -1,0 +1,30 @@
+ 
+****************************************
+check_design summary:
+Version:     T-2022.03
+Date:        Thu Jun  4 11:45:58 2026
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Nets                                                               16
+    Unloaded nets (LINT-2)                                         16
+--------------------------------------------------------------------------------
+
+Warning: In design 'fpr_inv', net 'net25' driven by pin 'u_FPR_RECIP/pipe_census_0' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net24' driven by pin 'u_FPR_RECIP/pipe_census_1' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net23' driven by pin 'u_FPR_RECIP/pipe_census_2' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net22' driven by pin 'u_FPR_RECIP/push_out_n' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net21' driven by pin 'u_FPR_RECIP/arrive_id' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net20' driven by pin 'u_FPR_RECIP/arrive' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net19' driven by pin 'u_FPR_RECIP/pipe_ovf' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net18' driven by pin 'u_FPR_RECIP/pipe_full' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net17' driven by pin 'u_FPR_RECIP/status_0' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net16' driven by pin 'u_FPR_RECIP/status_1' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net15' driven by pin 'u_FPR_RECIP/status_2' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net14' driven by pin 'u_FPR_RECIP/status_3' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net13' driven by pin 'u_FPR_RECIP/status_4' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net12' driven by pin 'u_FPR_RECIP/status_5' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net11' driven by pin 'u_FPR_RECIP/status_6' has no loads. (LINT-2)
+Warning: In design 'fpr_inv', net 'net10' driven by pin 'u_FPR_RECIP/status_7' has no loads. (LINT-2)
+1

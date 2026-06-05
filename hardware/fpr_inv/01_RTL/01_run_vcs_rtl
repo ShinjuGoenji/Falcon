@@ -3,8 +3,7 @@
 # ==============================================================================
 # Parameters
 # ==============================================================================
-PERIOD="1.6"
-WN="4"
+PERIOD="1.2"
 
 # ==============================================================================
 # Usage
@@ -13,8 +12,6 @@ usage() {
     echo "Usage: $0 [options]"
     echo "Options:"
     echo "  -p <PERIOD>    Set cycle time (default: $PERIOD ns)"
-    echo "  -w <WORD_NUM>  Set Word Number (default: $WN)"
-    echo "                 Available: 2, 4, 8"
     echo "  -h             Help message"
     exit 1
 }
@@ -22,13 +19,10 @@ usage() {
 # ==============================================================================
 # Flag settings
 # ==============================================================================
-while getopts "m:w:h" opt; do
+while getopts "p:h" opt; do
     case ${opt} in
-        m)
+        p)
             PERIOD=$OPTARG
-            ;;
-        w)
-            WN=$OPTARG
             ;;
         h)
             usage
@@ -40,4 +34,4 @@ while getopts "m:w:h" opt; do
     esac
 done
 
-make vcs_rtl period=$PERIOD word_num=$WN
+make vcs_rtl period=$PERIOD

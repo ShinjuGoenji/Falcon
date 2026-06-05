@@ -47,7 +47,7 @@ VCS_RTL_SIM = vcs ${TIMESCALE} \
     -R \
     -debug_access+all \
     -y ${DW_SIM} \
-    +libext+.sv \
+    +libext+.sv+.v \
     -f ${source_file} \
     -o ${output_file} \
     -l ${log_file} \

@@ -1,0 +1,955 @@
+#======================================================
+#
+# Synopsys Synthesis Scripts (Design Vision dctcl mode)
+#
+#======================================================
+#======================================================
+# (A) Global Parameters
+#======================================================
+set DESIGN "fpr_inv"
+fpr_inv
+if {[info exists PERIOD]} {
+    set CYCLE $PERIOD
+} else {
+    set CYCLE 1.2
+}
+1.2
+set INPUT_DLY [expr 0*$CYCLE]
+0.0
+set OUTPUT_DLY [expr 0*$CYCLE]
+0.0
+#======================================================
+# (B) Read RTL Code
+#======================================================
+# (B-1) analyze + elaborate
+analyze -f sverilog $DESIGN.sv
+Running PRESTO HDLC
+Compiling source file ../01_RTL/fpr_inv.sv
+Presto compilation completed successfully.
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/standard.sldb'
+1
+elaborate $DESIGN
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db'
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb'
+  Loading link library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c'
+  Loading link library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+
+Inferred memory devices in process
+        in routine fpr_inv line 78 in file
+                '../01_RTL/fpr_inv.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    out_valid_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|      b_reg_reg      | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    valid_reg_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|        z_reg        | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine fpr_inv line 96 in file
+                '../01_RTL/fpr_inv.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    valid_reg_reg    | Flip-flop |   5   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (fpr_inv)
+Elaborated 1 design.
+Current design is now 'fpr_inv'.
+1
+# (B-2) set current design
+current_design $DESIGN
+Current design is 'fpr_inv'.
+{fpr_inv}
+link
+
+  Linking design 'fpr_inv'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  fpr_inv                     /home/daniel_kuo/Falcon/hardware/fpr_inv/02_SYN/fpr_inv.db
+  sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db
+  sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (library) /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db
+  dw_foundation.sldb (library) /usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb
+
+1
+#======================================================
+#  (C) Global Setting
+#======================================================
+set_wire_load_mode top
+1
+#======================================================
+#  (D) Set Design Constraints
+#======================================================
+# (D-1) Setting Clock Constraints
+create_clock -name clk -period $CYCLE [get_ports clk] 
+1
+set_dont_touch_network             [get_clocks clk]
+1
+# (D-2) Setting in/out Constraints
+set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
+1
+set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
+1
+set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time check 
+1
+set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
+1
+set_input_delay 0 -clock clk clk
+1
+set_input_delay 0 -clock clk rst_n
+1
+# (D-3) Setting Design Environment
+set_load 0.05 [all_outputs]
+1
+# (D-4) Report Clock skew
+report_clock -skew clk
+Information: Checking out the license 'DesignWare'. (SEC-104)
+  Allocating blocks in 'DW_lp_piped_fp_recip_sig_width52_exp_width11_ieee_compliance0_faithful_round0_op_iso_mode1_id_width1_in_reg0_stages6_out_reg0_no_pm1_rst_mode0'
+  Allocating blocks in 'DW_lp_pipe_mgr_stages5_id_width1'
+  Allocating blocks in 'DW_fp_recip_sig_width52_exp_width11_ieee_compliance0_faithful_round0'
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'pparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+  Allocating blocks in 'DW_lzd_a_width3'
+  Allocating blocks in 'DW_lzod_a_width3_detect_10'
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Warning: Dont_touch on net '*cell*21/*Logic0*' may be overridden by compile because it
+        is connected to generic logic. Use all_connected to see net
+        connections. (OPT-461)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+  Allocating blocks in 'DW_fp_recip_sig_width52_exp_width11_ieee_compliance0_faithful_round0'
+  Allocating blocks in 'DW_lzd_a_width3'
+  Allocating blocks in 'DW_lzod_a_width3_detect_10'
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'Small'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'Small'. (OPT-170)
+Information: Updating design information... (UID-85)
+Warning: Design 'fpr_inv' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : clock_skew
+Design : fpr_inv
+Version: T-2022.03
+Date   : Thu Jun  4 11:45:58 2026
+****************************************
+
+                 Rise      Fall  Min Rise  Min fall        Uncertainty
+Object          Delay     Delay     Delay     Delay     Plus      Minus
+--------------------------------------------------------------------------------
+1
+check_timing
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Warning: The following end-points are not constrained for maximum delay.
+
+End point
+---------------
+u_FPR_RECIP/*cell*16/U_PIPE_MGR/idsr_reg[0][0]/synch_enable
+u_FPR_RECIP/*cell*16/U_PIPE_MGR/pipe_ovf_reg/next_state
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+#======================================================
+#  (E) Optimization
+#======================================================
+check_design > Report/$DESIGN\.check
+set_fix_multiple_port_nets -all -buffer_constants
+1
+compile_ultra
+Information: Performing power optimization. (PWR-850)
+Alib files are up-to-date.
+Information: Running optimization using a maximum of 8 cores. (OPT-1500)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | S-2021.06-DWBB_202106.0 |     *     |
+| Licensed DW Building Blocks        | S-2021.06-DWBB_202106.0 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT WLM                                                           |
+| Comand line  | compile_ultra                                                                     |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 142                                    |
+| Number of User Hierarchies                              | 0                                      |
+| Sequential Cell Count                                   | 135                                    |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 0                                      |
+| Number of Dont Touch nets                               | 1                                      |
+| Number of size only cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 16 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+  Simplifying Design 'fpr_inv'
+
+Loaded alib file './alib-52/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+Loaded alib file './alib-52/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db.alib'
+Loaded alib file './alib-52/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db.alib' (placeholder)
+  Building model 'DW01_NAND2'
+Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'fpr_inv'
+ Implement Synthetic for 'fpr_inv'.
+  Processing 'fpr_inv_DW_lp_piped_fp_recip_J1_0'
+  Processing 'fpr_inv_DW_fp_recip_J1_0'
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIELO_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Information: Checking pipeline property of cell u_FPR_RECIP (design fpr_inv_DW_lp_piped_fp_recip_J1_0). (RTDC-137)
+Information: cell u_FPR_RECIP (design fpr_inv_DW_lp_piped_fp_recip_J1_0) is a pipeline. (RTDC-139)
+  Mapping Optimization (Phase 1)
+  Retiming fpr_inv_DW_lp_piped_fp_recip_J1_0 (u_FPR_RECIP)
+  Preferred flip-flop is DFFQ_X4M_A9TL with setup = 0.02
+
+Warning: The following cells only drive
+        asynchronous pins of sequential cells which have no
+        timing constraint. Therefore retiming will not optimize
+        delay through them:
+        u_FPR_RECIP/*cell*3927 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3928 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3929 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3930 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3931 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3932 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3933 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3934 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3935 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3936 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3937 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3938 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3939 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3940 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3945 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3944 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3943 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3942 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*3941 (INV_X16M_A9TH)
+        u_FPR_RECIP/*cell*41 (INV_X5B_A9TH)
+
+ (RTDC-115)
+
+  Retiming base-clock clk, rising edge.
+  Beginning minimum period retiming ...
+  ... minimum period retiming done.
+  Beginning minimum area retiming step 1 ...
+  ... minimum area retiming step 1 done.
+  Beginning minimum area retiming step 2 ...
+  
+  ... minimum area retiming step 2 done.
+  Beginning minimum area retiming step 3 ...
+  
+  ... minimum area retiming step 3 done.
+  Beginning final register move ...
+  ... final register move done.
+  Lower bound estimate = 1.37
+  Critical path length = 1.37
+  Clock correction = 0.17 (clock-to-Q delay = 0.15, setup = 0.02, uncertainty = 0.00)
+  Mapping Optimization (Phase 2)
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:03:08   88042.4      0.27     130.8       2.7 z_reg[16]/D               3769.0486
+    0:03:08   88042.4      0.27     130.8       2.7 z_reg[16]/D               3769.0486
+    0:03:09   87837.6      0.20      75.8       2.7 u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG839_S2/D 3783.8416
+    0:03:10   87761.4      0.19      71.6       5.3                           3782.0828
+    0:03:10   87617.4      0.21      73.0       5.3                           3775.6091
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    0:03:10   87606.9      0.21      73.0       5.3                           3775.2893
+    0:03:11   87603.1      0.21      73.1       5.3                           3775.1230
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:03:16   38906.9      0.88     253.7     127.7                            956.6434
+    0:03:17   39933.6      0.32     141.1     127.7                           1038.9440
+    0:03:17   39933.6      0.32     141.1     127.7                           1038.9440
+    0:03:18   39951.5      0.32     142.1     127.7                           1042.0464
+    0:03:22   39910.9      0.36     143.9     127.7                           1040.4778
+    0:03:23   39886.0      0.44     150.7     127.7                           1039.5907
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:03:29   39708.4      0.40     146.9       0.0                           1020.5849
+    0:03:29   39565.3      0.40     148.3       0.0                           1012.0403
+    0:03:30   40292.4      0.30     118.5       0.0                           1075.7012
+    0:03:30   40292.4      0.30     118.5       0.0                           1075.7012
+    0:03:31   40672.0      0.30     110.1       0.1                           1063.3920
+    0:03:31   40672.0      0.30     110.1       0.1                           1063.3920
+    0:03:34   42720.0      0.25      87.0       5.6                           1177.2283
+    0:03:34   42720.0      0.25      87.0       5.6                           1177.2283
+    0:03:35   43765.1      0.17      61.1       7.3                           1262.6903
+    0:03:35   43765.1      0.17      61.1       7.3                           1262.6903
+    0:03:38   45954.2      0.16      44.7       7.3                           1384.1250
+    0:03:38   45954.2      0.16      44.7       7.3                           1384.1250
+    0:03:46   49660.6      0.02       2.7       3.0                           1658.1941
+    0:03:46   49660.6      0.02       2.7       3.0                           1658.1941
+    0:03:50   51965.8      0.02       2.3      13.6                           1792.7266
+    0:03:50   51965.8      0.02       2.3      13.6                           1792.7266
+    0:03:52   52704.7      0.00       0.0       3.1                           1847.1205
+    0:03:52   52704.7      0.00       0.0       3.1                           1847.1205
+    0:03:53   52704.7      0.00       0.0       3.1                           1847.1205
+    0:03:53   52704.7      0.00       0.0       3.1                           1847.1205
+    0:03:53   52704.7      0.00       0.0       3.1                           1847.1205
+    0:03:53   52704.7      0.00       0.0       3.1                           1847.1205
+    0:03:54   52704.7      0.00       0.0       3.1                           1847.1205
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:03:54   52704.7      0.00       0.0       3.1                           1847.1205
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+    0:03:54   52719.7      0.00       0.0       0.0                           1848.1531
+    0:03:54   52719.7      0.00       0.0       0.0                           1848.1531
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:03:54   52719.7      0.00       0.0       0.0                           1848.1531
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+  Global Optimization (Phase 50)
+    0:04:00   53506.9      0.24      91.2       0.0                           1641.2972
+    0:04:04   56202.9      0.15      55.2       0.0                           1815.7522
+    0:04:04   56202.9      0.15      55.2       0.0                           1815.7522
+    0:04:06   52217.8      0.15      43.6       0.2                           1619.8723
+    0:04:06   52217.8      0.15      43.6       0.2                           1619.8723
+    0:04:14   54835.7      0.10      21.1       0.2                           1782.0522
+    0:04:14   54835.7      0.10      21.1       0.2                           1782.0522
+    0:04:14   55037.8      0.07      12.5       0.2                           1806.0164
+    0:04:14   55037.8      0.07      12.5       0.2                           1806.0164
+    0:04:17   56278.4      0.06      11.0       0.2                           1874.3914
+    0:04:17   56278.4      0.06      11.0       0.2                           1874.3914
+    0:04:20   57427.8      0.00       0.0       0.3                           1973.3925
+    0:04:20   57427.8      0.00       0.0       0.3                           1973.3925
+    0:04:20   57427.8      0.00       0.0       0.3                           1973.3925
+    0:04:20   57427.8      0.00       0.0       0.3                           1973.3925
+    0:04:20   57427.8      0.00       0.0       0.3                           1973.3925
+    0:04:20   57427.8      0.00       0.0       0.3                           1973.3925
+    0:04:21   57427.8      0.00       0.0       0.3                           1973.3925
+    0:04:21   57427.8      0.00       0.0       0.3                           1973.3925
+    0:04:21   57427.8      0.00       0.0       0.3                           1973.3925
+    0:04:21   57427.8      0.00       0.0       0.3                           1973.3925
+    0:04:21   57427.8      0.00       0.0       0.3                           1973.3925
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:04:21   57427.8      0.00       0.0       0.3                           1973.3927
+    0:04:41   48680.1      0.01       0.4       0.0                           1532.1088
+    0:04:42   48792.2      0.01       0.2       0.0                           1541.4963
+    0:04:42   48792.2      0.01       0.2       0.0                           1541.4963
+    0:04:43   48323.4      0.01       0.3       4.3                           1454.1814
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:04:44   48323.4      0.01       0.3       4.3                           1454.1814
+    0:04:44   48323.4      0.01       0.3       4.3                           1454.1814
+    0:04:44   48323.4      0.01       0.3       4.3                           1454.1814
+    0:04:45   48464.9      0.01       0.1       4.3                           1458.9003
+    0:04:46   48464.9      0.01       0.1       4.3                           1458.9003
+    0:04:46   48464.9      0.01       0.1       4.3                           1458.9003
+    0:04:46   48464.9      0.01       0.1       4.3                           1458.9003
+    0:04:47   48730.2      0.00       0.1       4.3                           1465.5732
+    0:04:50   48718.0      0.00       0.1       2.9                           1456.4690
+    0:04:50   48825.3      0.00       0.0       2.9 u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1150_S2/D 1458.4021
+    0:04:51   48936.6      0.00       0.0       2.9 u_FPR_RECIP/U_fp_recip/DP_OP_94J1_124_4015/clk_r_REG1150_S2/D 1466.2773
+    0:04:54   48950.7      0.00       0.0       2.9                           1467.4626
+    0:04:54   48950.7      0.00       0.0       2.9                           1467.4626
+    0:04:54   48950.7      0.00       0.0       2.9                           1467.4626
+    0:04:54   48950.7      0.00       0.0       2.9                           1467.4626
+    0:04:54   48950.7      0.00       0.0       2.9                           1467.4630
+    0:04:54   48950.7      0.00       0.0       2.9                           1467.4630
+    0:04:58   47072.1      0.00       0.0       1.2                           1382.6980
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'fpr_inv' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 1905 load(s), 1 driver(s)
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+set_fix_hold [all_clocks]
+1
+compile -incremental_mapping -only_hold_time
+Information: Performing power optimization. (PWR-850)
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT                                                               |
+| Comand line  | compile_ultra                                                                     |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 20761                                  |
+| Number of User Hierarchies                              | 1                                      |
+| Sequential Cell Count                                   | 1905                                   |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 0                                      |
+| Number of Dont Touch nets                               | 2                                      |
+| Number of size only cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+
+Information: There are 23 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping  (Incremental)
+  ------------------------
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIELO_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TR' in the library 'sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TH' in the library 'sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIELO_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEHI_X1M_A9TL' in the library 'sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+
+  Beginning Mapping Optimizations  (Incremental)
+  -------------------------------
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:03   47072.1      0.00       0.0       1.2                           1382.6980      0.00  
+    0:00:03   47072.1      0.00       0.0       1.2                           1382.6976      0.00  
+    0:00:04   47070.8      0.00       0.0     854.1                           1382.6458      0.00  
+    0:00:04   47070.8      0.00       0.0     854.1                           1382.6458      0.00  
+
+
+  Beginning Design Rule Fixing  (min_path)  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:04   47070.8      0.00       0.0     854.1                           1382.6458     -0.98  
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+    0:00:06   47114.3      0.00       0.0     854.1                           1409.0214      0.00  
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db'
+Loading db file '/cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'fpr_inv' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 1905 load(s), 1 driver(s)
+1
+# # uniquify
+# # compile
+#======================================================
+#  (F) Output Reports 
+#======================================================
+report_design  >  Report/$DESIGN\.design
+report_resource >  Report/$DESIGN\.resource
+report_timing -max_paths 3 >  Report/$DESIGN\.timing
+report_timing -delay_type min >  Report/$DESIGN\_hold.timing
+report_area >  Report/$DESIGN\.area
+report_area -hierarchy >  Report/$DESIGN\_hier.area
+report_power > Report/$DESIGN\.power
+report_clock > Report/$DESIGN\.clock
+report_port >  Report/$DESIGN\.port
+report_power >  Report/$DESIGN\.power
+#======================================================
+#  (G) Change Naming Rule
+#======================================================
+set bus_inference_style "%s\[%d\]"
+%s[%d]
+set bus_naming_style "%s\[%d\]"
+%s[%d]
+set hdlout_internal_busses true
+true
+change_names -hierarchy -rule verilog
+Warning: The specified replacement character (_) is conflicting with the specified allowed or restricted character.   (UCN-4)
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
+1
+define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+1
+define_name_rules name_rule -case_insensitive
+1
+change_names -hierarchy -rules name_rule
+1
+#======================================================
+#  (H) Output Results
+#======================================================
+set verilogout_higher_designs_first true
+true
+write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
+Writing verilog file '/home/daniel_kuo/Falcon/hardware/fpr_inv/02_SYN/Netlist/fpr_inv_SYN.v'.
+1
+write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
+Writing ddc file 'fpr_inv_SYN.ddc'.
+1
+write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
+Information: Writing timing information to file '/home/daniel_kuo/Falcon/hardware/fpr_inv/02_SYN/Netlist/fpr_inv_SYN.sdf'. (WT-3)
+1
+write_sdc Netlist/$DESIGN\_SYN.sdc
+1
+#======================================================
+#  (I) Finish and Quit
+#======================================================
+report_resource
+ 
+****************************************
+Report : resources
+Design : fpr_inv
+Version: T-2022.03
+Date   : Thu Jun  4 11:51:15 2026
+****************************************
+
+
+Resource Report for this hierarchy
+=============================================================================
+| Cell           | Module         | Parameters | Contained Operations       |
+=============================================================================
+| u_FPR_RECIP    | DW_lp_piped_fp_recip | sig_width=52 | u_FPR_RECIP (fpr_inv.sv:69) |
+        |                | exp_width=11 |                          |
+|                |                | ieee_compliance=0 |                     |
+|                |                | faithful_round=0 |                      |
+|                |                | op_iso_mode=1 |                         |
+|                |                | id_width=1 |                            |
+|                |                | in_reg=0   |                            |
+|                |                | stages=6   |                            |
+|                |                | out_reg=0  |                            |
+|                |                | no_pm=1    |                            |
+|                |                | rst_mode=0 |                            |
+=============================================================================
+
+
+Implementation Report
+===============================================================================
+|                    |                  | Current            | Set            |
+| Cell               | Module           | Implementation     | Implementation |
+===============================================================================
+| u_FPR_RECIP        | DW_lp_piped_fp_recip | rtl            |                |
+===============================================================================
+
+1
+report_area -hierarchy
+ 
+****************************************
+Report : area
+Design : fpr_inv
+Version: T-2022.03
+Date   : Thu Jun  4 11:51:15 2026
+****************************************
+
+Library(s) Used:
+
+    sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_lvt/sc9_cln40g_base_lvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_hvt/sc9_cln40g_base_hvt_ss_typical_max_0p81v_125c.db)
+    sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c (File: /cell_base_lib/CBDK_TSMC40_Arm_f2.0/CIC/SynopsysDC/db/sc9_base_rvt/sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c.db)
+
+Number of ports:                          284
+Number of nets:                         24121
+Number of cells:                        20825
+Number of combinational cells:          18919
+Number of sequential cells:              1905
+Number of macros/black boxes:               0
+Number of buf/inv:                       2325
+Number of references:                      14
+
+Combinational area:              38232.129073
+Buf/Inv area:                     2669.209195
+Noncombinational area:            8882.168211
+Macro/Black Box area:                0.000000
+Net Interconnect area:               0.000000
+
+Total cell area:                 47114.297284
+Total area:                      47114.297284
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area            Local cell area
+                                  -------------------  ----------------------------- 
+Hierarchical cell                 Absolute    Percent  Combi-      Noncombi-  Black-
+                                  Total       Total    national    national   boxes   Design
+--------------------------------  ----------  -------  ----------  ---------  ------  ---------------------------------
+fpr_inv                           47114.2973    100.0     50.3496   620.5248  0.0000  fpr_inv
+u_FPR_RECIP                       46443.4229     98.6  38181.7795  8261.6434  0.0000  fpr_inv_DW_lp_piped_fp_recip_J1_0
+--------------------------------  ----------  -------  ----------  ---------  ------  ---------------------------------
+Total                                                  38232.1291  8882.1682  0.0000
+
+1
+report_timing -delay_type min
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 1
+Design : fpr_inv
+Version: T-2022.03
+Date   : Thu Jun  4 11:51:15 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: b[0] (input port clocked by clk)
+  Endpoint: b_reg_reg_0_
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  fpr_inv            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     0.00       0.00 f
+  b[0] (in)                                0.00       0.00 f
+  U77/Y (BUFH_X1M_A9TL)                    0.03       0.03 f
+  b_reg_reg_0_/D (DFFRPQ_X2M_A9TH)         0.00       0.03 f
+  data arrival time                                   0.03
+
+  clock clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  b_reg_reg_0_/CK (DFFRPQ_X2M_A9TH)        0.00       0.00 r
+  library hold time                        0.01       0.01
+  data required time                                  0.01
+  -----------------------------------------------------------
+  data required time                                  0.01
+  data arrival time                                  -0.03
+  -----------------------------------------------------------
+  slack (MET)                                         0.02
+
+
+1
+report_timing 
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : fpr_inv
+Version: T-2022.03
+Date   : Thu Jun  4 11:51:15 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: ss_typical_max_0p81v_125c   Library: sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+Wire Load Model Mode: top
+
+  Startpoint: u_FPR_RECIP/U_fp_recip_DP_OP_94J1_124_4015_clk_r_REG1056_S2
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: u_FPR_RECIP/U_fp_recip_DP_OP_94J1_124_4015_clk_r_REG819_S3
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  fpr_inv            Small                 sc9_cln40g_base_rvt_ss_typical_max_0p81v_125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  u_FPR_RECIP/U_fp_recip_DP_OP_94J1_124_4015_clk_r_REG1056_S2/CK (DFFRPQ_X4M_A9TL)
+                                                          0.00 #     0.00 r
+  u_FPR_RECIP/U_fp_recip_DP_OP_94J1_124_4015_clk_r_REG1056_S2/Q (DFFRPQ_X4M_A9TL)
+                                                          0.10       0.10 r
+  u_FPR_RECIP/U5954/Y (INV_X9M_A9TL)                      0.03       0.14 f
+  u_FPR_RECIP/U5945/Y (XNOR2_X3M_A9TL)                    0.06       0.19 f
+  u_FPR_RECIP/U9659/Y (OAI22_X3M_A9TL)                    0.05       0.24 r
+  u_FPR_RECIP/U16572/CO (ADDF_X1M_A9TL)                   0.10       0.35 r
+  u_FPR_RECIP/U15836/Y (OA21A1OI2_X3M_A9TL)               0.07       0.42 f
+  u_FPR_RECIP/U2258/Y (INV_X1P7M_A9TL)                    0.04       0.46 r
+  u_FPR_RECIP/U8960/Y (OAI2XB1_X3M_A9TL)                  0.03       0.49 f
+  u_FPR_RECIP/U5283/Y (AO21B_X2M_A9TL)                    0.04       0.52 r
+  u_FPR_RECIP/U7727/Y (OAI21_X3M_A9TL)                    0.03       0.56 f
+  u_FPR_RECIP/U1683/Y (AO21B_X3M_A9TL)                    0.03       0.59 r
+  u_FPR_RECIP/U10992/Y (OR2_X2B_A9TL)                     0.04       0.63 r
+  u_FPR_RECIP/U1566/Y (AO1B2_X4M_A9TL)                    0.05       0.68 r
+  u_FPR_RECIP/U1356/Y (XOR2_X3M_A9TL)                     0.06       0.73 r
+  u_FPR_RECIP/U9312/Y (XOR2_X3M_A9TL)                     0.04       0.78 r
+  u_FPR_RECIP/U14419/CO (ADDF_X2M_A9TL)                   0.08       0.86 r
+  u_FPR_RECIP/U14552/S (ADDF_X2M_A9TL)                    0.12       0.98 f
+  u_FPR_RECIP/U12034/Y (NOR2_X8B_A9TL)                    0.02       1.01 r
+  u_FPR_RECIP/U11936/Y (NAND2B_X8M_A9TL)                  0.04       1.04 r
+  u_FPR_RECIP/U11750/Y (INV_X6M_A9TL)                     0.02       1.06 f
+  u_FPR_RECIP/U12403/Y (AOI31_X6M_A9TL)                   0.03       1.09 r
+  u_FPR_RECIP/U12401/Y (NAND3_X6A_A9TL)                   0.04       1.13 f
+  u_FPR_RECIP/U12189/Y (NAND2_X6M_A9TL)                   0.02       1.15 r
+  u_FPR_RECIP/U4794/Y (AO21A1AI2_X4M_A9TL)                0.03       1.18 f
+  u_FPR_RECIP/U_fp_recip_DP_OP_94J1_124_4015_clk_r_REG819_S3/D (DFFSQ_X3M_A9TL)
+                                                          0.00       1.18 f
+  data arrival time                                                  1.18
+
+  clock clk (rise edge)                                   1.20       1.20
+  clock network delay (ideal)                             0.00       1.20
+  u_FPR_RECIP/U_fp_recip_DP_OP_94J1_124_4015_clk_r_REG819_S3/CK (DFFSQ_X3M_A9TL)
+                                                          0.00       1.20 r
+  library setup time                                     -0.02       1.18
+  data required time                                                 1.18
+  --------------------------------------------------------------------------
+  data required time                                                 1.18
+  data arrival time                                                 -1.18
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1
+exit
+
+Memory usage for this session 921 Mbytes.
+Memory usage for this session including child processes 1163 Mbytes.
+CPU usage for this session 725 seconds ( 0.20 hours ).
+Elapsed time for this session 334 seconds ( 0.09 hours ).
+
+Thank you...
+

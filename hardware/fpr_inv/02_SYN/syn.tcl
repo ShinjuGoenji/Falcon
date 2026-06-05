@@ -12,7 +12,7 @@ set DESIGN "fpr_inv"
 if {[info exists PERIOD]} {
     set CYCLE $PERIOD
 } else {
-    set CYCLE 2
+    set CYCLE 1.2
 }
 
 set INPUT_DLY [expr 0*$CYCLE]

@@ -1,34 +1,46 @@
 `ifndef CYCLE_TIME
-    `define CYCLE_TIME 2
+    `define CYCLE_TIME 1.2
 `endif
 
 module PATTERN (
     // Outputs to DUT
-    output reg clk,
-    output reg rst_n,
-    output reg in_valid,
-    // TODO: add module-specific output ports
-
+    output reg        clk,
+    output reg        rst_n,
+    output reg        in_valid,
+    output reg [63:0] b,
     // Inputs from DUT
-    input  out_valid
-    // TODO: add module-specific input ports
+    input      [63:0] z,
+    input             out_valid
 );
 
 //---------------------------------------------------------------------
-//   Parameter & Integer
+//   Verdi debug
+//---------------------------------------------------------------------
+real dbg_b, dbg_z;
+always @(*) begin
+    dbg_b = $bitstoreal(b);
+    dbg_z = $bitstoreal(z);
+end
+
+//---------------------------------------------------------------------
+//   Parameters
 //---------------------------------------------------------------------
 parameter INPUT_PATH  = "../00_TESTBED/input.txt";
 parameter OUTPUT_PATH = "../00_TESTBED/output.txt";
 parameter PATNUM_PATH = "../00_TESTBED/PATNUM.txt";
-integer file_in, file_out, file_num;
 
-parameter MAX_OUT_LATENCY = 200000;
+parameter MAX_OUT_LATENCY = 1000;
+
+integer file_in, file_out, file_num;
 integer total_latency, out_latency;
 integer total_cycles;
 integer i_pat, PAT_NUM;
 integer fscanf_int;
 
-// TODO: declare gold / input variables
+//---------------------------------------------------------------------
+//   Gold variables
+//---------------------------------------------------------------------
+reg [63:0] z_gold;
 
 //---------------------------------------------------------------------
 //   Clock
@@ -49,12 +61,15 @@ initial begin
     total_latency = 0;
     total_cycles  = 0;
     repeat(4) @(posedge clk);
+
     for (i_pat = 0; i_pat < PAT_NUM; i_pat = i_pat + 1) begin
         input_task;
         wait_out_task;
         check_ans_task;
         total_latency = total_latency + out_latency;
-        $display("\033[0;32mPASS PATTERN NO.%4d\033[0m, \033[0;33mLatency: %6d\033[0m", i_pat+1, out_latency);
+        $display("\033[0;32mPASS PATTERN NO.%4d\033[0m, \033[0;33mLatency: %6d\033[0m",
+                 i_pat+1, out_latency);
+        repeat($urandom_range(0, 3)) @(posedge clk);
     end
     YOU_PASS_task;
 end
@@ -67,7 +82,7 @@ always @(posedge clk) total_cycles = total_cycles + 1;
 task reset_task; begin
     rst_n    = 1'b1;
     in_valid = 1'b0;
-    // TODO: initialize module-specific signals to 'bx
+    b        = 'bx;
 
     force clk = 0;
     #(1); rst_n = 0;
@@ -80,17 +95,15 @@ task reset_task; begin
         repeat(2) #(1);
         $finish;
     end
-    // TODO: add checks for other output signals after reset
     #(1); release clk;
 end endtask
 
 task input_task; begin
+    fscanf_int = $fscanf(file_in, "%h", b);
     in_valid = 1'b1;
-    // TODO: read from file_in and drive input ports
-    // fscanf_int = $fscanf(file_in, "...", ...);
     @(posedge clk);
     in_valid = 1'b0;
-    // TODO: set input ports to 'bx after valid
+    b = 'bx;
 end endtask
 
 task wait_out_task; begin
@@ -110,11 +123,16 @@ task wait_out_task; begin
 end endtask
 
 task check_ans_task; begin
-    // TODO: read from file_out and compare with DUT output
-    // fscanf_int = $fscanf(file_out, "...", gold);
-    // if (out_data !== expected) begin
-    //     $display("FAIL: ..."); $finish;
-    // end
+    fscanf_int = $fscanf(file_out, "%h", z_gold);
+    if (z !== z_gold) begin
+        $display("***********************************************************");
+        $display("                    FAIL!  (Pattern %0d)", i_pat+1);
+        $display("  b      = %016h", b);
+        $display("  z_gold = %016h  dut = %016h", z_gold, z);
+        $display("***********************************************************");
+        repeat(2) @(posedge clk);
+        $finish;
+    end
     @(posedge clk);
 end endtask
 
